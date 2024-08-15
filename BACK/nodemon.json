@@ -1,0 +1,4 @@
+{
+  "watch": ["src", "index.js"],
+  "ignore": ["src/data/Autos.json"]
+}
