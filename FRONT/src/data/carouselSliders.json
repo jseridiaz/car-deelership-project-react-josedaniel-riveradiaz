@@ -1,0 +1,17 @@
+{
+   "slides": [
+      {
+         "src": "/audi-portrait.webp",
+         "alt": "audi-picture",
+         "brand": "Audi",
+         "cta": "Find your dream",
+         "specialChar": "CAR"
+      },
+      {
+         "src": "/toyota-portrait.webp",
+         "alt": "toyota-picture",
+         "brand": "Toyota",
+         "cta": "Best deeler for your four Wheeler"
+      }
+   ]
+}
