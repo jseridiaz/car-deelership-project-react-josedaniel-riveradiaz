@@ -1,13 +1,14 @@
 import { useState } from "react"
 
 const BooleanState = (): [boolean, () => void] => {
-   const [value, setValue] = useState(true)
+   const [value, setValue] = useState<boolean>(true)
 
    const changeValue = (): void => {
-      setValue(!value)
+      setValue(false)
+
       setTimeout(() => {
-         setValue(!value)
-      }, 50)
+         setValue(true)
+      }, 0.1)
    }
    return [value, changeValue]
 }

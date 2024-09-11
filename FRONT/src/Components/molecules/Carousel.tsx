@@ -28,15 +28,19 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
    const handleClickLeft = () => {
       if (slide === 1) {
          setSlide(2)
+         setValue()
       } else {
          setSlide(slide - 1)
+         setValue()
       }
    }
    const handleClickBtn = (idx: number) => {
       setSlide(idx + 1)
+      setValue()
    }
+
    return (
-      <div className='box-border flex w-full h-[80svh]  gap-60 p-10 flex-wrap overflow-hidden bg-gradient-to-bl from-slate-200 to-blue-200 '>
+      <div className='box-border flex w-full h-[80svh]  gap-60 p-10 flex-wrap overflow-hidden bg-gradient-to-b from-slate-200 to-blue-200 '>
          <HiChevronLeft
             className=' absolute transition duration-1000 cursor-pointer -translate-y-2/4 bg-blue-400	w-12 h-12 top-1/2  rounded-full left-4 z-20 hover:bg-blue-600'
             onClick={handleClickLeft}
@@ -60,7 +64,7 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
                         {el.brand}
                      </span>
                      <div className=' flex flex-col items-center text-left gap-4 h-60 absolute w-[40%] top-[39%] left-[5%] '>
-                        <h2 className='  font-extrabold text-shadow-lg text-[3.5rem] '>
+                        <h2 className=' font-extrabold text-shadow-lg text-[3.5rem] '>
                            {el.cta}
                            {el.specialChar ? (
                               <span className='font-extrabold  text-red-700 text-[3.5rem] ml-3'>
@@ -79,8 +83,10 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
                      </div>
                      <img
                         key={idx}
-                        className={`absolute top-[50%] -translate-y-[50%]  w-[52%] px-5 py-2  h-2/3 right-12 select-none ${
-                           value ? "animate-[display_1s_ease-in-out_forwards]" : null
+                        className={`aspect-video absolute top-[50%] -translate-y-[50%]  right-12 select-none ${
+                           value
+                              ? "animate-[display_600ms_ease-in-out_forwards]"
+                              : null
                         }`}
                         draggable={false}
                         src={el.src}

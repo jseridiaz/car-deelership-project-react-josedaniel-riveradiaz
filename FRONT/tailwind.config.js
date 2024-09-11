@@ -3,6 +3,9 @@ export default {
    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
    theme: {
       extend: {
+         colors: {
+            "continuo-slate": "#e1e8ef",
+         },
          boxSizing: {
             content: "content-box",
          },

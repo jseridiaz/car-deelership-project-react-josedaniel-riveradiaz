@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom"
 
 const HeaderComponent = () => {
    return (
-      <header className='box-border w-screen h-16 flex bg-slate-200 justify-around'>
+      <header className='box-border w-full h-16 flex bg-slate-200 justify-around'>
          <div className='w-fit content-center'>
             <Link to='/home' className='text-2xl text-black font-bold ml-0'>
                Car seller
