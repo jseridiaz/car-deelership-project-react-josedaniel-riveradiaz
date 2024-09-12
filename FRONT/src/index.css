@@ -19,7 +19,9 @@
    box-sizing: border-box;
    max-width: 100svw;
 }
-
+[id="scroll-hidden-home"]::-webkit-scrollbar {
+   display: none;
+}
 a {
    font-weight: 500;
    color: #646cff;

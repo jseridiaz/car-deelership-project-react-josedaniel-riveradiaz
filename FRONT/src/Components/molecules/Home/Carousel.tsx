@@ -1,8 +1,8 @@
 import { HiChevronRight, HiChevronLeft } from "react-icons/hi"
 import { BiChevronRight } from "react-icons/bi"
-import Button from "../atoms/Button"
+import Button from "../../atoms/Button"
 import { useState } from "react"
-import BooleanState from "../customHooks/BooleanState"
+import BooleanState from "../../customHooks/BooleanState"
 type CarouselTypes = {
    data: {
       src: string
@@ -77,7 +77,7 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
                            signal={
                               <BiChevronRight className='stroke-1 stroke-white ' />
                            }
-                           ase='absolute transition duration-1000 hover:bg-blue-800 hover:shadow-blue-800 hover:scale-110 hover:shadow-lg bottom-0 w-fit justify-center items-center right-[30%] left-4
+                           properties='absolute transition duration-1000 hover:bg-blue-800 hover:shadow-blue-800 hover:scale-110 hover:shadow-lg bottom-0 w-fit justify-center items-center right-[30%] left-4
                            gap-1 text-[1rem] flex text-white font-semibold bg-black rounded-full p-2 px-4'
                         />
                      </div>

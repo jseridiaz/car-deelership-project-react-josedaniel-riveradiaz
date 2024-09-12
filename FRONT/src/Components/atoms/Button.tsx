@@ -3,11 +3,11 @@ import { Link } from "react-router-dom"
 type ButtonType = {
    text: string
    signal?: React.ReactNode
-   ase: string
+   properties: string
 }
-const Button: React.FC<ButtonType> = ({ text, signal = null, ase }) => {
+const Button: React.FC<ButtonType> = ({ text, signal = null, properties }) => {
    return (
-      <Link to='' className={ase}>
+      <Link to='' className={properties}>
          {text}
          {signal ? signal : null}
       </Link>

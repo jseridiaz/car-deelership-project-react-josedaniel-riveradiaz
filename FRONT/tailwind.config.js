@@ -3,6 +3,9 @@ export default {
    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
    theme: {
       extend: {
+         flexGrow: {
+            2: "2",
+         },
          colors: {
             "continuo-slate": "#e1e8ef",
          },
