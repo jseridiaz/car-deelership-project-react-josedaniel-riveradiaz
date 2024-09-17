@@ -12,7 +12,7 @@ const HeaderComponent = () => {
             <li className='content-center'>
                <NavLink
                   to='/new-cars-shop'
-                  className='w-1/4 content-center hover:font-bold '
+                  className='w-1/4 content-center text-blue-700 hover:font-bold '
                >
                   New Autos
                </NavLink>
@@ -20,15 +20,23 @@ const HeaderComponent = () => {
             <li className='content-center'>
                <NavLink
                   to='/used-cars-shop'
-                  className='w-1/4 content-center hover:font-bold '
+                  className='w-1/4 content-center hover:font-bold text-blue-700'
                >
                   Used Cars
                </NavLink>
             </li>
             <li className='content-center'>
                <NavLink
+                  to='/login'
+                  className='w-1/4 content-center hover:font-bold text-blue-700'
+               >
+                  Login
+               </NavLink>
+            </li>
+            <li className='content-center'>
+               <NavLink
                   to='/about-us'
-                  className='w-1/4 content-center hover:font-bold'
+                  className='w-1/4 content-center text-blue-700 hover:font-bold'
                >
                   About us
                </NavLink>

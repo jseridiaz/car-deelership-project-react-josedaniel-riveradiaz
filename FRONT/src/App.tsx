@@ -5,6 +5,8 @@ import HeaderComponent from "./Components/HeaderComponent"
 import NewCars from "./Page/NewCars"
 import Home from "./Page/Home"
 import FooterComponent from "./Components/FooterComponent"
+import Login from "./Page/Login"
+import Register from "./Page/Register"
 
 function App() {
    return (
@@ -17,6 +19,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path='/home' element={<Home />} />
             <Route path='new-cars-shop' element={<NewCars />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
          </Routes>
          <FooterComponent />
       </>

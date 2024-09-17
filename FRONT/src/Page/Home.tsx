@@ -7,13 +7,8 @@ import OurService from "../Components/molecules/Home/OurService"
 import InfoAuto from "../Components/molecules/Home/InfoAuto"
 import FeedbackCustomers from "../Components/molecules/Home/FeedbackCustomers"
 import BlogsHome from "../Components/molecules/Home/BlogsHome"
-import { useEffect } from "react"
 
 const Home = () => {
-   useEffect(() => {
-      fetch()
-   }, [])
-
    return (
       <>
          <section id='hero-section' className='relative w-full h-[80vh] '>

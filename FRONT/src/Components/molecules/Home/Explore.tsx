@@ -1,16 +1,50 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { optionFiltersHome } from "../../../data/optionFilters"
 import H2Component from "../../atoms/H2Component"
 import CardAutoHome from "../../atoms/CardAutoHome"
+import { AutoModelType } from "../../../utils/types"
+import { Link } from "react-router-dom"
 
 const Explore = () => {
    const [filterSelect, setFilterSelect] = useState<string>("Cars")
+   const [arrayAutos, setArrayAutos] = useState<AutoModelType[]>([])
+
+   useEffect(() => {
+      const typeAuto = async () => {
+         const data = await fetch(
+            `http://localhost:3000/category/${
+               filterSelect == "Cars"
+                  ? "Turismo"
+                  : filterSelect === "Trucks"
+                  ? "Truck"
+                  : "SUV"
+            }`,
+         )
+            .then(res => res.json())
+            .then(res => res.res)
+            .then(res => {
+               const finalArrayAuto: AutoModelType[] = []
+               for (let i = 0; i < 4; i++) {
+                  const aleatoryNumber: number = Math.floor(
+                     Math.random() * res.length,
+                  )
+                  const element: AutoModelType = res[aleatoryNumber]
+                  finalArrayAuto.push(element)
+                  res.splice(aleatoryNumber, aleatoryNumber + 1)
+               }
+               setArrayAutos(finalArrayAuto)
+            })
+      }
+      typeAuto()
+   }, [filterSelect])
+
    const handleFilter = (name: string): void => {
       setFilterSelect(name)
    }
+
    return (
-      <section className='w-full p-10 bg-blue-200  flex flex-col gap-9 justify-center items-center '>
-         <div className='w-[100%] p-4'>
+      <section className='w-full p-10 bg-blue-200  flex flex-col gap-9 justify-center items-center h-[740px]'>
+         <div className='w-[100%] p-4 h-full bg-slate-50 relative '>
             <div className='w-full bg-slate-50 p-10 '>
                <H2Component title='Explore' />
             </div>
@@ -20,8 +54,10 @@ const Explore = () => {
                      <span
                         key={idx}
                         className={`transition duration-500 ${
-                           filterSelect === el && "bg-red-300 font-semibold"
-                        } font-medium px-4 py-2.5 bg-white  rounded-3xl cursor-pointer hover:bg-red-300`}
+                           filterSelect === el
+                              ? "bg-red-300 font-semibold"
+                              : "bg-white"
+                        } font-medium px-4 py-2.5   rounded-3xl cursor-pointer hover:bg-red-300`}
                         onClick={() => handleFilter(el)}
                      >
                         {el}
@@ -31,41 +67,29 @@ const Explore = () => {
                <div
                   id='scroll-hidden-home'
                   className='flex flex-nowrap
-               overflow-x-scroll snap-x scroll-smooth'
+               overflow-x-scroll snap-x h-full scroll-smooth'
                >
-                  <CardAutoHome
-                     autoName='Opel'
-                     state='new'
-                     year={2020}
-                     autoModel='Astra'
-                     price='$20000'
-                     imgPath='../../../../public/audi-portrait.webp'
-                  />
-                  <CardAutoHome
-                     autoName='Opel'
-                     state='new'
-                     year={2020}
-                     autoModel='Astra'
-                     price='$20000'
-                     imgPath='../../../../public/audi-portrait.webp'
-                  />
-                  <CardAutoHome
-                     autoName='Opel'
-                     state='new'
-                     year={2020}
-                     autoModel='Astra'
-                     price='$20000'
-                     imgPath='../../../../public/audi-portrait.webp'
-                  />
-                  <CardAutoHome
-                     autoName='Opel'
-                     state='new'
-                     year={2020}
-                     autoModel='Astra'
-                     price='$20000'
-                     imgPath='../../../../public/audi-portrait.webp'
-                  />
+                  {arrayAutos.map((el, idx) => (
+                     <CardAutoHome
+                        key={idx}
+                        autoModel={el.model}
+                        state={el.state}
+                        year={el.manufactureYear}
+                        price={el.price}
+                        imgPath={el.picture[0]}
+                        autoName={el.brand}
+                        km={el.kilometer}
+                     />
+                  ))}
                </div>
+            </div>
+            <div className='absolute bottom-10 left-1/2 -translate-x-1/2 w-full p-2 '>
+               <Link
+                  className='transition-all duration-800 text-white font-bold bg-blue-400 rounded-3xl p-3 w-[80%] cursor-pointer hover:bg-blue-600'
+                  to={filterSelect}
+               >
+                  See more
+               </Link>
             </div>
          </div>
       </section>
