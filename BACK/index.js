@@ -8,6 +8,8 @@ const AutoModel = require("./src/API/models/auto")
 const { rgbToHex } = require("./src/utils/functions/rgbTohex")
 const namer = require("color-namer")
 const { getColor } = require("./src/utils/functions/getColor")
+const routerUser = require("./src/API/routes/user")
+const routerMain = require("./src/API/routes/main/mainRoute")
 bbddConection()
 const app = express()
 app.use(express.json())
@@ -61,7 +63,7 @@ for (let i = 1; i < dataSplitted.length - 1; i++) {
 
 app.use(cors())
 
-app.use("/", routerAuto)
+app.use("/", routerMain)
 
 app.use("*", (req, res) => {
    res.status(404).json("Route not found")
