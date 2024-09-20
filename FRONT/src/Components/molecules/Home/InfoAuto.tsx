@@ -17,6 +17,7 @@ const InfoAuto: React.FC<InfoAutoType> = ({ title, description }) => {
             <h3 className='font-semibold text-2xl'>{title}</h3>
             <p className='font-normal w-2/3'>{description}</p>
             <Button
+               link={false}
                text='Read more'
                signal={<BiChevronRight className='stroke-1 stroke-white ' />}
                properties='relative

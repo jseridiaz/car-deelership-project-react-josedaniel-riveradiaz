@@ -51,3 +51,20 @@ export type CarContextType = {
    arrayAllCars: AutoModelType[] | null | []
    setArrayAllCars: React.Dispatch<React.SetStateAction<AutoModelType[] | null>>
 }
+export type PrintListAutoType = {
+   arrayToPRint: AutoModelType[] | null
+   cssProperties: string
+}
+
+export type ImgAutoType = {
+   idx: number
+   path: string
+   alt: string
+   brand: string
+   model: string
+   km: number
+   year: number
+   color: string
+   price: number
+   state: string
+}
