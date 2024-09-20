@@ -3,7 +3,6 @@ import Button from "../atoms/Button"
 import FieldSet from "../atoms/FieldSet"
 import { getArrayBrands } from "../../utils/getArrayBrands"
 import { CarContext } from "../Providers/GlobalCarsArray"
-import { AutoModelType } from "../../utils/types"
 import { getModels } from "../../utils/getModels"
 
 const FilterComponent = () => {
@@ -45,7 +44,16 @@ const FilterComponent = () => {
                console.log(res.res)
             })
       } else {
-         console.log("ok")
+         fetch(
+            `http://localhost:3000/autos/v1/search/query/brand/category?brand=${brand}&category=${chassis}`,
+         )
+            .then(res => res.json())
+            .then(res => {
+               setArrayAllCars(res.res)
+               const modelsArray = getModels(res.res)
+               setModels(modelsArray)
+               console.log(res.res)
+            })
       }
    }, [brand, chassis])
 

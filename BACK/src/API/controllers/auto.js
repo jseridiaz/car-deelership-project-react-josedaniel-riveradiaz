@@ -40,6 +40,18 @@ const getAutoByBrand = async (req, res, next) => {
       return res400(req, res, next, error)
    }
 }
+const getAutoByBrandAndCategory = async (req, res, next) => {
+   try {
+      const { brand, category } = req.query
+      console.log(brand, category)
+
+      const autoByBrandAndCategory = await AutoModel.find({ brand, type: category })
+
+      return res200(req, res, next, autoByBrandAndCategory, "Fetch succesful")
+   } catch (error) {
+      return res400(req, res, next, error)
+   }
+}
 
 const postAuto = async (req, res, next) => {
    try {
@@ -87,6 +99,7 @@ module.exports = {
    getAutoByID,
    getAutoByCategory,
    getAutoByBrand,
+   getAutoByBrandAndCategory,
    postAuto,
    updateAuto,
    deleteAuto,
