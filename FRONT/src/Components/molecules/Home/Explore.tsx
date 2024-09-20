@@ -12,7 +12,7 @@ const Explore = () => {
    useEffect(() => {
       const typeAuto = async () => {
          const data = await fetch(
-            `http://localhost:3000/category/${
+            `http://localhost:3000/autos/v1/search/category/${
                filterSelect == "Cars"
                   ? "Turismo"
                   : filterSelect === "Trucks"

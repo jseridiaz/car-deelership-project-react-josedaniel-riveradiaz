@@ -11,18 +11,10 @@ const HeaderComponent = () => {
          <nav className='flex w-fit gap-8'>
             <li className='content-center'>
                <NavLink
-                  to='/new-cars-shop'
+                  to='/cars-shop'
                   className='w-1/4 content-center text-blue-700 hover:font-bold '
                >
                   New Autos
-               </NavLink>
-            </li>
-            <li className='content-center'>
-               <NavLink
-                  to='/used-cars-shop'
-                  className='w-1/4 content-center hover:font-bold text-blue-700'
-               >
-                  Used Cars
                </NavLink>
             </li>
             <li className='content-center'>

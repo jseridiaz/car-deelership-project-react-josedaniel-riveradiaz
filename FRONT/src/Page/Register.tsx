@@ -3,7 +3,7 @@ import Button from "../Components/atoms/Button"
 import ImgComponent from "../Components/atoms/ImgComponent"
 import FieldSet from "../Components/atoms/FieldSet"
 import { IFormInput } from "../utils/types"
-import ErrorContainer from "../Components/atoms/errorContainer"
+import ErrorContainer from "../Components/atoms/ErrorContainer"
 
 const Register = () => {
    const {
@@ -19,7 +19,33 @@ const Register = () => {
          password: "",
       },
    })
-   const handleRegister = (data: IFormInput) => console.log(data)
+
+   const handleRegister = (data: IFormInput): void => {
+      fetch("http://localhost:3000/autos/v1/user/register", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+            name: data.firstname,
+            surname: data.surname,
+            age: data.birthdate.split("-").join("/"),
+            email: data.email,
+            password: data.password,
+            favourites: data.autosInterested,
+         }),
+      }).then(res => res.json())
+      console.log(
+         JSON.stringify({
+            name: data.firstname,
+            surname: data.surname,
+            age: data.birthdate.split("-").join("/"),
+            email: data.email,
+            password: data.password,
+            favourites: data.autosInterested,
+         }),
+      )
+   }
    return (
       <article className='flex justify-around p-10 bg-blue-200 '>
          <article className='w-[38%]'>
@@ -47,19 +73,6 @@ const Register = () => {
                         {errors.firstname?.type === "required" &&
                            "* First name is required"}
                      </ErrorContainer>
-                     {/* <div className='flex justify-center'>
-                        <p className='absolute text-red-600 text-sm font-medium'>
-                           {errors.firstname?.type == "required"
-                              ? "* Your name is required"
-                              : null}
-                        </p>
-                     </div> */}
-
-                     {/* <>
-                        {errors.firstname ? (
-                           <p className=''>This feld is required</p>
-                        ) : null}
-                     </> */}
                   </FieldSet>
                   <FieldSet description='Your surname'>
                      <input
@@ -74,13 +87,6 @@ const Register = () => {
                         {errors.surname?.type === "required" &&
                            "* Surname is required"}
                      </ErrorContainer>
-                     {/* <div className='flex justify-center'>
-                        <p className='absolute text-red-600 text-sm font-medium'>
-                           {errors.surname?.type == "required"
-                              ? "*Your Surname is required"
-                              : null}
-                        </p>
-                     </div> */}
                   </FieldSet>
                   <FieldSet description='Your email'>
                      <input
@@ -110,6 +116,7 @@ const Register = () => {
                   </FieldSet>
                   <FieldSet description='Your password'>
                      <input
+                        type='password'
                         className='p-2 text-sm w-full  border-2 border-gray-500 border-solid placeholder:text-sm rounded  focus:border-none focus:outline-8 focus:outline-blue-300 focus:outline-offset-4'
                         id='password-input-register'
                         autoComplete='off'

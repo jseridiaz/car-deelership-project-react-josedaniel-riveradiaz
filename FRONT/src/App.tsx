@@ -7,6 +7,7 @@ import Home from "./Page/Home"
 import FooterComponent from "./Components/FooterComponent"
 import Login from "./Page/Login"
 import Register from "./Page/Register"
+import CarPage from "./Page/CarPage"
 
 function App() {
    return (
@@ -18,7 +19,7 @@ function App() {
          <Routes>
             <Route index element={<Home />} />
             <Route path='/home' element={<Home />} />
-            <Route path='new-cars-shop' element={<NewCars />} />
+            <Route path='/cars-shop' element={<CarPage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
          </Routes>

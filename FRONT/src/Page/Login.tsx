@@ -1,13 +1,43 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Button from "../Components/atoms/Button"
 import ImgComponent from "../Components/atoms/ImgComponent"
-import InputForm from "../Components/atoms/InputForm"
+import { useForm } from "react-hook-form"
+import FieldSet from "../Components/atoms/FieldSet"
+import { ExtendedIFormInput, IFormLogin } from "../utils/types"
+import { useState } from "react"
 
 const Login = () => {
-   const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      console.log("ok")
+   const [statusFetch, setStatusFetch] = useState<boolean>()
+   const [fetchState, setFetchState] = useState<ExtendedIFormInput | null>()
+   const navigate = useNavigate()
+   const {
+      register,
+      handleSubmit,
+      formState: { errors },
+   } = useForm({ defaultValues: { email: "", password: "" } })
+
+   const handleLogin = (data: IFormLogin): void => {
+      fetch("http://localhost:3000/autos/v1/user/login", {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify({ email: data.email, password: data.password }),
+      })
+         .then(res => {
+            console.log(res)
+            setStatusFetch(res.ok)
+            return res.json()
+         })
+         .then(resJson => {
+            console.log(resJson)
+            setFetchState(resJson)
+            if (resJson.res.token) {
+               navigate("/home")
+            } else {
+               console.log("error")
+            }
+         })
    }
+
    return (
       <>
          <article className='flex justify-around px-6 py-2 '>
@@ -15,7 +45,7 @@ const Login = () => {
                imgPath='https://res.cloudinary.com/ddybbosdk/image/upload/v1726562162/CARS%20AUTODEELER/corvete-portrait-login_xoru7n.webp'
                alt='corvete-portrait-login'
                classContainer='h-full w-[60%]'
-               classImg='h-full w-full'
+               classImg='h-full w-full '
             />
             <article className='flex w-1/2 bg-white h-[550px] justify-center items-center flex-wrap'>
                <h2 className='w-full text-5xl h-fit font-extrabold relative top-2'>
@@ -24,28 +54,72 @@ const Login = () => {
                <form
                   action='#'
                   method='post'
-                  className=' flex flex-col w-[65%] h-[85%] p-4 justify-around items-center border-2 border-black border-solid rounded-xl bg-blue-50'
-                  onSubmit={handlesubmit}
+                  className=' flex flex-col w-[90%] h-[85%] p-4 justify-around items-center border-2 border-black border-solid rounded-xl bg-blue-50'
+                  onSubmit={handleSubmit(handleLogin)}
                >
-                  <InputForm
-                     id='userName-input'
-                     placeholder='Username'
-                     name='name'
-                     auto={true}
-                  />
-                  <InputForm
-                     id='email-input'
-                     placeholder='Email'
-                     name='email'
-                     auto={true}
-                  />
-                  <InputForm
-                     id='password-input'
-                     placeholder='Password'
-                     name='password'
-                     auto={false}
-                  />
-                  <div className='flex justify-between gap-4 mt-7 '>
+                  <FieldSet description='Email'>
+                     <input
+                        type='text'
+                        autoComplete='on'
+                        placeholder='jose@gmail.com'
+                        className='p-2 text-sm border-2 border-gray-500 border-solid placeholder:text-sm rounded'
+                        {...register("email", {
+                           required: {
+                              value: true,
+                              message: "* Email adresse is required",
+                           },
+                           pattern: {
+                              value: /^[\w.-]+@[a-zA-Z_]+?\.[a-zA-Z]{2,}$/,
+                              message: "The email doesn't pass with a valid email",
+                           },
+                        })}
+                     />
+                     {errors.email && (
+                        <p className='absolute -bottom-2 right-1/2 translate-x-1/2 font-normal text-sm w-full text-red-600'>
+                           {errors.email.type === "required" && errors.email.message}
+                        </p>
+                     )}
+                  </FieldSet>
+                  <FieldSet description='Password'>
+                     <input
+                        type='password'
+                        placeholder='*******'
+                        className='p-2 text-sm border-2 border-gray-500 border-solid placeholder:text-sm rounded'
+                        {...register("password", {
+                           required: "Password is required",
+                           pattern: {
+                              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&<>.])[A-Za-z\d@$!%*?&<>.]{7,}$/,
+                              message:
+                                 "The password must contain a lowercase, Uppercase,a number and a special character",
+                           },
+                        })}
+                     />
+                     {errors.password && (
+                        <p
+                           className={`absolute ${
+                              errors.password.type === "pattern"
+                                 ? "-bottom-7"
+                                 : "-bottom-2"
+                           } text-sm w-[140%] right-1/2 translate-x-1/2 text-red-600`}
+                        >
+                           {errors.password.type === "pattern"
+                              ? "* Password must contain a lowercase, uppercase, number, special character and 7 characters "
+                              : errors.password.type === "required"
+                              ? "* The password is required"
+                              : null}
+                        </p>
+                     )}
+                  </FieldSet>
+                  {fetchState && fetchState.message ? (
+                     <p
+                        className={`absolute bottom-1/3 ${
+                           statusFetch ? "text-green-500" : "text-red-600"
+                        } font-medium`}
+                     >
+                        {fetchState.message}
+                     </p>
+                  ) : null}
+                  <div className=' flex justify-between gap-4 mt-7 '>
                      <div className='flex gap-2 items-center flex-wrap'>
                         <div className='flex outline-none hover:outline-2 border-none  hover:outline-offset-2 hover:outline-blue-600 rounded flex-wrap'>
                            <input

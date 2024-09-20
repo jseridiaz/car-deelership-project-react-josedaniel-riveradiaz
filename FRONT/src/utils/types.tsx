@@ -36,7 +36,18 @@ export type IFormInput = {
    password: string
    autosInterested: string
 }
+export type ExtendedIFormInput = IFormInput & {
+   createdAt: string
+   updatedAt: string
+   __V: number
+}
+export type ResFetchUser = { message: string; res: { logged: {} }; token: string }
 export type ErrorContainerType = {
    children: React.ReactNode
    errors?: string | never
+}
+
+export type CarContextType = {
+   arrayAllCars: AutoModelType[] | null | []
+   setArrayAllCars: React.Dispatch<React.SetStateAction<AutoModelType[] | null>>
 }

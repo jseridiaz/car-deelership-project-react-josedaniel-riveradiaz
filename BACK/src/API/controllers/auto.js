@@ -6,7 +6,7 @@ const AutoModel = require("../models/auto")
 const getAuto = async (req, res, next) => {
    try {
       const allModels = await AutoModel.find()
-      return res200(req, res, next, allModels)
+      return res200(req, res, next, allModels, "Fetch succesfull")
    } catch (error) {
       return res400(req, res, next, error)
    }
@@ -16,7 +16,7 @@ const getAutoByID = async (req, res, next) => {
    try {
       const { id } = req.params
       const autoById = await AutoModel.findById(id)
-      return res200(req, res, next, autoById)
+      return res200(req, res, next, autoById, "Fetch succesfull")
    } catch (error) {
       return res400(req, res, next, error)
    }
@@ -25,7 +25,17 @@ const getAutoByCategory = async (req, res, next) => {
    try {
       const { category } = req.params
       const autoByCategory = await AutoModel.find({ type: category })
-      return res200(req, res, next, autoByCategory)
+      return res200(req, res, next, autoByCategory, "Fetch succesfull")
+   } catch (error) {
+      return res400(req, res, next, error)
+   }
+}
+const getAutoByBrand = async (req, res, next) => {
+   try {
+      const { brand } = req.params
+      const autoByBrand = await AutoModel.find({ brand })
+
+      return res200(req, res, next, autoByBrand, "Fetch succesfull")
    } catch (error) {
       return res400(req, res, next, error)
    }
@@ -36,7 +46,7 @@ const postAuto = async (req, res, next) => {
       const autoPost = AutoModel(req.body)
       const savedAutoPost = await autoPost.save()
 
-      return res200(req, res, next, savedAutoPost)
+      return res200(req, res, next, savedAutoPost, "Fetch succesfull")
    } catch (error) {
       return res400(req, res, next, error)
    }
@@ -53,7 +63,7 @@ const updateAuto = async (req, res, next) => {
          new: true,
       })
 
-      return res200(req, res, next, modelUpdated)
+      return res200(req, res, next, modelUpdated, "Fetch succesfull")
    } catch (error) {
       return res400(req, res, next, error)
    }
@@ -66,7 +76,7 @@ const deleteAuto = async (req, res, next) => {
 
       const autoDelete = await AutoModel.findByIdAndDelete(id)
 
-      return res200(req, res, next, autoDelete)
+      return res200(req, res, next, autoDelete, "Fetch succesfull")
    } catch (error) {
       return res400(req, res, next, error)
    }
@@ -76,6 +86,7 @@ module.exports = {
    getAuto,
    getAutoByID,
    getAutoByCategory,
+   getAutoByBrand,
    postAuto,
    updateAuto,
    deleteAuto,
