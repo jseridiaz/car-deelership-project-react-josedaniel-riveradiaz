@@ -75,14 +75,15 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
                               ) : null}
                            </h2>
                            <Button
-                              text='Order now'
                               signal={
                                  <BiChevronRight className='stroke-1 stroke-white ' />
                               }
-                              link={true}
+                              link='/cars-shop'
                               properties='absolute transition duration-1000 hover:bg-blue-800 hover:shadow-blue-800 hover:scale-110 hover:shadow-lg bottom-0 w-fit justify-center items-center right-[30%] left-4
                            gap-1 text-[1rem] flex text-white font-semibold bg-black rounded-full p-2 px-4'
-                           />
+                           >
+                              Order now
+                           </Button>
                         </div>
                         <img
                            key={idx}

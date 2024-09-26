@@ -12,6 +12,7 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
             {arrayToPRint &&
                arrayToPRint.map((el, idx) => (
                   <ImgAutos
+                     key={idx}
                      idx={idx}
                      path={el.picture[0]}
                      alt={`${el.brand}_${el.model}_${el.manufactureYear}_${el.color}`}

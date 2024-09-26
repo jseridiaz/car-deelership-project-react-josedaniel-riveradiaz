@@ -5,7 +5,9 @@ const AutoModel = require("../models/auto")
 
 const getAuto = async (req, res, next) => {
    try {
-      const allModels = await AutoModel.find()
+      const allModels = await AutoModel.find().sort({
+         manufactureYear: -1,
+      })
       return res200(req, res, next, allModels, "Fetch succesfull")
    } catch (error) {
       return res400(req, res, next, error)
@@ -24,7 +26,9 @@ const getAutoByID = async (req, res, next) => {
 const getAutoByCategory = async (req, res, next) => {
    try {
       const { category } = req.params
-      const autoByCategory = await AutoModel.find({ type: category })
+      const autoByCategory = await AutoModel.find({ type: category }).sort({
+         manufactureYear: -1,
+      })
       return res200(req, res, next, autoByCategory, "Fetch succesfull")
    } catch (error) {
       return res400(req, res, next, error)
@@ -33,7 +37,9 @@ const getAutoByCategory = async (req, res, next) => {
 const getAutoByBrand = async (req, res, next) => {
    try {
       const { brand } = req.params
-      const autoByBrand = await AutoModel.find({ brand })
+      const autoByBrand = await AutoModel.find({ brand }).sort({
+         manufactureYear: -1,
+      })
 
       return res200(req, res, next, autoByBrand, "Fetch succesfull")
    } catch (error) {
@@ -45,7 +51,43 @@ const getAutoByBrandAndCategory = async (req, res, next) => {
       const { brand, category } = req.query
       console.log(brand, category)
 
-      const autoByBrandAndCategory = await AutoModel.find({ brand, type: category })
+      const autoByBrandAndCategory = await AutoModel.find({
+         brand,
+         type: category,
+      }).sort({
+         manufactureYear: -1,
+      })
+
+      return res200(req, res, next, autoByBrandAndCategory, "Fetch succesful")
+   } catch (error) {
+      return res400(req, res, next, error)
+   }
+}
+const getAutoByBrandAndModel = async (req, res, next) => {
+   try {
+      const { brand, model } = req.query
+
+      const autoByBrandAndModel = await AutoModel.find({ brand, model }).sort({
+         manufactureYear: -1,
+      })
+
+      return res200(req, res, next, autoByBrandAndModel, "Fetch succesful")
+   } catch (error) {
+      return res400(req, res, next, error)
+   }
+}
+const getAutoByBrandAndCategoryAndModel = async (req, res, next) => {
+   try {
+      const { brand, category, model } = req.query
+      console.log(brand, category)
+
+      const autoByBrandAndCategory = await AutoModel.find({
+         brand,
+         type: category,
+         model,
+      }).sort({
+         manufactureYear: -1,
+      })
 
       return res200(req, res, next, autoByBrandAndCategory, "Fetch succesful")
    } catch (error) {
@@ -99,7 +141,9 @@ module.exports = {
    getAutoByID,
    getAutoByCategory,
    getAutoByBrand,
+   getAutoByBrandAndModel,
    getAutoByBrandAndCategory,
+   getAutoByBrandAndCategoryAndModel,
    postAuto,
    updateAuto,
    deleteAuto,

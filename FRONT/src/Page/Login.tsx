@@ -4,11 +4,15 @@ import ImgComponent from "../Components/atoms/ImgComponent"
 import { useForm } from "react-hook-form"
 import FieldSet from "../Components/atoms/FieldSet"
 import { ExtendedIFormInput, IFormLogin } from "../utils/types"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { TokenContext } from "../Components/Providers/GlobalToken"
 
 const Login = () => {
+   const { token, setToken } = useContext(TokenContext)
    const [statusFetch, setStatusFetch] = useState<boolean>()
    const [fetchState, setFetchState] = useState<ExtendedIFormInput | null>()
+   console.log(token)
+
    const navigate = useNavigate()
    const {
       register,
@@ -31,6 +35,9 @@ const Login = () => {
             console.log(resJson)
             setFetchState(resJson)
             if (resJson.res.token) {
+               localStorage.setItem("token", resJson.res.token)
+               setToken(localStorage.getItem("token"))
+
                navigate("/home")
             } else {
                console.log("error")

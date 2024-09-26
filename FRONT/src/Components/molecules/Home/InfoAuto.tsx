@@ -17,13 +17,14 @@ const InfoAuto: React.FC<InfoAutoType> = ({ title, description }) => {
             <h3 className='font-semibold text-2xl'>{title}</h3>
             <p className='font-normal w-2/3'>{description}</p>
             <Button
-               link={false}
-               text='Read more'
+               link={"/about-us"}
                signal={<BiChevronRight className='stroke-1 stroke-white ' />}
                properties='relative
              	  transition duration-700 hover:bg-red-700 hover:shadow-md  w-fit justify-between items-center w-1/4
                            gap-1  flex text-white font-semibold bg-black rounded-full p-2 '
-            />
+            >
+               Read more
+            </Button>
          </div>
       </section>
    )

@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export type AutoModelType = {
    _id: string
    __V: number
@@ -41,7 +43,7 @@ export type ExtendedIFormInput = IFormInput & {
    updatedAt: string
    __V: number
 }
-export type ResFetchUser = { message: string; res: { logged: {} }; token: string }
+// export type ResFetchUser = { message: string; res: { logged: {} }; token: string }
 export type ErrorContainerType = {
    children: React.ReactNode
    errors?: string | never
@@ -67,4 +69,19 @@ export type ImgAutoType = {
    color: string
    price: number
    state: string
+}
+export type PaginationTypes = {
+   array: AutoModelType[]
+   allPages: number
+   currentPage: number
+   setCurrentPage: (idx: number) => void
+}
+
+export type GlobalCurrentPageType = {
+   currentPage: number
+   setCurrentPage: (newPage: number) => void
+}
+export type GlobalTokenType = {
+   token: string | null
+   setToken: Dispatch<SetStateAction<string | null>>
 }

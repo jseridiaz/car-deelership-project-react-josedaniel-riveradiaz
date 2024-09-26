@@ -36,25 +36,25 @@ const ImgAutos: React.FC<ImgAutoType> = ({
          </div>
          <div className='flex flex-col justify-between bg-blue-300 p-3 rounded-b-2xl'>
             <div className='flex justify-center flex-wrap gap-2 '>
-               <p className='w-full text-left text-center bg-white rounded-md flex justify-between px-3'>
+               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
                   Brand: <span>{brand}</span>
                </p>
-               <p className='w-full text-left text-center bg-white rounded-md flex justify-between px-3'>
+               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
                   Model: <span>{model}</span>
                </p>
-               <p className='w-full text-left text-center bg-white rounded-md flex justify-between px-3'>
+               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
                   State: <span>{state}</span>
                </p>
-               <p className='w-full text-left text-center bg-white rounded-md flex justify-between px-3'>
+               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
                   Year: <span>{year}</span>
                </p>
-               <p className='w-full text-left text-center bg-white rounded-md flex justify-between px-3'>
+               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
                   Kilometers:<span>{km.toLocaleString("es-ES")} km</span>
                </p>
-               <p className='w-full text-left text-center bg-white rounded-md flex justify-between px-3'>
+               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
                   Color: <span>{color}</span>
                </p>
-               <p className='w-full text-left text-center bg-white rounded-md flex justify-between px-3'>
+               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
                   Price: <span>{price.toLocaleString("es-ES")}€</span>
                </p>
             </div>
