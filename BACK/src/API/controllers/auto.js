@@ -76,6 +76,19 @@ const getAutoByBrandAndModel = async (req, res, next) => {
       return res400(req, res, next, error)
    }
 }
+const getAutoChassisAndCategory = async (req, res, next) => {
+   try {
+      const { category, model } = req.query
+      const autoBycategoryAndModel = await AutoModel.find({
+         type: category,
+         model,
+      }).sort({ manufactureYear: -1 })
+
+      res200(req, res, next, autoBycategoryAndModel, "Fetch succesfull")
+   } catch (error) {
+      res400(req, res, next, error)
+   }
+}
 const getAutoByBrandAndCategoryAndModel = async (req, res, next) => {
    try {
       const { brand, category, model } = req.query
@@ -89,7 +102,7 @@ const getAutoByBrandAndCategoryAndModel = async (req, res, next) => {
          manufactureYear: -1,
       })
 
-      return res200(req, res, next, autoByBrandAndCategory, "Fetch succesful")
+      return res200(req, res, next, autoByBrandAndCategory, "Fetch succesfull")
    } catch (error) {
       return res400(req, res, next, error)
    }
@@ -143,6 +156,7 @@ module.exports = {
    getAutoByBrand,
    getAutoByBrandAndModel,
    getAutoByBrandAndCategory,
+   getAutoChassisAndCategory,
    getAutoByBrandAndCategoryAndModel,
    postAuto,
    updateAuto,

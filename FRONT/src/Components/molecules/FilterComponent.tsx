@@ -23,6 +23,7 @@ const FilterComponent = () => {
       setBrand("All")
       setModel("All")
       setChassis("All")
+      setCurrentPage(0)
    }
    useEffect(() => {
       fetch("http://localhost:3000/autos/v1/search")
@@ -44,6 +45,7 @@ const FilterComponent = () => {
          fetch("http://localhost:3000/autos/v1/search")
             .then(res => res.json())
             .then(res => {
+               setModels(getModels(res.res))
                setArrayAllCars(res.res)
                setCurrentPage(0)
 
@@ -67,6 +69,17 @@ const FilterComponent = () => {
                setModels(modelsArray)
                console.log(arrayAllCars)
             })
+      } else if (brand === "All" && chassis !== "All" && model !== "All") {
+         fetch(
+            `http://localhost:3000/autos/v1/search/query/category/model?category=${chassis}&model=${model}`,
+         )
+            .then(res => res.json())
+            .then(res => {
+               console.log(res.res)
+
+               setArrayAllCars(res.res)
+               setCurrentPage(0)
+            })
       } else if (chassis !== "All" && brand === "All" && model === "All") {
          fetch("http://localhost:3000/autos/v1/search/category/" + chassis)
             .then(res => res.json())
@@ -74,7 +87,6 @@ const FilterComponent = () => {
                const modelsArray = getModels(res.res)
                setArrayAllCars(res.res)
                setCurrentPage(0)
-
                setModels(modelsArray)
                console.log(res.res)
             })
@@ -128,8 +140,9 @@ const FilterComponent = () => {
                   )
                      .then(res => res.json())
                      .then(res => {
+                        const models = getModels(res.res)
                         setArrayAllCars(res.res)
-                        setModel("All")
+                        setModels(models)
                      })
 
                   return
@@ -185,7 +198,7 @@ const FilterComponent = () => {
                      <option value='All'>Select Brand or chasis</option>
                   ) : (
                      <>
-                        <option>All</option>
+                        <option value='All'>All</option>
                         {models.map((el, idx) => (
                            <option key={idx}>{el}</option>
                         ))}
@@ -198,6 +211,7 @@ const FilterComponent = () => {
                   className='w-1/2'
                   ref={selectedChassis}
                   onChange={() => {
+                     setModel("All")
                      changeValue(setChassis, selectedChassis)
                   }}
                >
