@@ -43,6 +43,11 @@ export type ExtendedIFormInput = IFormInput & {
    updatedAt: string
    __V: number
 }
+export type IFormLogin = {
+   email: string
+   password: string
+   savedToken: string | null
+}
 // export type ResFetchUser = { message: string; res: { logged: {} }; token: string }
 export type ErrorContainerType = {
    children: React.ReactNode
@@ -65,6 +70,7 @@ export type ImgAutoType = {
    brand: string
    model: string
    km: number
+   availavility: string
    year: number
    color: string
    price: number
@@ -85,3 +91,13 @@ export type GlobalTokenType = {
    token: string | null
    setToken: Dispatch<SetStateAction<string | null>>
 }
+export type GlobalLoggedType = {
+   logged: string | null
+   setLogged: Dispatch<SetStateAction<string | null>>
+}
+export type ParrafType = {
+   h2Text: string
+   children: React.ReactNode
+   cssProperties: string
+}
+export type ErrorContainerExtended = ErrorContainerType & { cssProperties: string }

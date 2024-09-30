@@ -2,12 +2,12 @@ import { Route, Routes } from "react-router-dom"
 import "./App.css"
 import Banner from "./Components/Banner"
 import HeaderComponent from "./Components/HeaderComponent"
-import NewCars from "./Page/NewCars"
 import Home from "./Page/Home"
 import FooterComponent from "./Components/FooterComponent"
 import Login from "./Page/Login"
 import Register from "./Page/Register"
 import CarPage from "./Page/CarPage"
+import About from "./Page/About"
 
 function App() {
    return (
@@ -22,6 +22,7 @@ function App() {
             <Route path='/cars-shop' element={<CarPage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/about-us' element={<About />} />
          </Routes>
          <FooterComponent />
       </>

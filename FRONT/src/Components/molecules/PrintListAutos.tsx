@@ -20,6 +20,7 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
                      state={el.state}
                      model={el.model}
                      km={el.kilometer}
+                     availavility={el.availability}
                      year={el.manufactureYear}
                      price={el.price}
                      color={el.color}

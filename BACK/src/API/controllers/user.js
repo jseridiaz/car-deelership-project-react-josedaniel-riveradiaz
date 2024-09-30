@@ -35,7 +35,7 @@ const register = async (req, res, next) => {
 }
 
 const login = async (req, res, next) => {
-   const { email, password } = req.body
+   const { email, password, savedToken } = req.body
    const userFinded = await User.findOne({ email })
    if (!userFinded) {
       return res400(req, res, next, "The user or password is incorrect")
@@ -43,8 +43,12 @@ const login = async (req, res, next) => {
    if (!bcrypt.compareSync(password, userFinded.password)) {
       res400(req, res, next, "The user or password is incorrect")
    } else {
-      const token = tokenGenerator(userFinded._id)
-      res200(req, res, next, { logged: userFinded, token }, "You're in!")
+      if (savedToken) {
+         const token = tokenGenerator(userFinded._id)
+         res200(req, res, next, { logged: userFinded, token }, "You're in!")
+      } else {
+         res200(req, res, next, { logged: userFinded }, "You're in")
+      }
    }
 }
 

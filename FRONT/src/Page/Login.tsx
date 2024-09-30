@@ -6,25 +6,32 @@ import FieldSet from "../Components/atoms/FieldSet"
 import { ExtendedIFormInput, IFormLogin } from "../utils/types"
 import { useContext, useState } from "react"
 import { TokenContext } from "../Components/Providers/GlobalToken"
+import { LoggedContext } from "../Components/Providers/GlobalLogged"
 
 const Login = () => {
-   const { token, setToken } = useContext(TokenContext)
+   const { setToken } = useContext(TokenContext)
+   const { logged, setLogged } = useContext(LoggedContext)
    const [statusFetch, setStatusFetch] = useState<boolean>()
    const [fetchState, setFetchState] = useState<ExtendedIFormInput | null>()
-   console.log(token)
 
    const navigate = useNavigate()
    const {
       register,
       handleSubmit,
       formState: { errors },
-   } = useForm({ defaultValues: { email: "", password: "" } })
+   } = useForm({ defaultValues: { email: "", password: "", savedToken: null } })
 
    const handleLogin = (data: IFormLogin): void => {
+      console.log(data)
+
       fetch("http://localhost:3000/autos/v1/user/login", {
          method: "POST",
          headers: { "Content-Type": "application/json" },
-         body: JSON.stringify({ email: data.email, password: data.password }),
+         body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+            savedToken: data.savedToken,
+         }),
       })
          .then(res => {
             console.log(res)
@@ -32,15 +39,22 @@ const Login = () => {
             return res.json()
          })
          .then(resJson => {
+            resJson.res.logged.password = null
             console.log(resJson)
             setFetchState(resJson)
             if (resJson.res.token) {
+               console.log(resJson)
+
                localStorage.setItem("token", resJson.res.token)
                setToken(localStorage.getItem("token"))
-
                navigate("/home")
             } else {
-               console.log("error")
+               sessionStorage.setItem("logged", resJson.res.logged._id)
+               setLogged(sessionStorage.getItem("logged"))
+               navigate("/home")
+               {
+                  console.log(logged)
+               }
             }
          })
    }
@@ -133,6 +147,7 @@ const Login = () => {
                               type='checkbox'
                               className='w-4 h-4  '
                               id='checkbox-save-log'
+                              {...register("savedToken")}
                            />
                         </div>
                         <label htmlFor='checkbox-save-log' className='min-w-36'>
