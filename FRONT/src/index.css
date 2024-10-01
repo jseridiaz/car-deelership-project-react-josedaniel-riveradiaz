@@ -81,3 +81,7 @@ button:focus-visible {
 [id="profil-id"]:checked ~ [id="profil-menu"] {
    display: none;
 }
+.active {
+   color: rgb(99, 99, 255);
+   font-weight: 800;
+}

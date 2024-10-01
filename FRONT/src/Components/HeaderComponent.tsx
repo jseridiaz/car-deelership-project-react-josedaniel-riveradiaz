@@ -1,13 +1,13 @@
-import { useContext, useEffect } from "react"
-import { Link, NavLink, useLocation } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
+import { Link, NavLink } from "react-router-dom"
 import { TokenContext } from "./Providers/GlobalToken"
 import { LoggedContext } from "./Providers/GlobalLogged"
-import BooleanState from "./customHooks/BooleanState"
+import ProfileMenu from "./molecules/ProfileMenu"
 
 const HeaderComponent = () => {
    const { token, setToken } = useContext(TokenContext)
    const { logged, setLogged } = useContext(LoggedContext)
-   const [value, setvalue] = BooleanState()
+   const [boolean, setBoolean] = useState<boolean>(false)
 
    useEffect(() => {
       setToken(localStorage.getItem("token"))
@@ -16,9 +16,9 @@ const HeaderComponent = () => {
       setLogged(sessionStorage.getItem("logged"))
    }, [logged])
 
-   const handleClickProfile = () => {
-      setvalue()
-      console.log(value)
+   const handleClickProfile = (): void => {
+      setBoolean(!boolean)
+      console.log(boolean)
    }
 
    const handleLogout = () => {
@@ -56,24 +56,16 @@ const HeaderComponent = () => {
                (logged && (
                   <li className='content-center relative'>
                      <span
-                        className='w-1/4 content-center hover:font-bold text-blue-700'
+                        className={`w-1/4 content-center hover:font-bold text-blue-700 cursor-pointer ${
+                           boolean && "active"
+                        } `}
                         onClick={() => {
-                           handleClickProfile
+                           handleClickProfile()
                         }}
                      >
-                        Profil
+                        Profile
                      </span>
-                     <div
-                        id='profil-menu'
-                        className={`absolute bg-slate-100 p-2 w-[200px] z-10 ${
-                           value ? "invisible" : "visible"
-                        }`}
-                     >
-                        <ul className='flex flex-col items-start'>
-                           <li>information personal</li>
-                           <li>Chats</li>
-                        </ul>
-                     </div>
+                     <ProfileMenu booleanState={boolean} />
                   </li>
                ))}
             <li className='content-center'>

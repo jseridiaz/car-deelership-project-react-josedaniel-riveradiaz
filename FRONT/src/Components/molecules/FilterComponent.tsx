@@ -69,6 +69,16 @@ const FilterComponent = () => {
                setModels(modelsArray)
                console.log(arrayAllCars)
             })
+      } else if (brand === "All" && chassis === "All" && model !== "All") {
+         fetch(`http://localhost:3000/autos/v1/search/model/` + model)
+            .then(res => res.json())
+            .then(res => {
+               console.log(res.res[0].brand)
+               console.log(res.res[0].type)
+
+               setArrayAllCars(res.res)
+               setCurrentPage(0)
+            })
       } else if (brand === "All" && chassis !== "All" && model !== "All") {
          fetch(
             `http://localhost:3000/autos/v1/search/query/category/model?category=${chassis}&model=${model}`,
@@ -210,6 +220,7 @@ const FilterComponent = () => {
                <select
                   className='w-1/2'
                   ref={selectedChassis}
+                  value={chassis ? chassis : undefined}
                   onChange={() => {
                      setModel("All")
                      changeValue(setChassis, selectedChassis)

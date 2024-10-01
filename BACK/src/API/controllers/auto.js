@@ -76,6 +76,17 @@ const getAutoByBrandAndModel = async (req, res, next) => {
       return res400(req, res, next, error)
    }
 }
+const getAutoByModel = async (req, res, next) => {
+   try {
+      const { model } = req.params
+      const autosByModel = await AutoModel.find({ model }).sort({
+         manufactureYear: -1,
+      })
+      res200(req, res, next, autosByModel, "Fetch succesful")
+   } catch (error) {
+      res400(req, res, next, error)
+   }
+}
 const getAutoChassisAndCategory = async (req, res, next) => {
    try {
       const { category, model } = req.query
@@ -154,6 +165,7 @@ module.exports = {
    getAutoByID,
    getAutoByCategory,
    getAutoByBrand,
+   getAutoByModel,
    getAutoByBrandAndModel,
    getAutoByBrandAndCategory,
    getAutoChassisAndCategory,

@@ -2,6 +2,8 @@ import React from "react"
 import { Link } from "react-router-dom"
 import Button from "./Button"
 import { ImgAutoType } from "../../utils/types"
+import RedHeart from "./icons/Hearts/RedHeart"
+import EmptyHeart from "./icons/Hearts/EmptyHeart"
 
 const ImgAutos: React.FC<ImgAutoType> = ({
    idx,
@@ -36,6 +38,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                   }`}
                   loading='lazy'
                />
+               <EmptyHeart className='transition duration-700 absolute z-20 right-2 top-1 hover:scale-125' />{" "}
                {availavility === "Vendido" && (
                   <p className='absolute text-white font-semibold flex top-1/4   text-3xl w-full justify-center right-1/2'>
                      Selled

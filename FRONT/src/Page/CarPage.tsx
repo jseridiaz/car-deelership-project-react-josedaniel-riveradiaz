@@ -19,6 +19,9 @@ const CarPage = () => {
       }
       setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
    }, [arrayAllCars])
+   useEffect(() => {
+      window.scrollTo({ top: 100, behavior: "smooth" })
+   }, [currentPage])
 
    return (
       <section className={`bg-blue-200 ${!arrayAllCars?.length ? "h-screen" : ""}`}>
@@ -29,6 +32,12 @@ const CarPage = () => {
             </p>
          ) : (
             <>
+               <Pagination
+                  array={arrayAllCars}
+                  allPages={pages}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+               />
                <PrintListAutos
                   arrayToPRint={arrayAllCars.slice(firstIndex, lastIndex)}
                   cssProperties='p-7 my-12'
