@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
          enum: ["user", "admin"],
          required: true,
       },
-      favourites: { type: String, required: true, enum: ["Cars", "SUV", "Truck"] },
+      favourites: { type: String, required: true, enum: ["cars", "SUV", "Truck"] },
       password: { type: String, required: true, trim: true },
    },
    { timestamps: true, collection: "userAutos" },

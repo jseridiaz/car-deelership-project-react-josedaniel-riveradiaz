@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export type AutoModelType = {
    _id: string
    __V: number
@@ -36,7 +38,66 @@ export type IFormInput = {
    password: string
    autosInterested: string
 }
+export type ExtendedIFormInput = IFormInput & {
+   createdAt: string
+   updatedAt: string
+   __V: number
+}
+export type IFormLogin = {
+   email: string
+   password: string
+   savedToken: string | null
+}
+// export type ResFetchUser = { message: string; res: { logged: {} }; token: string }
 export type ErrorContainerType = {
    children: React.ReactNode
    errors?: string | never
 }
+
+export type CarContextType = {
+   arrayAllCars: AutoModelType[] | null | []
+   setArrayAllCars: React.Dispatch<React.SetStateAction<AutoModelType[] | null>>
+}
+export type PrintListAutoType = {
+   arrayToPRint: AutoModelType[] | null
+   cssProperties: string
+}
+
+export type ImgAutoType = {
+   idx: number
+   path: string
+   alt: string
+   brand: string
+   model: string
+   km: number
+   availavility: string
+   year: number
+   color: string
+   price: number
+   state: string
+}
+export type PaginationTypes = {
+   array: AutoModelType[]
+   allPages: number
+   currentPage: number
+   setCurrentPage: (idx: number) => void
+}
+
+export type GlobalCurrentPageType = {
+   currentPage: number
+   setCurrentPage: (newPage: number) => void
+}
+export type GlobalTokenType = {
+   token: string | null
+   setToken: Dispatch<SetStateAction<string | null>>
+}
+export type GlobalLoggedType = {
+   logged: string | null
+   setLogged: Dispatch<SetStateAction<string | null>>
+}
+export type ParrafType = {
+   h2Text: string
+   children: React.ReactNode
+   cssProperties: string
+}
+export type ErrorContainerExtended = ErrorContainerType & { cssProperties: string }

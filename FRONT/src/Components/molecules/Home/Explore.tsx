@@ -12,7 +12,7 @@ const Explore = () => {
    useEffect(() => {
       const typeAuto = async () => {
          const data = await fetch(
-            `http://localhost:3000/category/${
+            `http://localhost:3000/autos/v1/search/category/${
                filterSelect == "Cars"
                   ? "Turismo"
                   : filterSelect === "Trucks"
@@ -86,7 +86,7 @@ const Explore = () => {
             <div className='absolute bottom-10 left-1/2 -translate-x-1/2 w-full p-2 '>
                <Link
                   className='transition-all duration-800 text-white font-bold bg-blue-400 rounded-3xl p-3 w-[80%] cursor-pointer hover:bg-blue-600'
-                  to={filterSelect}
+                  to='/cars-shop'
                >
                   See more
                </Link>

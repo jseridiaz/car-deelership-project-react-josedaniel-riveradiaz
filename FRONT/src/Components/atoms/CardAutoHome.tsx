@@ -56,13 +56,14 @@ const CardAutoHome: React.FC<Cardautotype> = ({
                   {price.toLocaleString("es-ES")} €
                </p>
                <Button
-                  text='Order now'
                   signal={<BiChevronRight className='stroke-1 stroke-white ' />}
                   properties='relative
              self-end	  transition duration-700 hover:bg-red-700 hover:shadow-blue-800 hover:shadow-md  w-fit justify-between items-center w-full
                            gap-1  flex text-white font-semibold bg-black rounded-full p-2 '
-                  link={true}
-               />
+                  link='/cars-shop'
+               >
+                  Order now
+               </Button>
             </div>
          </div>
       </li>

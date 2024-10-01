@@ -3,6 +3,7 @@ type ImgType = {
    alt: string
    classContainer?: string
    classImg?: string
+   link?: boolean
 }
 const ImgComponent: React.FC<ImgType> = ({
    imgPath,
