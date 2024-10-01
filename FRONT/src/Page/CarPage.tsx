@@ -19,9 +19,6 @@ const CarPage = () => {
       }
       setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
    }, [arrayAllCars])
-   useEffect(() => {
-      window.scrollTo({ top: 100, behavior: "smooth" })
-   }, [currentPage])
 
    return (
       <section className={`bg-blue-200 ${!arrayAllCars?.length ? "h-screen" : ""}`}>

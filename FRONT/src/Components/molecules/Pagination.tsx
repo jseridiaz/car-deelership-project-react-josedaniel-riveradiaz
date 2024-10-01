@@ -28,12 +28,15 @@ const Pagination: React.FC<PaginationTypes> = ({
 
    return (
       <div className={`flex flex-wrap justify-center gap-4 mb-10 `}>
-         <button
-            className='transition duration-700 bg-white cursor-pointer font-semibold hover:bg-gray-400 hover:text-white'
-            onClick={handlePrevius}
-         >
-            Previus
-         </button>
+         {currentPage > 0 && (
+            <button
+               className=' absolute left-[10%] transition duration-700 bg-white cursor-pointer font-semibold hover:bg-gray-400 hover:text-white'
+               onClick={handlePrevius}
+            >
+               Previus
+            </button>
+         )}
+
          {arrayPages.map((el, idx) => (
             <button
                key={idx}
@@ -47,12 +50,14 @@ const Pagination: React.FC<PaginationTypes> = ({
                {el}
             </button>
          ))}
-         <button
-            className='transition duration-700 bg-white cursor-pointer font-semibold hover:bg-gray-400 hover:text-white'
-            onClick={handleNext}
-         >
-            Next
-         </button>
+         {currentPage < allPages - 1 && (
+            <button
+               className='absolute right-[10%] transition duration-700 bg-white cursor-pointer font-semibold hover:bg-gray-400 hover:text-white'
+               onClick={handleNext}
+            >
+               Next
+            </button>
+         )}
       </div>
    )
 }
