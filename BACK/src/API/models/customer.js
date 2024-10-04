@@ -3,11 +3,13 @@ const mongoose = require("mongoose")
 const CustomerSchema = new mongoose.Schema(
    {
       profile: { type: mongoose.Types.ObjectId, ref: "userAutos", required: true },
-      buys: { type: [String] },
+      buys: { type: [mongoose.Types.ObjectId], ref: "autoModel" },
+      reserves: { type: [mongoose.Types.ObjectId], ref: "autoModel" },
       reviews: { type: [String] },
-      favourites: { type: [mongoose.Types.ObjectId], ref: "auto", trim: true },
+      favourites: { type: [mongoose.Types.ObjectId], ref: "autoModel" },
    },
-   { timestamps: true, collection: "Customer" },
+   { timestamps: true, collection: "customer" },
 )
 
-const Customer = mongoose.model("Customer", CustomerSchema, "Customer")
+const CustomerModel = mongoose.model("customer", CustomerSchema, "customer")
+module.exports = CustomerModel

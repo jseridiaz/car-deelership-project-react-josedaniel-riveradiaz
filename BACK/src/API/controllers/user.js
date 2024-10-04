@@ -6,6 +6,7 @@ const {
 } = require("../../utils/functions/validator")
 const bcrypt = require("bcrypt")
 const { tokenGenerator } = require("../../config/token/tokenUser")
+const CustomerModel = require("../models/customer")
 
 const getAllUser = async (req, res, next) => {
    try {
@@ -27,7 +28,13 @@ const register = async (req, res, next) => {
       validatorPassword(req, res, next, password)
 
       const newUser = new User(req.body)
+      console.log(req.body)
+
       const newUserSaved = await newUser.save()
+      console.log(newUserSaved)
+
+      const newCustomer = new CustomerModel({ profile: newUserSaved._id })
+      const newCustomerSaved = await newCustomer.save()
       return res200(req, res, next, newUserSaved, "Account created successfully")
    } catch (error) {
       res400(req, res, next, error)

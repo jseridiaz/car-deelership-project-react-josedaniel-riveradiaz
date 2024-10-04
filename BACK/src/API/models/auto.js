@@ -12,12 +12,12 @@ const autoSchema = new mongoose.Schema(
       price: { type: Number, require: true },
       acquisitionDate: { type: Date, require: true },
       availability: { type: String, require: true },
-      picture: { type: [String], require: true },
+      picture: [{ type: String, require: true }],
       color: { type: String, require: true },
    },
-   { timestamps: true, collection: "auto" },
+   { timestamps: true, collection: "autoModel" },
 )
 
-const AutoModel = mongoose.model("auto", autoSchema, "auto")
+const AutoModel = mongoose.model("autoModel", autoSchema, "autoModel")
 
 module.exports = AutoModel

@@ -22,10 +22,14 @@ const HeaderComponent = () => {
    }
 
    const handleLogout = () => {
-      localStorage.removeItem("token")
-      sessionStorage.removeItem("logged")
-      setToken(localStorage.getItem("token"))
-      setLogged(sessionStorage.getItem("logged"))
+      if (token) {
+         localStorage.removeItem("token")
+         localStorage.removeItem("idUser")
+         setToken(localStorage.getItem("token"))
+      } else {
+         sessionStorage.removeItem("logged")
+         setLogged(sessionStorage.getItem("logged"))
+      }
    }
    return (
       <header className='box-border w-full h-16 flex bg-slate-200 justify-around'>
@@ -52,22 +56,21 @@ const HeaderComponent = () => {
                   About us
                </NavLink>
             </li>
-            {token ||
-               (logged && (
-                  <li className='content-center relative'>
-                     <span
-                        className={`w-1/4 content-center hover:font-bold text-blue-700 cursor-pointer ${
-                           boolean && "active"
-                        } `}
-                        onClick={() => {
-                           handleClickProfile()
-                        }}
-                     >
-                        Profile
-                     </span>
-                     <ProfileMenu booleanState={boolean} />
-                  </li>
-               ))}
+            {token || logged ? (
+               <li className='content-center relative'>
+                  <span
+                     className={`w-1/4 content-center hover:font-bold text-blue-700 cursor-pointer ${
+                        boolean && "active"
+                     } `}
+                     onClick={() => {
+                        handleClickProfile()
+                     }}
+                  >
+                     Profile
+                  </span>
+                  <ProfileMenu booleanState={boolean} />
+               </li>
+            ) : null}
             <li className='content-center'>
                <NavLink
                   to={token || logged ? "/home" : "/login"}

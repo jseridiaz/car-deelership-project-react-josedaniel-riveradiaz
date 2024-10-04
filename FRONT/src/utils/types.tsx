@@ -62,7 +62,17 @@ export type PrintListAutoType = {
    arrayToPRint: AutoModelType[] | null
    cssProperties: string
 }
-
+// type customerType = {
+//    _id: string
+//    profile: string
+//    buys: string[]
+//    reserves: string[]
+//    reviews: string[]
+//    favourites: string[]
+//    createdAt: string
+//    updatedAt: string
+//    __V: string
+// }
 export type ImgAutoType = {
    idx: number
    path: string
@@ -75,6 +85,8 @@ export type ImgAutoType = {
    color: string
    price: number
    state: string
+   autoId: string
+   customerId: string | null
 }
 export type PaginationTypes = {
    array: AutoModelType[]
@@ -101,3 +113,7 @@ export type ParrafType = {
    cssProperties: string
 }
 export type ErrorContainerExtended = ErrorContainerType & { cssProperties: string }
+export type FavouriteContentType = {
+   arrayFavourites: string[] | null
+   setArrayFavourites: Dispatch<SetStateAction<string[] | null>>
+}
