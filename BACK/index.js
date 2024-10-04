@@ -77,10 +77,17 @@ fs.writeFile("Autos.json", JSON.stringify(jsonAuto), async error => {
    if (error) {
       console.log(error)
    } else {
-      await AutoModel.collection.drop().then(async () => {
-         await AutoModel.insertMany(jsonAuto)
-      })
+      const allAutos = await AutoModel.find()
+      const allAutosVin = allAutos.map(el => el.vin)
 
-      console.log("File is already writted")
+      for (let i = 0; i < jsonAuto.length; i++) {
+         const e = jsonAuto[i].vin
+         if (allAutosVin.includes(e)) {
+            continue
+         } else {
+            await AutoModel.insertOne(jsonAuto[i])
+            console.log("writted")
+         }
+      }
    }
 })

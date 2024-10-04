@@ -46,6 +46,7 @@ const Login = () => {
                console.log(resJson)
 
                localStorage.setItem("token", resJson.res.token)
+               localStorage.setItem("idUser", resJson.res.logged._id)
                setToken(localStorage.getItem("token"))
                navigate("/home")
             } else {

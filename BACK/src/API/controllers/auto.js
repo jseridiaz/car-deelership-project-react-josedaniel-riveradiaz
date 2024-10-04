@@ -141,7 +141,7 @@ const updateAuto = async (req, res, next) => {
          new: true,
       })
 
-      return res200(req, res, next, modelUpdated, "Fetch succesfull")
+      return res200(req, res, next, modelUpdated, "Car updated succesfully:")
    } catch (error) {
       return res400(req, res, next, error)
    }

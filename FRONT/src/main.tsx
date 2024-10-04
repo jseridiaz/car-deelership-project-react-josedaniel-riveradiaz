@@ -7,17 +7,20 @@ import GlobalCarsContext from "./Components/Providers/GlobalCarsArray.tsx"
 import GlobalCurrentPage from "./Components/Providers/GlobalPages.tsx"
 import GlobalToken from "./Components/Providers/GlobalToken.tsx"
 import GlobalLogged from "./Components/Providers/GlobalLogged.tsx"
+import GlobalFavouritesArray from "./Components/Providers/GlobalFavouritesArray.tsx"
 
 createRoot(document.getElementById("root")!).render(
    <StrictMode>
       <BrowserRouter>
          <GlobalCarsContext>
             <GlobalCurrentPage>
-               <GlobalToken>
-                  <GlobalLogged>
-                     <App />
-                  </GlobalLogged>
-               </GlobalToken>
+               <GlobalFavouritesArray>
+                  <GlobalToken>
+                     <GlobalLogged>
+                        <App />
+                     </GlobalLogged>
+                  </GlobalToken>
+               </GlobalFavouritesArray>
             </GlobalCurrentPage>
          </GlobalCarsContext>
       </BrowserRouter>

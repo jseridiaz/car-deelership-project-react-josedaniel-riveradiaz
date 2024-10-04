@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useContext, useState } from "react"
 import { Link } from "react-router-dom"
 import Button from "./Button"
 import { ImgAutoType } from "../../utils/types"
-import RedHeart from "./icons/Hearts/RedHeart"
 import EmptyHeart from "./icons/Hearts/EmptyHeart"
+import RedHeart from "./icons/Hearts/RedHeart"
+import { FavouritesContext } from "../Providers/GlobalFavouritesArray"
 
 const ImgAutos: React.FC<ImgAutoType> = ({
    idx,
@@ -16,9 +17,42 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    year,
    color,
    availavility,
-
    price,
+   autoId,
+   customerId,
 }) => {
+   const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
+   const addFavourite = () => {
+      if (customerId) {
+         fetch(`http://localhost:3000/autos/v1/customer/${customerId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ favourites: autoId }),
+         })
+            .then(res => res.json())
+            .then(res => {
+               setArrayFavourites(res.res.favourites)
+               localStorage.setItem("favourites", JSON.stringify(res.res.favourites))
+            })
+      }
+   }
+   const deleteFavourite = () => {
+      if (customerId) {
+         fetch(
+            `http://localhost:3000/autos/v1/customer/delete/favourites/${customerId}`,
+            {
+               method: "PUT",
+               headers: { "Content-Type": "application/json" },
+               body: JSON.stringify({ favourites: autoId }),
+            },
+         )
+            .then(res => res.json())
+            .then(res => {
+               setArrayFavourites(res.res.favourites)
+               localStorage.setItem("favourites", JSON.stringify(res.res.favourites))
+            })
+      }
+   }
    return (
       <li
          key={idx}
@@ -38,7 +72,24 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                   }`}
                   loading='lazy'
                />
-               <EmptyHeart className='transition duration-700 absolute z-20 right-2 top-1 hover:scale-125' />{" "}
+               {arrayFavourites?.includes(autoId) ? (
+                  <RedHeart
+                     className='transition duration-700 absolute z-100 right-2 top-1'
+                     onClick={e => {
+                        e.preventDefault()
+                        deleteFavourite()
+                     }}
+                  ></RedHeart>
+               ) : (
+                  <EmptyHeart
+                     className='transition duration-700 absolute z-100 right-2 top-1 hover:scale-125'
+                     onClick={e => {
+                        e.preventDefault()
+                        addFavourite()
+                     }}
+                  />
+               )}
+
                {availavility === "Vendido" && (
                   <p className='absolute text-white font-semibold flex top-1/4   text-3xl w-full justify-center right-1/2'>
                      Selled
