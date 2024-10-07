@@ -8,6 +8,7 @@ import Login from "./Page/Login"
 import Register from "./Page/Register"
 import CarPage from "./Page/CarPage"
 import About from "./Page/About"
+import FavouriteCars from "./Page/FavouriteCars"
 
 function App() {
    return (
@@ -20,6 +21,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path='/home' element={<Home />} />
             <Route path='/cars-shop' element={<CarPage />} />
+            <Route path='/favourite-cars' element={<FavouriteCars />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/about-us' element={<About />} />

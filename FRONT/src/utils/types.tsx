@@ -86,7 +86,7 @@ export type ImgAutoType = {
    price: number
    state: string
    autoId: string
-   customerId: string | null
+   customerId?: string | null
 }
 export type PaginationTypes = {
    array: AutoModelType[]
@@ -108,12 +108,12 @@ export type GlobalLoggedType = {
    setLogged: Dispatch<SetStateAction<string | null>>
 }
 export type ParrafType = {
-   h2Text: string
+   h2Text?: string
    children: React.ReactNode
    cssProperties: string
 }
 export type ErrorContainerExtended = ErrorContainerType & { cssProperties: string }
 export type FavouriteContentType = {
-   arrayFavourites: string[] | null
-   setArrayFavourites: Dispatch<SetStateAction<string[] | null>>
+   arrayFavourites: string[] | []
+   setArrayFavourites: Dispatch<SetStateAction<string[] | []>>
 }

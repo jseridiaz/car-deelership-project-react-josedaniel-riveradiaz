@@ -6,6 +6,7 @@ type ButtonType = {
    type?: string | undefined
    link: string | boolean
    children?: React.ReactNode
+   functionClick?: () => void
 }
 const Button: React.FC<ButtonType> = ({
    signal = null,
@@ -13,6 +14,7 @@ const Button: React.FC<ButtonType> = ({
    type,
    link,
    children,
+   functionClick,
 }) => {
    return link ? (
       <Link to={link} className={properties}>
@@ -20,7 +22,7 @@ const Button: React.FC<ButtonType> = ({
          {signal ? signal : null}
       </Link>
    ) : (
-      <button type={type} className={properties}>
+      <button type={type} className={properties} onClick={functionClick}>
          {children}
       </button>
    )

@@ -16,12 +16,22 @@ const getAllUser = async (req, res, next) => {
       return res400(req, res, next, error)
    }
 }
+const getUserById = async (req, res, next) => {
+   try {
+      const { id } = req.params
+      const userById = await User.findById(id)
+      return res200(req, res, next, userById, "All users")
+   } catch (error) {
+      return res400(req, res, next, error)
+   }
+}
+
 const register = async (req, res, next) => {
    try {
       const { email, password } = req.body
       const userByEmail = await User.findOne({ email })
       if (userByEmail) {
-         res400(req, res, next, "This user is already registered")
+         return res400(req, res, next, "This user is already registered")
       }
 
       validatorEmail(req, res, next, email)
@@ -70,4 +80,4 @@ const deleteUser = async (req, res, next) => {
    }
 }
 
-module.exports = { getAllUser, register, login, deleteUser }
+module.exports = { getAllUser, getUserById, register, login, deleteUser }
