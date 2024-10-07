@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+
 const bbddConection = async () => {
    try {
       await mongoose.connect(

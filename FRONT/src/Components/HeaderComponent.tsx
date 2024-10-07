@@ -57,24 +57,39 @@ const HeaderComponent = () => {
                </NavLink>
             </li>
             {token || logged ? (
-               <li className='content-center relative'>
-                  <span
-                     className={`w-1/4 content-center hover:font-bold text-blue-700 cursor-pointer ${
-                        boolean && "active"
-                     } `}
-                     onClick={() => {
-                        handleClickProfile()
-                     }}
-                  >
-                     Profile
-                  </span>
-                  <ProfileMenu booleanState={boolean} />
-               </li>
+               <>
+                  <li className='content-center'>
+                     <NavLink
+                        to='/post-auto'
+                        className='w-1/4 content-center text-blue-700 hover:font-bold'
+                     >
+                        Post
+                     </NavLink>
+                  </li>
+                  <li className='content-center relative'>
+                     <span
+                        className={`w-1/4 content-center hover:font-bold text-blue-700 cursor-pointer ${
+                           boolean && "active"
+                        } `}
+                        onClick={() => {
+                           handleClickProfile()
+                        }}
+                     >
+                        Profile
+                     </span>
+                     <ProfileMenu
+                        booleanState={boolean}
+                        setBooleanState={() => {
+                           setBoolean(!boolean)
+                        }}
+                     />
+                  </li>
+               </>
             ) : null}
             <li className='content-center'>
                <NavLink
                   to={token || logged ? "/home" : "/login"}
-                  className='w-1/4 content-center hover:font-bold text-blue-700'
+                  className='w-1/4 content-center hover:font-bold text-blue-700 '
                   onClick={handleLogout}
                >
                   {token || logged ? "Log out" : "Login"}

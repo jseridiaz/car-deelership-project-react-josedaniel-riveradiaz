@@ -6,7 +6,7 @@ export const dataFooter: DataFooterType[] = [
    {
       title: "Buying & Selling",
       li: [
-         { name: "Find a car", to: "" },
+         { name: "Find a car", to: "/cars-shop" },
          { name: "Listings by city", to: "" },
          { name: "Sell your car", to: "" },
          { name: "Compare side by side", to: "" },
@@ -24,7 +24,7 @@ export const dataFooter: DataFooterType[] = [
    {
       title: "About",
       li: [
-         { name: "Company", to: "" },
+         { name: "Company", to: "/about-us" },
          { name: "Career", to: "" },
          { name: "Contact", to: "" },
       ],

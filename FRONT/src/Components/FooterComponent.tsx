@@ -7,7 +7,7 @@ import UlFooter from "./molecules/Home/UlFooter"
 const FooterComponent = () => {
    return (
       <>
-         <footer className=' flex justify-around relative z-100 px-10 py-5 bg-gray-400 text-black flex-wrap gap-9'>
+         <footer className=' flex justify-around relative z-100 px-10 pt-5 bg-gray-400 text-black flex-wrap gap-9'>
             <div className=' flex flex-col gap-5 w-1/4 border-black'>
                <h4 className='text-xl font-semibold'>Subscribe to the newsletter</h4>
                <form action='' className='relative flex items-center'>

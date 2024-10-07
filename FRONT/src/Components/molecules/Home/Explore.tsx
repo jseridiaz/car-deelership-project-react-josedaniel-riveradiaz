@@ -1,14 +1,34 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { optionFiltersHome } from "../../../data/optionFilters"
 import H2Component from "../../atoms/H2Component"
 import CardAutoHome from "../../atoms/CardAutoHome"
 import { AutoModelType } from "../../../utils/types"
 import { Link } from "react-router-dom"
+import { LoggedContext } from "../../Providers/GlobalLogged"
 
 const Explore = () => {
+   const [idUser, setIdUser] = useState(
+      localStorage.getItem("idUser") ?? sessionStorage.getItem("idUser"),
+   )
+   const { logged, setLogged } = useContext(LoggedContext)
    const [filterSelect, setFilterSelect] = useState<string>("Cars")
    const [arrayAutos, setArrayAutos] = useState<AutoModelType[]>([])
 
+   useEffect(() => {
+      if (idUser || logged) {
+         fetch(`http://localhost:3000/autos/v1/user/${idUser ?? logged}`)
+            .then(res => res.json())
+            .then(res => {
+               setFilterSelect(
+                  res.res.favourites == "cars"
+                     ? "Cars"
+                     : res.res.favourites == "Truck"
+                     ? "Trucks"
+                     : "SUVs & Crossover",
+               )
+            })
+      }
+   }, [idUser, logged])
    useEffect(() => {
       const typeAuto = async () => {
          const data = await fetch(
@@ -35,8 +55,9 @@ const Explore = () => {
                setArrayAutos(finalArrayAuto)
             })
       }
+
       typeAuto()
-   }, [filterSelect])
+   }, [filterSelect, idUser, logged])
 
    const handleFilter = (name: string): void => {
       setFilterSelect(name)

@@ -13,12 +13,11 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
    const { logged } = useContext(LoggedContext)
    const { token } = useContext(TokenContext)
    const [idSesion, setIdSession] = useState<string | null>(
-      localStorage.getItem("idUSer") ?? sessionStorage.getItem("logged"),
+      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
    )
    const [customerId, setCustomerId] = useState<string | null>(null)
 
    useEffect(() => {
-      console.log(idSesion)
       setIdSession(
          localStorage.getItem("idUSer") ?? sessionStorage.getItem("logged"),
       )
@@ -29,6 +28,7 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
             return setCustomerId(res.res._id)
          })
    }, [logged, token])
+
    return (
       <section className={cssProperties}>
          <ul className='flex flex-wrap justify-evenly gap-y-14 gap-x-7'>
