@@ -24,7 +24,7 @@ const InformationPersonal = () => {
                   handleSubmit(e)
                }}
             >
-               <Button link={false} properties='bg-white' type='submit'>
+               <Button link={false} properties='bg-white'>
                   Change Information
                </Button>
             </form>

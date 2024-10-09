@@ -140,3 +140,7 @@ export type InputNumberType = {
    handleKey?: (e: React.KeyboardEvent<HTMLInputElement>) => void
    handleInput?: (e: React.FormEvent<HTMLInputElement>) => void
 }
+export type ParrafInfoPersonalType = {
+   firstPart: string
+   result: string
+}
