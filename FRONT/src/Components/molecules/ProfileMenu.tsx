@@ -21,7 +21,7 @@ const ProfileMenu: React.FC<ProfileMenuType> = ({ booleanState, setBoolean }) =>
          <ul className='flex flex-col items-start gap-4 p-2  '>
             <li className='transition duration-400 cursor-pointer font-medium hover:bg-slate-50 p-2 rounded w-full text-left'>
                <Link
-                  to='/'
+                  to='/personal-info'
                   className='w-full h-full block'
                   onClick={() => hideMenu()}
                >

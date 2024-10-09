@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, LegacyRef, RefObject, SetStateAction } from "react"
 
 export type AutoModelType = {
    _id: string
@@ -116,4 +116,27 @@ export type ErrorContainerExtended = ErrorContainerType & { cssProperties: strin
 export type FavouriteContentType = {
    arrayFavourites: string[] | []
    setArrayFavourites: Dispatch<SetStateAction<string[] | []>>
+}
+export type CheckboxFilter = {
+   children: React.ReactNode
+   idName: string
+   typeInput: string
+   reference: LegacyRef<HTMLInputElement>
+   valueRef: string
+   name?: string
+   checked?: boolean
+   handleChange: () => void
+}
+export type ContainerColumnType = {
+   children: React.ReactNode
+   className: string
+}
+export type InputNumberType = {
+   spanName: string
+   idName: string
+   numberValue?: string
+   reference: React.RefObject<HTMLInputElement> | null
+   placeholder?: string
+   handleKey?: (e: React.KeyboardEvent<HTMLInputElement>) => void
+   handleInput?: (e: React.FormEvent<HTMLInputElement>) => void
 }

@@ -9,6 +9,7 @@ import Register from "./Page/Register"
 import CarPage from "./Page/CarPage"
 import About from "./Page/About"
 import FavouriteCars from "./Page/FavouriteCars"
+import InformationPersonal from "./Page/InformationPersonal"
 
 function App() {
    return (
@@ -24,6 +25,7 @@ function App() {
             <Route path='/favourite-cars' element={<FavouriteCars />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/personal-info' element={<InformationPersonal />} />
             <Route path='/about-us' element={<About />} />
          </Routes>
          <FooterComponent />

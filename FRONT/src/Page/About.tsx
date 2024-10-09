@@ -1,4 +1,4 @@
-import H1Component from "../Components/atoms/icons/H1Component"
+import H1Component from "../Components/atoms/H1Component"
 import Parraf from "../Components/molecules/Parraf"
 import H2SingleComponent from "../Components/atoms/H2SingleComponent"
 import ImgComponent from "../Components/atoms/ImgComponent"

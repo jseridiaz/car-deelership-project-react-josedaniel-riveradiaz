@@ -55,26 +55,25 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                   }`}
                   loading='lazy'
                />
-               {arrayFavourites &&
-               customerId &&
-               autoId &&
-               arrayFavourites.find(el => el === autoId) ? (
-                  <RedHeart
-                     className='transition duration-700 absolute z-100 right-2 top-1'
-                     onClick={e => {
-                        e.preventDefault()
-                        deleteFavourite()
-                     }}
-                  ></RedHeart>
-               ) : (
-                  <EmptyHeart
-                     className='transition duration-700 absolute z-100 right-2 top-1 hover:scale-125'
-                     onClick={e => {
-                        e.preventDefault()
-                        addFavourite()
-                     }}
-                  />
-               )}
+               {customerId ? (
+                  arrayFavourites.find(el => el === autoId) ? (
+                     <RedHeart
+                        className='transition duration-700 absolute z-100 right-2 top-1'
+                        onClick={e => {
+                           e.preventDefault()
+                           deleteFavourite()
+                        }}
+                     ></RedHeart>
+                  ) : (
+                     <EmptyHeart
+                        className='transition duration-700 absolute z-100 right-2 top-1 hover:scale-125'
+                        onClick={e => {
+                           e.preventDefault()
+                           addFavourite()
+                        }}
+                     />
+                  )
+               ) : null}
 
                {availavility === "Vendido" && (
                   <p className='absolute text-white font-semibold flex top-1/4   text-3xl w-full justify-center right-1/2'>

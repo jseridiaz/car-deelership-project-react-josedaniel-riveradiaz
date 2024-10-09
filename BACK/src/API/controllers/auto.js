@@ -1,3 +1,4 @@
+const { addFilters } = require("../../utils/functions/addFilters")
 const { res200, res400 } = require("../../utils/functions/responsesCrud")
 const AutoModel = require("../models/auto")
 
@@ -5,7 +6,23 @@ const AutoModel = require("../models/auto")
 
 const getAuto = async (req, res, next) => {
    try {
-      const allModels = await AutoModel.find().sort({
+      const { availability, minPrice, maxPrice, minKm, maxKm, minYear, maxYear } =
+         req.query
+      console.log(availability, minPrice, maxPrice, minKm, maxKm, minYear, maxYear)
+      const filters = {}
+      addFilters(
+         filters,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      )
+      console.log(filters)
+
+      const allModels = await AutoModel.find(filters).sort({
          manufactureYear: -1,
       })
       return res200(req, res, next, allModels, "Fetch succesfull")
@@ -26,7 +43,20 @@ const getAutoByID = async (req, res, next) => {
 const getAutoByCategory = async (req, res, next) => {
    try {
       const { category } = req.params
-      const autoByCategory = await AutoModel.find({ type: category }).sort({
+      const { availability, minPrice, maxPrice, minKm, maxKm, minYear, maxYear } =
+         req.query
+      const filters = { type: category }
+      addFilters(
+         filters,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      )
+      const autoByCategory = await AutoModel.find(filters).sort({
          manufactureYear: -1,
       })
       return res200(req, res, next, autoByCategory, "Fetch succesfull")
@@ -34,10 +64,25 @@ const getAutoByCategory = async (req, res, next) => {
       return res400(req, res, next, error)
    }
 }
+
 const getAutoByBrand = async (req, res, next) => {
    try {
       const { brand } = req.params
-      const autoByBrand = await AutoModel.find({ brand }).sort({
+      const { availability, minPrice, maxPrice, minKm, maxKm, minYear, maxYear } =
+         req.query
+      const filter = { brand }
+      addFilters(
+         filter,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      )
+
+      const autoByBrand = await AutoModel.find(filter).sort({
          manufactureYear: -1,
       })
 
@@ -46,15 +91,45 @@ const getAutoByBrand = async (req, res, next) => {
       return res400(req, res, next, error)
    }
 }
+
 const getAutoByBrandAndCategory = async (req, res, next) => {
    try {
-      const { brand, category } = req.query
-      console.log(brand, category)
-
-      const autoByBrandAndCategory = await AutoModel.find({
+      const {
          brand,
-         type: category,
-      }).sort({
+         category,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      } = req.query
+      console.log(
+         brand,
+         category,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      )
+
+      const filter = { brand, type: category }
+      addFilters(
+         filter,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      )
+
+      const autoByBrandAndCategory = await AutoModel.find(filter).sort({
          manufactureYear: -1,
       })
 
@@ -63,11 +138,33 @@ const getAutoByBrandAndCategory = async (req, res, next) => {
       return res400(req, res, next, error)
    }
 }
+
 const getAutoByBrandAndModel = async (req, res, next) => {
    try {
-      const { brand, model } = req.query
+      const {
+         brand,
+         model,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      } = req.query
+      const filter = { brand, model }
+      addFilters(
+         filter,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      )
 
-      const autoByBrandAndModel = await AutoModel.find({ brand, model }).sort({
+      const autoByBrandAndModel = await AutoModel.find(filter).sort({
          manufactureYear: -1,
       })
 
@@ -76,10 +173,25 @@ const getAutoByBrandAndModel = async (req, res, next) => {
       return res400(req, res, next, error)
    }
 }
+
 const getAutoByModel = async (req, res, next) => {
    try {
       const { model } = req.params
-      const autosByModel = await AutoModel.find({ model }).sort({
+      const { availability, minPrice, maxPrice, minKm, maxKm, minYear, maxYear } =
+         req.query
+      const filter = { model }
+      addFilters(
+         filter,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      )
+
+      const autosByModel = await AutoModel.find(filter).sort({
          manufactureYear: -1,
       })
       res200(req, res, next, autosByModel, "Fetch succesful")
@@ -87,29 +199,83 @@ const getAutoByModel = async (req, res, next) => {
       res400(req, res, next, error)
    }
 }
+
 const getAutoChassisAndCategory = async (req, res, next) => {
    try {
-      const { category, model } = req.query
-      const autoBycategoryAndModel = await AutoModel.find({
-         type: category,
+      const {
+         category,
          model,
-      }).sort({ manufactureYear: -1 })
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      } = req.query
+      const filter = { type: category, model }
+      addFilters(
+         filter,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      )
+      const autoBycategoryAndModel = await AutoModel.find(filter).sort({
+         manufactureYear: -1,
+      })
 
       res200(req, res, next, autoBycategoryAndModel, "Fetch succesfull")
    } catch (error) {
       res400(req, res, next, error)
    }
 }
+
 const getAutoByBrandAndCategoryAndModel = async (req, res, next) => {
    try {
-      const { brand, category, model } = req.query
-      console.log(brand, category)
-
-      const autoByBrandAndCategory = await AutoModel.find({
+      const {
+         brand,
+         category,
+         model,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      } = req.query
+      console.log(
+         brand,
+         category,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      )
+      const filter = {
          brand,
          type: category,
          model,
-      }).sort({
+      }
+      addFilters(
+         filter,
+         availability,
+         minPrice,
+         maxPrice,
+         minKm,
+         maxKm,
+         minYear,
+         maxYear,
+      )
+
+      const autoByBrandAndCategory = await AutoModel.find(filter).sort({
          manufactureYear: -1,
       })
 

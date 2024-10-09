@@ -24,8 +24,7 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
       fetch(`http://localhost:3000/autos/v1/customer/user/${idSesion}`)
          .then(res => res.json())
          .then(res => {
-            console.log(res.res._id)
-            return setCustomerId(res.res._id)
+            return setCustomerId(res.res._id ?? null)
          })
    }, [logged, token])
 
