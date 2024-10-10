@@ -1,5 +1,9 @@
 import { Dispatch, SetStateAction } from "react"
-import { Link } from "react-router-dom"
+import LiProfileMenu from "./LiProfileMenu"
+import PersonalInfoSvg from "../atoms/icons/PersonalInfoSvg/PersonalInfoSvg"
+import FavouritesSvg from "../atoms/icons/FavouritesSvg/FavouritesSvg"
+import ChatSvg from "../atoms/icons/ChatSvg/ChatSvg"
+import SettingsSvg from "../atoms/icons/SettingsSvg/SettingsSvg"
 
 type ProfileMenuType = {
    booleanState: boolean
@@ -19,43 +23,43 @@ const ProfileMenu: React.FC<ProfileMenuType> = ({ booleanState, setBoolean }) =>
          } rounded-b-xl`}
       >
          <ul className='flex flex-col items-start gap-4 p-2  '>
-            <li className='transition duration-400 cursor-pointer font-medium hover:bg-slate-50 p-2 rounded w-full text-left'>
-               <Link
-                  to='/personal-info'
-                  className='w-full h-full block'
-                  onClick={() => hideMenu()}
-               >
-                  information personal
-               </Link>
-            </li>
-            <li className='transition duration-400 cursor-pointer font-medium hover:bg-slate-50 p-2 rounded w-full text-left'>
-               <Link
-                  to='/favourite-cars'
-                  className='w-full h-full block'
-                  onClick={() => hideMenu()}
-               >
-                  Favourites
-               </Link>
-            </li>
+            <LiProfileMenu
+               path='/personal-info'
+               textLi='Personal information'
+               handleClick={() => {
+                  hideMenu()
+               }}
+            >
+               <PersonalInfoSvg />
+            </LiProfileMenu>
+            <LiProfileMenu
+               path='/favourite-cars'
+               textLi='Favourites'
+               handleClick={() => {
+                  hideMenu()
+               }}
+            >
+               <FavouritesSvg />
+            </LiProfileMenu>
+            <LiProfileMenu
+               path=''
+               textLi='Chats'
+               handleClick={() => {
+                  hideMenu()
+               }}
+            >
+               <ChatSvg />
+            </LiProfileMenu>
 
-            <li className='transition duration-400 cursor-pointer font-medium hover:bg-slate-50 p-2 rounded w-full text-left'>
-               <Link
-                  to='/'
-                  className='w-full h-full block'
-                  onClick={() => hideMenu()}
-               >
-                  Chats
-               </Link>
-            </li>
-            <li className='transition duration-400 cursor-pointer font-medium hover:bg-slate-50 p-2 rounded w-full text-left'>
-               <Link
-                  to='/'
-                  className='w-full h-full block'
-                  onClick={() => hideMenu()}
-               >
-                  Settings
-               </Link>
-            </li>
+            <LiProfileMenu
+               path=''
+               textLi='Settings'
+               handleClick={() => {
+                  hideMenu()
+               }}
+            >
+               <SettingsSvg />
+            </LiProfileMenu>
          </ul>
       </div>
    )

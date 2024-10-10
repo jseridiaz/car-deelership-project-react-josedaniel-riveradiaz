@@ -93,6 +93,27 @@ const putCustomer = async (req, res, next) => {
       return res400(req, res, next, error)
    }
 }
+const putCustomerByIdUser = async (req, res, next) => {
+   try {
+      const { id } = req.params
+      const newCustomer = CustomerModel(req.body)
+      const { reserves, buys, favourites, reviews, ...rest } = req.body
+
+      newCustomer._id = id
+
+      const customerUpdated = await CustomerModel.findOneAndUpdate(
+         { profile: id },
+         { ...rest, $addToSet: { reserves, favourites, buys, reviews } },
+         {
+            new: true,
+         },
+      )
+      // logicPutCustomer(reserves, favourites, buys, reviews)
+      return res200(req, res, next, customerUpdated, "Customer succesfully updated:")
+   } catch (error) {
+      return res400(req, res, next, error)
+   }
+}
 const deleteCustomer = async (req, res, next) => {
    try {
       const { id } = req.params
@@ -110,6 +131,7 @@ module.exports = {
    getCustomerByUserId,
    postCustomer,
    putCustomer,
+   putCustomerByIdUser,
    putCustomerDeleteFavourites,
    deleteCustomer,
 }

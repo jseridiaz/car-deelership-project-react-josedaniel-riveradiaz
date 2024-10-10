@@ -10,6 +10,7 @@ import CarPage from "./Page/CarPage"
 import About from "./Page/About"
 import FavouriteCars from "./Page/FavouriteCars"
 import InformationPersonal from "./Page/InformationPersonal"
+import PostAuto from "./Page/PostAuto"
 
 function App() {
    return (
@@ -26,6 +27,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/personal-info' element={<InformationPersonal />} />
+            <Route path='/post-auto' element={<PostAuto />} />
             <Route path='/about-us' element={<About />} />
          </Routes>
          <FooterComponent />

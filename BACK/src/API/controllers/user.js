@@ -68,6 +68,19 @@ const login = async (req, res, next) => {
       }
    }
 }
+const putUser = async (req, res, next) => {
+   try {
+      const { id } = req.params
+      const newUser = User(req.body)
+
+      newUser._id = id
+      const updateUser = await User.findByIdAndUpdate(id, newUser, { new: true })
+
+      res200(req, res, next, updateUser)
+   } catch (error) {
+      res400(req, res, next, error)
+   }
+}
 
 const deleteUser = async (req, res, next) => {
    try {
@@ -80,4 +93,4 @@ const deleteUser = async (req, res, next) => {
    }
 }
 
-module.exports = { getAllUser, getUserById, register, login, deleteUser }
+module.exports = { getAllUser, getUserById, putUser, register, login, deleteUser }

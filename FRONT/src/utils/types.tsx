@@ -1,4 +1,5 @@
 import { Dispatch, LegacyRef, RefObject, SetStateAction } from "react"
+import { UseFormRegister } from "react-hook-form"
 
 export type AutoModelType = {
    _id: string
@@ -29,6 +30,7 @@ export type InputFormType = {
 export type FieldSetType = {
    description: string
    children?: React.ReactNode
+   cssProperties?: string
 }
 export type IFormInput = {
    firstname: string
@@ -141,6 +143,43 @@ export type InputNumberType = {
    handleInput?: (e: React.FormEvent<HTMLInputElement>) => void
 }
 export type ParrafInfoPersonalType = {
-   firstPart: string
-   result: string
+   children: React.ReactNode
+   result: string | undefined | number
+}
+
+export type SubmitHandlerPersonalInfo = {
+   name?: string
+   surname?: string
+   favourites?: string
+   numberFavourites?: number
+}
+export type GlobalUserInfoType = {
+   userInfo: string | null
+   setUserInfo: Dispatch<SetStateAction<string | null>>
+}
+export type UserInfoType = {
+   name: string
+   surname: string
+   email: string
+   age: string
+   rol: string
+   favourites: string
+   password: null
+   updatedAt: string
+   createdAt: string
+   __v: number
+   _id: string
+}
+export type ErrorPostType = {
+   className?: string
+   error?: string
+   children: React.ReactNode
+}
+
+export type InputTextFormType = {
+   type?: string
+   register: UseFormRegister<any>
+   name: string
+   placeholders?: string
+   children?: React.ReactNode
 }

@@ -5,15 +5,26 @@ import { AutoModelType } from "../utils/types"
 import H2SingleComponent from "../Components/atoms/H2SingleComponent"
 import Parraf from "../Components/molecules/Parraf"
 import Button from "../Components/atoms/Button"
+import { LoggedContext } from "../Components/Providers/GlobalLogged"
 
 const FavouriteCars = () => {
+   const { logged } = useContext(LoggedContext)
+   const [idUser, setIdUser] = useState<string | null>(
+      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
+   )
+   const [customerId, setCustomerId] = useState<string | null>()
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const [arrayToPrint, setArrayToPrint] = useState<AutoModelType[] | []>([])
-
+   useEffect(() => {
+      fetch(`http://localhost:3000/autos/v1/customer/user/${logged || idUser}`)
+         .then(res => res.json())
+         .then(res => {
+            return setCustomerId(res.res._id ?? null)
+         })
+   }, [idUser, logged])
    useEffect(() => {
       setArrayToPrint([])
       let array: AutoModelType[] | [] = []
-      console.log(arrayFavourites, arrayToPrint, array)
 
       if (arrayFavourites) {
          for (let i = 0; i < arrayFavourites.length; i++) {
@@ -22,15 +33,11 @@ const FavouriteCars = () => {
             fetch(`http://localhost:3000/autos/v1/search/` + el)
                .then(res => res.json())
                .then(res => {
-                  console.log(res.res)
                   array = [...array, res.res]
                })
                .then(() => setArrayToPrint(array))
          }
       }
-      console.log(array)
-
-      // console.log(arrayFavourites)
    }, [arrayFavourites])
 
    const clearFilter = () => {
@@ -63,16 +70,13 @@ const FavouriteCars = () => {
                         price={el.price}
                         color={el.color}
                         autoId={el._id}
-                        customerId={
-                           localStorage.getItem("idUser") ??
-                           sessionStorage.getItem("logged")
-                        }
+                        customerId={customerId}
                      />
                   ))}
                   <div className='w-full'>
                      <Button
                         link={false}
-                        properties='transition-all duration-900 border-none text-black cursor-pointer outline outline-4 outline-white bg-transparent hover:outline-blue-900 hover:font-bold hover:outline-4 hover:bg-slate-200'
+                        properties='transition-all duration-900 border-none text-black cursor-pointer outline outline-4 outline-white bg-transparent hover:outline-blue-900 hover:font-bold hover:outline-4 hover:bg-slate-200 mb-9'
                         functionClick={() => clearFilter()}
                      >
                         Clear all favourites

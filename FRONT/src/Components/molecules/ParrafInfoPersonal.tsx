@@ -2,13 +2,13 @@ import React from "react"
 import { ParrafInfoPersonalType } from "../../utils/types"
 
 const ParrafInfoPersonal: React.FC<ParrafInfoPersonalType> = ({
-   firstPart,
+   children,
    result,
 }) => {
    return (
-      <div className='flex p-3 justify-between b-blue-600'>
-         <p>{firstPart}</p>
-         <p>{result}</p>
+      <div className='transition duration-400 flex p-2 justify-between bg-white font-bold  text-blue-800 rounded-lg text-2xl gap-4 hover:bg-slate-200'>
+         {children}
+         <p className='h-full text-black rounded-r-lg'>{result}</p>
       </div>
    )
 }

@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Button from "./Button"
 import { ImgAutoType } from "../../utils/types"
@@ -22,11 +22,26 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    customerId,
 }) => {
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
+   const [idUser, setIdUser] = useState<string | null>(
+      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
+   )
+   // useEffect(() => {
+   //    fetch("http://localhost:3000/autos/v1/customer/user/" + idUser).then()
+   // }, [idUser])
    const addFavourite = () => {
       if (customerId) {
          const arrayAdded = [...arrayFavourites, autoId]
          setArrayFavourites(prevArray => [...prevArray, autoId])
          localStorage.setItem("favourites", JSON.stringify(arrayAdded))
+         fetch(`http://localhost:3000/autos/v1/customer/idUser/${idUser}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ favourites: autoId }),
+         })
+            .then(res => res.json())
+            .then(res => {
+               console.log(res)
+            })
       }
    }
    const deleteFavourite = () => {
@@ -34,8 +49,21 @@ const ImgAutos: React.FC<ImgAutoType> = ({
          const filteredArray = arrayFavourites.filter(el => autoId !== el)
          setArrayFavourites(arrayFavourites.filter(el => autoId !== el))
          localStorage.setItem("favourites", JSON.stringify(filteredArray))
+         fetch(
+            `http://localhost:3000/autos/v1/customer/delete/favourites/${customerId}`,
+            {
+               method: "PUT",
+               headers: { "Content-Type": "application/json" },
+               body: JSON.stringify({ favourites: autoId }),
+            },
+         )
+            .then(res => res.json())
+            .then(res => {
+               console.log(res)
+            })
       }
    }
+
    return (
       <li
          key={idx}

@@ -3,10 +3,11 @@ import Button from "../Components/atoms/Button"
 import ImgComponent from "../Components/atoms/ImgComponent"
 import { useForm } from "react-hook-form"
 import FieldSet from "../Components/atoms/FieldSet"
-import { ExtendedIFormInput, IFormLogin } from "../utils/types"
+import { ExtendedIFormInput, GlobalUserInfoType, IFormLogin } from "../utils/types"
 import { useContext, useState } from "react"
 import { TokenContext } from "../Components/Providers/GlobalToken"
 import { LoggedContext } from "../Components/Providers/GlobalLogged"
+import { UserInfo } from "../Components/Providers/GlobalUser"
 
 const Login = () => {
    const { setToken } = useContext(TokenContext)
@@ -36,23 +37,31 @@ const Login = () => {
          .then(res => {
             console.log(res)
             setStatusFetch(res.ok)
+
             return res.json()
          })
          .then(resJson => {
             resJson.res.logged.password = null
-            console.log(resJson)
+            console.log(resJson.res.logged)
+
             setFetchState(resJson)
+
             if (resJson.res.token) {
                console.log(resJson)
+               console.log(JSON.stringify(resJson.res.logged))
 
                localStorage.setItem("token", resJson.res.token)
                localStorage.setItem("idUser", resJson.res.logged._id)
+               localStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
+
                setToken(localStorage.getItem("token"))
                navigate("/home")
             } else {
                sessionStorage.setItem("logged", resJson.res.logged._id)
+               sessionStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
                setLogged(sessionStorage.getItem("logged"))
                navigate("/home")
+
                {
                   console.log(logged)
                }
