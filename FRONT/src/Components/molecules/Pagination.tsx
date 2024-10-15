@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { PaginationTypes } from "../../utils/types"
+import Button from "../atoms/Button"
 
 const Pagination: React.FC<PaginationTypes> = ({
    allPages,
@@ -27,37 +28,45 @@ const Pagination: React.FC<PaginationTypes> = ({
    }
 
    return (
-      <div className={`flex flex-wrap justify-center gap-4 mb-10 `}>
-         {currentPage > 0 && (
-            <button
-               className=' absolute left-[10%] transition duration-700 bg-white cursor-pointer font-semibold hover:bg-gray-400 hover:text-white'
-               onClick={handlePrevius}
-            >
-               Previus
-            </button>
-         )}
-
+      <div
+         className={`relative flex flex-wrap justify-center gap-1 mb-10  w-[80%] mx-auto `}
+      >
          {arrayPages.map((el, idx) => (
-            <button
+            <Button
                key={idx}
-               className={` cursor-pointer font-semibold ${
+               properties={` cursor-pointer font-medium text-sm md:text-xl px-3 py-1 ${
                   idx + 1 === currentPage + 1 ? "bg-blue-900 text-white" : "bg-white"
                } `}
-               onClick={() => {
+               functionClick={() => {
                   handlePagination(idx)
                }}
+               link={false}
             >
                {el}
-            </button>
+            </Button>
          ))}
-         {currentPage < allPages - 1 && (
-            <button
-               className='absolute right-[10%] transition duration-700 bg-white cursor-pointer font-semibold hover:bg-gray-400 hover:text-white'
-               onClick={handleNext}
-            >
-               Next
-            </button>
-         )}
+         <div className='flex justify-center w-full'>
+            <div className='flex gap-2 justify-between w-[90%] '>
+               {currentPage > 0 && (
+                  <Button
+                     properties=' px-3 py-1 transition duration-700 bg-white cursor-pointer font-medium hover:bg-gray-400 hover:text-white text-base lg:text-xl lg:self-center self-end'
+                     functionClick={handlePrevius}
+                     link={false}
+                  >
+                     Previus
+                  </Button>
+               )}
+               {currentPage < allPages - 1 && (
+                  <Button
+                     properties=' transition duration-700 bg-white cursor-pointer font-medium hover:bg-gray-400 hover:text-white px-3 py-1'
+                     functionClick={handleNext}
+                     link={false}
+                  >
+                     Next
+                  </Button>
+               )}
+            </div>
+         </div>
       </div>
    )
 }
