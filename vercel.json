@@ -9,15 +9,18 @@
          "src": "/FRONT/package.json",
          "use": "@vercel/static-build",
          "config": {
-            "distDir": "dist"
+            "distDir": "build"
          }
       }
    ],
-   "rewrites": [{ "source": "/FRONT/(.*)", "destination": "/FRONT/" }],
-   "routes": [
+   "rewrites": [
       {
-         "src": "/BACK/(.*)",
-         "dest": "/BACK/"
+         "source": "/autos/(.*)",
+         "destination": "/BACK/index.js"
+      },
+      {
+         "source": "/(.*)",
+         "destination": "/FRONT/"
       }
    ]
 }
