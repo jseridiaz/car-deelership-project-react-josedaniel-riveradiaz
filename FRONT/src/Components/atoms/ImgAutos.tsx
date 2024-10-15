@@ -140,7 +140,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                </ParrafAutoPicture>
             </ContainerColumn>
             <ContainerColumn className=''>
-               <Button properties='bg-white text-black mt-6' link={false}>
+               <Button properties='bg-white text-black mt-6' isLink={false}>
                   Order now
                </Button>
             </ContainerColumn>

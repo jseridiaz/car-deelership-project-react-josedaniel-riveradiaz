@@ -8,7 +8,7 @@ import InputTextForm from "../Components/atoms/InputTextForm"
 import SelectPost from "../Components/atoms/SelectPost"
 import ContainerColumn from "../Components/atoms/ContainerColumn"
 import { useEffect, useState } from "react"
-import { AutoModelType, PostAutoType } from "../utils/types"
+import { PostAutoType } from "../utils/types"
 
 const PostAuto = () => {
    const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
@@ -69,7 +69,7 @@ const PostAuto = () => {
       console.log(formData)
       console.log(token)
 
-      // reset()
+      reset()
    }
    return (
       <div className='bg-blue-200 min-h-screen p-6 border border-black'>
@@ -197,7 +197,7 @@ const PostAuto = () => {
             </div>
             <Button
                properties='transition-all duration-600 w-1/3 bg-transparent border-none outline outline-4 outline-blue-300 font-medium text-xl hover:scale-110 focus:scale-110 hover:outline-white hover:bg-blue-400 focus:bg-blue-400 hover:font-bold hover:outline hover:outline-blue-800 hover:text-white xl:w-fit lg:w-1/2 md:w-1/2 sm:w-full'
-               link={false}
+               isLink={false}
             >
                Post new auto
             </Button>

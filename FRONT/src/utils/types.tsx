@@ -41,6 +41,7 @@ export type IFormInput = {
    autosInterested: string
 }
 export type ExtendedIFormInput = IFormInput & {
+   message: string
    createdAt: string
    updatedAt: string
    __V: number
@@ -65,7 +66,7 @@ export type CarContextType = {
 export type PrintListAutoType = {
    arrayToPRint: AutoModelType[] | null
    cssProperties: string
-   setArray: Dispatch<SetStateAction<string | null>>
+   setArray: Dispatch<SetStateAction<AutoModelType[] | null | undefined>>
 }
 // type customerType = {
 //    _id: string
@@ -194,11 +195,11 @@ export type PostAutoType = {
    vin: string
    type: string
    state: string
-   price: number
+   price: string
    picture: string
    model: string
-   manufactureYear: number
-   kilometer: number
+   manufactureYear: string
+   kilometer: string
    color: string
    brand: string
    availability: string
@@ -225,8 +226,9 @@ export type parrafAutoType = {
 export type ButtonType = {
    signal?: React.ReactNode
    properties: string
-   type?: string | undefined
-   link: string | boolean
+   type?: "reset" | "button" | "submit"
+   link?: string
+   isLink?: boolean
    children?: React.ReactNode
    functionClick?: () => void
 }

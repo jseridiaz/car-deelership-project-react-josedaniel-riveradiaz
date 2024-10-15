@@ -40,7 +40,7 @@ const Pagination: React.FC<PaginationTypes> = ({
                functionClick={() => {
                   handlePagination(idx)
                }}
-               link={false}
+               isLink={false}
             >
                {el}
             </Button>
@@ -51,7 +51,7 @@ const Pagination: React.FC<PaginationTypes> = ({
                   <Button
                      properties=' px-3 py-1 transition duration-700 bg-white cursor-pointer font-medium hover:bg-gray-400 hover:text-white text-base lg:text-xl lg:self-center self-end'
                      functionClick={handlePrevius}
-                     link={false}
+                     isLink={false}
                   >
                      Previus
                   </Button>
@@ -60,7 +60,7 @@ const Pagination: React.FC<PaginationTypes> = ({
                   <Button
                      properties=' transition duration-700 bg-white cursor-pointer font-medium hover:bg-gray-400 hover:text-white px-3 py-1'
                      functionClick={handleNext}
-                     link={false}
+                     isLink={false}
                   >
                      Next
                   </Button>

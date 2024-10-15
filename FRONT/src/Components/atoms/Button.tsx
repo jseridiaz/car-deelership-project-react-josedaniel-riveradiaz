@@ -5,11 +5,12 @@ const Button: React.FC<ButtonType> = ({
    signal = null,
    properties,
    type,
-   link,
+   link = "",
    children,
+   isLink = false,
    functionClick,
 }) => {
-   return link ? (
+   return isLink ? (
       <Link to={link} className={properties}>
          {children}
          {signal ? signal : null}

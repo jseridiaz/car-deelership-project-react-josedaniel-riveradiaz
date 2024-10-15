@@ -3,7 +3,7 @@ import Button from "../Components/atoms/Button"
 import ImgComponent from "../Components/atoms/ImgComponent"
 import { useForm } from "react-hook-form"
 import FieldSet from "../Components/atoms/FieldSet"
-import { ExtendedIFormInput, GlobalUserInfoType, IFormLogin } from "../utils/types"
+import { ExtendedIFormInput, IFormLogin } from "../utils/types"
 import { useContext, useState } from "react"
 import { TokenContext } from "../Components/Providers/GlobalToken"
 import { LoggedContext } from "../Components/Providers/GlobalLogged"
@@ -168,7 +168,7 @@ const Login = () => {
                   </div>
                   <Button
                      properties='w-1/3 h-[50px] hover:shadow-md bg-purple-500 text-white font-semibold'
-                     link={false}
+                     isLink={false}
                   >
                      Log in
                   </Button>
