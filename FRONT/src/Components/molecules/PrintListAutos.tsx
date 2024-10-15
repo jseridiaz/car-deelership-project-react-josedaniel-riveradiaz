@@ -26,7 +26,7 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
          .then(res => {
             return setCustomerId(res.res._id ?? null)
          })
-   }, [logged, token])
+   }, [logged, token, idSesion])
 
    return (
       <section className={cssProperties}>

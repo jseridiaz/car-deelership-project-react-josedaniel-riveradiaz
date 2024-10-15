@@ -21,7 +21,9 @@ const SvgBin: React.FC<IdName> = ({ idName }) => {
          onClick={e => {
             e.preventDefault()
             handleDelete(idName)
-            setArrayAllCars(arrayAllCars?.filter(el => el._id != idName))
+            setArrayAllCars(
+               arrayAllCars && arrayAllCars.filter(el => el._id != idName),
+            )
          }}
       >
          <path d='M831.24 280.772c5.657 0 10.24-4.583 10.24-10.24v-83.528c0-5.657-4.583-10.24-10.24-10.24H194.558a10.238 10.238 0 0 0-10.24 10.24v83.528c0 5.657 4.583 10.24 10.24 10.24H831.24zm0 40.96H194.558c-28.278 0-51.2-22.922-51.2-51.2v-83.528c0-28.278 22.922-51.2 51.2-51.2H831.24c28.278 0 51.2 22.922 51.2 51.2v83.528c0 28.278-22.922 51.2-51.2 51.2z' />
