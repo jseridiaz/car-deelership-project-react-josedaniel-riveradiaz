@@ -2,25 +2,14 @@
    "version": 2,
    "builds": [
       {
-         "src": "/BACK/index.js",
-         "use": "@vercel/node"
-      },
-      {
-         "src": "/FRONT/package.json",
-         "use": "@vercel/static-build",
-         "config": {
-            "distDir": "dist"
-         }
+         "src": "index.js",
+         "use": "@vercel/static-build"
       }
    ],
-   "rewrites": [
+   "routes": [
       {
-         "source": "/autos/(.*)",
-         "destination": "/BACK/index.js"
-      },
-      {
-         "source": "/(.*)",
-         "destination": "/FRONT/"
+         "src": "/(.*)",
+         "dest": "/"
       }
    ]
 }
