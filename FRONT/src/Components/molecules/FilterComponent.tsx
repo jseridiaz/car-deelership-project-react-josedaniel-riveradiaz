@@ -10,7 +10,7 @@ import InputNumber from "./InputNumber"
 
 const FilterComponent = () => {
    const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
-   const { currentPage, setCurrentPage } = useContext(CurrentPageContext)
+   const { setCurrentPage } = useContext(CurrentPageContext)
    const maxQuantity = 999999999
    const minQuantity = 0
 

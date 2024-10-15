@@ -9,9 +9,8 @@ import { LoggedContext } from "../Components/Providers/GlobalLogged"
 
 const FavouriteCars = () => {
    const { logged } = useContext(LoggedContext)
-   const [idUser, setIdUser] = useState<string | null>(
-      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
-   )
+   const idUser: string | null =
+      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")
    const [customerId, setCustomerId] = useState<string | null>()
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const [arrayToPrint, setArrayToPrint] = useState<AutoModelType[] | []>([])
@@ -81,7 +80,7 @@ const FavouriteCars = () => {
                   ))}
                   <div className='w-full'>
                      <Button
-                        link={false}
+                        isLink={false}
                         properties='transition-all duration-900 border-none text-black cursor-pointer outline outline-4 outline-white bg-transparent hover:outline-blue-900 hover:font-bold hover:outline-4 hover:bg-slate-200 mb-9'
                         functionClick={() => clearFilter()}
                      >

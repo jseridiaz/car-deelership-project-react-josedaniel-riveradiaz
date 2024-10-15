@@ -152,7 +152,7 @@ const Register = () => {
                   </div>
                </div>
                <Button
-                  link={false}
+                  isLink={false}
                   properties='transition-all duration-300 relative bg-indigo-500 hover:bg-indigo-600 hover:font-bold text-white w-1/2 self-center '
                >
                   Sign in

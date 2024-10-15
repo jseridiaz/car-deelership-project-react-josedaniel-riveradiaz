@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
 import Button from "./Button"
 import { ImgAutoType, userID } from "../../utils/types"
@@ -23,14 +23,13 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    availavility,
    price,
    autoId,
-   idName,
    customerId,
 }) => {
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
-   const [idUser, setIdUser] = useState<string | null>(
-      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
-   )
-   const [userInfo, setUserInfo] = useState<userID>(getStorage("userInfo"))
+   const idUser: string | null =
+      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")
+
+   const userInfo: userID = getStorage("userInfo")
    // useEffect(() => {
    //    fetch("http://localhost:3000/autos/v1/customer/user/" + idUser).then()
    // }, [idUser])
@@ -108,7 +107,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                      />
                   )
                ) : null}
-               {userInfo?.rol === "admin" && <SvgBin idName={idName} />}
+               {userInfo?.rol === "admin" && <SvgBin idName={autoId} />}
 
                {availavility === "Vendido" && (
                   <p className='absolute text-white font-semibold flex top-1/4   text-3xl w-full justify-center right-1/2'>
@@ -125,7 +124,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
          <div className='flex flex-col justify-between bg-blue-300 p-3 rounded-b-2xl'>
             <ContainerColumn className='flex justify-center flex-wrap gap-2 '>
                {userInfo?.rol == "admin" && (
-                  <ParrafAutoPicture el={idName}>Id:</ParrafAutoPicture>
+                  <ParrafAutoPicture el={autoId}>Id:</ParrafAutoPicture>
                )}
                <ParrafAutoPicture el={brand}>Brand:</ParrafAutoPicture>
                <ParrafAutoPicture el={model}>Model:</ParrafAutoPicture>

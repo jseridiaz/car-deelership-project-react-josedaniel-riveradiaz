@@ -59,14 +59,12 @@ export type ErrorContainerType = {
 
 export type CarContextType = {
    arrayAllCars: AutoModelType[] | null | []
-   setArrayAllCars: React.Dispatch<
-      React.SetStateAction<AutoModelType[] | null | undefined>
-   >
+   setArrayAllCars: Dispatch<SetStateAction<AutoModelType[] | [] | null>>
 }
 export type PrintListAutoType = {
    arrayToPRint: AutoModelType[] | null
    cssProperties: string
-   setArray: Dispatch<SetStateAction<AutoModelType[] | null | undefined>>
+   setArray: Dispatch<SetStateAction<AutoModelType[] | null | []>>
 }
 // type customerType = {
 //    _id: string
@@ -82,7 +80,6 @@ export type PrintListAutoType = {
 export type ImgAutoType = {
    idx: number
    path: string
-   idName: string
    alt: string
    brand: string
    model: string

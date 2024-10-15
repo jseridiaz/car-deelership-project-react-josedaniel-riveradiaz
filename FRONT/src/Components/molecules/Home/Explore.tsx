@@ -8,10 +8,8 @@ import { LoggedContext } from "../../Providers/GlobalLogged"
 import ContainerColumn from "../../atoms/ContainerColumn"
 
 const Explore = () => {
-   const [idUser, setIdUser] = useState(
-      localStorage.getItem("idUser") ?? sessionStorage.getItem("idUser"),
-   )
-   const { logged, setLogged } = useContext(LoggedContext)
+   const idUser = localStorage.getItem("idUser") ?? sessionStorage.getItem("idUser")
+   const { logged } = useContext(LoggedContext)
    const [filterSelect, setFilterSelect] = useState<string>("Cars")
    const [arrayAutos, setArrayAutos] = useState<AutoModelType[]>([])
 
@@ -32,7 +30,7 @@ const Explore = () => {
    }, [idUser, logged])
    useEffect(() => {
       const typeAuto = async () => {
-         const data = await fetch(
+         fetch(
             `http://localhost:3000/autos/v1/search/category/${
                filterSelect == "Cars"
                   ? "Turismo"

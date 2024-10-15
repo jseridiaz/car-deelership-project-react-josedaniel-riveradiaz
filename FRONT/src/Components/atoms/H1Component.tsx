@@ -1,4 +1,3 @@
-import React from "react"
 import { ErrorContainerType } from "../../utils/types"
 
 const H1Component = ({ children }: ErrorContainerType) => {

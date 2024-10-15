@@ -9,9 +9,8 @@ import { SubmitHandlerPersonalInfo } from "../utils/types"
 import InputTextForm from "../Components/atoms/InputTextForm"
 
 const InformationPersonal = () => {
-   const [idUser, setIdUser] = useState<string | null>(
-      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
-   )
+   const idUser: string | null =
+      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")
 
    const [name, setName] = useState<string>()
    const [surname, setSurname] = useState<string>()
@@ -128,7 +127,7 @@ const InformationPersonal = () => {
                   </select>
                </FieldSet>
                <Button
-                  link={false}
+                  isLink={false}
                   properties='transition-all duration-400 bg-blue-100 text-black hover:bg-blue-500 hover:font-bold hover:text-white hover:ring-offset-2  hover:ring-2 hover:ring-blue-800 focus:text-white focus:ring-offset-2  focus:ring-2 focus:ring-blue-800 focus:bg-blue-500 w-1/3'
                >
                   Change Personal info

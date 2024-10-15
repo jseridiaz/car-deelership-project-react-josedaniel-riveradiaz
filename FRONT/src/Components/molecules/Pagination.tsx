@@ -8,10 +8,10 @@ const Pagination: React.FC<PaginationTypes> = ({
    setCurrentPage,
 }) => {
    const [arrayPages, setArrayPages] = useState<number[]>(
-      Array.from({ length: allPages }, (v, i) => i + 1),
+      Array.from({ length: allPages }, (_, i) => i + 1),
    )
    useEffect(() => {
-      setArrayPages(Array.from({ length: allPages }, (v, i) => i + 1))
+      setArrayPages(Array.from({ length: allPages }, (_, i) => i + 1))
    }, [allPages])
    //  console.log(array)
    const handlePagination = (idx: number): void => {

@@ -10,7 +10,7 @@ import Parraf from "../Components/molecules/Parraf"
 const CarPage = () => {
    const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
    const { currentPage, setCurrentPage } = useContext(CurrentPageContext)
-   const [productsPerPage, setProductsPerPage] = useState<number>(8)
+   const productsPerPage: number = 8
    const [pages, setPages] = useState<number>(1)
    const firstIndex = 0 + productsPerPage * currentPage
    const lastIndex = productsPerPage * (currentPage + 1)

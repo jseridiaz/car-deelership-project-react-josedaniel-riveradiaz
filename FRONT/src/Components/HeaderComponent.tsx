@@ -100,7 +100,7 @@ const HeaderComponent = () => {
                      </span>
                      <ProfileMenu
                         booleanState={boolean}
-                        setBooleanState={() => {
+                        setBoolean={() => {
                            setBoolean(!boolean)
                         }}
                      />
