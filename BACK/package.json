@@ -5,8 +5,7 @@
    "main": "index.js",
    "scripts": {
       "start": "nodemon .",
-      "seed_autos": "node ./src/utils/seed/auto_seed.js",
-      "vercel-build": "echo 'No build required for Node.js backend'"
+      "seed_autos": "node ./src/utils/seed/auto_seed.js"
    },
    "keywords": [],
    "author": "",
