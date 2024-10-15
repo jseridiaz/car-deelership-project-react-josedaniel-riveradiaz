@@ -1,3 +1,6 @@
-export const getStorage = (storage: string) =>
-   JSON.parse(localStorage.getItem(storage)) ??
-   JSON.parse(sessionStorage.getItem(storage))
+export const getStorage = (storage: string) => {
+   const localData = localStorage.getItem(storage) ?? sessionStorage.getItem(storage)
+   if (localData) {
+      return JSON.parse(localData)
+   }
+}
