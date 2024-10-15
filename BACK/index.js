@@ -19,17 +19,6 @@ app.use(express.json())
 const jsonAuto = []
 
 convertCsvToJs(jsonAuto)
-
-app.use("/", routerMain)
-
-app.use("*", (req, res) => {
-   res.status(404).json("Route not found")
-})
-
-app.listen(process.env.PORT, () => {
-   console.log("Route working in port http://localhost:" + process.env.PORT)
-})
-
 fs.writeFile("Autos.json", JSON.stringify(jsonAuto), async error => {
    if (error) {
       console.log(error)
@@ -47,4 +36,13 @@ fs.writeFile("Autos.json", JSON.stringify(jsonAuto), async error => {
          }
       }
    }
+})
+
+app.use("/", routerMain)
+app.use("*", (req, res, next) => {
+   res.status(404).json("Route not found")
+})
+
+app.listen(process.env.PORT, () => {
+   console.log("Route working in port http://localhost:" + process.env.PORT)
 })
