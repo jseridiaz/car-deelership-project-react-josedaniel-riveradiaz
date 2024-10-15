@@ -1,6 +1,7 @@
 import { BiChevronRight } from "react-icons/bi"
 import Button from "./Button"
 import ImgComponent from "./ImgComponent"
+import ParrafAutoPicture from "./ParrafAutoPicture"
 
 interface Cardautotype {
    autoName: string
@@ -22,7 +23,7 @@ const CardAutoHome: React.FC<Cardautotype> = ({
    km,
 }) => {
    return (
-      <li className='relative flex flex-col p-5 w-2/5 h-full min-w-[33%] snap-center'>
+      <li className='relative flex flex-col p-5 lg:w-2/5 h-full min-w-[370px] snap-center'>
          <ImgComponent
             imgPath={imgPath}
             alt={`${autoName}-${autoModel}`}
@@ -30,7 +31,7 @@ const CardAutoHome: React.FC<Cardautotype> = ({
             classImg='w-full h-full object-fill'
          />
 
-         <div className='flex flex-col bg-white justify-evenly h-fit w-[50%] self-end p-5 rounded-2xl'>
+         <div className='flex flex-col bg-white justify-between h-fit w-[50%] self-end p-2 rounded-2xl'>
             <div className=' flex flex-col self-start mb-6'>
                <h3 className='font-semibold text-2xl'>{autoName}</h3>
                <span className={`relative text-lg ${state === "Usado" && "left-2"}`}>
@@ -38,28 +39,21 @@ const CardAutoHome: React.FC<Cardautotype> = ({
                </span>
             </div>
             <div className='flex flex-col gap-5'>
-               <p className='flex font-medium text-gray-400 justify-between'>
-                  Model year: <span className='text-black'>{year}</span>
-               </p>
-               <p className='flex font-medium text-gray-400  justify-between'>
-                  Model:<span className='text-black'>{autoModel}</span>{" "}
-               </p>
-               {state === "Used" && (
-                  <p className='flex font-medium text-gray-400 justify-between'>
-                     Kilometer:{" "}
-                     <span className='text-black'>
-                        {km.toLocaleString("es-ES")} km
-                     </span>
-                  </p>
-               )}
-               <p className='text-2xl font-semibold'>
-                  {price.toLocaleString("es-ES")} €
-               </p>
+               <ParrafAutoPicture el={year}>Model year:</ParrafAutoPicture>
+               <ParrafAutoPicture el={`${autoModel}`}>Model: </ParrafAutoPicture>
+               <ParrafAutoPicture
+                  el={`${state === "Used" ? km.toLocaleString("es-ES") : 0}`}
+               >
+                  Kilometer:
+               </ParrafAutoPicture>
+
+               <ParrafAutoPicture el={`${price.toLocaleString("es-ES")} €`}>
+                  Price:{" "}
+               </ParrafAutoPicture>
                <Button
                   signal={<BiChevronRight className='stroke-1 stroke-white ' />}
                   properties='relative
-             self-end	  transition duration-700 hover:bg-red-700 hover:shadow-blue-800 hover:shadow-md  w-fit justify-between items-center w-full
-                           gap-1  flex text-white font-semibold bg-black rounded-full p-2 '
+             self-end transition duration-700 hover:bg-red-700 hover:shadow-blue-800 hover:shadow-md w-fit justify-between items-center w-full gap-1  flex text-white font-semibold bg-black rounded-full p-2 '
                   link='/cars-shop'
                >
                   Order now

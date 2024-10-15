@@ -114,10 +114,27 @@ const putCustomerByIdUser = async (req, res, next) => {
       return res400(req, res, next, error)
    }
 }
+const clearFavourites = async (req, res, next) => {
+   try {
+      const { id } = req.params
+
+      const customerUpdated = await CustomerModel.findByIdAndUpdate(
+         id,
+         { $set: { favourites: [] } },
+         {
+            new: true,
+         },
+      )
+      // logicPutCustomer(reserves, favourites, buys, reviews)
+      return res200(req, res, next, customerUpdated, "Customer succesfully updated:")
+   } catch (error) {
+      return res400(req, res, next, error)
+   }
+}
 const deleteCustomer = async (req, res, next) => {
    try {
       const { id } = req.params
-      const deleteCustomer = CustomerModel.findByIdAndDelete(id)
+      const deleteCustomer = await CustomerModel.findByIdAndDelete(id)
 
       return res200(req, res, next, deleteCustomer, "Customer deleted succesfully:")
    } catch (error) {
@@ -133,5 +150,6 @@ module.exports = {
    putCustomer,
    putCustomerByIdUser,
    putCustomerDeleteFavourites,
+   clearFavourites,
    deleteCustomer,
 }

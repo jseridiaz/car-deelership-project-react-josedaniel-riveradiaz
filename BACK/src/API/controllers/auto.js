@@ -1,4 +1,5 @@
 const { addFilters } = require("../../utils/functions/addFilters")
+const { deletePictureCloud } = require("../../utils/functions/deletePictureCloud")
 const { res200, res400 } = require("../../utils/functions/responsesCrud")
 const AutoModel = require("../models/auto")
 
@@ -288,6 +289,16 @@ const getAutoByBrandAndCategoryAndModel = async (req, res, next) => {
 const postAuto = async (req, res, next) => {
    try {
       const autoPost = AutoModel(req.body)
+      if (req.file) {
+         console.log(req.file)
+
+         autoPost.picture = req.file.path
+         const splitted = req.file.path.split("/")
+         const aPart = splitted.at(-2)
+         const bPart = splitted.at(-1).split(".")[0]
+         console.log(aPart, "/", bPart)
+      }
+
       const savedAutoPost = await autoPost.save()
 
       return res200(req, res, next, savedAutoPost, "Fetch succesfull")
@@ -316,9 +327,9 @@ const updateAuto = async (req, res, next) => {
 const deleteAuto = async (req, res, next) => {
    try {
       const { id } = req.params
-      console.log(id)
 
       const autoDelete = await AutoModel.findByIdAndDelete(id)
+      deletePictureCloud(autoDelete.picture[0])
 
       return res200(req, res, next, autoDelete, "Fetch succesfull")
    } catch (error) {

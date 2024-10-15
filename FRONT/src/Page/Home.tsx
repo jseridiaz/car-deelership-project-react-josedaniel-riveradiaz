@@ -11,9 +11,7 @@ import BlogsHome from "../Components/molecules/Home/BlogsHome"
 const Home = () => {
    return (
       <>
-         <section id='hero-section' className='relative w-full h-[80vh] '>
-            <Carousel data={slides} />
-         </section>
+         <Carousel data={slides} />
          <Brands />
          <Explore />
          <OurService />

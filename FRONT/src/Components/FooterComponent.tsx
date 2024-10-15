@@ -7,12 +7,12 @@ import UlFooter from "./molecules/Home/UlFooter"
 const FooterComponent = () => {
    return (
       <>
-         <footer className=' flex justify-around relative z-100 px-10 pt-5 bg-gray-400 text-black flex-wrap gap-9'>
-            <div className=' flex flex-col gap-5 w-1/4 border-black'>
+         <footer className=' flex justify-around relative z-100 px-2 sm:px-10 sm:pt-5 bg-gray-400 text-black flex-wrap gap-9'>
+            <div className=' flex flex-col gap-5 w-[75%] mt-5 sm:mt-0 sm:w-1/4 min-w-[140px] border-black'>
                <h4 className='text-xl font-semibold'>Subscribe to the newsletter</h4>
                <form action='' className='relative flex items-center'>
                   <input
-                     className='relative rounded-full p-3 w-full caret-blue-500 border-2 outline-none focus:border-red-600 placeholder-shown:text-sm text-sm hover:border-red-600 '
+                     className='relative rounded-full p-3 w-full caret-blue-500 border-2 outline-none focus:border-red-600 placeholder-shown:text-sm text-sm hover:border-red-600'
                      placeholder='Enter your email'
                   />
                   <div>
@@ -41,7 +41,7 @@ const FooterComponent = () => {
                </div>
             </div>
 
-            <div className='relative flex justify-around w-1/2 left-[10%]'>
+            <div className='relative flex flex-wrap justify-around w-full sm:w-1/2 gap-6 left-0 sm:left-[10%]'>
                {dataFooter.map((el, idx) => (
                   <UlFooter key={idx} title={el.title} arrayLi={el.li} />
                ))}

@@ -21,6 +21,10 @@ export default {
          keyframes: {
             display: { "0%": { opacity: 0 }, "100%": { opacity: 1 } },
          },
+         backgroundImage: {
+            "post-pattern":
+               "url('https://www.transparenttextures.com/patterns/brushed-alum.png')",
+         },
       },
    },
    plugins: [],

@@ -11,7 +11,9 @@ const { getColor } = require("./src/utils/functions/getColor")
 const routerUser = require("./src/API/routes/user")
 const routerMain = require("./src/API/routes/main/mainRoute")
 const { convertCsvToJs } = require("./src/utils/functions/convertCsvToJs")
+const { cloudinaryConnect } = require("./src/config/cloudinary")
 bbddConection()
+cloudinaryConnect()
 const app = express()
 app.use(express.json())
 
@@ -43,7 +45,7 @@ fs.writeFile("Autos.json", JSON.stringify(jsonAuto), async error => {
          if (allAutosVin.includes(e)) {
             continue
          } else {
-            await AutoModel.insertOne(jsonAuto[i])
+            await AutoModel.insertMany(jsonAuto[i])
             console.log("writted")
          }
       }

@@ -40,6 +40,7 @@ const CarPage = () => {
                <PrintListAutos
                   arrayToPRint={arrayAllCars.slice(firstIndex, lastIndex)}
                   cssProperties='p-7 my-12'
+                  setArray={setArrayAllCars}
                />
                <Pagination
                   array={arrayAllCars}

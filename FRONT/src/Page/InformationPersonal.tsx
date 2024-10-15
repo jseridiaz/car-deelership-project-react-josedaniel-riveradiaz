@@ -6,6 +6,7 @@ import ParrafInfoPersonal from "../Components/molecules/ParrafInfoPersonal"
 import FieldSet from "../Components/atoms/FieldSet"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { SubmitHandlerPersonalInfo } from "../utils/types"
+import InputTextForm from "../Components/atoms/InputTextForm"
 
 const InformationPersonal = () => {
    const [idUser, setIdUser] = useState<string | null>(
@@ -102,17 +103,17 @@ const InformationPersonal = () => {
                   Form to change Info
                </H2SingleComponent>
                <FieldSet description='Change your name'>
-                  <input
-                     className='p-2 hover:bg-slate-100 focus:bg-slate-100 '
-                     type='text'
-                     {...register("name")}
+                  <InputTextForm
+                     register={register}
+                     name='name'
+                     requiredBoolean={false}
                   />
                </FieldSet>
                <FieldSet description='Change your Surname'>
-                  <input
-                     className='p-2 hover:bg-slate-100 focus:bg-slate-100'
-                     type='text'
-                     {...register("surname")}
+                  <InputTextForm
+                     register={register}
+                     name='surname'
+                     requiredBoolean={false}
                   />
                </FieldSet>
                <FieldSet description='Change your Surname'>

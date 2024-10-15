@@ -41,7 +41,13 @@ const FavouriteCars = () => {
    }, [arrayFavourites])
 
    const clearFilter = () => {
-      // setArrayToPrint([])
+      fetch(
+         `http://localhost:3000/autos/v1/customer/clear/favourites/${customerId}`,
+         {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+         },
+      )
       setArrayFavourites([])
       localStorage.setItem("favourites", JSON.stringify([]))
    }

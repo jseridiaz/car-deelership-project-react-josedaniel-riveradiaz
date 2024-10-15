@@ -6,8 +6,13 @@ import { colorArray } from "../data/colorArray"
 import ErrorPost from "../Components/atoms/ErrorPost"
 import InputTextForm from "../Components/atoms/InputTextForm"
 import SelectPost from "../Components/atoms/SelectPost"
+import ContainerColumn from "../Components/atoms/ContainerColumn"
+import { useEffect, useState } from "react"
+import { AutoModelType, PostAutoType } from "../utils/types"
 
 const PostAuto = () => {
+   const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
+
    const {
       register,
       handleSubmit,
@@ -15,6 +20,7 @@ const PostAuto = () => {
       reset,
    } = useForm({
       defaultValues: {
+         vin: "",
          brand: "",
          model: "",
          type: "",
@@ -23,17 +29,47 @@ const PostAuto = () => {
          state: "",
          price: "",
          availability: "Disponible",
+         acquisitionDate: "2024-01-12",
          picture: "",
          color: "",
       },
    })
-   const submitFunction = data => {
-      fetch("http://localhost:3000/post", { method: "POST", headers })
+
+   useEffect(() => {
+      setToken(localStorage.getItem("token"))
+   }, [])
+   const submitFunction = (data: PostAutoType) => {
+      const formData = new FormData()
+
+      formData.append("vin", data.vin)
+      formData.append("brand", data.brand)
+      formData.append("model", data.model)
+      formData.append("type", data.type)
+      formData.append("manufactureYear", data.manufactureYear)
+      formData.append("kilometer", data.kilometer)
+      formData.append("state", data.state)
+      formData.append("price", data.price)
+      formData.append("color", data.color)
+      formData.append("availability", "Disponible")
+      formData.append("picture", data.picture[0])
+      console.log(data.picture[0])
+      console.log(data)
+
+      fetch("http://localhost:3000/autos/v1/search", {
+         method: "POST",
+         headers: {
+            Authorization: "Bearer " + token,
+         },
+         body: formData,
+      })
          .then(res => res.json())
          .then(res => {
             console.log(res)
          })
-      reset()
+      console.log(formData)
+      console.log(token)
+
+      // reset()
    }
    return (
       <div className='bg-blue-200 min-h-screen p-6 border border-black'>
@@ -42,8 +78,16 @@ const PostAuto = () => {
             className='flex gap-10 justify-center items-center content-center flex-wrap'
             onSubmit={handleSubmit(submitFunction)}
          >
-            <div className='w-1/2'>
-               <FieldSet description='Brand' cssProperties='w-1/2'>
+            <ContainerColumn className=' bg-slate-400 items-center p-6 rounded-xl bg-[url("https://www.transparenttextures.com/patterns/brushed-alum.png")] lg:w-1/2 sm:w-[80%]'>
+               <FieldSet description='Vin' cssProperties='w-[80%] lg:w-1/2'>
+                  <InputTextForm
+                     register={register}
+                     name='vin'
+                     placeholders='5cv2427sdaeq38'
+                  />
+                  <ErrorPost error={errors.vin?.type}>* Vin is required</ErrorPost>
+               </FieldSet>
+               <FieldSet description='Brand' cssProperties='w-[80%] lg:w-1/2'>
                   <SelectPost register={register} name='brand'>
                      <option value=''>Select brand</option>
                      {autoBrands.map((e, i) => (
@@ -56,7 +100,7 @@ const PostAuto = () => {
                      * Brand is required
                   </ErrorPost>
                </FieldSet>
-               <FieldSet description='Auto model' cssProperties='w-1/2'>
+               <FieldSet description='Auto model' cssProperties='w-[80%] lg:w-1/2'>
                   <InputTextForm
                      register={register}
                      name='model'
@@ -66,7 +110,7 @@ const PostAuto = () => {
                      * Model is required
                   </ErrorPost>
                </FieldSet>
-               <FieldSet description='Chassis' cssProperties='w-1/2'>
+               <FieldSet description='Chassis' cssProperties='w-[80%] lg:w-1/2'>
                   <SelectPost register={register} name='type'>
                      <option value=''>Select chassis</option>
                      <option value='Cars'>Car</option>
@@ -77,8 +121,12 @@ const PostAuto = () => {
                      * Chassis is required
                   </ErrorPost>
                </FieldSet>
-               <FieldSet description='Year of manufacture' cssProperties='w-1/2'>
+               <FieldSet
+                  description='Year of manufacture'
+                  cssProperties='w-[80%] lg:w-1/2'
+               >
                   <InputTextForm
+                     type='number'
                      register={register}
                      name='manufactureYear'
                      placeholders='2024'
@@ -87,8 +135,9 @@ const PostAuto = () => {
                      * Manufacture year is required
                   </ErrorPost>
                </FieldSet>
-               <FieldSet description='kilometers' cssProperties='w-1/2'>
+               <FieldSet description='kilometers' cssProperties='w-[80%] lg:w-1/2'>
                   <InputTextForm
+                     type='number'
                      register={register}
                      name='kilometer'
                      placeholders='30000Km'
@@ -97,7 +146,7 @@ const PostAuto = () => {
                      * Kilometers number is required
                   </ErrorPost>
                </FieldSet>
-               <FieldSet description='State' cssProperties='w-1/2'>
+               <FieldSet description='State' cssProperties='w-[80%] lg:w-1/2'>
                   <SelectPost register={register} name='state'>
                      <option value=''>Select state</option>
                      <option value='new'>New</option>
@@ -107,8 +156,9 @@ const PostAuto = () => {
                      * State is required
                   </ErrorPost>
                </FieldSet>
-               <FieldSet description='Price' cssProperties='w-1/2'>
+               <FieldSet description='Price' cssProperties='w-[80%] lg:w-1/2'>
                   <InputTextForm
+                     type='number'
                      register={register}
                      name='price'
                      placeholders='20000€'
@@ -117,7 +167,7 @@ const PostAuto = () => {
                      * Price is required
                   </ErrorPost>
                </FieldSet>
-               <FieldSet description='Color' cssProperties='w-1/2'>
+               <FieldSet description='Color' cssProperties='w-[80%] lg:w-1/2'>
                   <SelectPost register={register} name='color'>
                      <option value=''>Select color</option>
                      {colorArray.map((el, idx) => (
@@ -130,17 +180,13 @@ const PostAuto = () => {
                      * Color is required
                   </ErrorPost>
                </FieldSet>
-            </div>
+            </ContainerColumn>
             <div>
                <FieldSet
                   description='Auto Picture'
-                  cssProperties='w-full h-[300px] bg-orange-100 justify-start border border-black p-12 mb-22 rounded-xl'
+                  cssProperties='w-full h-[300px] bg-orange-100 justify-start border border-black p-12 mb-22 rounded-xl bg-[url("https://www.transparenttextures.com/patterns/brushed-alum.png")] lg:w-full'
                >
-                  <input
-                     className=' cursor-pointer relative top-12 bg-blue-100 border border-black self-center '
-                     type='file'
-                     {...register("picture", { required: true })}
-                  />
+                  <InputTextForm type='file' register={register} name='picture' />
                   <ErrorPost
                      error={errors.picture?.type}
                      className='absolute bottom-0'
@@ -150,7 +196,7 @@ const PostAuto = () => {
                </FieldSet>
             </div>
             <Button
-               properties='transition-all duration-600 w-1/4 bg-transparent border-none outline outline-4 outline-blue-600  font-medium text-xl hover:scale-110 focus:scale-110 hover:bg-blue-600 focus:bg-blue-600 hover:font-bold hover:outline hover:outline-blue-800 hover:text-white	'
+               properties='transition-all duration-600 w-1/3 bg-transparent border-none outline outline-4 outline-blue-300 font-medium text-xl hover:scale-110 focus:scale-110 hover:outline-white hover:bg-blue-400 focus:bg-blue-400 hover:font-bold hover:outline hover:outline-blue-800 hover:text-white xl:w-fit lg:w-1/2 md:w-1/2 sm:w-full'
                link={false}
             >
                Post new auto

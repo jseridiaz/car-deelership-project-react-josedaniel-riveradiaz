@@ -6,13 +6,14 @@ const InputTextForm: React.FC<InputTextFormType> = ({
    register,
    name,
    placeholders,
+   requiredBoolean = true,
 }) => {
    return (
       <input
-         className='w-full placeholder:text-center text-center p-2 rounded-sm'
+         className='w-full placeholder:text-center text-center cursor-pointer p-2 font-medium rounded-sm hover:bg-blue-200 focus:bg-blue-200'
          type={type}
          placeholder={placeholders}
-         {...register(name, { required: true })}
+         {...register(name, { required: requiredBoolean })}
       />
    )
 }

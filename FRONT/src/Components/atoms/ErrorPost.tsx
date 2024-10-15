@@ -3,7 +3,7 @@ import { ErrorPostType } from "../../utils/types"
 const ErrorPost: React.FC<ErrorPostType> = ({ error, children, className }) => {
    return (
       <p
-         className={`text-red-600 font-medium  ${
+         className={`text-red-700 font-bold select-none  ${
             error ? "visible" : "invisible"
          } ${className}`}
       >

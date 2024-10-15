@@ -5,6 +5,7 @@ import CardAutoHome from "../../atoms/CardAutoHome"
 import { AutoModelType } from "../../../utils/types"
 import { Link } from "react-router-dom"
 import { LoggedContext } from "../../Providers/GlobalLogged"
+import ContainerColumn from "../../atoms/ContainerColumn"
 
 const Explore = () => {
    const [idUser, setIdUser] = useState(
@@ -44,7 +45,7 @@ const Explore = () => {
             .then(res => res.res)
             .then(res => {
                const finalArrayAuto: AutoModelType[] = []
-               for (let i = 0; i < 4; i++) {
+               for (let i = 0; i < 6; i++) {
                   const aleatoryNumber: number = Math.floor(
                      Math.random() * res.length,
                   )
@@ -64,13 +65,16 @@ const Explore = () => {
    }
 
    return (
-      <section className='w-full p-10 bg-blue-200  flex flex-col gap-9 justify-center items-center h-[740px]'>
+      <section className='w-full p-10 bg-blue-200  flex flex-col gap-9 justify-center items-center h-[800px]'>
          <div className='w-[100%] p-4 h-full bg-slate-50 relative '>
             <div className='w-full bg-slate-50 p-10 '>
-               <H2Component title='Explore' />
+               <H2Component>Explore</H2Component>
             </div>
             <div className='bg-slate-50 h-96 w-full '>
-               <form action='' className='flex justify-center gap-16'>
+               <form
+                  action=''
+                  className='flex justify-center gap-6 sm:gap-12 flex-wrap p-4'
+               >
                   {optionFiltersHome.map((el, idx) => (
                      <span
                         key={idx}
@@ -78,7 +82,7 @@ const Explore = () => {
                            filterSelect === el
                               ? "bg-red-300 font-semibold"
                               : "bg-white"
-                        } font-medium px-4 py-2.5   rounded-3xl cursor-pointer hover:bg-red-300`}
+                        } font-medium px-4 py-2.5 rounded-3xl cursor-pointer hover:bg-red-300`}
                         onClick={() => handleFilter(el)}
                      >
                         {el}
@@ -88,7 +92,7 @@ const Explore = () => {
                <div
                   id='scroll-hidden-home'
                   className='flex flex-nowrap
-               overflow-x-scroll snap-x h-full scroll-smooth'
+               overflow-x-scroll overflow-y-hidden snap-x h-full scroll-smooth'
                >
                   {arrayAutos.map((el, idx) => (
                      <CardAutoHome
@@ -104,14 +108,14 @@ const Explore = () => {
                   ))}
                </div>
             </div>
-            <div className='absolute bottom-10 left-1/2 -translate-x-1/2 w-full p-2 '>
+            <ContainerColumn className='absolute left-1/2  p-2 w-[35%] bottom-4 right-1/2 -translate-x-1/2 '>
                <Link
-                  className='transition-all duration-800 text-white font-bold bg-blue-400 rounded-3xl p-3 w-[80%] cursor-pointer hover:bg-blue-600'
+                  className=' absolute transition-all duration-800 text-white font-bold bg-blue-400 rounded-3xl p-3  cursor-pointer hover:bg-blue-600 hover:shadow-md w-full'
                   to='/cars-shop'
                >
                   See more
                </Link>
-            </div>
+            </ContainerColumn>
          </div>
       </section>
    )

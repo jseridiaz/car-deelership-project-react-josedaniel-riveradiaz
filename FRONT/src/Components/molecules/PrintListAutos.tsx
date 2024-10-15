@@ -39,6 +39,7 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
                      path={el.picture[0]}
                      alt={`${el.brand}_${el.model}_${el.manufactureYear}_${el.color}`}
                      brand={el.brand}
+                     idName={el._id}
                      state={el.state}
                      model={el.model}
                      km={el.kilometer}

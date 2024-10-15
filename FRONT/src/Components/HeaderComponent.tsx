@@ -4,6 +4,8 @@ import { TokenContext } from "./Providers/GlobalToken"
 import { LoggedContext } from "./Providers/GlobalLogged"
 import ProfileMenu from "./molecules/ProfileMenu"
 import { getStorage } from "../utils/functions/storage/getStorage"
+import LiHeader from "./atoms/LiHeader"
+import delStorage from "../utils/functions/storage/deleteStorage"
 
 const HeaderComponent = () => {
    const [userInfo, setUserInfo] = useState<string | null>(null)
@@ -14,11 +16,11 @@ const HeaderComponent = () => {
 
    useEffect(() => {
       setToken(localStorage.getItem("token"))
-      setUserInfo(storageUser.rol)
+      setUserInfo(storageUser?.rol)
    }, [token])
    useEffect(() => {
       setLogged(sessionStorage.getItem("logged"))
-      setUserInfo(storageUser.rol)
+      setUserInfo(storageUser?.rol)
    }, [logged])
 
    const handleClickProfile = (): void => {
@@ -28,14 +30,14 @@ const HeaderComponent = () => {
 
    const handleLogout = () => {
       if (token) {
-         localStorage.removeItem("token")
-         localStorage.removeItem("idUser")
-         localStorage.removeItem("userInfo")
+         delStorage("token")
+         delStorage("idUser")
+         delStorage("userInfo")
          setToken(localStorage.getItem("token"))
          setUserInfo(null)
       } else {
-         sessionStorage.removeItem("logged")
-         sessionStorage.removeItem("userInfo")
+         delStorage("logged", false)
+         delStorage("userInfo", false)
          setLogged(sessionStorage.getItem("logged"))
          setUserInfo(null)
       }
@@ -48,36 +50,44 @@ const HeaderComponent = () => {
             </Link>
          </div>
          <nav className='flex w-fit gap-8'>
-            <li className='content-center'>
+            <LiHeader>
+               <NavLink
+                  to='/home'
+                  className='w-1/4 content-center text-blue-700 hover:font-bold'
+               >
+                  Home
+               </NavLink>
+            </LiHeader>
+            <LiHeader>
                <NavLink
                   to='/cars-shop'
                   className='w-1/4 content-center text-blue-700 hover:font-bold '
                >
                   Autos
                </NavLink>
-            </li>
+            </LiHeader>
 
-            <li className='content-center'>
-               <NavLink
-                  to='/about-us'
-                  className='w-1/4 content-center text-blue-700 hover:font-bold'
-               >
-                  About us
-               </NavLink>
-            </li>
             {userInfo === "admin" && (
-               <li className='content-center'>
+               <LiHeader>
                   <NavLink
                      to='/post-auto'
                      className='w-1/4 content-center  text-blue-700 hover:font-bold'
                   >
                      Post
                   </NavLink>
-               </li>
+               </LiHeader>
             )}
+            <LiHeader>
+               <NavLink
+                  to='/about-us'
+                  className='w-1/4 content-center text-blue-700 hover:font-bold'
+               >
+                  About us
+               </NavLink>
+            </LiHeader>
             {token || logged ? (
                <>
-                  <li className='content-center relative'>
+                  <LiHeader>
                      <span
                         className={`w-1/4 content-center font-medium hover:font-bold text-blue-700 cursor-pointer ${
                            boolean && "active"
@@ -94,18 +104,18 @@ const HeaderComponent = () => {
                            setBoolean(!boolean)
                         }}
                      />
-                  </li>
+                  </LiHeader>
                </>
             ) : null}
-            <li className='content-center'>
+            <LiHeader>
                <NavLink
-                  to={token || logged ? "/home" : "/login"}
+                  to={token || logged ? "/" : "/login"}
                   className='w-1/4 content-center hover:font-bold text-blue-700 '
                   onClick={handleLogout}
                >
                   {token || logged ? "Log out" : "Login"}
                </NavLink>
-            </li>
+            </LiHeader>
          </nav>
       </header>
    )

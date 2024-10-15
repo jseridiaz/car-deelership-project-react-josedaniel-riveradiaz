@@ -336,7 +336,7 @@ const FilterComponent = () => {
          >
             <FieldSet description='Brand'>
                <select
-                  className='w-1/2'
+                  className='lg:w-1/2 w-full'
                   ref={selectedBrand}
                   onChange={() => {
                      changeValue(setBrand, selectedBrand)
@@ -355,7 +355,7 @@ const FilterComponent = () => {
             </FieldSet>
             <FieldSet description='Model'>
                <select
-                  className='w-1/2'
+                  className='lg:w-1/2 w-full'
                   ref={selectedModel}
                   onChange={() => {
                      changeValue(setModel, selectedModel)
@@ -375,7 +375,7 @@ const FilterComponent = () => {
             </FieldSet>
             <FieldSet description='Chassis'>
                <select
-                  className='w-1/2'
+                  className='lg:w-1/2 w-full'
                   ref={selectedChassis}
                   value={chassis ? chassis : undefined}
                   onChange={() => {
@@ -400,7 +400,7 @@ const FilterComponent = () => {
                >
                   Availables
                </CheckBoxFilter>
-               <ContainerColumn className=' items-start'>
+               <ContainerColumn className=' items-center w-full sm:w-fit sm:items-start '>
                   <ContainerColumn className='font-semibold text-center w-full'>
                      Price{" "}
                   </ContainerColumn>
@@ -429,7 +429,7 @@ const FilterComponent = () => {
                      }}
                   />
                </ContainerColumn>
-               <ContainerColumn className=''>
+               <ContainerColumn className='items-center w-full sm:w-fit sm:items-start'>
                   <ContainerColumn className='flex font-semibold w-full'>
                      Kilometers
                   </ContainerColumn>
@@ -454,7 +454,7 @@ const FilterComponent = () => {
                      placeholder='180000'
                   />
                </ContainerColumn>
-               <ContainerColumn className=''>
+               <ContainerColumn className='items-center w-full sm:w-fit sm:items-start'>
                   <ContainerColumn className='font-semibold w-full'>
                      Year manufacture
                   </ContainerColumn>
@@ -481,7 +481,7 @@ const FilterComponent = () => {
 
             <div className='w-full'>
                <button
-                  className='bg-white w-[10%] '
+                  className='bg-white lg:w-[10%] w-1/3 '
                   type='reset'
                   onClick={resetFilter}
                >

@@ -13,6 +13,8 @@ const {
    getAutoChassisAndCategory,
    getAutoByModel,
 } = require("../controllers/auto")
+const { isAdmin } = require("../../middlewares/isAdmin")
+const { uploadStorage } = require("../../middlewares/File")
 
 const routerAuto = express.Router()
 
@@ -39,7 +41,12 @@ routerAuto.get("/query/brand/category/model", getAutoByBrandAndCategoryAndModel)
 //    getAutoByBrandAndCategoryAndModelAvailables,
 // )
 routerAuto.get("/:id", getAutoByID)
-routerAuto.post("/", postAuto)
+routerAuto.post(
+   "/",
+   [isAdmin],
+   uploadStorage("AutosUploaded").single("picture"),
+   postAuto,
+)
 routerAuto.put("/:id", updateAuto)
 routerAuto.delete("/:id", deleteAuto)
 

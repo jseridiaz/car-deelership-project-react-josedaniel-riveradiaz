@@ -10,7 +10,7 @@ const InputNumber: React.FC<InputNumberType> = ({
    placeholder,
 }) => {
    return (
-      <div className='flex gap-2 p-1 justify-between w-[240px]'>
+      <div className='relative flex gap-2 p-1 justify-between w-[240px]'>
          <label htmlFor={idName}>{spanName}</label>
          <input
             className=' text-center placeholder:text-center w-[150px]'
@@ -22,7 +22,15 @@ const InputNumber: React.FC<InputNumberType> = ({
             ref={reference}
             placeholder={placeholder ? placeholder : ""}
          />
-         {numberValue && <span>{numberValue}</span>}
+         {numberValue && (
+            <span
+               className={`absolute ${
+                  numberValue === "Km" ? "-right-6" : "-right-3"
+               }`}
+            >
+               {numberValue}
+            </span>
+         )}
       </div>
    )
 }

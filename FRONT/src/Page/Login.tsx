@@ -7,7 +7,7 @@ import { ExtendedIFormInput, GlobalUserInfoType, IFormLogin } from "../utils/typ
 import { useContext, useState } from "react"
 import { TokenContext } from "../Components/Providers/GlobalToken"
 import { LoggedContext } from "../Components/Providers/GlobalLogged"
-import { UserInfo } from "../Components/Providers/GlobalUser"
+import H2SingleComponent from "../Components/atoms/H2SingleComponent"
 
 const Login = () => {
    const { setToken } = useContext(TokenContext)
@@ -78,10 +78,10 @@ const Login = () => {
                classContainer='h-full w-[60%]'
                classImg='h-full w-full '
             />
-            <article className='flex w-1/2 bg-white h-[550px] justify-center items-center flex-wrap'>
-               <h2 className='w-full text-5xl h-fit font-extrabold relative top-2'>
+            <article className='flex w-1/2 h-[550px] justify-center items-center flex-wrap'>
+               <H2SingleComponent cssProperties='w-full text-5xl h-fit font-extrabold relative top-2'>
                   Log in
-               </h2>
+               </H2SingleComponent>
                <form
                   action='#'
                   method='post'

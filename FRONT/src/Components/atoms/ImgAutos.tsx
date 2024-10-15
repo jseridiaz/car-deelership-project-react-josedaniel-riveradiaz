@@ -1,10 +1,14 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useState } from "react"
 import { Link } from "react-router-dom"
 import Button from "./Button"
-import { ImgAutoType } from "../../utils/types"
+import { ImgAutoType, userID } from "../../utils/types"
 import EmptyHeart from "./icons/Hearts/EmptyHeart"
 import RedHeart from "./icons/Hearts/RedHeart"
 import { FavouritesContext } from "../Providers/GlobalFavouritesArray"
+import SvgBin from "./icons/SvgBin/SvgBin"
+import ParrafAutoPicture from "./ParrafAutoPicture"
+import ContainerColumn from "./ContainerColumn"
+import { getStorage } from "../../utils/functions/storage/getStorage"
 
 const ImgAutos: React.FC<ImgAutoType> = ({
    idx,
@@ -19,12 +23,14 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    availavility,
    price,
    autoId,
+   idName,
    customerId,
 }) => {
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const [idUser, setIdUser] = useState<string | null>(
       localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
    )
+   const [userInfo, setUserInfo] = useState<userID>(getStorage("userInfo"))
    // useEffect(() => {
    //    fetch("http://localhost:3000/autos/v1/customer/user/" + idUser).then()
    // }, [idUser])
@@ -102,6 +108,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                      />
                   )
                ) : null}
+               {userInfo?.rol === "admin" && <SvgBin idName={idName} />}
 
                {availavility === "Vendido" && (
                   <p className='absolute text-white font-semibold flex top-1/4   text-3xl w-full justify-center right-1/2'>
@@ -116,34 +123,27 @@ const ImgAutos: React.FC<ImgAutoType> = ({
             </Link>
          </div>
          <div className='flex flex-col justify-between bg-blue-300 p-3 rounded-b-2xl'>
-            <div className='flex justify-center flex-wrap gap-2 '>
-               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
-                  Brand: <span>{brand}</span>
-               </p>
-               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
-                  Model: <span>{model}</span>
-               </p>
-               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
-                  State: <span>{state}</span>
-               </p>
-               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
-                  Year: <span>{year}</span>
-               </p>
-               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
-                  Kilometers:<span>{km.toLocaleString("es-ES")} km</span>
-               </p>
-               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
-                  Color: <span>{color}</span>
-               </p>
-               <p className='w-full text-left  bg-white rounded-md flex justify-between px-3'>
-                  Price: <span>{price.toLocaleString("es-ES")}€</span>
-               </p>
-            </div>
-            <div className=''>
+            <ContainerColumn className='flex justify-center flex-wrap gap-2 '>
+               {userInfo?.rol == "admin" && (
+                  <ParrafAutoPicture el={idName}>Id:</ParrafAutoPicture>
+               )}
+               <ParrafAutoPicture el={brand}>Brand:</ParrafAutoPicture>
+               <ParrafAutoPicture el={model}>Model:</ParrafAutoPicture>
+               <ParrafAutoPicture el={state}>State:</ParrafAutoPicture>
+               <ParrafAutoPicture el={year}>Year:</ParrafAutoPicture>
+               <ParrafAutoPicture el={`${km.toLocaleString("es-ES")} km`}>
+                  Brand:
+               </ParrafAutoPicture>
+               <ParrafAutoPicture el={color}>Color:</ParrafAutoPicture>
+               <ParrafAutoPicture el={`${price.toLocaleString("es-ES")}€`}>
+                  Price:
+               </ParrafAutoPicture>
+            </ContainerColumn>
+            <ContainerColumn className=''>
                <Button properties='bg-white text-black mt-6' link={false}>
                   Order now
                </Button>
-            </div>
+            </ContainerColumn>
          </div>
       </li>
    )
