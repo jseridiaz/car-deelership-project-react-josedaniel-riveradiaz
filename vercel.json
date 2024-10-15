@@ -1,0 +1,16 @@
+{
+   "version": 2,
+   "builds": [
+      {
+         "src": "/BACK/index.js",
+         "use": "@vercel/node"
+      }
+   ],
+   "rewrittes": [{ "source": "/FRONT/(.*)", "destination": "/FRONT/" }],
+   "routes": [
+      {
+         "src": "/BACK/(.*)",
+         "dest": "/BACK/"
+      }
+   ]
+}
