@@ -19,24 +19,24 @@ app.use(express.json())
 const jsonAuto = []
 
 convertCsvToJs(jsonAuto)
-fs.writeFile("Autos.json", JSON.stringify(jsonAuto), async error => {
-   if (error) {
-      console.log(error)
-   } else {
-      const allAutos = await AutoModel.find()
-      const allAutosVin = allAutos.map(el => el.vin)
+// fs.writeFile("Autos.json", JSON.stringify(jsonAuto), async error => {
+//    if (error) {
+//       console.log(error)
+//    } else {
+//       const allAutos = await AutoModel.find()
+//       const allAutosVin = allAutos.map(el => el.vin)
 
-      for (let i = 0; i < jsonAuto.length; i++) {
-         const e = jsonAuto[i].vin
-         if (allAutosVin.includes(e)) {
-            continue
-         } else {
-            await AutoModel.insertMany(jsonAuto[i])
-            console.log("writted")
-         }
-      }
-   }
-})
+//       for (let i = 0; i < jsonAuto.length; i++) {
+//          const e = jsonAuto[i].vin
+//          if (allAutosVin.includes(e)) {
+//             continue
+//          } else {
+//             await AutoModel.insertMany(jsonAuto[i])
+//             console.log("writted")
+//          }
+//       }
+//    }
+// })
 
 app.use("/", routerMain)
 app.use("*", (req, res, next) => {
