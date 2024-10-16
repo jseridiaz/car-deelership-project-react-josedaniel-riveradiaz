@@ -3,7 +3,7 @@ const express = require("express")
 
 const { bbddConection } = require("./src/config/db")
 const cors = require("cors")
-const fs = require("fs")
+// const fs = require("fs")
 const AutoModel = require("./src/API/models/auto")
 
 const routerMain = require("./src/API/routes/main/mainRoute")
@@ -43,6 +43,7 @@ app.use("*", (req, res, next) => {
    res.status(404).json("Route not found")
 })
 
-app.listen(process.env.PORT, () => {
-   console.log("Route working in port http://localhost:" + process.env.PORT)
-})
+module.exports = app
+// app.listen(process.env.PORT, () => {
+//    console.log("Route working in port http://localhost:" + process.env.PORT)
+// })
