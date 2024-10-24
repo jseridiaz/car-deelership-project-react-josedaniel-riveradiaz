@@ -21,7 +21,9 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
       setIdSession(
          localStorage.getItem("idUSer") ?? sessionStorage.getItem("logged"),
       )
-      fetch(`http://localhost:3000/autos/v1/customer/user/${idSesion}`)
+      fetch(
+         `https://carseller-for-you.vercel.app/autos/v1/customer/user/${idSesion}`,
+      )
          .then(res => res.json())
          .then(res => {
             return setCustomerId(res.res._id ?? null)

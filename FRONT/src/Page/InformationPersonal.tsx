@@ -33,7 +33,7 @@ const InformationPersonal = () => {
    })
 
    useEffect(() => {
-      fetch("http://localhost:3000/autos/v1/customer/user/" + idUser)
+      fetch("https://carseller-for-you.vercel.app/autos/v1/customer/user/" + idUser)
          .then(res => res.json())
          .then(r => {
             const { res } = r
@@ -62,7 +62,7 @@ const InformationPersonal = () => {
       if (data.favourites) {
          bodyObject.favourites = data.favourites
       }
-      fetch(`http://localhost:3000/autos/v1/user/${idUser}`, {
+      fetch(`https://carseller-for-you.vercel.app/autos/v1/user/${idUser}`, {
          method: "PUT",
          headers: { "Content-Type": "application/json" },
          body: JSON.stringify({

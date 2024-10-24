@@ -15,7 +15,11 @@ const FavouriteCars = () => {
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const [arrayToPrint, setArrayToPrint] = useState<AutoModelType[] | []>([])
    useEffect(() => {
-      fetch(`http://localhost:3000/autos/v1/customer/user/${logged || idUser}`)
+      fetch(
+         `https://carseller-for-you.vercel.app/autos/v1/customer/user/${
+            logged || idUser
+         }`,
+      )
          .then(res => res.json())
          .then(res => {
             return setCustomerId(res.res._id ?? null)
@@ -29,7 +33,7 @@ const FavouriteCars = () => {
          for (let i = 0; i < arrayFavourites.length; i++) {
             const el = arrayFavourites[i]
 
-            fetch(`http://localhost:3000/autos/v1/search/` + el)
+            fetch(`https://carseller-for-you.vercel.app/autos/v1/search/` + el)
                .then(res => res.json())
                .then(res => {
                   array = [...array, res.res]
@@ -41,7 +45,7 @@ const FavouriteCars = () => {
 
    const clearFilter = () => {
       fetch(
-         `http://localhost:3000/autos/v1/customer/clear/favourites/${customerId}`,
+         `https://carseller-for-you.vercel.app/autos/v1/customer/clear/favourites/${customerId}`,
          {
             method: "PUT",
             headers: { "Content-Type": "application/json" },

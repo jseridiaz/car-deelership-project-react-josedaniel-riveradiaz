@@ -77,7 +77,7 @@ const FilterComponent = () => {
    }
    useEffect(() => {
       fetch(
-         `http://localhost:3000/autos/v1/search${
+         `https://carseller-for-you.vercel.app/autos/v1/search${
             state.availability ? "?availability=Disponible" : ""
          }`,
       )
@@ -103,7 +103,7 @@ const FilterComponent = () => {
          state.model === "All"
       ) {
          fetch(
-            `http://localhost:3000/autos/v1/search${
+            `https://carseller-for-you.vercel.app/autos/v1/search${
                state.availability ||
                state.minPrice ||
                state.maxPrice ||
@@ -144,7 +144,9 @@ const FilterComponent = () => {
          state.model === "All"
       ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/brand/${state.brand}${
+            `https://carseller-for-you.vercel.app/autos/v1/search/brand/${
+               state.brand
+            }${
                state.availability ||
                state.minPrice ||
                state.maxPrice ||
@@ -178,7 +180,9 @@ const FilterComponent = () => {
          state.model !== "All"
       ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/model/${state.model}${
+            `https://carseller-for-you.vercel.app/autos/v1/search/model/${
+               state.model
+            }${
                state.availability ||
                state.minPrice ||
                state.maxPrice ||
@@ -208,7 +212,7 @@ const FilterComponent = () => {
          state.model !== "All"
       ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/query/category/model?category=${
+            `https://carseller-for-you.vercel.app/autos/v1/search/query/category/model?category=${
                state.chassis
             }&model=${state.model}${
                state.availability ? "&availability=Disponible" : ""
@@ -233,7 +237,9 @@ const FilterComponent = () => {
          state.model === "All"
       ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/category/${state.chassis}${
+            `https://carseller-for-you.vercel.app/autos/v1/search/category/${
+               state.chassis
+            }${
                state.availability ||
                state.minPrice ||
                state.maxPrice ||
@@ -267,7 +273,7 @@ const FilterComponent = () => {
          state.model === "All"
       ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/query/brand/category?brand=${
+            `https://carseller-for-you.vercel.app/autos/v1/search/query/brand/category?brand=${
                state.brand
             }&category=${state.chassis}${
                state.availability ? "&availability=Disponible" : ""
@@ -301,7 +307,7 @@ const FilterComponent = () => {
          state.model !== "All"
       ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/query/brand/model?brand=${
+            `https://carseller-for-you.vercel.app/autos/v1/search/query/brand/model?brand=${
                state.brand
             }&model=${state.model}${
                state.availability ? "&availability=Disponible" : ""
@@ -320,7 +326,9 @@ const FilterComponent = () => {
                   dispatch({ type: "setModels", payload: null })
                   // setModels(null)
                }
-               fetch(`http://localhost:3000/autos/v1/search/brand/${state.brand}`)
+               fetch(
+                  `https://carseller-for-you.vercel.app/autos/v1/search/brand/${state.brand}`,
+               )
                   .then(res => res.json())
                   .then(res => {
                      const modelsArray = getModels(res.res)
@@ -341,7 +349,7 @@ const FilterComponent = () => {
          state.brand !== "All"
       ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/query/brand/category/model?brand=${
+            `https://carseller-for-you.vercel.app/autos/v1/search/query/brand/category/model?brand=${
                state.brand
             }&category=${state.chassis}&model=${state.model}${
                state.availability ? "&availability=Disponible" : ""

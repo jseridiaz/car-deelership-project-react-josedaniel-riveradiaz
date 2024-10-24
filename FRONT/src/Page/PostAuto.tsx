@@ -55,7 +55,7 @@ const PostAuto = () => {
       console.log(data.picture[0])
       console.log(data)
 
-      fetch("http://localhost:3000/autos/v1/search", {
+      fetch("https://carseller-for-you.vercel.app/autos/v1/search", {
          method: "POST",
          headers: {
             Authorization: "Bearer " + token,
