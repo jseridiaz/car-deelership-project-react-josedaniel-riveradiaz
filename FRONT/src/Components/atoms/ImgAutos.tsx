@@ -131,7 +131,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                <ParrafAutoPicture el={state}>State:</ParrafAutoPicture>
                <ParrafAutoPicture el={year}>Year:</ParrafAutoPicture>
                <ParrafAutoPicture el={`${km.toLocaleString("es-ES")} km`}>
-                  Brand:
+                  Kilometers:
                </ParrafAutoPicture>
                <ParrafAutoPicture el={color}>Color:</ParrafAutoPicture>
                <ParrafAutoPicture el={`${price.toLocaleString("es-ES")}€`}>

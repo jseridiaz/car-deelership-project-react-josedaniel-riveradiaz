@@ -1,6 +1,6 @@
 const { addFilters } = require("../../utils/functions/addFilters")
 const { deletePictureCloud } = require("../../utils/functions/deletePictureCloud")
-const { res200, res400 } = require("../../utils/functions/responsesCrud")
+const { res200, res400, res201 } = require("../../utils/functions/responsesCrud")
 const AutoModel = require("../models/auto")
 
 // CRUD OF AUTOMODEL API
@@ -301,7 +301,7 @@ const postAuto = async (req, res, next) => {
 
       const savedAutoPost = await autoPost.save()
 
-      return res200(req, res, next, savedAutoPost, "Fetch succesfull")
+      return res201(req, res, next, savedAutoPost)
    } catch (error) {
       return res400(req, res, next, error)
    }

@@ -13,7 +13,7 @@ const Banner: React.FC<BannerProps> = ({ children, color }) => {
    return (
       <div className={`w-full ${color}`}>
          <Link
-            to='/car-offer'
+            to='/cars-shop'
             className='w-full mx-auto delay-75 rotate-0 text-cyan-500 font-semibold transition ease-in-out hover:duration-500 hover:text-cyan-100 '
          >
             {children}

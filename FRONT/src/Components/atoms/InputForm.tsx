@@ -19,7 +19,7 @@ const InputForm: React.FC<InputFormType> = ({
             placeholder={placeholder}
             name={name}
             autoComplete={auto ? "on" : "off"}
-            className='p-2 text-sm   border-2 border-gray-500 border-solid placeholder:text-sm rounded'
+            className='p-2 text-sm border-2 border-gray-500 border-solid placeholder:text-sm rounded'
          />
       </fieldset>
    )

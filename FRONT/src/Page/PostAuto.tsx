@@ -75,7 +75,7 @@ const PostAuto = () => {
       <div className='bg-blue-200 min-h-screen p-6 border border-black'>
          <form
             action=''
-            className='flex gap-10 justify-center items-center content-center flex-wrap'
+            className='flex flex-wrap gap-10 justify-center items-center content-center flex-wrap'
             onSubmit={handleSubmit(submitFunction)}
          >
             <ContainerColumn className=' bg-slate-400 items-center p-6 rounded-xl bg-[url("https://www.transparenttextures.com/patterns/brushed-alum.png")] lg:w-1/2 sm:w-[80%]'>
@@ -196,7 +196,7 @@ const PostAuto = () => {
                </FieldSet>
             </div>
             <Button
-               properties='transition-all duration-600 w-1/3 bg-transparent border-none outline outline-4 outline-blue-300 font-medium text-xl hover:scale-110 focus:scale-110 hover:outline-white hover:bg-blue-400 focus:bg-blue-400 hover:font-bold hover:outline hover:outline-blue-800 hover:text-white xl:w-fit lg:w-1/2 md:w-1/2 sm:w-full'
+               properties='transition-all duration-600 w-1/3 bg-transparent border-none outline outline-4 outline-blue-300 font-medium text-xl hover:scale-110 focus:scale-110 hover:outline-white hover:bg-blue-400 focus:bg-blue-400 hover:font-bold hover:outline hover:outline-blue-800 hover:text-white xl:w-1/3 lg:w-1/2 md:w-1/2'
                isLink={false}
             >
                Post new auto

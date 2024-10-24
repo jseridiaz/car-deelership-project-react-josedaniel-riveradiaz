@@ -47,24 +47,25 @@ const Pagination: React.FC<PaginationTypes> = ({
          ))}
          <div className='flex justify-center w-full'>
             <div className='flex gap-2 justify-between w-[90%] '>
-               {currentPage > 0 && (
-                  <Button
-                     properties=' px-3 py-1 transition duration-700 bg-white cursor-pointer font-medium hover:bg-gray-400 hover:text-white text-base lg:text-xl lg:self-center self-end'
-                     functionClick={handlePrevius}
-                     isLink={false}
-                  >
-                     Previus
-                  </Button>
-               )}
-               {currentPage < allPages - 1 && (
-                  <Button
-                     properties=' transition duration-700 bg-white cursor-pointer font-medium hover:bg-gray-400 hover:text-white px-3 py-1'
-                     functionClick={handleNext}
-                     isLink={false}
-                  >
-                     Next
-                  </Button>
-               )}
+               <Button
+                  properties={`min-w-[80px] px-3 py-1  transition duration-700 bg-white cursor-pointer font-medium hover:bg-gray-400 hover:text-white text-base lg:text-xl lg:self-center self-end ${
+                     currentPage > 0 ? "visible" : "invisible"
+                  }`}
+                  functionClick={handlePrevius}
+                  isLink={false}
+               >
+                  Previus
+               </Button>
+
+               <Button
+                  properties={` min-w-[80px] transition duration-700 bg-white cursor-pointer font-medium hover:bg-gray-400 hover:text-white px-3 py-1 ${
+                     currentPage < allPages - 1 ? "visible" : "invisible"
+                  }`}
+                  functionClick={handleNext}
+                  isLink={false}
+               >
+                  Next
+               </Button>
             </div>
          </div>
       </div>

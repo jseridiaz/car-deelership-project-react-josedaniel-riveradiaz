@@ -43,7 +43,6 @@ app.use("*", (req, res, next) => {
    res.status(404).json("Route not found")
 })
 
-module.exports = app
-// app.listen(process.env.PORT, () => {
-//    console.log("Route working in port http://localhost:" + process.env.PORT)
-// })
+app.listen(process.env.PORT, () => {
+   console.log("Route working in port http://localhost:" + process.env.PORT)
+})

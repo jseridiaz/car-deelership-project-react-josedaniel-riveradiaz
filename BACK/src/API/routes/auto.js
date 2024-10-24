@@ -47,7 +47,7 @@ routerAuto.post(
    uploadStorage("AutosUploaded").single("picture"),
    postAuto,
 )
-routerAuto.put("/:id", updateAuto)
+routerAuto.put("/:id", [isAdmin], updateAuto)
 routerAuto.delete("/:id", deleteAuto)
 
 module.exports = routerAuto

@@ -39,7 +39,7 @@ const CardAutoHome: React.FC<Cardautotype> = ({
                </span>
             </div>
             <div className='flex flex-col gap-5'>
-               <ParrafAutoPicture el={year}>Model year:</ParrafAutoPicture>
+               <ParrafAutoPicture el={year}>Year:</ParrafAutoPicture>
                <ParrafAutoPicture el={`${autoModel}`}>Model: </ParrafAutoPicture>
                <ParrafAutoPicture
                   el={`${state === "Used" ? km.toLocaleString("es-ES") : 0}`}
@@ -55,6 +55,7 @@ const CardAutoHome: React.FC<Cardautotype> = ({
                   properties='relative
              self-end transition duration-700 hover:bg-red-700 hover:shadow-blue-800 hover:shadow-md w-fit justify-between items-center w-full gap-1  flex text-white font-semibold bg-black rounded-full p-2 '
                   link='/cars-shop'
+                  // functionClick={}
                >
                   Order now
                </Button>

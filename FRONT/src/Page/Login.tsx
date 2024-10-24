@@ -71,14 +71,14 @@ const Login = () => {
 
    return (
       <>
-         <article className='flex justify-around px-6 py-2 '>
+         <article className='flex justify-around px-6 py-2 bg-slate-100  '>
             <ImgComponent
                imgPath='https://res.cloudinary.com/ddybbosdk/image/upload/v1726562162/CARS%20AUTODEELER/corvete-portrait-login_xoru7n.webp'
                alt='corvete-portrait-login'
-               classContainer='h-full w-[60%]'
+               classContainer='hidden md:block h-full w-[60%]'
                classImg='h-full w-full '
             />
-            <article className='flex w-1/2 h-[550px] justify-center items-center flex-wrap'>
+            <article className='flex w-full md:w-1/2 h-[550px] justify-center items-center flex-wrap'>
                <H2SingleComponent cssProperties='w-full text-5xl h-fit font-extrabold relative top-2'>
                   Log in
                </H2SingleComponent>
@@ -164,10 +164,9 @@ const Login = () => {
                            Keep me logged in
                         </label>
                      </div>
-                     <span className='text-purple-400 m-w-36'>Forget password?</span>
                   </div>
                   <Button
-                     properties='w-1/3 h-[50px] hover:shadow-md bg-purple-500 text-white font-semibold'
+                     properties='sm:w-1/3 w-2/3 h-[50px] hover:shadow-md bg-purple-500 text-white font-semibold'
                      isLink={false}
                   >
                      Log in

@@ -1,4 +1,4 @@
-import { Dispatch, LegacyRef, SetStateAction } from "react"
+import { Dispatch, LegacyRef, RefObject, SetStateAction } from "react"
 import { UseFormRegister } from "react-hook-form"
 
 export type AutoModelType = {
@@ -183,6 +183,7 @@ export type InputTextFormType = {
    register: UseFormRegister<any>
    name: string
    placeholders?: string
+   autoComplete?: string
    children?: React.ReactNode
    requiredBoolean?: boolean
 }
@@ -229,3 +230,128 @@ export type ButtonType = {
    children?: React.ReactNode
    functionClick?: () => void
 }
+export type FilterComponentReducerType = {
+   brands: string[] | null
+   chassis: string | null
+   brand: string | null
+   models: string[] | null
+   model: string | null
+   availability: boolean
+   minPrice: number
+   maxPrice: number
+   minKm: number
+   maxKm: number
+   minYear: number
+   maxYear: number
+}
+export type ActionFilterType =
+   | {
+        type: "setBrands"
+        payload: AutoModelType[]
+     }
+   | {
+        type: "setChassis"
+        payload: string | null
+     }
+   | {
+        type: "setBrand"
+        payload: string | null
+     }
+   | {
+        type: "setModel"
+        payload: string | null
+     }
+   | {
+        type: "setModels"
+        payload: string[] | null
+     }
+   | {
+        type: "setAvailability"
+        payload: boolean
+     }
+   | {
+        type: "setMinPrice"
+        payload: number
+     }
+   | {
+        type: "setMaxPrice"
+        payload: number
+     }
+   | {
+        type: "setMinKm"
+        payload: number
+     }
+   | {
+        type: "setMaxKm"
+        payload: number
+     }
+   | {
+        type: "setMinYear"
+        payload: number
+     }
+   | {
+        type: "setMaxYear"
+        payload: number
+     }
+   | {
+        type: "CLEAR"
+     }
+
+export type ReducerFilterType = {
+   state: FilterComponentReducerType
+}
+export type ActionTypes =
+   | "setMaxYear"
+   | "setMinYear"
+   | "setMaxKm"
+   | "setMinKm"
+   | "setMaxPrice"
+   | "setMinPrice"
+
+export type InformationPersonalType = {
+   name: string
+   surname: string
+   kindFavourites: string
+   numberFavourites: number
+}
+export type InformationPersonalAction =
+   | {
+        type: "setName"
+        payload: string
+     }
+   | {
+        type: "setSurName"
+        payload: string
+     }
+   | {
+        type: "setKindFavourites"
+        payload: string
+     }
+   | {
+        type: "setNumberFavourites"
+        payload: number
+     }
+
+export type HeaderComponentType = {
+   userInfo: string | null
+   boolean: boolean
+   showNav: boolean
+   viewPort: number
+}
+export type HeaderComponentAction =
+   | {
+        type: "setUserInfo"
+        payload: string | null
+     }
+   | {
+        type: "setViewPort"
+        payload: number
+     }
+   | {
+        type: "setBoolean"
+        payload?: boolean
+     }
+   | {
+        type: "setShowNav"
+        payload?: boolean
+     }

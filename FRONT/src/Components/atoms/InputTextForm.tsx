@@ -6,12 +6,14 @@ const InputTextForm: React.FC<InputTextFormType> = ({
    register,
    name,
    placeholders,
+   autoComplete = "on",
    requiredBoolean = true,
 }) => {
    return (
       <input
-         className='w-full placeholder:text-center text-center cursor-pointer p-2 font-medium rounded-sm hover:bg-blue-200 focus:bg-blue-200'
+         className='p-2 text-sm w-full  border-2 border-gray-500 border-solid placeholder:text-sm rounded  focus:border-none focus:outline-8 focus:outline-blue-300 focus:outline-offset-4'
          type={type}
+         autoComplete={autoComplete}
          placeholder={placeholders}
          {...register(name, { required: requiredBoolean })}
       />

@@ -1,31 +1,37 @@
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useReducer, useRef } from "react"
 import FieldSet from "../atoms/FieldSet"
-import { getArrayBrands } from "../../utils/getArrayBrands"
 import { CarContext } from "../Providers/GlobalCarsArray"
 import { getModels } from "../../utils/getModels"
 import { CurrentPageContext } from "../Providers/GlobalPages"
 import CheckBoxFilter from "../atoms/CheckBoxFilter"
 import ContainerColumn from "../atoms/ContainerColumn"
 import InputNumber from "./InputNumber"
+import {
+   FilterComponentReducer,
+   INITIAL_STATE,
+} from "../customHooks/useReducer/FilterComponentReducer"
+import {
+   ActionFilterType,
+   ActionTypes,
+   FilterComponentReducerType,
+} from "../../utils/types"
 
 const FilterComponent = () => {
    const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
    const { setCurrentPage } = useContext(CurrentPageContext)
-   const maxQuantity = 999999999
-   const minQuantity = 0
 
-   const [brands, setBrands] = useState<string[] | null>(null)
-   const [chassis, setChassis] = useState<string | null>("All")
-   const [brand, setBrand] = useState<string | null>("All")
-   const [models, setModels] = useState<string[] | null>(null)
-   const [model, setModel] = useState<string | null>("All")
-   const [availability, setAvailability] = useState<boolean>(true)
-   const [minPrice, setMinPrice] = useState<number>(minQuantity)
-   const [maxPrice, setMaxPrice] = useState<number>(maxQuantity)
-   const [minKm, setMinKm] = useState<number>(minQuantity)
-   const [maxKm, setMaxKm] = useState<number>(maxQuantity)
-   const [minYear, setMinYear] = useState<number>(minQuantity)
-   const [maxYear, setMaxYear] = useState<number>(maxQuantity)
+   // const [brands, setBrands] = useState<string[] | null>(null)
+   // const [chassis, setChassis] = useState<string | null>("All")
+   // const [brand, setBrand] = useState<string | null>("All")
+   // const [models, setModels] = useState<string[] | null>(null)
+   // const [model, setModel] = useState<string | null>("All")
+   // const [availability, setAvailability] = useState<boolean>(true)
+   // const [minPrice, setMinPrice] = useState<number>(minQuantity)
+   // const [maxPrice, setMaxPrice] = useState<number>(maxQuantity)
+   // const [minKm, setMinKm] = useState<number>(minQuantity)
+   // const [maxKm, setMaxKm] = useState<number>(maxQuantity)
+   // const [minYear, setMinYear] = useState<number>(minQuantity)
+   // const [maxYear, setMaxYear] = useState<number>(maxQuantity)
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
@@ -38,24 +44,31 @@ const FilterComponent = () => {
    const selectedMinYear = useRef<HTMLInputElement>(null)
    const selectedMaxYear = useRef<HTMLInputElement>(null)
 
+   const [state, dispatch] = useReducer<
+      React.Reducer<FilterComponentReducerType, ActionFilterType>
+   >(FilterComponentReducer, INITIAL_STATE)
+
    const resetFilter = () => {
-      setBrand("All")
-      setModel("All")
-      setChassis("All")
-      setCurrentPage(0)
-      setAvailability(true)
-      setMinPrice(minQuantity)
-      setMaxPrice(maxQuantity)
-      setMinKm(minQuantity)
-      setMaxKm(maxQuantity)
-      setMinYear(0)
-      setMaxYear(99999)
+      // setBrand("All")
+      // setModel("All")
+      // setChassis("All")
+      // setCurrentPage(0)
+      // setAvailability(true)
+      // setMinPrice(minQuantity)
+      // setMaxPrice(maxQuantity)
+      // setMinKm(minQuantity)
+      // setMaxKm(maxQuantity)
+      // setMinYear(0)
+      // setMaxYear(99999)
+      dispatch({ type: "CLEAR" })
    }
    const handleChange = (
       value: React.MutableRefObject<HTMLInputElement | null>,
    ): void => {
-      if (value.current) setAvailability(value.current.checked)
-      console.log(availableSet.current?.checked)
+      if (value.current)
+         dispatch({ type: "setAvailability", payload: value.current.checked })
+      //  setAvailability(value.current.checked)
+      // console.log(availableSet.current?.checked)
    }
    const handleKey = (e: React.KeyboardEvent) => {
       if (e.key == "-") {
@@ -65,7 +78,7 @@ const FilterComponent = () => {
    useEffect(() => {
       fetch(
          `http://localhost:3000/autos/v1/search${
-            availability ? "?availability=Disponible" : ""
+            state.availability ? "?availability=Disponible" : ""
          }`,
       )
          .then(res => res.json())
@@ -73,68 +86,81 @@ const FilterComponent = () => {
             setArrayAllCars(res.res)
             setCurrentPage(0)
             if (!res.res.length) {
-               setModels(null)
+               dispatch({ type: "setModels", payload: null })
+               // setModels(null)
             }
             return res.res
          })
          .then(res => {
-            setBrands(getArrayBrands(res))
+            dispatch({ type: "setBrands", payload: res })
+            // setBrands(getArrayBrands(res))
          })
    }, [])
    useEffect(() => {
-      if (brand === "All" && chassis === "All" && model === "All") {
+      if (
+         state.brand === "All" &&
+         state.chassis === "All" &&
+         state.model === "All"
+      ) {
          fetch(
             `http://localhost:3000/autos/v1/search${
-               availability ||
-               minPrice ||
-               maxPrice ||
-               minKm ||
-               minKm ||
-               minYear ||
-               maxYear
+               state.availability ||
+               state.minPrice ||
+               state.maxPrice ||
+               state.minKm ||
+               state.minKm ||
+               state.minYear ||
+               state.maxYear
                   ? "?"
                   : ""
-            }${availability ? "availability=Disponible" : ""}${
-               minPrice ? `&minPrice=${minPrice}` : ""
-            }${maxPrice ? `&maxPrice=${maxPrice}` : ""}${
-               minKm ? `&minKm=${minKm}` : ""
-            }${maxKm ? `&maxKm=${maxKm}` : ""}${
-               minYear ? `&minYear=${minYear}` : ""
-            }${maxYear ? `&maxYear=${maxYear}` : ""}`,
+            }${state.availability ? "availability=Disponible" : ""}${
+               state.minPrice ? `&minPrice=${state.minPrice}` : ""
+            }${state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""}${
+               state.minKm ? `&minKm=${state.minKm}` : ""
+            }${state.maxKm ? `&maxKm=${state.maxKm}` : ""}${
+               state.minYear ? `&minYear=${state.minYear}` : ""
+            }${state.maxYear ? `&maxYear=${state.maxYear}` : ""}`,
          )
             .then(res => res.json())
             .then(res => {
-               setModels(getModels(res.res))
+               dispatch({ type: "setModels", payload: getModels(res.res) })
+               // setModels(getModels(res.res))
                setArrayAllCars(res.res)
                setCurrentPage(0)
 
                if (!res.res.length) {
-                  setModels(null)
+                  dispatch({ type: "setModels", payload: null })
+                  // setModels(null)
                }
                return res.res
             })
             .then(res => {
-               setBrands(getArrayBrands(res))
+               dispatch({ type: "setBrands", payload: res })
+               // setBrands(getArrayBrands(res))
             })
-      } else if (brand !== "All" && chassis === "All" && model === "All") {
+      } else if (
+         state.brand !== "All" &&
+         state.chassis === "All" &&
+         state.model === "All"
+      ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/brand/${brand}${
-               availability ||
-               minPrice ||
-               maxPrice ||
-               minKm ||
-               minKm ||
-               minYear ||
-               maxYear
+            `http://localhost:3000/autos/v1/search/brand/${state.brand}${
+               state.availability ||
+               state.minPrice ||
+               state.maxPrice ||
+               state.minKm ||
+               state.minKm ||
+               state.minYear ||
+               state.maxYear
                   ? "?"
                   : ""
-            }${availability ? "availability=Disponible" : ""}${
-               minPrice ? `&minPrice=${minPrice}` : ""
-            }${maxPrice ? `&maxPrice=${maxPrice}` : ""}${
-               minKm ? `&minKm=${minKm}` : ""
-            }${maxKm ? `&maxKm=${maxKm}` : ""}${
-               minYear ? `&minYear=${minYear}` : ""
-            }${maxYear ? `&maxYear=${maxYear}` : ""}`,
+            }${state.availability ? "availability=Disponible" : ""}${
+               state.minPrice ? `&minPrice=${state.minPrice}` : ""
+            }${state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""}${
+               state.minKm ? `&minKm=${state.minKm}` : ""
+            }${state.maxKm ? `&maxKm=${state.maxKm}` : ""}${
+               state.minYear ? `&minYear=${state.minYear}` : ""
+            }${state.maxYear ? `&maxYear=${state.maxYear}` : ""}`,
          )
             .then(res => res.json())
             .then(res => {
@@ -142,29 +168,33 @@ const FilterComponent = () => {
 
                setArrayAllCars(res.res)
                setCurrentPage(0)
-
-               setModels(modelsArray)
+               dispatch({ type: "setModels", payload: modelsArray })
+               // setModels(modelsArray)
                console.log(arrayAllCars)
             })
-      } else if (brand === "All" && chassis === "All" && model !== "All") {
+      } else if (
+         state.brand === "All" &&
+         state.chassis === "All" &&
+         state.model !== "All"
+      ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/model/${model}${
-               availability ||
-               minPrice ||
-               maxPrice ||
-               minKm ||
-               minKm ||
-               minYear ||
-               maxYear
+            `http://localhost:3000/autos/v1/search/model/${state.model}${
+               state.availability ||
+               state.minPrice ||
+               state.maxPrice ||
+               state.minKm ||
+               state.minKm ||
+               state.minYear ||
+               state.maxYear
                   ? "?"
                   : ""
-            }${availability ? "availability=Disponible" : ""}${
-               minPrice ? `&minPrice=${minPrice}` : ""
-            }${maxPrice ? `&maxPrice=${maxPrice}` : ""}${
-               minKm ? `&minKm=${minKm}` : ""
-            }${maxKm ? `&maxKm=${maxKm}` : ""}${
-               minYear ? `&minYear=${minYear}` : ""
-            }${maxYear ? `&maxYear=${maxYear}` : ""}
+            }${state.availability ? "availability=Disponible" : ""}${
+               state.minPrice ? `&minPrice=${state.minPrice}` : ""
+            }${state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""}${
+               state.minKm ? `&minKm=${state.minKm}` : ""
+            }${state.maxKm ? `&maxKm=${state.maxKm}` : ""}${
+               state.minYear ? `&minYear=${state.minYear}` : ""
+            }${state.maxYear ? `&maxYear=${state.maxYear}` : ""}
             `,
          )
             .then(res => res.json())
@@ -172,15 +202,23 @@ const FilterComponent = () => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
             })
-      } else if (brand === "All" && chassis !== "All" && model !== "All") {
+      } else if (
+         state.brand === "All" &&
+         state.chassis !== "All" &&
+         state.model !== "All"
+      ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/query/category/model?category=${chassis}&model=${model}${
-               availability ? "&availability=Disponible" : ""
-            }${minPrice ? `&minPrice=${minPrice}` : ""}${
-               maxPrice ? `&maxPrice=${maxPrice}` : ""
-            }${minKm ? `&minKm=${minKm}` : ""}${maxKm ? `&maxKm=${maxKm}` : ""}${
-               minYear ? `&minYear=${minYear}` : ""
-            }${maxYear ? `&maxYear=${maxYear}` : ""}`,
+            `http://localhost:3000/autos/v1/search/query/category/model?category=${
+               state.chassis
+            }&model=${state.model}${
+               state.availability ? "&availability=Disponible" : ""
+            }${state.minPrice ? `&minPrice=${state.minPrice}` : ""}${
+               state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""
+            }${state.minKm ? `&minKm=${state.minKm}` : ""}${
+               state.maxKm ? `&maxKm=${state.maxKm}` : ""
+            }${state.minYear ? `&minYear=${state.minYear}` : ""}${
+               state.maxYear ? `&maxYear=${state.maxYear}` : ""
+            }`,
          )
             .then(res => res.json())
             .then(res => {
@@ -189,77 +227,106 @@ const FilterComponent = () => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
             })
-      } else if (chassis !== "All" && brand === "All" && model === "All") {
+      } else if (
+         state.chassis !== "All" &&
+         state.brand === "All" &&
+         state.model === "All"
+      ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/category/${chassis}${
-               availability ||
-               minPrice ||
-               maxPrice ||
-               minKm ||
-               maxPrice ||
-               minYear ||
-               maxYear
+            `http://localhost:3000/autos/v1/search/category/${state.chassis}${
+               state.availability ||
+               state.minPrice ||
+               state.maxPrice ||
+               state.minKm ||
+               state.maxPrice ||
+               state.minYear ||
+               state.maxYear
                   ? "?"
                   : ""
-            }${availability ? "&availability=Disponible" : ""}${
-               minPrice ? `&minPrice=${minPrice}` : ""
-            }${maxPrice ? `&maxPrice=${maxPrice}` : ""}${
-               minKm ? `&minKm=${minKm}` : ""
-            }${maxKm ? `&maxKm=${maxKm}` : ""}${
-               minYear ? `&minYear=${minYear}` : ""
-            }${maxYear ? `&maxYear=${maxYear}` : ""}`,
+            }${state.availability ? "&availability=Disponible" : ""}${
+               state.minPrice ? `&minPrice=${state.minPrice}` : ""
+            }${state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""}${
+               state.minKm ? `&minKm=${state.minKm}` : ""
+            }${state.maxKm ? `&maxKm=${state.maxKm}` : ""}${
+               state.minYear ? `&minYear=${state.minYear}` : ""
+            }${state.maxYear ? `&maxYear=${state.maxYear}` : ""}`,
          )
             .then(res => res.json())
             .then(res => {
                const modelsArray = getModels(res.res)
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               setModels(modelsArray)
+               dispatch({ type: "setModels", payload: modelsArray })
+
+               // setModels(modelsArray)
                console.log(res.res)
             })
-      } else if (chassis !== "All" && brand !== "All" && model === "All") {
+      } else if (
+         state.chassis !== "All" &&
+         state.brand !== "All" &&
+         state.model === "All"
+      ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/query/brand/category?brand=${brand}&category=${chassis}${
-               availability ? "&availability=Disponible" : ""
-            }${minPrice ? `&minPrice=${minPrice}` : ""}${
-               maxPrice ? `&maxPrice=${maxPrice}` : ""
-            }${minKm ? `&minKm=${minKm}` : ""}${maxKm ? `&maxKm=${maxKm}` : ""}${
-               minYear ? `&minYear=${minYear}` : ""
-            }${maxYear ? `&maxYear=${maxYear}` : ""}`,
+            `http://localhost:3000/autos/v1/search/query/brand/category?brand=${
+               state.brand
+            }&category=${state.chassis}${
+               state.availability ? "&availability=Disponible" : ""
+            }${state.minPrice ? `&minPrice=${state.minPrice}` : ""}${
+               state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""
+            }${state.minKm ? `&minKm=${state.minKm}` : ""}${
+               state.maxKm ? `&maxKm=${state.maxKm}` : ""
+            }${state.minYear ? `&minYear=${state.minYear}` : ""}${
+               state.maxYear ? `&maxYear=${state.maxYear}` : ""
+            }`,
          )
             .then(res => res.json())
             .then(res => {
                if (!res.res.length) {
-                  setModels(null)
+                  dispatch({ type: "setModels", payload: null })
+
+                  // setModels(null)
                }
                setArrayAllCars(res.res)
                setCurrentPage(0)
 
                console.log(res.res)
                const modelsArray = getModels(res.res)
-               setModels(modelsArray)
+               dispatch({ type: "setModels", payload: modelsArray })
+
+               // setModels(modelsArray)
             })
-      } else if (chassis === "All" && brand !== "All" && model !== "All") {
+      } else if (
+         state.chassis === "All" &&
+         state.brand !== "All" &&
+         state.model !== "All"
+      ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/query/brand/model?brand=${brand}&model=${model}${
-               availability ? "&availability=Disponible" : ""
-            }${minPrice ? `&minPrice=${minPrice}` : ""}${
-               maxPrice ? `&maxPrice=${maxPrice}` : ""
-            }${minKm ? `&minKm=${minKm}` : ""}${maxKm ? `&maxKm=${maxKm}` : ""}${
-               minYear ? `&minYear=${minYear}` : ""
-            }${maxYear ? `&maxYear=${maxYear}` : ""}
+            `http://localhost:3000/autos/v1/search/query/brand/model?brand=${
+               state.brand
+            }&model=${state.model}${
+               state.availability ? "&availability=Disponible" : ""
+            }${state.minPrice ? `&minPrice=${state.minPrice}` : ""}${
+               state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""
+            }${state.minKm ? `&minKm=${state.minKm}` : ""}${
+               state.maxKm ? `&maxKm=${state.maxKm}` : ""
+            }${state.minYear ? `&minYear=${state.minYear}` : ""}${
+               state.maxYear ? `&maxYear=${state.maxYear}` : ""
+            }
             `,
          )
             .then(res => res.json())
             .then(res => {
                if (!res.res.length) {
-                  setModels(null)
+                  dispatch({ type: "setModels", payload: null })
+                  // setModels(null)
                }
-               fetch(`http://localhost:3000/autos/v1/search/brand/${brand}`)
+               fetch(`http://localhost:3000/autos/v1/search/brand/${state.brand}`)
                   .then(res => res.json())
                   .then(res => {
                      const modelsArray = getModels(res.res)
-                     setModels(modelsArray)
+                     dispatch({ type: "setModels", payload: modelsArray })
+
+                     // setModels(modelsArray)
                   })
 
                setArrayAllCars(res.res)
@@ -268,15 +335,23 @@ const FilterComponent = () => {
                // const modelsArray = getModels(res.res)
                // setModels(modelsArray)
             })
-      } else if (chassis !== "All" && model !== "All" && brand !== "All") {
+      } else if (
+         state.chassis !== "All" &&
+         state.model !== "All" &&
+         state.brand !== "All"
+      ) {
          fetch(
-            `http://localhost:3000/autos/v1/search/query/brand/category/model?brand=${brand}&category=${chassis}&model=${model}${
-               availability ? "&availability=Disponible" : ""
-            }${minPrice ? `&minPrice=${minPrice}` : ""}${
-               maxPrice ? `&maxPrice=${maxPrice}` : ""
-            }${minKm ? `&minKm=${minKm}` : ""}${maxKm ? `&maxKm=${maxKm}` : ""}${
-               minYear ? `&minYear=${minYear}` : ""
-            }${maxYear ? `&maxYear=${maxYear}` : ""}`,
+            `http://localhost:3000/autos/v1/search/query/brand/category/model?brand=${
+               state.brand
+            }&category=${state.chassis}&model=${state.model}${
+               state.availability ? "&availability=Disponible" : ""
+            }${state.minPrice ? `&minPrice=${state.minPrice}` : ""}${
+               state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""
+            }${state.minKm ? `&minKm=${state.minKm}` : ""}${
+               state.maxKm ? `&maxKm=${state.maxKm}` : ""
+            }${state.minYear ? `&minYear=${state.minYear}` : ""}${
+               state.maxYear ? `&maxYear=${state.maxYear}` : ""
+            }`,
          )
             .then(res => res.json())
             .then(res => {
@@ -300,31 +375,33 @@ const FilterComponent = () => {
          console.log("ok")
       }
    }, [
-      brand,
-      chassis,
-      model,
-      availability,
-      minPrice,
-      maxPrice,
-      minKm,
-      maxKm,
-      minYear,
-      maxYear,
+      state.brand,
+      state.chassis,
+      state.model,
+      state.availability,
+      state.minPrice,
+      state.maxPrice,
+      state.minKm,
+      state.maxKm,
+      state.minYear,
+      state.maxYear,
    ])
 
-   const changeValue = (
-      setStateName: React.Dispatch<React.SetStateAction<string | null>>,
-      reference: React.RefObject<HTMLSelectElement>,
-   ): void => {
-      setStateName(reference.current?.value ?? null)
-   }
+   // const changeValue = (
+   //    setStateName: React.Dispatch<React.SetStateAction<string | null>>,
+   //    reference: React.RefObject<HTMLSelectElement>,
+   // ): void => {
+   //    setStateName(reference.current?.value ?? null)
+   // }
    const handleInput = (
-      setState: React.Dispatch<React.SetStateAction<number | 0>>,
+      type: ActionTypes,
       reference: React.MutableRefObject<HTMLInputElement | null>,
    ): void => {
       if (reference && reference.current) {
-         const numberValue: number = parseInt(reference.current?.value)
-         setState(numberValue)
+         dispatch({ type, payload: parseInt(reference.current.value) })
+         // dispatch({type:typeValue,payload:reference.current.value})
+         // const numberValue: number = parseInt(reference.current?.value)
+         // setState(numberValue)
       }
    }
 
@@ -339,11 +416,16 @@ const FilterComponent = () => {
                   className='lg:w-1/2 w-full'
                   ref={selectedBrand}
                   onChange={() => {
-                     changeValue(setBrand, selectedBrand)
+                     dispatch({
+                        type: "setBrand",
+                        payload:
+                           selectedBrand.current && selectedBrand.current.value,
+                     })
+                     // changeValue(setBrand, selectedBrand)
                   }}
                >
-                  {brands &&
-                     brands.map((el, idx) => (
+                  {state.brands &&
+                     state.brands.map((el, idx) => (
                         <option
                            key={idx}
                            value={el === "Select a Brand" ? "All" : el}
@@ -358,15 +440,20 @@ const FilterComponent = () => {
                   className='lg:w-1/2 w-full'
                   ref={selectedModel}
                   onChange={() => {
-                     changeValue(setModel, selectedModel)
+                     dispatch({
+                        type: "setModel",
+                        payload:
+                           selectedModel.current && selectedModel.current.value,
+                     })
+                     // changeValue(setModel, selectedModel)
                   }}
                >
-                  {!models?.length ? (
+                  {!state.models?.length ? (
                      <option value='All'>Select Brand or chasis</option>
                   ) : (
                      <>
                         <option value='All'>All</option>
-                        {models.map((el, idx) => (
+                        {state.models.map((el, idx) => (
                            <option key={idx}>{el}</option>
                         ))}
                      </>
@@ -377,10 +464,17 @@ const FilterComponent = () => {
                <select
                   className='lg:w-1/2 w-full'
                   ref={selectedChassis}
-                  value={chassis ? chassis : undefined}
+                  value={state.chassis ? state.chassis : undefined}
                   onChange={() => {
-                     setModel("All")
-                     changeValue(setChassis, selectedChassis)
+                     dispatch({ type: "setModel", payload: "All" })
+                     // setModel("All")
+                     dispatch({
+                        type: "setChassis",
+                        payload:
+                           selectedChassis.current && selectedChassis.current.value,
+                     })
+
+                     // changeValue(setChassis, selectedChassis)
                   }}
                >
                   <option value='All'>All</option>
@@ -409,13 +503,13 @@ const FilterComponent = () => {
                      idName='min-price-input'
                      numberValue='€'
                      reference={selectedMinPrice}
-                     placeholder='1000€'
+                     placeholder='1000'
                      handleKey={e => {
                         handleKey(e)
                      }}
                      handleInput={() => {
-                        handleInput(setMinPrice, selectedMinPrice)
-                        console.log(minPrice)
+                        handleInput("setMinPrice", selectedMinPrice)
+                        // console.log(minPrice)
                      }}
                   />
                   <InputNumber
@@ -423,9 +517,9 @@ const FilterComponent = () => {
                      idName='max-price-input'
                      reference={selectedMaxPrice}
                      numberValue='€'
-                     placeholder='20000€'
+                     placeholder='20000'
                      handleInput={() => {
-                        handleInput(setMaxPrice, selectedMaxPrice)
+                        handleInput("setMaxPrice", selectedMaxPrice)
                      }}
                   />
                </ContainerColumn>
@@ -439,7 +533,7 @@ const FilterComponent = () => {
                      reference={selectedMinKm}
                      numberValue='Km'
                      handleInput={() => {
-                        handleInput(setMinKm, selectedMinKm)
+                        handleInput("setMinKm", selectedMinKm)
                      }}
                      placeholder='0'
                   />
@@ -449,7 +543,7 @@ const FilterComponent = () => {
                      reference={selectedMaxKm}
                      numberValue='Km'
                      handleInput={() => {
-                        handleInput(setMaxKm, selectedMaxKm)
+                        handleInput("setMaxKm", selectedMaxKm)
                      }}
                      placeholder='180000'
                   />
@@ -463,7 +557,7 @@ const FilterComponent = () => {
                      idName='year-manufacture-from'
                      reference={selectedMinYear}
                      handleInput={() => {
-                        handleInput(setMinYear, selectedMinYear)
+                        handleInput("setMinYear", selectedMinYear)
                      }}
                      placeholder='1992'
                   />
@@ -473,7 +567,7 @@ const FilterComponent = () => {
                      reference={selectedMaxYear}
                      placeholder='2024'
                      handleInput={() => {
-                        handleInput(setMaxYear, selectedMaxYear)
+                        handleInput("setMaxYear", selectedMaxYear)
                      }}
                   />
                </ContainerColumn>
@@ -483,7 +577,7 @@ const FilterComponent = () => {
                <button
                   className='bg-white lg:w-[10%] w-1/3 '
                   type='reset'
-                  onClick={resetFilter}
+                  onClick={() => resetFilter()}
                >
                   Clear filter
                </button>
