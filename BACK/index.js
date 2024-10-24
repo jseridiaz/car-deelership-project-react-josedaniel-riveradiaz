@@ -40,7 +40,7 @@ fs.writeFile("Autos.json", JSON.stringify(jsonAuto), async error => {
 
 app.use("/", routerMain)
 app.use("*", (req, res, next) => {
-   res.status(404).json("Route not found")
+   res.status(404).json("Route not founded")
 })
 
 app.listen(process.env.PORT, () => {
