@@ -1,4 +1,4 @@
-import { Dispatch, LegacyRef, RefObject, SetStateAction } from "react"
+import { Dispatch, LegacyRef, SetStateAction } from "react"
 import { UseFormRegister } from "react-hook-form"
 
 export type AutoModelType = {
