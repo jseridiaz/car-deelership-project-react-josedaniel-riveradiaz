@@ -77,7 +77,7 @@ const FilterComponent = () => {
    }
    useEffect(() => {
       fetch(
-         `https://carseller-for-you.vercel.app/autos/v1/search${
+         `https://carseller-back-josedaniel.vercel.app/autos/v1/search${
             state.availability ? "?availability=Disponible" : ""
          }`,
       )
@@ -103,7 +103,7 @@ const FilterComponent = () => {
          state.model === "All"
       ) {
          fetch(
-            `https://carseller-for-you.vercel.app/autos/v1/search${
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/search${
                state.availability ||
                state.minPrice ||
                state.maxPrice ||
@@ -144,7 +144,7 @@ const FilterComponent = () => {
          state.model === "All"
       ) {
          fetch(
-            `https://carseller-for-you.vercel.app/autos/v1/search/brand/${
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/brand/${
                state.brand
             }${
                state.availability ||
@@ -180,7 +180,7 @@ const FilterComponent = () => {
          state.model !== "All"
       ) {
          fetch(
-            `https://carseller-for-you.vercel.app/autos/v1/search/model/${
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/model/${
                state.model
             }${
                state.availability ||
@@ -212,7 +212,7 @@ const FilterComponent = () => {
          state.model !== "All"
       ) {
          fetch(
-            `https://carseller-for-you.vercel.app/autos/v1/search/query/category/model?category=${
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/query/category/model?category=${
                state.chassis
             }&model=${state.model}${
                state.availability ? "&availability=Disponible" : ""
@@ -237,7 +237,7 @@ const FilterComponent = () => {
          state.model === "All"
       ) {
          fetch(
-            `https://carseller-for-you.vercel.app/autos/v1/search/category/${
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/category/${
                state.chassis
             }${
                state.availability ||
@@ -273,7 +273,7 @@ const FilterComponent = () => {
          state.model === "All"
       ) {
          fetch(
-            `https://carseller-for-you.vercel.app/autos/v1/search/query/brand/category?brand=${
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/query/brand/category?brand=${
                state.brand
             }&category=${state.chassis}${
                state.availability ? "&availability=Disponible" : ""
@@ -307,7 +307,7 @@ const FilterComponent = () => {
          state.model !== "All"
       ) {
          fetch(
-            `https://carseller-for-you.vercel.app/autos/v1/search/query/brand/model?brand=${
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/query/brand/model?brand=${
                state.brand
             }&model=${state.model}${
                state.availability ? "&availability=Disponible" : ""
@@ -327,7 +327,7 @@ const FilterComponent = () => {
                   // setModels(null)
                }
                fetch(
-                  `https://carseller-for-you.vercel.app/autos/v1/search/brand/${state.brand}`,
+                  `https://carseller-back-josedaniel.vercel.app/autos/v1/search/brand/${state.brand}`,
                )
                   .then(res => res.json())
                   .then(res => {
@@ -349,7 +349,7 @@ const FilterComponent = () => {
          state.brand !== "All"
       ) {
          fetch(
-            `https://carseller-for-you.vercel.app/autos/v1/search/query/brand/category/model?brand=${
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/query/brand/category/model?brand=${
                state.brand
             }&category=${state.chassis}&model=${state.model}${
                state.availability ? "&availability=Disponible" : ""
@@ -365,7 +365,7 @@ const FilterComponent = () => {
             .then(res => {
                // if (!res.res.length) {
                //    fetch(
-               //       `http://localhost:3000/autos/v1/search/query/brand/category?brand=${brand}&category=${chassis}`,
+               //       `https://carseller-back-josedaniel.vercel.app/autos/v1/search/query/brand/category?brand=${brand}&category=${chassis}`,
                //    )
                //       .then(res => res.json())
                //       .then(res => {

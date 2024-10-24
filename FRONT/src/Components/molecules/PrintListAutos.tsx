@@ -22,7 +22,7 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
          localStorage.getItem("idUSer") ?? sessionStorage.getItem("logged"),
       )
       fetch(
-         `https://carseller-for-you.vercel.app/autos/v1/customer/user/${idSesion}`,
+         `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/user/${idSesion}`,
       )
          .then(res => res.json())
          .then(res => {

@@ -22,7 +22,7 @@ const Register = () => {
    })
 
    const handleRegister = (data: IFormInput): void => {
-      fetch("https://carseller-for-you.vercel.app/autos/v1/user/register", {
+      fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/user/register", {
          method: "POST",
          headers: {
             "Content-Type": "application/json",
