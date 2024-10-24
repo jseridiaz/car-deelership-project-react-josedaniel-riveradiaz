@@ -75,7 +75,7 @@ const PostAuto = () => {
       <div className='bg-blue-200 min-h-screen p-6 border border-black'>
          <form
             action=''
-            className='flex flex-wrap gap-10 justify-center items-center content-center flex-wrap'
+            className='flex flex-wrap gap-10 justify-center items-center content-center'
             onSubmit={handleSubmit(submitFunction)}
          >
             <ContainerColumn className=' bg-slate-400 items-center p-6 rounded-xl bg-[url("https://www.transparenttextures.com/patterns/brushed-alum.png")] lg:w-1/2 sm:w-[80%]'>
