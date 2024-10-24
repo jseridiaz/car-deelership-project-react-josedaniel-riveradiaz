@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { optionFiltersHome } from "../../../data/optionFilters"
 import H2Component from "../../atoms/H2Component"
 import CardAutoHome from "../../atoms/CardAutoHome"
@@ -33,33 +33,27 @@ const Explore = () => {
       }
    }, [idUser, logged])
    useEffect(() => {
-      const typeAuto = async () => {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/category/${
-               filterSelect == "Cars"
-                  ? "Turismo"
-                  : filterSelect === "Trucks"
-                  ? "Truck"
-                  : "SUV"
-            }`,
-         )
-            .then(res => res.json())
-            .then(res => res.res)
-            .then(res => {
-               const finalArrayAuto: AutoModelType[] = []
-               for (let i = 0; i < 6; i++) {
-                  const aleatoryNumber: number = Math.floor(
-                     Math.random() * res.length,
-                  )
-                  const element: AutoModelType = res[aleatoryNumber]
-                  finalArrayAuto.push(element)
-                  res.splice(aleatoryNumber, aleatoryNumber + 1)
-               }
-               setArrayAutos(finalArrayAuto)
-            })
-      }
-
-      typeAuto()
+      fetch(
+         `https://carseller-back-josedaniel.vercel.app/autos/v1/search/category/${
+            filterSelect == "Cars"
+               ? "Turismo"
+               : filterSelect === "Trucks"
+               ? "Truck"
+               : "SUV"
+         }`,
+      )
+         .then(res => res.json())
+         .then(res => res.res)
+         .then(res => {
+            const finalArrayAuto: AutoModelType[] = []
+            for (let i = 0; i < 6; i++) {
+               const aleatoryNumber: number = Math.floor(Math.random() * res.length)
+               const element: AutoModelType = res[aleatoryNumber]
+               finalArrayAuto.push(element)
+               res.splice(aleatoryNumber, 1)
+            }
+            setArrayAutos(finalArrayAuto)
+         })
    }, [filterSelect, idUser, logged])
 
    const handleFilter = (name: string): void => {

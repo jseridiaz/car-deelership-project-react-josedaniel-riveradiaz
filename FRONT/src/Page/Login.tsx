@@ -8,12 +8,14 @@ import { useContext, useState } from "react"
 import { TokenContext } from "../Components/Providers/GlobalToken"
 import { LoggedContext } from "../Components/Providers/GlobalLogged"
 import H2SingleComponent from "../Components/atoms/H2SingleComponent"
+import Loader from "../Components/atoms/Loader"
 
 const Login = () => {
    const { setToken } = useContext(TokenContext)
-   const { logged, setLogged } = useContext(LoggedContext)
+   const { setLogged } = useContext(LoggedContext)
    const [statusFetch, setStatusFetch] = useState<boolean>()
    const [fetchState, setFetchState] = useState<ExtendedIFormInput | null>()
+   const [loading, setLoading] = useState<boolean>(false)
 
    const navigate = useNavigate()
    const {
@@ -24,6 +26,7 @@ const Login = () => {
 
    const handleLogin = (data: IFormLogin): void => {
       console.log(data)
+      setLoading(true)
 
       fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/user/login", {
          method: "POST",
@@ -56,15 +59,13 @@ const Login = () => {
 
                setToken(localStorage.getItem("token"))
                navigate("/home")
+               setLoading(false)
             } else {
                sessionStorage.setItem("logged", resJson.res.logged._id)
                sessionStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
                setLogged(sessionStorage.getItem("logged"))
                navigate("/home")
-
-               {
-                  console.log(logged)
-               }
+               setLoading(false)
             }
          })
    }
@@ -166,10 +167,11 @@ const Login = () => {
                      </div>
                   </div>
                   <Button
-                     properties='sm:w-1/3 w-2/3 h-[50px] hover:shadow-md bg-purple-500 text-white font-semibold'
+                     properties='relative sm:w-1/3 w-2/3 h-[50px] hover:shadow-md bg-purple-500 text-white font-semibold'
                      isLink={false}
                   >
                      Log in
+                     {loading && <Loader />}
                   </Button>
                   <Link
                      className='text-purple-600 hover:text-blue-400 p-1 focus:outline-none'
