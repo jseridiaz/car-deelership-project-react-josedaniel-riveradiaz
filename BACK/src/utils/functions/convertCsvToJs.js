@@ -1,10 +1,12 @@
 const fs = require("fs")
+const path = require("path")
 const { getColor } = require("./getColor")
 const { rgbToHex } = require("./rgbTohex")
 const namer = require("color-namer")
 
 const convertCsvToJs = endArray => {
-   const data = fs.readFileSync("./src/data/BBDD_cars.csv", { encoding: "utf-8" })
+   const pathCsv = path.join(__dirname, "..", "..", "data", "BBDD_cars.csv")
+   const data = fs.readFileSync(pathCsv, { encoding: "utf-8" })
    const dataSplitted = data.split("\r\n")
    let dataFiltered = []
    dataSplitted.forEach(el => {
