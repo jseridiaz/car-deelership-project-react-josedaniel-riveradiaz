@@ -15,7 +15,11 @@ const Explore = () => {
 
    useEffect(() => {
       if (idUser || logged) {
-         fetch(`http://localhost:3000/autos/v1/user/${idUser ?? logged}`)
+         fetch(
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/user/${
+               idUser ?? logged
+            }`,
+         )
             .then(res => res.json())
             .then(res => {
                setFilterSelect(
@@ -31,7 +35,7 @@ const Explore = () => {
    useEffect(() => {
       const typeAuto = async () => {
          fetch(
-            `http://localhost:3000/autos/v1/search/category/${
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/category/${
                filterSelect == "Cars"
                   ? "Turismo"
                   : filterSelect === "Trucks"
