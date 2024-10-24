@@ -14,7 +14,7 @@ const {
    getAutoByModel,
 } = require("../controllers/auto")
 const { isAdmin } = require("../../middlewares/isAdmin")
-const { uploadStorage } = require("../../middlewares/File")
+const { uploadStorage } = require("../../middlewares/file")
 
 const routerAuto = express.Router()
 
