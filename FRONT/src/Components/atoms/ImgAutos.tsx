@@ -38,11 +38,14 @@ const ImgAutos: React.FC<ImgAutoType> = ({
          const arrayAdded = [...arrayFavourites, autoId]
          setArrayFavourites(prevArray => [...prevArray, autoId])
          localStorage.setItem("favourites", JSON.stringify(arrayAdded))
-         fetch(`http://localhost:3000/autos/v1/customer/idUser/${idUser}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ favourites: autoId }),
-         })
+         fetch(
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/idUser/${idUser}`,
+            {
+               method: "PUT",
+               headers: { "Content-Type": "application/json" },
+               body: JSON.stringify({ favourites: autoId }),
+            },
+         )
             .then(res => res.json())
             .then(res => {
                console.log(res)
@@ -55,7 +58,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
          setArrayFavourites(arrayFavourites.filter(el => autoId !== el))
          localStorage.setItem("favourites", JSON.stringify(filteredArray))
          fetch(
-            `http://localhost:3000/autos/v1/customer/delete/favourites/${customerId}`,
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/delete/favourites/${customerId}`,
             {
                method: "PUT",
                headers: { "Content-Type": "application/json" },
