@@ -31,6 +31,7 @@ const FooterComponent = () => {
                      </IconRRSS>
                   </a>
                   <FacebookShareButton
+                     name='facebook-btn'
                      className='hover:outline-none  focus:outline-none'
                      url='https://carseller-for-you.vercel.app/home'
                   >
@@ -39,6 +40,7 @@ const FooterComponent = () => {
                      </IconRRSS>
                   </FacebookShareButton>
                   <TwitterShareButton
+                     name='twitter-btn'
                      url='https://carseller-for-you.vercel.app/home'
                      className='hover:outline-none  focus:outline-none'
                   >
