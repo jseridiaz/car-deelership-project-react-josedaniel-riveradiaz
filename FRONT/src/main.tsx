@@ -8,21 +8,24 @@ import GlobalCurrentPage from "./Components/Providers/GlobalPages.tsx"
 import GlobalToken from "./Components/Providers/GlobalToken.tsx"
 import GlobalLogged from "./Components/Providers/GlobalLogged.tsx"
 import GlobalFavouritesArray from "./Components/Providers/GlobalFavouritesArray.tsx"
+import { HelmetProvider } from "react-helmet-async"
 
 createRoot(document.getElementById("root")!).render(
    <StrictMode>
       <BrowserRouter>
-         <GlobalCarsContext>
-            <GlobalCurrentPage>
-               <GlobalFavouritesArray>
-                  <GlobalToken>
-                     <GlobalLogged>
-                        <App />
-                     </GlobalLogged>
-                  </GlobalToken>
-               </GlobalFavouritesArray>
-            </GlobalCurrentPage>
-         </GlobalCarsContext>
+         <HelmetProvider>
+            <GlobalCarsContext>
+               <GlobalCurrentPage>
+                  <GlobalFavouritesArray>
+                     <GlobalToken>
+                        <GlobalLogged>
+                           <App />
+                        </GlobalLogged>
+                     </GlobalToken>
+                  </GlobalFavouritesArray>
+               </GlobalCurrentPage>
+            </GlobalCarsContext>
+         </HelmetProvider>
       </BrowserRouter>
    </StrictMode>,
 )

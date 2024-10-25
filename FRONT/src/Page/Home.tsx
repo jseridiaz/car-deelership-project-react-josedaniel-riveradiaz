@@ -7,10 +7,17 @@ import OurService from "../Components/molecules/Home/OurService"
 import InfoAuto from "../Components/molecules/Home/InfoAuto"
 import FeedbackCustomers from "../Components/molecules/Home/FeedbackCustomers"
 import BlogsHome from "../Components/molecules/Home/BlogsHome"
+import Seo from "../Components/molecules/Seo"
 
 const Home = () => {
    return (
       <>
+         <Seo
+            title='Car seller'
+            description='✔️ Find out your desire car in our Auto page by looking for our stock with a good price and state. Enjoy with it thanks to the great offers that we throw out all weeks becouse.'
+            url='https://carseller-for-you.vercel.app/home'
+            img='/PorscheBlog.png'
+         />
          <Carousel data={slides} />
          <Brands />
          <Explore />

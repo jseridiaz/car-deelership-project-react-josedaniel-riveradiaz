@@ -26,10 +26,10 @@ const CarPage = () => {
    return (
       <>
          <Seo
-            title=" Car Seller's auto stock 🚘"
+            title="Auto stock 🚘 - Car Seller's"
             description='✔️ Find all our current cars between all our brands and take a look at the pictures to compare with all your favourites choises, and buy one easily with your preferred Payment methods.'
             url='https://carseller-for-you.vercel.app/cars-shop'
-            img='/audi-portrait.webp'
+            img='/PorscheBlog.png'
          />
          <section
             className={`bg-blue-200 ${!arrayAllCars?.length ? "h-screen " : ""}`}
