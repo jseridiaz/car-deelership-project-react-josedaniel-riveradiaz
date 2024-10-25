@@ -372,11 +372,7 @@ const FilterComponent = () => {
 
    return (
       <>
-         {state.loading && (
-            <div>
-               <Loader />
-            </div>
-         )}
+         {state.loading && <div>dsadaddaas</div>}
          <div className='p-4'>
             <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 rounded-lg relative'>
                <FieldSet description='Brand'>
