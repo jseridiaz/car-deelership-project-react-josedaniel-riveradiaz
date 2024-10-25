@@ -21,19 +21,6 @@ const FilterComponent = () => {
    const { setArrayAllCars } = useContext(CarContext)
    const { setCurrentPage } = useContext(CurrentPageContext)
 
-   // const [brands, setBrands] = useState<string[] | null>(null)
-   // const [chassis, setChassis] = useState<string | null>("All")
-   // const [brand, setBrand] = useState<string | null>("All")
-   // const [models, setModels] = useState<string[] | null>(null)
-   // const [model, setModel] = useState<string | null>("All")
-   // const [availability, setAvailability] = useState<boolean>(true)
-   // const [minPrice, setMinPrice] = useState<number>(minQuantity)
-   // const [maxPrice, setMaxPrice] = useState<number>(maxQuantity)
-   // const [minKm, setMinKm] = useState<number>(minQuantity)
-   // const [maxKm, setMaxKm] = useState<number>(maxQuantity)
-   // const [minYear, setMinYear] = useState<number>(minQuantity)
-   // const [maxYear, setMaxYear] = useState<number>(maxQuantity)
-
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
    const selectedModel = useRef<HTMLSelectElement>(null)
@@ -126,14 +113,11 @@ const FilterComponent = () => {
                if (!res.res.length) {
                   dispatch({ type: "setModels", payload: null })
                   dispatch({ type: "setLoading", payload: false })
-
-                  // setModels(null)
                }
                return res.res
             })
             .then(res => {
                dispatch({ type: "setBrands", payload: res })
-               // setBrands(getArrayBrands(res))
             })
       } else if (
          state.brand !== "All" &&
@@ -560,11 +544,13 @@ const FilterComponent = () => {
                </button>
             </div>
          </form>
-         {state.loading && (
-            <div className='absolute top-0 right-1/2 translate-x-1/2'>
-               <Loader />
-            </div>
-         )}
+         {
+            state.loading && <Loader />
+            //  (
+            //    <div className='absolute top-0 right-1/2 translate-x-1/2'>
+
+            //    // </div>
+         }
       </div>
    )
 }
