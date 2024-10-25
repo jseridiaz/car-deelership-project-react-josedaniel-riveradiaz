@@ -561,7 +561,7 @@ const FilterComponent = () => {
             </div>
          </form>
          {state.loading && (
-            <div className='absolute bottom-1/3 right-1/2 translate-x-1/2'>
+            <div className='absolute top-0 right-1/2 translate-x-1/2'>
                <Loader />
             </div>
          )}
