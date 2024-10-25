@@ -15,7 +15,7 @@ import {
    ActionTypes,
    FilterComponentReducerType,
 } from "../../utils/types"
-import Loader from "../atoms/Loader"
+// import Loader from "../atoms/Loader"
 
 const FilterComponent = () => {
    const { setArrayAllCars } = useContext(CarContext)
@@ -64,7 +64,6 @@ const FilterComponent = () => {
             setCurrentPage(0)
             if (!res.res.length) {
                dispatch({ type: "setModels", payload: null })
-               // setModels(null)
                dispatch({ type: "setLoading", payload: false })
             }
 
@@ -371,187 +370,191 @@ const FilterComponent = () => {
    }
 
    return (
-      <div className='p-4'>
-         <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 rounded-lg relative'>
-            <FieldSet description='Brand'>
-               <select
-                  className='lg:w-1/2 w-full'
-                  ref={selectedBrand}
-                  onChange={() => {
-                     dispatch({
-                        type: "setBrand",
-                        payload:
-                           selectedBrand.current && selectedBrand.current.value,
-                     })
-                     // changeValue(setBrand, selectedBrand)
-                  }}
-               >
-                  {state.brands &&
-                     state.brands.map((el, idx) => (
-                        <option
-                           key={idx}
-                           value={el === "Select a Brand" ? "All" : el}
-                        >
-                           {el}
-                        </option>
-                     ))}
-               </select>
-            </FieldSet>
-            <FieldSet description='Model'>
-               <select
-                  className='lg:w-1/2 w-full'
-                  ref={selectedModel}
-                  onChange={() => {
-                     dispatch({
-                        type: "setModel",
-                        payload:
-                           selectedModel.current && selectedModel.current.value,
-                     })
-                     // changeValue(setModel, selectedModel)
-                  }}
-               >
-                  {!state.models?.length ? (
-                     <option value='All'>Select Brand or chasis</option>
-                  ) : (
-                     <>
-                        <option value='All'>All</option>
-                        {state.models.map((el, idx) => (
-                           <option key={idx}>{el}</option>
+      <>
+         <div className='p-4'>
+            <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 rounded-lg relative'>
+               <FieldSet description='Brand'>
+                  <select
+                     className='lg:w-1/2 w-full'
+                     ref={selectedBrand}
+                     onChange={() => {
+                        dispatch({
+                           type: "setBrand",
+                           payload:
+                              selectedBrand.current && selectedBrand.current.value,
+                        })
+                        // changeValue(setBrand, selectedBrand)
+                     }}
+                  >
+                     {state.brands &&
+                        state.brands.map((el, idx) => (
+                           <option
+                              key={idx}
+                              value={el === "Select a Brand" ? "All" : el}
+                           >
+                              {el}
+                           </option>
                         ))}
-                     </>
-                  )}
-               </select>
-            </FieldSet>
-            <FieldSet description='Chassis'>
-               <select
-                  className='lg:w-1/2 w-full'
-                  ref={selectedChassis}
-                  value={state.chassis ? state.chassis : undefined}
-                  onChange={() => {
-                     dispatch({ type: "setModel", payload: "All" })
-                     // setModel("All")
-                     dispatch({
-                        type: "setChassis",
-                        payload:
-                           selectedChassis.current && selectedChassis.current.value,
-                     })
+                  </select>
+               </FieldSet>
+               <FieldSet description='Model'>
+                  <select
+                     className='lg:w-1/2 w-full'
+                     ref={selectedModel}
+                     onChange={() => {
+                        dispatch({
+                           type: "setModel",
+                           payload:
+                              selectedModel.current && selectedModel.current.value,
+                        })
+                        // changeValue(setModel, selectedModel)
+                     }}
+                  >
+                     {!state.models?.length ? (
+                        <option value='All'>Select Brand or chasis</option>
+                     ) : (
+                        <>
+                           <option value='All'>All</option>
+                           {state.models.map((el, idx) => (
+                              <option key={idx}>{el}</option>
+                           ))}
+                        </>
+                     )}
+                  </select>
+               </FieldSet>
+               <FieldSet description='Chassis'>
+                  <select
+                     className='lg:w-1/2 w-full'
+                     ref={selectedChassis}
+                     value={state.chassis ? state.chassis : undefined}
+                     onChange={() => {
+                        dispatch({ type: "setModel", payload: "All" })
+                        // setModel("All")
+                        dispatch({
+                           type: "setChassis",
+                           payload:
+                              selectedChassis.current &&
+                              selectedChassis.current.value,
+                        })
 
-                     // changeValue(setChassis, selectedChassis)
-                  }}
-               >
-                  <option value='All'>All</option>
-                  <option value='Turismo'>Cars</option>
-                  <option value='SUV'>SUVs</option>
-                  <option value='Truck'>Trucks</option>
-               </select>
-            </FieldSet>
-            <div className='flex justify-around w-full flex-wrap gap-6'>
-               <CheckBoxFilter
-                  typeInput='checkbox'
-                  idName='avaliables-autos'
-                  reference={availableSet}
-                  valueRef='available'
-                  handleChange={() => handleChange(availableSet)}
-                  checked={true}
-               >
-                  Availables
-               </CheckBoxFilter>
-               <ContainerColumn className=' items-center w-full sm:w-fit sm:items-start '>
-                  <ContainerColumn className='font-semibold text-center w-full'>
-                     Price{" "}
+                        // changeValue(setChassis, selectedChassis)
+                     }}
+                  >
+                     <option value='All'>All</option>
+                     <option value='Turismo'>Cars</option>
+                     <option value='SUV'>SUVs</option>
+                     <option value='Truck'>Trucks</option>
+                  </select>
+               </FieldSet>
+               <div className='flex justify-around w-full flex-wrap gap-6'>
+                  <CheckBoxFilter
+                     typeInput='checkbox'
+                     idName='avaliables-autos'
+                     reference={availableSet}
+                     valueRef='available'
+                     handleChange={() => handleChange(availableSet)}
+                     checked={true}
+                  >
+                     Availables
+                  </CheckBoxFilter>
+                  <ContainerColumn className=' items-center w-full sm:w-fit sm:items-start '>
+                     <ContainerColumn className='font-semibold text-center w-full'>
+                        Price{" "}
+                     </ContainerColumn>
+                     <InputNumber
+                        spanName='From'
+                        idName='min-price-input'
+                        numberValue='€'
+                        reference={selectedMinPrice}
+                        placeholder='1000'
+                        handleKey={e => {
+                           handleKey(e)
+                        }}
+                        handleInput={() => {
+                           handleInput("setMinPrice", selectedMinPrice)
+                        }}
+                     />
+                     <InputNumber
+                        spanName='Under'
+                        idName='max-price-input'
+                        reference={selectedMaxPrice}
+                        handleKey={e => handleKey(e)}
+                        numberValue='€'
+                        placeholder='20000'
+                        handleInput={() => {
+                           handleInput("setMaxPrice", selectedMaxPrice)
+                        }}
+                     />
                   </ContainerColumn>
-                  <InputNumber
-                     spanName='From'
-                     idName='min-price-input'
-                     numberValue='€'
-                     reference={selectedMinPrice}
-                     placeholder='1000'
-                     handleKey={e => {
-                        handleKey(e)
-                     }}
-                     handleInput={() => {
-                        handleInput("setMinPrice", selectedMinPrice)
-                     }}
-                  />
-                  <InputNumber
-                     spanName='Under'
-                     idName='max-price-input'
-                     reference={selectedMaxPrice}
-                     numberValue='€'
-                     placeholder='20000'
-                     handleInput={() => {
-                        handleInput("setMaxPrice", selectedMaxPrice)
-                     }}
-                  />
-               </ContainerColumn>
-               <ContainerColumn className='items-center w-full sm:w-fit sm:items-start'>
-                  <ContainerColumn className='flex font-semibold w-full'>
-                     Kilometers
+                  <ContainerColumn className='items-center w-full sm:w-fit sm:items-start'>
+                     <ContainerColumn className='flex font-semibold w-full'>
+                        Kilometers
+                     </ContainerColumn>
+                     <InputNumber
+                        spanName='From'
+                        idName='min-km-input'
+                        reference={selectedMinKm}
+                        handleKey={e => handleKey(e)}
+                        numberValue='Km'
+                        handleInput={() => {
+                           handleInput("setMinKm", selectedMinKm)
+                        }}
+                        placeholder='0'
+                     />
+                     <InputNumber
+                        spanName='Unter'
+                        idName='max-km-input'
+                        reference={selectedMaxKm}
+                        numberValue='Km'
+                        handleKey={e => handleKey(e)}
+                        handleInput={() => {
+                           handleInput("setMaxKm", selectedMaxKm)
+                        }}
+                        placeholder='180000'
+                     />
                   </ContainerColumn>
-                  <InputNumber
-                     spanName='From'
-                     idName='min-km-input'
-                     reference={selectedMinKm}
-                     numberValue='Km'
-                     handleInput={() => {
-                        handleInput("setMinKm", selectedMinKm)
-                     }}
-                     placeholder='0'
-                  />
-                  <InputNumber
-                     spanName='Unter'
-                     idName='max-km-input'
-                     reference={selectedMaxKm}
-                     numberValue='Km'
-                     handleInput={() => {
-                        handleInput("setMaxKm", selectedMaxKm)
-                     }}
-                     placeholder='180000'
-                  />
-               </ContainerColumn>
-               <ContainerColumn className='items-center w-full sm:w-fit sm:items-start'>
-                  <ContainerColumn className='font-semibold w-full'>
-                     Year manufacture
+                  <ContainerColumn className='items-center w-full sm:w-fit sm:items-start'>
+                     <ContainerColumn className='font-semibold w-full'>
+                        Year manufacture
+                     </ContainerColumn>
+                     <InputNumber
+                        spanName='From'
+                        idName='year-manufacture-from'
+                        reference={selectedMinYear}
+                        handleKey={e => handleKey(e)}
+                        handleInput={() => {
+                           handleInput("setMinYear", selectedMinYear)
+                        }}
+                        placeholder='1992'
+                     />
+                     <InputNumber
+                        spanName='Under'
+                        idName='year-manufacture-under'
+                        reference={selectedMaxYear}
+                        placeholder='2024'
+                        handleKey={e => handleKey(e)}
+                        handleInput={() => {
+                           handleInput("setMaxYear", selectedMaxYear)
+                        }}
+                     />
                   </ContainerColumn>
-                  <InputNumber
-                     spanName='From'
-                     idName='year-manufacture-from'
-                     reference={selectedMinYear}
-                     handleInput={() => {
-                        handleInput("setMinYear", selectedMinYear)
-                     }}
-                     placeholder='1992'
-                  />
-                  <InputNumber
-                     spanName='Under'
-                     idName='year-manufacture-under'
-                     reference={selectedMaxYear}
-                     placeholder='2024'
-                     handleInput={() => {
-                        handleInput("setMaxYear", selectedMaxYear)
-                     }}
-                  />
-               </ContainerColumn>
-            </div>
+               </div>
 
-            <div className='w-full'>
-               <button
-                  className='bg-white lg:w-[10%] w-1/3 '
-                  type='reset'
-                  onClick={() => resetFilter()}
-               >
-                  Clear filter
-               </button>
-            </div>
-         </form>
-         {
-            state.loading && <Loader />
-            //  (
-            //    <div className='absolute top-0 right-1/2 translate-x-1/2'>
+               <div className='w-full'>
+                  <button
+                     className='bg-white lg:w-[10%] w-1/3 '
+                     type='reset'
+                     onClick={() => resetFilter()}
+                  >
+                     Clear filter
+                  </button>
+               </div>
+            </form>
 
-            //    // </div>
-         }
-      </div>
+            <div className='absolute top-0 right-1/2 translate-x-1/2'>// // </div>
+         </div>
+         {state.loading && <div>dasdsadas</div>}
+      </>
    )
 }
 
