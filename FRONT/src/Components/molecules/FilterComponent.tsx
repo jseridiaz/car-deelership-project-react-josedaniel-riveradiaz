@@ -372,6 +372,11 @@ const FilterComponent = () => {
 
    return (
       <>
+         {state.loading && (
+            <div>
+               <Loader />
+            </div>
+         )}
          <div className='p-4'>
             <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 rounded-lg relative'>
                <FieldSet description='Brand'>
@@ -554,11 +559,6 @@ const FilterComponent = () => {
 
             <div className='absolute top-0 right-1/2 translate-x-1/2'>// // </div>
          </div>
-         {state.loading && (
-            <div>
-               <Loader />
-            </div>
-         )}
       </>
    )
 }
