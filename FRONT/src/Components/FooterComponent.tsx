@@ -6,6 +6,8 @@ import UlFooter from "./molecules/Home/UlFooter"
 import { FacebookShareButton } from "react-share"
 
 const FooterComponent = () => {
+   console.log(window.location.href)
+
    return (
       <>
          <footer className=' flex justify-around relative z-100 px-2 sm:px-10 pb -6 sm:pt-5 bg-gray-400 text-black flex-wrap gap-9'>
