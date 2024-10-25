@@ -78,8 +78,8 @@ const FilterComponent = () => {
             if (!res.res.length) {
                dispatch({ type: "setModels", payload: null })
                // setModels(null)
+               dispatch({ type: "setLoading", payload: false })
             }
-            dispatch({ type: "setLoading", payload: false })
 
             return res.res
          })
