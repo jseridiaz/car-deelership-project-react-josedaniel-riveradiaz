@@ -1,5 +1,4 @@
 import { SVGProps } from "react"
-import { Link } from "react-router-dom"
 const MercedesIcon = (props: SVGProps<SVGSVGElement>) => (
    <svg
       xmlns='http://www.w3.org/2000/svg'
