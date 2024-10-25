@@ -15,7 +15,7 @@ import {
    ActionTypes,
    FilterComponentReducerType,
 } from "../../utils/types"
-import Loader from "../atoms/Loader"
+
 // import Loader from "../atoms/Loader"
 
 const FilterComponent = () => {

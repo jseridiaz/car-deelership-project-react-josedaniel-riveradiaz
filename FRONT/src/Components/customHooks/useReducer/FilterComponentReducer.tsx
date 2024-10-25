@@ -17,7 +17,7 @@ export const INITIAL_STATE: FilterComponentReducerType = {
    maxKm: maxQuantity,
    minYear: minQuantity,
    maxYear: maxQuantity,
-   loading: false,
+   loading: true,
 }
 
 export const FilterComponentReducer = (
