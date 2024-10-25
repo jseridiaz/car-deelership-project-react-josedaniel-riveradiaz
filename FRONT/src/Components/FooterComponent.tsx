@@ -63,6 +63,7 @@ const FooterComponent = () => {
                   <UlFooter key={idx} title={el.title} arrayLi={el.li} />
                ))}
             </div>
+            <div></div>
          </footer>
       </>
    )
