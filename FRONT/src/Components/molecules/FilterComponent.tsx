@@ -15,6 +15,7 @@ import {
    ActionTypes,
    FilterComponentReducerType,
 } from "../../utils/types"
+import Loader from "../atoms/Loader"
 
 // import Loader from "../atoms/Loader"
 
@@ -77,7 +78,7 @@ const FilterComponent = () => {
          })
          .then(res => {
             dispatch({ type: "setBrands", payload: res })
-            dispatch({ type: "setLoading", payload: false })
+            // dispatch({ type: "setLoading", payload: false })
 
             // setBrands(getArrayBrands(res))
          })
@@ -381,9 +382,12 @@ const FilterComponent = () => {
 
    return (
       <div className='p-4'>
-         {state.loading && <div>dsadaddaas</div>}
-
          <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 rounded-lg relative'>
+            {state.loading && (
+               <div className='absolute -bottom-20 right-1/2 -translate-x-1/2'>
+                  <Loader />
+               </div>
+            )}
             <FieldSet description='Brand'>
                <select
                   className='lg:w-1/2 w-full'
