@@ -17,7 +17,7 @@ import {
 } from "../../utils/types"
 
 const FilterComponent = () => {
-   const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
+   const { setArrayAllCars } = useContext(CarContext)
    const { setCurrentPage } = useContext(CurrentPageContext)
 
    // const [brands, setBrands] = useState<string[] | null>(null)
@@ -56,8 +56,6 @@ const FilterComponent = () => {
    ): void => {
       if (value.current)
          dispatch({ type: "setAvailability", payload: value.current.checked })
-      //  setAvailability(value.current.checked)
-      // console.log(availableSet.current?.checked)
    }
    const handleKey = (e: React.KeyboardEvent) => {
       if (e.key == "-") {
@@ -160,8 +158,6 @@ const FilterComponent = () => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
                dispatch({ type: "setModels", payload: modelsArray })
-               // setModels(modelsArray)
-               console.log(arrayAllCars)
             })
       } else if (
          state.brand === "All" &&
@@ -215,8 +211,6 @@ const FilterComponent = () => {
          )
             .then(res => res.json())
             .then(res => {
-               console.log(res.res)
-
                setArrayAllCars(res.res)
                setCurrentPage(0)
             })
@@ -254,7 +248,6 @@ const FilterComponent = () => {
                dispatch({ type: "setModels", payload: modelsArray })
 
                // setModels(modelsArray)
-               console.log(res.res)
             })
       } else if (
          state.chassis !== "All" &&
@@ -284,7 +277,6 @@ const FilterComponent = () => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
 
-               console.log(res.res)
                const modelsArray = getModels(res.res)
                dispatch({ type: "setModels", payload: modelsArray })
 
@@ -506,7 +498,6 @@ const FilterComponent = () => {
                      }}
                      handleInput={() => {
                         handleInput("setMinPrice", selectedMinPrice)
-                        // console.log(minPrice)
                      }}
                   />
                   <InputNumber

@@ -13,18 +13,14 @@ const Pagination: React.FC<PaginationTypes> = ({
    useEffect(() => {
       setArrayPages(Array.from({ length: allPages }, (_, i) => i + 1))
    }, [allPages])
-   //  console.log(array)
    const handlePagination = (idx: number): void => {
       setCurrentPage(idx)
-      console.log(currentPage)
    }
    const handleNext = () => {
       if (currentPage < arrayPages.length - 1) setCurrentPage(currentPage + 1)
-      console.log(currentPage)
    }
    const handlePrevius = () => {
       if (currentPage > 0) setCurrentPage(currentPage - 1)
-      console.log(currentPage)
    }
 
    return (

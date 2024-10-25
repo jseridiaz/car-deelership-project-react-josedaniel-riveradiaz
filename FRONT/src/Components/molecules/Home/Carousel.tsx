@@ -3,7 +3,7 @@ import { BiChevronRight } from "react-icons/bi"
 import Button from "../../atoms/Button"
 import BooleanState from "../../customHooks/BooleanState"
 import ImgComponent from "../../atoms/ImgComponent"
-import { useState } from "react"
+import { memo, useState } from "react"
 import ContainerColumn from "../../atoms/ContainerColumn"
 import H2SingleComponent from "../../atoms/H2SingleComponent"
 type CarouselTypes = {
@@ -114,4 +114,4 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
    )
 }
 
-export default Carousel
+export default memo(Carousel)

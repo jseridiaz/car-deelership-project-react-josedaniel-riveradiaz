@@ -52,8 +52,6 @@ const PostAuto = () => {
       formData.append("color", data.color)
       formData.append("availability", "Disponible")
       formData.append("picture", data.picture[0])
-      console.log(data.picture[0])
-      console.log(data)
 
       fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/search", {
          method: "POST",
@@ -61,13 +59,7 @@ const PostAuto = () => {
             Authorization: "Bearer " + token,
          },
          body: formData,
-      })
-         .then(res => res.json())
-         .then(res => {
-            console.log(res)
-         })
-      console.log(formData)
-      console.log(token)
+      }).then(res => res.json())
 
       reset()
    }

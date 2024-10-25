@@ -39,7 +39,6 @@ const HeaderComponent = () => {
       if (state.viewPort >= 768) {
          dispatch({ type: "setShowNav", payload: true })
       }
-      console.log(state.viewPort)
       return () => {
          window.removeEventListener("resize", resizeHandler)
       }
@@ -47,7 +46,6 @@ const HeaderComponent = () => {
 
    const handleClickProfile = (): void => {
       dispatch({ type: "setBoolean" })
-      console.log(state.boolean)
    }
 
    const handleLogout = () => {
@@ -65,7 +63,6 @@ const HeaderComponent = () => {
    }
    const handleClick = () => {
       dispatch({ type: "setShowNav" })
-      console.log(state.showNav)
    }
    return (
       <header

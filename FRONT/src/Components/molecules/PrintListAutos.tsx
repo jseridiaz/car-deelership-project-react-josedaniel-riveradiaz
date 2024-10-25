@@ -12,6 +12,7 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
 }) => {
    const { logged } = useContext(LoggedContext)
    const { token } = useContext(TokenContext)
+
    const [idSesion, setIdSession] = useState<string | null>(
       localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
    )
@@ -21,13 +22,15 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
       setIdSession(
          localStorage.getItem("idUSer") ?? sessionStorage.getItem("logged"),
       )
-      fetch(
-         `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/user/${idSesion}`,
-      )
-         .then(res => res.json())
-         .then(res => {
-            return setCustomerId(res.res._id ?? null)
-         })
+      if (token || logged) {
+         fetch(
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/user/${idSesion}`,
+         )
+            .then(res => res.json())
+            .then(res => {
+               return setCustomerId(res.res?._id ?? null)
+            })
+      }
    }, [logged, token, idSesion])
 
    return (

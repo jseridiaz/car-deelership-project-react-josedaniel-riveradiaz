@@ -45,11 +45,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                headers: { "Content-Type": "application/json" },
                body: JSON.stringify({ favourites: autoId }),
             },
-         )
-            .then(res => res.json())
-            .then(res => {
-               console.log(res)
-            })
+         ).then(res => res.json())
       }
    }
    const deleteFavourite = () => {
@@ -64,11 +60,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                headers: { "Content-Type": "application/json" },
                body: JSON.stringify({ favourites: autoId }),
             },
-         )
-            .then(res => res.json())
-            .then(res => {
-               console.log(res)
-            })
+         ).then(res => res.json())
       }
    }
 

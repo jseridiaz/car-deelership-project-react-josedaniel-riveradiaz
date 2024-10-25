@@ -32,7 +32,6 @@ const Login = () => {
    } = useForm({ defaultValues: { email: "", password: "", savedToken: null } })
 
    const handleLogin = (data: IFormLogin): void => {
-      console.log(data)
       setFetchState(null)
       setLoading(true)
 
@@ -62,7 +61,6 @@ const Login = () => {
 
             setLoading(false)
             if (resJson.res.token) {
-               console.log(resJson)
                localStorage.setItem("token", resJson.res.token)
                localStorage.setItem("idUser", resJson.res.logged._id)
                localStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))

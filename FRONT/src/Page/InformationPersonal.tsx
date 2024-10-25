@@ -41,7 +41,6 @@ const InformationPersonal = () => {
          .then(res => res.json())
          .then(r => {
             const { res } = r
-            console.log(res)
             dispatch({ type: "setName", payload: res.profile.name })
             // setName(res.profile.name)
             dispatch({ type: "setSurName", payload: res.profile.surname })
@@ -54,8 +53,6 @@ const InformationPersonal = () => {
          })
    }, [idUser])
    const submitFunct: SubmitHandler<SubmitHandlerPersonalInfo> = data => {
-      console.log(idUser)
-
       const bodyObject: SubmitHandlerPersonalInfo = {}
       if (data.name) {
          bodyObject.name = data.name
@@ -74,7 +71,7 @@ const InformationPersonal = () => {
          }),
       })
          .then(res => res.json())
-         .then(res => {
+         .then(() => {
             const { name, surname, favourites } = bodyObject
             if (name) {
                dispatch({ type: "setName", payload: name })
@@ -86,8 +83,6 @@ const InformationPersonal = () => {
                dispatch({ type: "setKindFavourites", payload: favourites })
             //  setKindFavourites(favourites)
             reset()
-            console.log(res)
-            console.log(bodyObject)
          })
       //  .finally(() => {
       //     reset()

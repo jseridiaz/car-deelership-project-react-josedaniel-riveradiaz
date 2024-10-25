@@ -55,17 +55,6 @@ const Register = () => {
          }, 3000)
          return res.json()
       })
-
-      console.log(
-         JSON.stringify({
-            name: data.firstname,
-            surname: data.surname,
-            age: data.birthdate.split("-").join("/"),
-            email: data.email,
-            password: data.password,
-            favourites: data.autosInterested,
-         }),
-      )
    }
    return (
       <>
