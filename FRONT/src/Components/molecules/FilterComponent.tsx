@@ -67,19 +67,19 @@ const FilterComponent = () => {
             setCurrentPage(0)
             if (!res.res.length) {
                dispatch({ type: "setModels", payload: null })
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
             }
 
             return res.res
          })
          .then(res => {
             dispatch({ type: "setBrands", payload: res })
-            dispatch({ type: "setLoading", payload: false })
+            // dispatch({ type: "setLoading", payload: false })
             // setBrands(getArrayBrands(res))
          })
    }, [])
    useEffect(() => {
-      dispatch({ type: "setLoading", payload: true })
+      // dispatch({ type: "setLoading", payload: true })
       if (
          state.brand === "All" &&
          state.chassis === "All" &&
@@ -110,11 +110,11 @@ const FilterComponent = () => {
                // setModels(getModels(res.res))
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
 
                if (!res.res.length) {
                   dispatch({ type: "setModels", payload: null })
-                  dispatch({ type: "setLoading", payload: false })
+                  // dispatch({ type: "setLoading", payload: false })
                }
                return res.res
             })
@@ -154,7 +154,7 @@ const FilterComponent = () => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
                dispatch({ type: "setModels", payload: modelsArray })
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
             })
       } else if (
          state.brand === "All" &&
@@ -187,7 +187,7 @@ const FilterComponent = () => {
             .then(res => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
             })
       } else if (
          state.brand === "All" &&
@@ -211,7 +211,7 @@ const FilterComponent = () => {
             .then(res => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
             })
       } else if (
          state.chassis !== "All" &&
@@ -245,7 +245,7 @@ const FilterComponent = () => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
                dispatch({ type: "setModels", payload: modelsArray })
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
             })
       } else if (
          state.chassis !== "All" &&
@@ -274,7 +274,7 @@ const FilterComponent = () => {
                }
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
 
                const modelsArray = getModels(res.res)
                dispatch({ type: "setModels", payload: modelsArray })
@@ -317,7 +317,7 @@ const FilterComponent = () => {
 
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
 
                // const modelsArray = getModels(res.res)
                // setModels(modelsArray)
@@ -343,7 +343,7 @@ const FilterComponent = () => {
             .then(res => res.json())
             .then(res => {
                setArrayAllCars(res.res)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
 
                setCurrentPage(0)
             })
