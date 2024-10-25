@@ -3,10 +3,17 @@ import Parraf from "../Components/molecules/Parraf"
 import H2SingleComponent from "../Components/atoms/H2SingleComponent"
 import ImgComponent from "../Components/atoms/ImgComponent"
 import ContainerColumn from "../Components/atoms/ContainerColumn"
+import Seo from "../Components/molecules/Seo"
 
 const About = () => {
    return (
       <>
+         <Seo
+            title='All about us - Car seller'
+            description='All car seller history can be found here, along with our mission to support customers.'
+            url='http://localhost:5173/about-us'
+            img='/PorscheBlog.png'
+         />
          <section className='p-4 flex flex-col gap-2 bg-blue-200 relative'>
             <H1Component>About Car Seller</H1Component>
             <H2SingleComponent

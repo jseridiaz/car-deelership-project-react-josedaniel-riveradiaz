@@ -61,7 +61,7 @@ const FavouriteCars = () => {
       <>
          <Seo
             title='Check our your favourites 🛻 - Car seller'
-            description="✔️ Take a see to the autos that you've saved and follow its availability. In case you decide to buy it than you can handle that easy at the moment."
+            description="✔️ Take a see to the autos that you've saved and follow its availability, in addition to handle your saved personal stock. In case you decide to buy it than you can handle that easy at the moment."
             url='https://carseller-for-you.vercel.app/favourite-cars'
             img='/PorscheBlog.png'
          />

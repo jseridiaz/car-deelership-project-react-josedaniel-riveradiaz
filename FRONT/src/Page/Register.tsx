@@ -9,6 +9,7 @@ import { useState } from "react"
 import Loader from "../Components/atoms/Loader"
 import { useNavigate } from "react-router-dom"
 import Toast from "../Components/molecules/Toast"
+import Seo from "../Components/molecules/Seo"
 
 const Register = () => {
    const [loading, setLoading] = useState<boolean>(false)
@@ -68,6 +69,12 @@ const Register = () => {
    }
    return (
       <>
+         <Seo
+            title='Register page ◀️ - Car seller'
+            description='Set your personal datas to get access free in your private page and take a lot of advantages like offers and disccounts, as well as  be able to find out about the latest stocks firts.'
+            url='https://carseller-for-you.vercel.app/register'
+            img='https://res.cloudinary.com/ddybbosdk/image/upload/v1726571808/CARS%20AUTODEELER/ram-portrait-register_1_qyb1im.avif'
+         />
          <article className=' flex justify-around p-10 bg-blue-200 '>
             <article className='md:w-[38%] w-full'>
                <form

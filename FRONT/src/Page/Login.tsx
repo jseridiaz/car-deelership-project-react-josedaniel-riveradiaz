@@ -14,6 +14,7 @@ import { turnOffBanner } from "../utils/turnOffBanner"
 import { BsArrowDownLeft } from "react-icons/bs"
 
 import Parraf from "../Components/molecules/Parraf"
+import Seo from "../Components/molecules/Seo"
 
 const Login = () => {
    const { setToken } = useContext(TokenContext)
@@ -82,6 +83,12 @@ const Login = () => {
 
    return (
       <>
+         <Seo
+            title='Login page 🔑 - Car seller'
+            description='Get in in your personal page by logging with your datas and take advantages like offers and disccounts, as well as find out about the latest stocks firts.'
+            url='https://carseller-for-you.vercel.app/login'
+            img='https://res.cloudinary.com/ddybbosdk/image/upload/v1726562162/CARS%20AUTODEELER/corvete-portrait-login_xoru7n.webp'
+         />
          <article className='flex justify-around px-6 py-2 bg-slate-100  '>
             <ImgComponent
                imgPath='https://res.cloudinary.com/ddybbosdk/image/upload/v1726562162/CARS%20AUTODEELER/corvete-portrait-login_xoru7n.webp'
