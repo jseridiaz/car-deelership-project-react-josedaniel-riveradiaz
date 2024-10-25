@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer, useRef } from "react"
+import { useContext, useEffect, useReducer, useRef, memo } from "react"
 import FieldSet from "../atoms/FieldSet"
 import { CarContext } from "../Providers/GlobalCarsArray"
 import { getModels } from "../../utils/getModels"
@@ -584,4 +584,4 @@ const FilterComponent = () => {
    )
 }
 
-export default FilterComponent
+export default memo(FilterComponent)

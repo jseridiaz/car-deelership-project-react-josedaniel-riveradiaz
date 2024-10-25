@@ -1,5 +1,5 @@
 // import { useEffect } from "react"
-import { useContext, useEffect, useState } from "react"
+import { memo, useContext, useEffect, useState } from "react"
 import { PrintListAutoType } from "../../utils/types"
 
 import ImgAutos from "../atoms/ImgAutos"
@@ -57,4 +57,4 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
    )
 }
 
-export default PrintListAutos
+export default memo(PrintListAutos)

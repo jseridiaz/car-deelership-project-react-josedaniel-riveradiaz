@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import { useContext, memo } from "react"
 import { Link } from "react-router-dom"
 import Button from "./Button"
 import { ImgAutoType, userID } from "../../utils/types"
@@ -151,4 +151,4 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    )
 }
 
-export default React.memo(ImgAutos)
+export default memo(ImgAutos)
