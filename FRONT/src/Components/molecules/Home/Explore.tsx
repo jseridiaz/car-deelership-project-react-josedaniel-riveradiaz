@@ -85,7 +85,7 @@ const Explore = () => {
                      </span>
                   ))}
                </form>
-               <div
+               <ul
                   id='scroll-hidden-home'
                   className='flex flex-nowrap
                overflow-x-scroll overflow-y-hidden snap-x h-full scroll-smooth'
@@ -102,7 +102,7 @@ const Explore = () => {
                         km={el.kilometer}
                      />
                   ))}
-               </div>
+               </ul>
             </div>
             <ContainerColumn className='absolute left-1/2  p-2 w-[35%] bottom-4 right-1/2 -translate-x-1/2 '>
                <Link
