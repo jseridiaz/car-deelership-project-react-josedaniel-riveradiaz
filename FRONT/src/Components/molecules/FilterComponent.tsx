@@ -53,6 +53,8 @@ const FilterComponent = () => {
       }
    }
    useEffect(() => {
+      console.log(state.loading)
+
       dispatch({ type: "setLoading", payload: true })
 
       fetch(
@@ -81,6 +83,8 @@ const FilterComponent = () => {
          })
    }, [])
    useEffect(() => {
+      console.log(state.loading)
+
       dispatch({ type: "setLoading", payload: true })
 
       if (
@@ -556,8 +560,6 @@ const FilterComponent = () => {
                </button>
             </div>
          </form>
-
-         <div className='absolute top-0 right-1/2 translate-x-1/2'>// // </div>
       </div>
    )
 }
