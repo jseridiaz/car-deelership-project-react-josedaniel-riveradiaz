@@ -11,6 +11,8 @@ import H2SingleComponent from "../Components/atoms/H2SingleComponent"
 import Loader from "../Components/atoms/Loader"
 import Toast from "../Components/molecules/Toast"
 import { turnOffBanner } from "../utils/turnOffBanner"
+import { BsArrowDownLeft } from "react-icons/bs"
+
 import Parraf from "../Components/molecules/Parraf"
 
 const Login = () => {
@@ -174,10 +176,11 @@ const Login = () => {
                      </Parraf>
                   ) : null} */}
                   <Link
-                     className='text-purple-600 hover:text-blue-400 p-1 focus:outline-none'
+                     className='flex gap-1 text-purple-600 hover:text-blue-400 p-1 focus:outline-none animate-pulse'
                      to='/register'
                   >
                      Haven't you yet an account?
+                     <BsArrowDownLeft className=' scale-125' />
                   </Link>
                </form>
             </article>

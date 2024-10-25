@@ -9,11 +9,6 @@ interface Brandtypes {
    img: JSX.Element
 }
 
-interface Brandtypes {
-   name: string
-   img: JSX.Element
-}
-
 const brands: Brandtypes[] = [
    { name: "Audi", img: <AudiBrandIcon /> },
    { name: "Honda", img: <HondaIcon /> },

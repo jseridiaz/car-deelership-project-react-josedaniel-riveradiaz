@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { memo, useContext, useEffect, useState } from "react"
 import { optionFiltersHome } from "../../../data/optionFilters"
 import H2Component from "../../atoms/H2Component"
 import CardAutoHome from "../../atoms/CardAutoHome"
@@ -117,4 +117,4 @@ const Explore = () => {
    )
 }
 
-export default Explore
+export default memo(Explore)
