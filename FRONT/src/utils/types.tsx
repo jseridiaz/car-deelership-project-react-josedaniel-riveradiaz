@@ -355,3 +355,8 @@ export type HeaderComponentAction =
         type: "setShowNav"
         payload?: boolean
      }
+
+export type ToastType = {
+   children: React.ReactNode
+   handle?: boolean
+}

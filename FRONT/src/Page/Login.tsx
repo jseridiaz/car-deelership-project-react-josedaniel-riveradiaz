@@ -9,6 +9,9 @@ import { TokenContext } from "../Components/Providers/GlobalToken"
 import { LoggedContext } from "../Components/Providers/GlobalLogged"
 import H2SingleComponent from "../Components/atoms/H2SingleComponent"
 import Loader from "../Components/atoms/Loader"
+import Toast from "../Components/molecules/Toast"
+import { turnOffBanner } from "../utils/turnOffBanner"
+import Parraf from "../Components/molecules/Parraf"
 
 const Login = () => {
    const { setToken } = useContext(TokenContext)
@@ -16,6 +19,7 @@ const Login = () => {
    const [statusFetch, setStatusFetch] = useState<boolean>()
    const [fetchState, setFetchState] = useState<ExtendedIFormInput | null>()
    const [loading, setLoading] = useState<boolean>(false)
+   const [banner, setBanner] = useState<boolean>(false)
 
    const navigate = useNavigate()
    const {
@@ -26,6 +30,7 @@ const Login = () => {
 
    const handleLogin = (data: IFormLogin): void => {
       console.log(data)
+      setFetchState(null)
       setLoading(true)
 
       fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/user/login", {
@@ -38,34 +43,37 @@ const Login = () => {
          }),
       })
          .then(res => {
-            console.log(res)
             setStatusFetch(res.ok)
-
+            if (!res.ok) {
+               turnOffBanner(setBanner, 3000, false)
+            }
             return res.json()
          })
          .then(resJson => {
-            resJson.res.logged.password = null
-            console.log(resJson.res.logged)
+            setBanner(true)
 
+            if (statusFetch) {
+               resJson.res.logged.password = null
+            }
             setFetchState(resJson)
 
+            setLoading(false)
             if (resJson.res.token) {
                console.log(resJson)
-               console.log(JSON.stringify(resJson.res.logged))
-
                localStorage.setItem("token", resJson.res.token)
                localStorage.setItem("idUser", resJson.res.logged._id)
                localStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
-
                setToken(localStorage.getItem("token"))
-               navigate("/home")
-               setLoading(false)
-            } else {
+               setTimeout(() => {
+                  navigate("/home")
+               }, 3000)
+            } else if (resJson.res.logged && resJson.message === "You're in") {
                sessionStorage.setItem("logged", resJson.res.logged._id)
                sessionStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
                setLogged(sessionStorage.getItem("logged"))
-               navigate("/home")
-               setLoading(false)
+               setTimeout(() => {
+                  navigate("/home")
+               }, 3000)
             }
          })
    }
@@ -89,12 +97,12 @@ const Login = () => {
                   className=' flex flex-col w-[90%] h-[85%] p-4 justify-around items-center border-2 border-black border-solid rounded-xl bg-blue-50'
                   onSubmit={handleSubmit(handleLogin)}
                >
-                  <FieldSet description='Email'>
+                  <FieldSet description='Email' cssProperties='w-full'>
                      <input
                         type='text'
                         autoComplete='on'
                         placeholder='jose@gmail.com'
-                        className='p-2 text-sm border-2 border-gray-500 border-solid placeholder:text-sm rounded'
+                        className='p-2 text-sm border-2 w-[80%] border-gray-500 border-solid placeholder:text-sm rounded'
                         {...register("email", {
                            required: {
                               value: true,
@@ -107,50 +115,37 @@ const Login = () => {
                         })}
                      />
                      {errors.email && (
-                        <p className='absolute -bottom-2 right-1/2 translate-x-1/2 font-normal text-sm w-full text-red-600'>
+                        <Parraf cssProperties='relative -bottom-2 right-1/2 translate-x-1/2 font-normal text-sm w-full text-red-600'>
                            {errors.email.type === "required" && errors.email.message}
-                        </p>
+                        </Parraf>
                      )}
                   </FieldSet>
-                  <FieldSet description='Password'>
+                  <FieldSet description='Password' cssProperties='w-full'>
                      <input
                         type='password'
                         placeholder='*******'
-                        className='p-2 text-sm border-2 border-gray-500 border-solid placeholder:text-sm rounded'
+                        className='p-2 text-sm border-2 w-[80%] border-gray-500 border-solid placeholder:text-sm rounded'
                         {...register("password", {
                            required: "Password is required",
                            pattern: {
                               value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&<>.])[A-Za-z\d@$!%*?&<>.]{7,}$/,
                               message:
-                                 "The password must contain a lowercase, Uppercase,a number and a special character",
+                                 "The password must contain a lowercase, Uppercase, a number, a special character and at least 7 characters",
                            },
                         })}
                      />
                      {errors.password && (
-                        <p
-                           className={`absolute ${
-                              errors.password.type === "pattern"
-                                 ? "-bottom-7"
-                                 : "-bottom-2"
-                           } text-sm w-[140%] right-1/2 translate-x-1/2 text-red-600`}
+                        <Parraf
+                           cssProperties={`relative text-sm w-[100%] right-1/2 translate-x-1/2 text-red-600`}
                         >
                            {errors.password.type === "pattern"
                               ? "* Password must contain a lowercase, uppercase, number, special character and 7 characters "
                               : errors.password.type === "required"
                               ? "* The password is required"
                               : null}
-                        </p>
+                        </Parraf>
                      )}
                   </FieldSet>
-                  {fetchState && fetchState.message ? (
-                     <p
-                        className={`absolute bottom-1/3 ${
-                           statusFetch ? "text-green-500" : "text-red-600"
-                        } font-medium`}
-                     >
-                        {fetchState.message}
-                     </p>
-                  ) : null}
                   <div className=' flex justify-between gap-4 mt-7 '>
                      <div className='flex gap-2 items-center flex-wrap'>
                         <div className='flex outline-none hover:outline-2 border-none  hover:outline-offset-2 hover:outline-blue-600 rounded flex-wrap'>
@@ -173,6 +168,11 @@ const Login = () => {
                      Log in
                      {loading && <Loader />}
                   </Button>
+                  {/* {fetchState && !statusFetch ? (
+                     <Parraf cssProperties='w-full text-red-600'>
+                        {fetchState.message}
+                     </Parraf>
+                  ) : null} */}
                   <Link
                      className='text-purple-600 hover:text-blue-400 p-1 focus:outline-none'
                      to='/register'
@@ -182,6 +182,9 @@ const Login = () => {
                </form>
             </article>
          </article>
+         {banner && fetchState ? (
+            <Toast handle={statusFetch}>{fetchState.message}</Toast>
+         ) : null}
       </>
    )
 }

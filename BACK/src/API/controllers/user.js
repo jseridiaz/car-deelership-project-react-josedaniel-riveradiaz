@@ -58,13 +58,13 @@ const login = async (req, res, next) => {
       return res400(req, res, next, "The user or password is incorrect")
    }
    if (!bcrypt.compareSync(password, userFinded.password)) {
-      res400(req, res, next, "The user or password is incorrect")
+      return res400(req, res, next, "The user or password is incorrect")
    } else {
       if (savedToken) {
          const token = tokenGenerator(userFinded._id)
-         res200(req, res, next, { logged: userFinded, token }, "You're in!")
+         return res200(req, res, next, { logged: userFinded, token }, "You're in!")
       } else {
-         res200(req, res, next, { logged: userFinded }, "You're in")
+         return res200(req, res, next, { logged: userFinded }, "You're in")
       }
    }
 }

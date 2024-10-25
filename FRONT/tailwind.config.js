@@ -6,6 +6,7 @@ export default {
          flexGrow: {
             2: "2",
          },
+         animation: { toast: "toast 1s ease-in-out forwards" },
          colors: {
             "continuo-slate": "#e1e8ef",
          },
@@ -20,6 +21,10 @@ export default {
          },
          keyframes: {
             display: { "0%": { opacity: 0 }, "100%": { opacity: 1 } },
+            toast: {
+               "0%": { bottom: "-10%" },
+               "100%": { bottom: "5%" },
+            },
          },
          backgroundImage: {
             "post-pattern":

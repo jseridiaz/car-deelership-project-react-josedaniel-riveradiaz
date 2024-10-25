@@ -151,4 +151,4 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    )
 }
 
-export default ImgAutos
+export default React.memo(ImgAutos)

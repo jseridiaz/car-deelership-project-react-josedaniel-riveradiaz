@@ -49,17 +49,6 @@ const FilterComponent = () => {
    >(FilterComponentReducer, INITIAL_STATE)
 
    const resetFilter = () => {
-      // setBrand("All")
-      // setModel("All")
-      // setChassis("All")
-      // setCurrentPage(0)
-      // setAvailability(true)
-      // setMinPrice(minQuantity)
-      // setMaxPrice(maxQuantity)
-      // setMinKm(minQuantity)
-      // setMaxKm(maxQuantity)
-      // setMinYear(0)
-      // setMaxYear(99999)
       dispatch({ type: "CLEAR" })
    }
    const handleChange = (

@@ -49,6 +49,19 @@ export const FilterComponentReducer = (
       case "setMaxYear":
          return { ...state, maxYear: action.payload }
       case "CLEAR":
-         return { ...INITIAL_STATE }
+         return {
+            ...state,
+            chassis: "All",
+            brand: "All",
+            models: null,
+            model: "All",
+            availability: true,
+            minPrice: minQuantity,
+            maxPrice: maxQuantity,
+            minKm: minQuantity,
+            maxKm: maxQuantity,
+            minYear: minQuantity,
+            maxYear: maxQuantity,
+         }
    }
 }
