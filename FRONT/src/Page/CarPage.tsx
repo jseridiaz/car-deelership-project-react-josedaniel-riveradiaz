@@ -5,6 +5,7 @@ import { CarContext } from "../Components/Providers/GlobalCarsArray"
 import Pagination from "../Components/molecules/Pagination"
 import { CurrentPageContext } from "../Components/Providers/GlobalPages"
 import Parraf from "../Components/molecules/Parraf"
+import Seo from "../Components/molecules/Seo"
 // import Pagination from "../Components/molecules/Pagination"
 
 const CarPage = () => {
@@ -23,34 +24,44 @@ const CarPage = () => {
    }, [arrayAllCars])
 
    return (
-      <section className={`bg-blue-200 ${!arrayAllCars?.length ? "h-screen " : ""}`}>
-         <FilterComponent />
-         {!arrayAllCars?.length ? (
-            <Parraf cssProperties='mt-40 text-xl bg-black w-fit mx-auto text-white p-4 rounded-full font-medium pointer-events-none'>
-               No results
-            </Parraf>
-         ) : (
-            <>
-               <Pagination
-                  array={arrayAllCars}
-                  allPages={pages}
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-               />
-               <PrintListAutos
-                  arrayToPRint={arrayAllCars.slice(firstIndex, lastIndex)}
-                  cssProperties='p-7 my-12'
-                  setArray={setArrayAllCars}
-               />
-               <Pagination
-                  array={arrayAllCars}
-                  allPages={pages}
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-               />
-            </>
-         )}
-      </section>
+      <>
+         <Seo
+            title=" Car Seller's auto stock 🚘"
+            description='✔️ Find all our current cars between all our brands and take a look at the pictures to compare with all your favourites choises, and buy one easily with your preferred Payment methods.'
+            url='https://carseller-for-you.vercel.app/cars-shop'
+            img='/audi-portrait.webp'
+         />
+         <section
+            className={`bg-blue-200 ${!arrayAllCars?.length ? "h-screen " : ""}`}
+         >
+            <FilterComponent />
+            {!arrayAllCars?.length ? (
+               <Parraf cssProperties='mt-40 text-xl bg-black w-fit mx-auto text-white p-4 rounded-full font-medium pointer-events-none'>
+                  No results
+               </Parraf>
+            ) : (
+               <>
+                  <Pagination
+                     array={arrayAllCars}
+                     allPages={pages}
+                     currentPage={currentPage}
+                     setCurrentPage={setCurrentPage}
+                  />
+                  <PrintListAutos
+                     arrayToPRint={arrayAllCars.slice(firstIndex, lastIndex)}
+                     cssProperties='p-7 my-12'
+                     setArray={setArrayAllCars}
+                  />
+                  <Pagination
+                     array={arrayAllCars}
+                     allPages={pages}
+                     currentPage={currentPage}
+                     setCurrentPage={setCurrentPage}
+                  />
+               </>
+            )}
+         </section>
+      </>
    )
 }
 

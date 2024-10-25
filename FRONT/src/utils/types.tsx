@@ -360,3 +360,10 @@ export type ToastType = {
    children: React.ReactNode
    handle?: boolean
 }
+
+export type SeoType = {
+   title: string
+   description: string
+   url: string
+   img: string
+}
