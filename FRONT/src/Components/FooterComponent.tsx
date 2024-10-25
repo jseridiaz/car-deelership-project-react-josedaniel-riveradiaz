@@ -26,34 +26,25 @@ const FooterComponent = () => {
                      target='_blank'
                      referrerPolicy='no-referrer'
                   >
-                     <IconRRSS
-                        hoverColor='hover:bg-blue-500'
-                        componentName={
-                           <AiFillLinkedin className='z-20 w-full h-full fill-blue-500 rounded-full p-0.5 cursor-pointer  ' />
-                        }
-                     />
+                     <IconRRSS hoverColor='hover:bg-blue-500'>
+                        <AiFillLinkedin className='z-20 w-full h-full fill-blue-500 rounded-full p-0.5 cursor-pointer  ' />
+                     </IconRRSS>
                   </a>
                   <FacebookShareButton
                      className='hover:outline-none  focus:outline-none'
                      url='https://carseller-for-you.vercel.app/home'
                   >
-                     <IconRRSS
-                        hoverColor='hover:bg-blue-400'
-                        componentName={
-                           <AiFillFacebook className='z-20 w-full h-full fill-blue-400 rounded-full p-0.5 cursor-pointer' />
-                        }
-                     />
+                     <IconRRSS hoverColor='hover:bg-blue-400'>
+                        <AiFillFacebook className='z-20 w-full h-full fill-blue-400 rounded-full p-0.5 cursor-pointer' />
+                     </IconRRSS>
                   </FacebookShareButton>
                   <TwitterShareButton
                      url='https://carseller-for-you.vercel.app/home'
                      className='hover:outline-none  focus:outline-none'
                   >
-                     <IconRRSS
-                        hoverColor='hover:bg-cyan-400'
-                        componentName={
-                           <AiFillTwitterSquare className='z-20 w-full h-full fill-cyan-400 rounded-full p-0.5 stroke-white cursor-pointer ' />
-                        }
-                     />
+                     <IconRRSS hoverColor='hover:bg-cyan-400'>
+                        <AiFillTwitterSquare className='z-20 w-full h-full fill-cyan-400 rounded-full p-0.5 stroke-white cursor-pointer ' />
+                     </IconRRSS>
                   </TwitterShareButton>
                </div>
             </div>
