@@ -15,6 +15,7 @@ import {
    ActionTypes,
    FilterComponentReducerType,
 } from "../../utils/types"
+import Loader from "../atoms/Loader"
 // import Loader from "../atoms/Loader"
 
 const FilterComponent = () => {
@@ -553,7 +554,11 @@ const FilterComponent = () => {
 
             <div className='absolute top-0 right-1/2 translate-x-1/2'>// // </div>
          </div>
-         {state.loading && <div>dasdsadas</div>}
+         {state.loading && (
+            <div>
+               <Loader />
+            </div>
+         )}
       </>
    )
 }
