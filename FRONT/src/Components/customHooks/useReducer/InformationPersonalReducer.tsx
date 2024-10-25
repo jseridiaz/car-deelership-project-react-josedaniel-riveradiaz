@@ -8,6 +8,7 @@ export const INITIAL_STATE = {
    surname: "",
    kindFavourites: "",
    numberFavourites: 0,
+   loading: false,
 }
 
 export const InformationPersonalReducer = (
@@ -23,5 +24,7 @@ export const InformationPersonalReducer = (
          return { ...state, kindFavourites: action.payload }
       case "setNumberFavourites":
          return { ...state, numberFavourites: action.payload }
+      case "setLoading":
+         return { ...state, loading: action.payload }
    }
 }

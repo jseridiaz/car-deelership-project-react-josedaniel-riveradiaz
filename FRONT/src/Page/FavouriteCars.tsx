@@ -7,6 +7,7 @@ import Parraf from "../Components/molecules/Parraf"
 import Button from "../Components/atoms/Button"
 import { LoggedContext } from "../Components/Providers/GlobalLogged"
 import Seo from "../Components/molecules/Seo"
+import Loader from "../Components/atoms/Loader"
 
 const FavouriteCars = () => {
    const { logged } = useContext(LoggedContext)
@@ -15,6 +16,7 @@ const FavouriteCars = () => {
    const [customerId, setCustomerId] = useState<string | null>()
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const [arrayToPrint, setArrayToPrint] = useState<AutoModelType[] | []>([])
+   const [loading, setLoading] = useState<boolean>(false)
    useEffect(() => {
       fetch(
          `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/user/${
@@ -27,6 +29,7 @@ const FavouriteCars = () => {
          })
    }, [idUser, logged])
    useEffect(() => {
+      setLoading(true)
       setArrayToPrint([])
       let array: AutoModelType[] | [] = []
 
@@ -41,7 +44,10 @@ const FavouriteCars = () => {
                .then(res => {
                   array = [...array, res.res]
                })
-               .then(() => setArrayToPrint(array))
+               .then(() => {
+                  setArrayToPrint(array)
+                  setLoading(false)
+               })
          }
       }
    }, [arrayFavourites])
@@ -72,6 +78,11 @@ const FavouriteCars = () => {
             <ul
                className={` flex flex-wrap gap-5 w-full h-full justify-center p-4 my-6`}
             >
+               {loading && (
+                  <div className='absolute top-1/3 right-1/2'>
+                     <Loader />
+                  </div>
+               )}
                {arrayToPrint.length ? (
                   <>
                      {arrayToPrint.map((el, idx) => (

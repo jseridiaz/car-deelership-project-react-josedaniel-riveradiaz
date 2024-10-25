@@ -16,6 +16,7 @@ import {
    INITIAL_STATE,
 } from "../Components/customHooks/useReducer/InformationPersonalReducer"
 import Seo from "../Components/molecules/Seo"
+import Loader from "../Components/atoms/Loader"
 
 const InformationPersonal = () => {
    const idUser: string | null =
@@ -34,6 +35,7 @@ const InformationPersonal = () => {
    })
 
    useEffect(() => {
+      dispatch({ type: "setLoading", payload: true })
       fetch(
          "https://carseller-back-josedaniel.vercel.app/autos/v1/customer/user/" +
             idUser,
@@ -47,6 +49,7 @@ const InformationPersonal = () => {
             // setSurname(res.profile.surname)
             dispatch({ type: "setKindFavourites", payload: res.profile.favourites })
             dispatch({ type: "setNumberFavourites", payload: res.favourites.length })
+            dispatch({ type: "setLoading", payload: false })
 
             // setKindFavourites(res.profile.favourites)
             // setNumberFavourites(res.favourites.length)
@@ -104,12 +107,15 @@ const InformationPersonal = () => {
                   </H2SingleComponent>
                   <ParrafInfoPersonal result={state.name}>
                      <p>Name:</p>
+                     {state.loading && <Loader />}
                   </ParrafInfoPersonal>
                   <ParrafInfoPersonal result={state.surname}>
                      <p>Surname:</p>
+                     {state.loading && <Loader />}
                   </ParrafInfoPersonal>
                   <ParrafInfoPersonal result={state.kindFavourites}>
                      <p>Kind of Favourites:</p>
+                     {state.loading && <Loader />}
                   </ParrafInfoPersonal>
                   <ParrafInfoPersonal result={state.numberFavourites}>
                      <p>Favourite Autos:</p>

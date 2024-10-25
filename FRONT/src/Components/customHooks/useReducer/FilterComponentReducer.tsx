@@ -17,6 +17,7 @@ export const INITIAL_STATE: FilterComponentReducerType = {
    maxKm: maxQuantity,
    minYear: minQuantity,
    maxYear: maxQuantity,
+   loading: false,
 }
 
 export const FilterComponentReducer = (
@@ -48,6 +49,8 @@ export const FilterComponentReducer = (
          return { ...state, minYear: action.payload }
       case "setMaxYear":
          return { ...state, maxYear: action.payload }
+      case "setLoading":
+         return { ...state, loading: action.payload }
       case "CLEAR":
          return {
             ...state,

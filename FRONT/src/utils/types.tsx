@@ -243,6 +243,7 @@ export type FilterComponentReducerType = {
    maxKm: number
    minYear: number
    maxYear: number
+   loading: boolean
 }
 export type ActionFilterType =
    | {
@@ -294,6 +295,10 @@ export type ActionFilterType =
         payload: number
      }
    | {
+        type: "setLoading"
+        payload: boolean
+     }
+   | {
         type: "CLEAR"
      }
 
@@ -313,6 +318,7 @@ export type InformationPersonalType = {
    surname: string
    kindFavourites: string
    numberFavourites: number
+   loading: boolean
 }
 export type InformationPersonalAction =
    | {
@@ -330,6 +336,10 @@ export type InformationPersonalAction =
    | {
         type: "setNumberFavourites"
         payload: number
+     }
+   | {
+        type: "setLoading"
+        payload: boolean
      }
 
 export type HeaderComponentType = {

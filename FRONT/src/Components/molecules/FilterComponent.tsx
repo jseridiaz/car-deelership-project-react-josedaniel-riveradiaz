@@ -15,6 +15,7 @@ import {
    ActionTypes,
    FilterComponentReducerType,
 } from "../../utils/types"
+import Loader from "../atoms/Loader"
 
 const FilterComponent = () => {
    const { setArrayAllCars } = useContext(CarContext)
@@ -63,6 +64,7 @@ const FilterComponent = () => {
       }
    }
    useEffect(() => {
+      dispatch({ type: "setLoading", payload: true })
       fetch(
          `https://carseller-back-josedaniel.vercel.app/autos/v1/search${
             state.availability ? "?availability=Disponible" : ""
@@ -71,19 +73,24 @@ const FilterComponent = () => {
          .then(res => res.json())
          .then(res => {
             setArrayAllCars(res.res)
+
             setCurrentPage(0)
             if (!res.res.length) {
                dispatch({ type: "setModels", payload: null })
                // setModels(null)
             }
+            dispatch({ type: "setLoading", payload: false })
+
             return res.res
          })
          .then(res => {
             dispatch({ type: "setBrands", payload: res })
+            dispatch({ type: "setLoading", payload: false })
             // setBrands(getArrayBrands(res))
          })
    }, [])
    useEffect(() => {
+      dispatch({ type: "setLoading", payload: true })
       if (
          state.brand === "All" &&
          state.chassis === "All" &&
@@ -114,9 +121,12 @@ const FilterComponent = () => {
                // setModels(getModels(res.res))
                setArrayAllCars(res.res)
                setCurrentPage(0)
+               dispatch({ type: "setLoading", payload: false })
 
                if (!res.res.length) {
                   dispatch({ type: "setModels", payload: null })
+                  dispatch({ type: "setLoading", payload: false })
+
                   // setModels(null)
                }
                return res.res
@@ -158,6 +168,7 @@ const FilterComponent = () => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
                dispatch({ type: "setModels", payload: modelsArray })
+               dispatch({ type: "setLoading", payload: false })
             })
       } else if (
          state.brand === "All" &&
@@ -190,6 +201,7 @@ const FilterComponent = () => {
             .then(res => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
+               dispatch({ type: "setLoading", payload: false })
             })
       } else if (
          state.brand === "All" &&
@@ -213,6 +225,7 @@ const FilterComponent = () => {
             .then(res => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
+               dispatch({ type: "setLoading", payload: false })
             })
       } else if (
          state.chassis !== "All" &&
@@ -246,8 +259,7 @@ const FilterComponent = () => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
                dispatch({ type: "setModels", payload: modelsArray })
-
-               // setModels(modelsArray)
+               dispatch({ type: "setLoading", payload: false })
             })
       } else if (
          state.chassis !== "All" &&
@@ -276,6 +288,7 @@ const FilterComponent = () => {
                }
                setArrayAllCars(res.res)
                setCurrentPage(0)
+               dispatch({ type: "setLoading", payload: false })
 
                const modelsArray = getModels(res.res)
                dispatch({ type: "setModels", payload: modelsArray })
@@ -314,12 +327,11 @@ const FilterComponent = () => {
                   .then(res => {
                      const modelsArray = getModels(res.res)
                      dispatch({ type: "setModels", payload: modelsArray })
-
-                     // setModels(modelsArray)
                   })
 
                setArrayAllCars(res.res)
                setCurrentPage(0)
+               dispatch({ type: "setLoading", payload: false })
 
                // const modelsArray = getModels(res.res)
                // setModels(modelsArray)
@@ -344,20 +356,9 @@ const FilterComponent = () => {
          )
             .then(res => res.json())
             .then(res => {
-               // if (!res.res.length) {
-               //    fetch(
-               //       `https://carseller-back-josedaniel.vercel.app/autos/v1/search/query/brand/category?brand=${brand}&category=${chassis}`,
-               //    )
-               //       .then(res => res.json())
-               //       .then(res => {
-               //          const models = getModels(res.res)
-               //          setArrayAllCars(res.res)
-               //          setModels(models)
-               //       })
-
-               //    return
-               // }
                setArrayAllCars(res.res)
+               dispatch({ type: "setLoading", payload: false })
+
                setCurrentPage(0)
             })
       } else {
@@ -376,30 +377,18 @@ const FilterComponent = () => {
       state.maxYear,
    ])
 
-   // const changeValue = (
-   //    setStateName: React.Dispatch<React.SetStateAction<string | null>>,
-   //    reference: React.RefObject<HTMLSelectElement>,
-   // ): void => {
-   //    setStateName(reference.current?.value ?? null)
-   // }
    const handleInput = (
       type: ActionTypes,
       reference: React.MutableRefObject<HTMLInputElement | null>,
    ): void => {
       if (reference && reference.current) {
          dispatch({ type, payload: parseInt(reference.current.value) })
-         // dispatch({type:typeValue,payload:reference.current.value})
-         // const numberValue: number = parseInt(reference.current?.value)
-         // setState(numberValue)
       }
    }
 
    return (
       <div className='p-4'>
-         <form
-            className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 rounded-lg'
-            action=''
-         >
+         <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 rounded-lg relative'>
             <FieldSet description='Brand'>
                <select
                   className='lg:w-1/2 w-full'
@@ -571,6 +560,11 @@ const FilterComponent = () => {
                </button>
             </div>
          </form>
+         {state.loading && (
+            <div className='absolute bottom-1/3 right-1/2 translate-x-1/2'>
+               <Loader />
+            </div>
+         )}
       </div>
    )
 }
