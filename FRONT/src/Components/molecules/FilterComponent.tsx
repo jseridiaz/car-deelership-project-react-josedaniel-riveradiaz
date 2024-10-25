@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer, useRef } from "react"
+import { useContext, useEffect, useReducer, useRef, useState } from "react"
 import FieldSet from "../atoms/FieldSet"
 import { CarContext } from "../Providers/GlobalCarsArray"
 import { getModels } from "../../utils/getModels"
@@ -21,6 +21,7 @@ import {
 const FilterComponent = () => {
    const { setArrayAllCars } = useContext(CarContext)
    const { setCurrentPage } = useContext(CurrentPageContext)
+   const [load, setLoad] = useState<boolean>(false)
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
@@ -53,7 +54,9 @@ const FilterComponent = () => {
       }
    }
    useEffect(() => {
-      dispatch({ type: "setLoading", payload: true })
+      // dispatch({ type: "setLoading", payload: true })
+      setLoad(true)
+
       fetch(
          `https://carseller-back-josedaniel.vercel.app/autos/v1/search${
             state.availability ? "?availability=Disponible" : ""
@@ -66,19 +69,25 @@ const FilterComponent = () => {
             setCurrentPage(0)
             if (!res.res.length) {
                dispatch({ type: "setModels", payload: null })
-               dispatch({ type: "setLoading", payload: false })
+               setLoad(false)
+
+               // dispatch({ type: "setLoading", payload: false })
             }
 
             return res.res
          })
          .then(res => {
             dispatch({ type: "setBrands", payload: res })
-            dispatch({ type: "setLoading", payload: false })
+            // dispatch({ type: "setLoading", payload: false })
+            setLoad(false)
+
             // setBrands(getArrayBrands(res))
          })
    }, [])
    useEffect(() => {
-      dispatch({ type: "setLoading", payload: true })
+      // dispatch({ type: "setLoading", payload: true })
+      setLoad(true)
+
       if (
          state.brand === "All" &&
          state.chassis === "All" &&
@@ -109,11 +118,13 @@ const FilterComponent = () => {
                // setModels(getModels(res.res))
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
+               setLoad(false)
 
                if (!res.res.length) {
                   dispatch({ type: "setModels", payload: null })
-                  dispatch({ type: "setLoading", payload: false })
+                  // dispatch({ type: "setLoading", payload: false })
+                  setLoad(false)
                }
                return res.res
             })
@@ -153,7 +164,8 @@ const FilterComponent = () => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
                dispatch({ type: "setModels", payload: modelsArray })
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
+               setLoad(false)
             })
       } else if (
          state.brand === "All" &&
@@ -186,7 +198,8 @@ const FilterComponent = () => {
             .then(res => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
+               setLoad(false)
             })
       } else if (
          state.brand === "All" &&
@@ -210,7 +223,8 @@ const FilterComponent = () => {
             .then(res => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
+               setLoad(false)
             })
       } else if (
          state.chassis !== "All" &&
@@ -244,7 +258,8 @@ const FilterComponent = () => {
                setArrayAllCars(res.res)
                setCurrentPage(0)
                dispatch({ type: "setModels", payload: modelsArray })
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
+               setLoad(false)
             })
       } else if (
          state.chassis !== "All" &&
@@ -273,7 +288,8 @@ const FilterComponent = () => {
                }
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
+               setLoad(false)
 
                const modelsArray = getModels(res.res)
                dispatch({ type: "setModels", payload: modelsArray })
@@ -316,7 +332,8 @@ const FilterComponent = () => {
 
                setArrayAllCars(res.res)
                setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
+               setLoad(false)
 
                // const modelsArray = getModels(res.res)
                // setModels(modelsArray)
@@ -342,7 +359,8 @@ const FilterComponent = () => {
             .then(res => res.json())
             .then(res => {
                setArrayAllCars(res.res)
-               dispatch({ type: "setLoading", payload: false })
+               // dispatch({ type: "setLoading", payload: false })
+               setLoad(false)
 
                setCurrentPage(0)
             })
@@ -373,7 +391,7 @@ const FilterComponent = () => {
 
    return (
       <>
-         {state.loading && <div>dsadaddaas</div>}
+         {load && <div>dsadaddaas</div>}
          <div className='p-4'>
             <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 rounded-lg relative'>
                <FieldSet description='Brand'>
