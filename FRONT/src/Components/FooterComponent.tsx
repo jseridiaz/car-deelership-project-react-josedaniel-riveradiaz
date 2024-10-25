@@ -3,10 +3,14 @@ import { AiFillLinkedin, AiFillFacebook, AiFillTwitterSquare } from "react-icons
 import IconRRSS from "./molecules/IconRRSS"
 import { dataFooter } from "../data/dataFooter"
 import UlFooter from "./molecules/Home/UlFooter"
-import { FacebookShareButton } from "react-share"
+import { FacebookShareButton, TwitterShareButton } from "react-share"
+import { useState } from "react"
 
 const FooterComponent = () => {
-   console.log(window.location.href)
+   const [path, setPath] = useState<string>()
+   const handleClick = () => {
+      setPath(window.location.href)
+   }
 
    return (
       <>
@@ -23,15 +27,21 @@ const FooterComponent = () => {
                   </div>
                </form>
                <div className='flex justify-evenly'>
-                  <IconRRSS
-                     hoverColor='hover:bg-blue-500'
-                     componentName={
-                        <AiFillLinkedin className='z-20 w-full h-full fill-blue-500 rounded-full p-0.5 cursor-pointer  ' />
-                     }
-                  />
+                  <a
+                     href='https://www.linkedin.com/in/josedanielriveradiaz/?locale=es_ES'
+                     target='_blank'
+                     referrerPolicy='no-referrer'
+                  >
+                     <IconRRSS
+                        hoverColor='hover:bg-blue-500'
+                        componentName={
+                           <AiFillLinkedin className='z-20 w-full h-full fill-blue-500 rounded-full p-0.5 cursor-pointer  ' />
+                        }
+                     />
+                  </a>
                   <FacebookShareButton
-                     className='w-fit h-fit'
-                     url={encodeURIComponent(window.location.href)}
+                     className='hover:outline-none  focus:outline-none'
+                     url='https://carseller-for-you.vercel.app/home'
                   >
                      <IconRRSS
                         hoverColor='hover:bg-blue-400'
@@ -40,12 +50,17 @@ const FooterComponent = () => {
                         }
                      />
                   </FacebookShareButton>
-                  <IconRRSS
-                     hoverColor='hover:bg-cyan-400'
-                     componentName={
-                        <AiFillTwitterSquare className='z-20 w-full h-full fill-cyan-400 rounded-full p-0.5 stroke-white cursor-pointer ' />
-                     }
-                  />
+                  <TwitterShareButton
+                     url='https://carseller-for-you.vercel.app/home'
+                     className='hover:outline-none  focus:outline-none'
+                  >
+                     <IconRRSS
+                        hoverColor='hover:bg-cyan-400'
+                        componentName={
+                           <AiFillTwitterSquare className='z-20 w-full h-full fill-cyan-400 rounded-full p-0.5 stroke-white cursor-pointer ' />
+                        }
+                     />
+                  </TwitterShareButton>
                </div>
             </div>
 

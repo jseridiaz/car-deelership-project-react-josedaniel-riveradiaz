@@ -28,7 +28,7 @@ const CarPage = () => {
          <Seo
             title="Auto stock 🚘 - Car Seller's"
             description='✔️ Find all our current cars between all our brands and take a look at the pictures to compare with all your favourites choises. Choose between used and new autos, and buy one of them easily with your preferred Payment methods.'
-            url='https://carseller-for-you.vercel.app/cars-shop'
+            url={window.location.href}
             img='/PorscheBlog.png'
          />
          <section
