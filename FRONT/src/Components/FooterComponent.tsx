@@ -3,11 +3,12 @@ import { AiFillLinkedin, AiFillFacebook, AiFillTwitterSquare } from "react-icons
 import IconRRSS from "./molecules/IconRRSS"
 import { dataFooter } from "../data/dataFooter"
 import UlFooter from "./molecules/Home/UlFooter"
+import { FacebookShareButton } from "react-share"
 
 const FooterComponent = () => {
    return (
       <>
-         <footer className=' flex justify-around relative z-100 px-2 sm:px-10 sm:pt-5 bg-gray-400 text-black flex-wrap gap-9'>
+         <footer className=' flex justify-around relative z-100 px-2 sm:px-10 pb -6 sm:pt-5 bg-gray-400 text-black flex-wrap gap-9'>
             <div className=' flex flex-col gap-5 w-[75%] mt-5 sm:mt-0 sm:w-1/4 min-w-[140px] border-black'>
                <h4 className='text-xl font-semibold'>Subscribe to the newsletter</h4>
                <form action='' className='relative flex items-center'>
@@ -26,12 +27,17 @@ const FooterComponent = () => {
                         <AiFillLinkedin className='z-20 w-full h-full fill-blue-500 rounded-full p-0.5 cursor-pointer  ' />
                      }
                   />
-                  <IconRRSS
-                     hoverColor='hover:bg-blue-400'
-                     componentName={
-                        <AiFillFacebook className='z-20 w-full h-full fill-blue-400 rounded-full p-0.5 cursor-pointer ' />
-                     }
-                  />
+                  <FacebookShareButton
+                     className='w-fit h-fit'
+                     url={encodeURIComponent(window.location.href)}
+                  >
+                     <IconRRSS
+                        hoverColor='hover:bg-blue-400'
+                        componentName={
+                           <AiFillFacebook className='z-20 w-full h-full fill-blue-400 rounded-full p-0.5 cursor-pointer' />
+                        }
+                     />
+                  </FacebookShareButton>
                   <IconRRSS
                      hoverColor='hover:bg-cyan-400'
                      componentName={
@@ -46,7 +52,6 @@ const FooterComponent = () => {
                   <UlFooter key={idx} title={el.title} arrayLi={el.li} />
                ))}
             </div>
-            <div></div>
          </footer>
       </>
    )
