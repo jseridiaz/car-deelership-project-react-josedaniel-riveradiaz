@@ -6,7 +6,6 @@ import Pagination from "../Components/molecules/Pagination"
 import { CurrentPageContext } from "../Components/Providers/GlobalPages"
 import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
-// import Pagination from "../Components/molecules/Pagination"
 
 const CarPage = () => {
    const { arrayAllCars, setArrayAllCars } = useContext(CarContext)

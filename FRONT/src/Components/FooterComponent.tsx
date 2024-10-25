@@ -4,14 +4,8 @@ import IconRRSS from "./molecules/IconRRSS"
 import { dataFooter } from "../data/dataFooter"
 import UlFooter from "./molecules/Home/UlFooter"
 import { FacebookShareButton, TwitterShareButton } from "react-share"
-import { useState } from "react"
 
 const FooterComponent = () => {
-   const [path, setPath] = useState<string>()
-   const handleClick = () => {
-      setPath(window.location.href)
-   }
-
    return (
       <>
          <footer className=' flex justify-around relative z-100 px-2 sm:px-10 pb -6 sm:pt-5 bg-gray-400 text-black flex-wrap gap-9'>
