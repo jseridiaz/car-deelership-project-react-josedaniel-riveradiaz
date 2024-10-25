@@ -36,6 +36,7 @@ const FilterComponent = () => {
    const [state, dispatch] = useReducer<
       React.Reducer<FilterComponentReducerType, ActionFilterType>
    >(FilterComponentReducer, INITIAL_STATE)
+   console.log(state.loading)
 
    const resetFilter = () => {
       dispatch({ type: "CLEAR" })
@@ -57,6 +58,7 @@ const FilterComponent = () => {
          `https://carseller-back-josedaniel.vercel.app/autos/v1/search${
             state.availability ? "?availability=Disponible" : ""
          }`,
+         { headers: { "Cache-Control": "no-cache" } },
       )
          .then(res => res.json())
          .then(res => {
