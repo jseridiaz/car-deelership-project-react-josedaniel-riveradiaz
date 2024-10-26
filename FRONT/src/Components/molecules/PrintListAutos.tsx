@@ -16,6 +16,10 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
    const [idSesion, setIdSession] = useState<string | null>(
       localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
    )
+   console.log(logged)
+   console.log(token)
+   console.log(idSesion)
+
    const [customerId, setCustomerId] = useState<string | null>(null)
 
    useEffect(() => {

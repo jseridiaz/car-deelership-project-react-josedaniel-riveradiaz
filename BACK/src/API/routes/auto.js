@@ -48,6 +48,6 @@ routerAuto.post(
    postAuto,
 )
 routerAuto.put("/:id", [isAdmin], updateAuto)
-routerAuto.delete("/:id", deleteAuto)
+routerAuto.delete("/:id", [isAdmin], deleteAuto)
 
 module.exports = routerAuto

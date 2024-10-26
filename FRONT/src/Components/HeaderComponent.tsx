@@ -55,6 +55,7 @@ const HeaderComponent = () => {
          delStorage("userInfo")
          setToken(localStorage.getItem("token"))
       } else {
+         delStorage("token", false)
          delStorage("logged", false)
          delStorage("userInfo", false)
          setLogged(sessionStorage.getItem("logged"))

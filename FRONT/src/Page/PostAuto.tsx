@@ -7,11 +7,12 @@ import ErrorPost from "../Components/atoms/ErrorPost"
 import InputTextForm from "../Components/atoms/InputTextForm"
 import SelectPost from "../Components/atoms/SelectPost"
 import ContainerColumn from "../Components/atoms/ContainerColumn"
-import { useEffect, useState } from "react"
+import { useContext } from "react"
 import { PostAutoType } from "../utils/types"
+import { TokenContext } from "../Components/Providers/GlobalToken"
 
 const PostAuto = () => {
-   const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
+   const { token } = useContext(TokenContext)
 
    const {
       register,
@@ -35,9 +36,6 @@ const PostAuto = () => {
       },
    })
 
-   useEffect(() => {
-      setToken(localStorage.getItem("token"))
-   }, [])
    const submitFunction = (data: PostAutoType) => {
       const formData = new FormData()
 

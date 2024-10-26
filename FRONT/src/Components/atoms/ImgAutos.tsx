@@ -25,6 +25,8 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    autoId,
    customerId,
 }) => {
+   console.log(customerId)
+
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const idUser: string | null =
       localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")
@@ -57,7 +59,10 @@ const ImgAutos: React.FC<ImgAutoType> = ({
             `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/delete/favourites/${customerId}`,
             {
                method: "PUT",
-               headers: { "Content-Type": "application/json" },
+               headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer ",
+               },
                body: JSON.stringify({ favourites: autoId }),
             },
          ).then(res => res.json())

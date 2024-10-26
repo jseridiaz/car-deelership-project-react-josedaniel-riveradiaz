@@ -49,7 +49,7 @@ export type ExtendedIFormInput = IFormInput & {
 export type IFormLogin = {
    email: string
    password: string
-   savedToken: string | null
+   savedToken: boolean | null
 }
 // export type ResFetchUser = { message: string; res: { logged: {} }; token: string }
 export type ErrorContainerType = {

@@ -12,7 +12,6 @@ import Loader from "../Components/atoms/Loader"
 import Toast from "../Components/molecules/Toast"
 import { turnOffBanner } from "../utils/turnOffBanner"
 import { BsArrowDownLeft } from "react-icons/bs"
-
 import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
 
@@ -29,9 +28,11 @@ const Login = () => {
       register,
       handleSubmit,
       formState: { errors },
-   } = useForm({ defaultValues: { email: "", password: "", savedToken: null } })
+   } = useForm({ defaultValues: { email: "", password: "", savedToken: false } })
 
    const handleLogin = (data: IFormLogin): void => {
+      console.log(data)
+
       setFetchState(null)
       setLoading(true)
 
@@ -41,7 +42,6 @@ const Login = () => {
          body: JSON.stringify({
             email: data.email,
             password: data.password,
-            savedToken: data.savedToken,
          }),
       })
          .then(res => {
@@ -54,23 +54,26 @@ const Login = () => {
          .then(resJson => {
             setBanner(true)
 
-            if (statusFetch) {
-               resJson.res.logged.password = null
-            }
+            if (resJson.res.logged) resJson.res.logged.password = null
             setFetchState(resJson)
 
             setLoading(false)
-            if (resJson.res.token) {
+            console.log(resJson)
+
+            if (data.savedToken) {
                localStorage.setItem("token", resJson.res.token)
                localStorage.setItem("idUser", resJson.res.logged._id)
                localStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
-               setToken(localStorage.getItem("token"))
+               // setToken(localStorage.getItem("token"))
+               setToken(resJson.res.token)
                setTimeout(() => {
                   navigate("/home")
                }, 3000)
-            } else if (resJson.res.logged && resJson.message === "You're in") {
+            } else {
+               localStorage.setItem("token", resJson.res.token)
                sessionStorage.setItem("logged", resJson.res.logged._id)
                sessionStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
+               setToken(resJson.res.token)
                setLogged(sessionStorage.getItem("logged"))
                setTimeout(() => {
                   navigate("/home")
