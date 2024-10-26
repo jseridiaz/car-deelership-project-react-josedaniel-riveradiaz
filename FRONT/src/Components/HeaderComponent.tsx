@@ -152,7 +152,9 @@ const HeaderComponent = () => {
                <NavLink
                   to={token || logged ? "/" : "/login"}
                   className='w-1/4 content-center hover:font-bold text-blue-700 '
-                  onClick={handleLogout}
+                  onClick={() => {
+                     handleLogout()
+                  }}
                >
                   {token || logged ? "Log out" : "Login"}
                </NavLink>

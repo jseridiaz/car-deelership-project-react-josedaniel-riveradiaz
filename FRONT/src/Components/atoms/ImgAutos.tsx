@@ -32,9 +32,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
       localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")
 
    const userInfo: userID = getStorage("userInfo")
-   // useEffect(() => {
-   //    fetch("http://localhost:3000/autos/v1/customer/user/" + idUser).then()
-   // }, [idUser])
+
    const addFavourite = () => {
       if (customerId) {
          const arrayAdded = [...arrayFavourites, autoId]
@@ -61,7 +59,6 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                method: "PUT",
                headers: {
                   "Content-Type": "application/json",
-                  Authorization: "Bearer ",
                },
                body: JSON.stringify({ favourites: autoId }),
             },

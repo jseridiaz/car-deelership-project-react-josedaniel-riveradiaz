@@ -1,15 +1,17 @@
 import { IdName } from "../../../../utils/types"
 import { useContext } from "react"
 import { CarContext } from "../../../Providers/GlobalCarsArray"
+import { TokenContext } from "../../../Providers/GlobalToken"
 
 const SvgBin: React.FC<IdName> = ({ idName }) => {
    const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
+   const { token } = useContext(TokenContext)
+
    const handleDelete = (id: string) => {
-      fetch(`http://localhost:3000/autos/v1/search/${id}`, { method: "DELETE" })
-         .then(res => res.json())
-         .then(res => {
-            console.log(res)
-         })
+      fetch(`http://localhost:3000/autos/v1/search/${id}`, {
+         method: "DELETE",
+         headers: { Authorization: "Bearer" + token },
+      })
    }
    return (
       <svg

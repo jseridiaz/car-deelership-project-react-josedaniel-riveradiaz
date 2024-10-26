@@ -61,13 +61,7 @@ const login = async (req, res, next) => {
       return res400(req, res, next, "The user or password is incorrect")
    } else {
       const token = tokenGenerator(userFinded._id)
-      return res200(
-         req,
-         res,
-         next,
-         { logged: userFinded, token, prueba: "dadsad" },
-         "You're in!",
-      )
+      return res200(req, res, next, { logged: userFinded, token }, "You're in!")
    }
 }
 const putUser = async (req, res, next) => {
