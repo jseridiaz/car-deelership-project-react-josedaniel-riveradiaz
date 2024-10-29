@@ -53,18 +53,19 @@ const Login = () => {
          })
          .then(resJson => {
             setBanner(true)
-
+            console.log(resJson)
             if (resJson.res.logged) resJson.res.logged.password = null
             setFetchState(resJson)
 
             setLoading(false)
             console.log(resJson)
-
             if (data.savedToken) {
                localStorage.setItem("token", resJson.res.token)
                localStorage.setItem("idUser", resJson.res.logged._id)
                localStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
                setToken(resJson.res.token)
+               setLogged(resJson.res.logged._id)
+
                setTimeout(() => {
                   navigate("/home")
                }, 3000)

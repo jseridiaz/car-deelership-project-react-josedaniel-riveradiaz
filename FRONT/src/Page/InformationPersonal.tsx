@@ -17,11 +17,8 @@ import {
 } from "../Components/customHooks/useReducer/InformationPersonalReducer"
 import Seo from "../Components/molecules/Seo"
 import Loader from "../Components/atoms/Loader"
-import { TokenContext } from "../Components/Providers/GlobalToken"
 
 const InformationPersonal = () => {
-   const { token } = useContext(TokenContext)
-
    const idUser: string | null =
       localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")
 

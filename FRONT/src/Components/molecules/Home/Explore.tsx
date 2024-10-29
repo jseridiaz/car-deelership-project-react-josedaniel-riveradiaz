@@ -8,17 +8,14 @@ import { LoggedContext } from "../../Providers/GlobalLogged"
 import ContainerColumn from "../../atoms/ContainerColumn"
 
 const Explore = () => {
-   const idUser = localStorage.getItem("idUser") ?? sessionStorage.getItem("idUser")
    const { logged } = useContext(LoggedContext)
    const [filterSelect, setFilterSelect] = useState<string>("Cars")
    const [arrayAutos, setArrayAutos] = useState<AutoModelType[]>([])
 
    useEffect(() => {
-      if (idUser || logged) {
+      if (logged) {
          fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/user/${
-               idUser ?? logged
-            }`,
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/user/${logged}`,
          )
             .then(res => res.json())
             .then(res => {
@@ -31,7 +28,7 @@ const Explore = () => {
                )
             })
       }
-   }, [idUser, logged])
+   }, [])
    useEffect(() => {
       fetch(
          `https://carseller-back-josedaniel.vercel.app/autos/v1/search/category/${
@@ -54,7 +51,7 @@ const Explore = () => {
             }
             setArrayAutos(finalArrayAuto)
          })
-   }, [filterSelect, idUser, logged])
+   }, [filterSelect])
 
    const handleFilter = (name: string): void => {
       setFilterSelect(name)
@@ -62,6 +59,7 @@ const Explore = () => {
 
    return (
       <section className='w-full p-10 bg-blue-200  flex flex-col gap-9 justify-center items-center h-[800px]'>
+         {console.log(logged)}
          <div className='w-[100%] p-4 h-full bg-slate-50 relative '>
             <div className='w-full bg-slate-50 p-10 '>
                <H2Component>Explore</H2Component>

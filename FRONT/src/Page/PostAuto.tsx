@@ -7,12 +7,15 @@ import ErrorPost from "../Components/atoms/ErrorPost"
 import InputTextForm from "../Components/atoms/InputTextForm"
 import SelectPost from "../Components/atoms/SelectPost"
 import ContainerColumn from "../Components/atoms/ContainerColumn"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { PostAutoType } from "../utils/types"
 import { TokenContext } from "../Components/Providers/GlobalToken"
+import Toast from "../Components/molecules/Toast"
+import { turnOffBanner } from "../utils/turnOffBanner"
 
 const PostAuto = () => {
    const { token } = useContext(TokenContext)
+   const [res, setRes] = useState<boolean>(false)
 
    const {
       register,
@@ -38,18 +41,29 @@ const PostAuto = () => {
 
    const submitFunction = (data: PostAutoType) => {
       const formData = new FormData()
-
-      formData.append("vin", data.vin)
-      formData.append("brand", data.brand)
-      formData.append("model", data.model)
-      formData.append("type", data.type)
-      formData.append("manufactureYear", data.manufactureYear)
-      formData.append("kilometer", data.kilometer)
-      formData.append("state", data.state)
-      formData.append("price", data.price)
-      formData.append("color", data.color)
+      const {
+         vin,
+         brand,
+         model,
+         type,
+         manufactureYear,
+         kilometer,
+         state,
+         price,
+         color,
+         picture,
+      } = data
+      formData.append("vin", vin)
+      formData.append("brand", brand)
+      formData.append("model", model)
+      formData.append("type", type)
+      formData.append("manufactureYear", manufactureYear)
+      formData.append("kilometer", kilometer)
+      formData.append("state", state)
+      formData.append("price", price)
+      formData.append("color", color)
       formData.append("availability", "Disponible")
-      formData.append("picture", data.picture[0])
+      formData.append("picture", picture[0])
 
       fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/search", {
          method: "POST",
@@ -57,12 +71,19 @@ const PostAuto = () => {
             Authorization: "Bearer " + token,
          },
          body: formData,
-      }).then(res => res.json())
-
-      reset()
+      })
+         .then(res => {
+            if (res.ok) {
+               setRes(true)
+               turnOffBanner(setRes, 3000, false)
+            }
+            return res.json()
+         })
+         .then(() => reset())
    }
    return (
-      <div className='bg-blue-200 min-h-screen p-6 border border-black'>
+      <div className='relative bg-blue-200 min-h-screen p-6 border border-black'>
+         {console.log(res, token)}
          <form
             action=''
             className='flex flex-wrap gap-10 justify-center items-center content-center'
@@ -192,6 +213,7 @@ const PostAuto = () => {
                Post new auto
             </Button>
          </form>
+         {res && <Toast handle={res}>Auto posted</Toast>}
       </div>
    )
 }

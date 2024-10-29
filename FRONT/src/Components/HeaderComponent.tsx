@@ -54,11 +54,12 @@ const HeaderComponent = () => {
          delStorage("idUser")
          delStorage("userInfo")
          setToken(localStorage.getItem("token"))
+         setLogged(null)
       } else {
          delStorage("token", false)
          delStorage("logged", false)
          delStorage("userInfo", false)
-         setLogged(sessionStorage.getItem("logged"))
+         setLogged(null)
       }
       dispatch({ type: "setUserInfo", payload: null })
    }
