@@ -59,7 +59,6 @@ const Explore = () => {
 
    return (
       <section className='w-full p-10 bg-blue-200  flex flex-col gap-9 justify-center items-center h-[800px]'>
-         {console.log(logged)}
          <div className='w-[100%] p-4 h-full bg-slate-50 relative '>
             <div className='w-full bg-slate-50 p-10 '>
                <H2Component>Explore</H2Component>

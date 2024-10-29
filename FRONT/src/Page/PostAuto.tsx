@@ -71,19 +71,17 @@ const PostAuto = () => {
             Authorization: "Bearer " + token,
          },
          body: formData,
+      }).then(res => {
+         if (res.ok) {
+            setRes(true)
+            turnOffBanner(setRes, 3000, false)
+            reset()
+         }
       })
-         .then(res => {
-            if (res.ok) {
-               setRes(true)
-               turnOffBanner(setRes, 3000, false)
-            }
-            return res.json()
-         })
-         .then(() => reset())
    }
    return (
       <div className='relative bg-blue-200 min-h-screen p-6 border border-black'>
-         {console.log(res, token)}
+         {console.log(token)}
          <form
             action=''
             className='flex flex-wrap gap-10 justify-center items-center content-center'
