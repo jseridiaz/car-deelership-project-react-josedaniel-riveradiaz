@@ -7,6 +7,7 @@ const {
 const bcrypt = require("bcrypt")
 const { tokenGenerator } = require("../../config/token/tokenUser")
 const CustomerModel = require("../models/customer")
+const { deleteCustomer } = require("./customer")
 
 const getAllUser = async (req, res, next) => {
    try {
@@ -20,6 +21,7 @@ const getUserById = async (req, res, next) => {
    try {
       const { id } = req.params
       const userById = await User.findById(id)
+
       return res200(req, res, next, userById, "All users")
    } catch (error) {
       return res400(req, res, next, error)
@@ -82,6 +84,9 @@ const deleteUser = async (req, res, next) => {
    try {
       const { id } = req.params
       const deleteUser = await User.findByIdAndDelete(id)
+      const deleteCustomer = await CustomerModel.findOneAndDelete({
+         profile: { _id: id },
+      })
 
       res200(req, res, next, deleteUser)
    } catch (error) {

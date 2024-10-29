@@ -8,7 +8,7 @@ const SvgBin: React.FC<IdName> = ({ idName }) => {
    const { token } = useContext(TokenContext)
 
    const handleDelete = (id: string) => {
-      fetch(`http://localhost:3000/autos/v1/search/${id}`, {
+      fetch(`https://carseller-back-josedaniel.vercel.app/autos/v1/search/${id}`, {
          method: "DELETE",
          headers: { Authorization: "Bearer" + token },
       })

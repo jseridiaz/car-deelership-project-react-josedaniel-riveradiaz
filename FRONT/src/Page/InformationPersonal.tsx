@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react"
+import { useContext, useEffect, useReducer } from "react"
 import Button from "../Components/atoms/Button"
 import ContainerColumn from "../Components/atoms/ContainerColumn"
 import H2SingleComponent from "../Components/atoms/H2SingleComponent"
@@ -17,8 +17,11 @@ import {
 } from "../Components/customHooks/useReducer/InformationPersonalReducer"
 import Seo from "../Components/molecules/Seo"
 import Loader from "../Components/atoms/Loader"
+import { TokenContext } from "../Components/Providers/GlobalToken"
 
 const InformationPersonal = () => {
+   const { token } = useContext(TokenContext)
+
    const idUser: string | null =
       localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")
 
@@ -68,7 +71,9 @@ const InformationPersonal = () => {
       }
       fetch(`https://carseller-back-josedaniel.vercel.app/autos/v1/user/${idUser}`, {
          method: "PUT",
-         headers: { "Content-Type": "application/json" },
+         headers: {
+            "Content-Type": "application/json",
+         },
          body: JSON.stringify({
             ...bodyObject,
          }),
@@ -78,18 +83,12 @@ const InformationPersonal = () => {
             const { name, surname, favourites } = bodyObject
             if (name) {
                dispatch({ type: "setName", payload: name })
-               // setName(name)
             }
             if (surname) dispatch({ type: "setSurName", payload: surname })
-            // setSurname(surname)
             if (favourites)
                dispatch({ type: "setKindFavourites", payload: favourites })
-            //  setKindFavourites(favourites)
             reset()
          })
-      //  .finally(() => {
-      //     reset()
-      //  })
    }
    return (
       <>

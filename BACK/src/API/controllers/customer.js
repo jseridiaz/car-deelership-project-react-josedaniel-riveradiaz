@@ -1,4 +1,3 @@
-const logicPutCustomer = require("../../utils/functions/logicPutCustomer")
 const { res200, res400 } = require("../../utils/functions/responsesCrud")
 const CustomerModel = require("../models/customer")
 const getAllCustomer = async (req, res, next) => {
