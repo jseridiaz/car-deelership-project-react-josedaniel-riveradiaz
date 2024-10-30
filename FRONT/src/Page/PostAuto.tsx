@@ -81,7 +81,6 @@ const PostAuto = () => {
    }
    return (
       <div className='relative bg-blue-200 min-h-screen p-6 border border-black'>
-         {console.log(token)}
          <form
             action=''
             className='flex flex-wrap gap-10 justify-center items-center content-center'
