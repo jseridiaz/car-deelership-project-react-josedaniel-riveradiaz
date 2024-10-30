@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form"
 import FieldSet from "../Components/atoms/FieldSet"
 import { ExtendedIFormInput, IFormLogin } from "../utils/types"
 import { useContext, useState } from "react"
-import { TokenContext } from "../Components/Providers/GlobalToken"
 import { LoggedContext } from "../Components/Providers/GlobalLogged"
 import H2SingleComponent from "../Components/atoms/H2SingleComponent"
 import Loader from "../Components/atoms/Loader"
@@ -16,7 +15,6 @@ import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
 
 const Login = () => {
-   const { setToken } = useContext(TokenContext)
    const { setLogged } = useContext(LoggedContext)
    const [statusFetch, setStatusFetch] = useState<boolean>()
    const [fetchState, setFetchState] = useState<ExtendedIFormInput | null>()
