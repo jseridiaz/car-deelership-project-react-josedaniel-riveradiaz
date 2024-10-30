@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import Button from "../Components/atoms/Button"
 import ContainerColumn from "../Components/atoms/ContainerColumn"
 import H2SingleComponent from "../Components/atoms/H2SingleComponent"
