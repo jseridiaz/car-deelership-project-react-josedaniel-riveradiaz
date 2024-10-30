@@ -27,13 +27,13 @@ const HeaderComponent = () => {
    }
 
    useEffect(() => {
-      setToken(localStorage.getItem("token"))
+      // setToken(localStorage.getItem("token")??)
       dispatch({ type: "setUserInfo", payload: storageUser?.rol })
-   }, [token])
-   useEffect(() => {
-      setLogged(sessionStorage.getItem("logged"))
-      dispatch({ type: "setUserInfo", payload: storageUser?.rol })
-   }, [logged])
+   }, [])
+   // useEffect(() => {
+   //    setLogged(sessionStorage.getItem("logged"))
+   //    dispatch({ type: "setUserInfo", payload: storageUser?.rol })
+   // }, [logged])
    useEffect(() => {
       window.addEventListener("resize", resizeHandler)
       if (state.viewPort >= 768) {

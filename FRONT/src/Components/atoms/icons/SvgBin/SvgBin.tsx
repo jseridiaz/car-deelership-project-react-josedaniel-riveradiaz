@@ -7,14 +7,12 @@ const SvgBin: React.FC<IdName> = ({ idName }) => {
    const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
    const { token } = useContext(TokenContext)
 
-   const handleDelete = (id: string) => {
-      console.log(token)
-
+   const handleDelete = (id: string) =>
       fetch(`https://carseller-back-josedaniel.vercel.app/autos/v1/search/${id}`, {
          method: "DELETE",
-         headers: { Authorization: "Bearer" + token },
+         headers: { Authorization: "Bearer " + token },
       })
-   }
+
    return (
       <svg
          xmlns='http://www.w3.org/2000/svg'
@@ -24,10 +22,11 @@ const SvgBin: React.FC<IdName> = ({ idName }) => {
          className='z-50 transition duration-500 bg-white absolute bottom-2 right-2 rounded-full hover:bg-red-500 cursor-pointer'
          onClick={e => {
             e.preventDefault()
-            handleDelete(idName)
-            setArrayAllCars(
-               arrayAllCars && arrayAllCars.filter(el => el._id != idName),
-            )
+            handleDelete(idName).then(() => {
+               setArrayAllCars(
+                  arrayAllCars && arrayAllCars.filter(el => el._id != idName),
+               )
+            })
          }}
       >
          <path d='M831.24 280.772c5.657 0 10.24-4.583 10.24-10.24v-83.528c0-5.657-4.583-10.24-10.24-10.24H194.558a10.238 10.238 0 0 0-10.24 10.24v83.528c0 5.657 4.583 10.24 10.24 10.24H831.24zm0 40.96H194.558c-28.278 0-51.2-22.922-51.2-51.2v-83.528c0-28.278 22.922-51.2 51.2-51.2H831.24c28.278 0 51.2 22.922 51.2 51.2v83.528c0 28.278-22.922 51.2-51.2 51.2z' />

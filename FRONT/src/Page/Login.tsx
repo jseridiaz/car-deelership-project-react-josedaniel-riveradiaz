@@ -63,7 +63,7 @@ const Login = () => {
                localStorage.setItem("token", resJson.res.token)
                localStorage.setItem("idUser", resJson.res.logged._id)
                localStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
-               setToken(resJson.res.token)
+               // setToken(resJson.res.token)
                setLogged(resJson.res.logged._id)
 
                setTimeout(() => {
@@ -73,7 +73,7 @@ const Login = () => {
                sessionStorage.setItem("token", resJson.res.token)
                sessionStorage.setItem("logged", resJson.res.logged._id)
                sessionStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
-               setToken(resJson.res.token)
+               // setToken(resJson.res.token)
                setLogged(resJson.res.logged._id)
                setTimeout(() => {
                   navigate("/home")
