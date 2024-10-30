@@ -1,7 +1,10 @@
 # DOCUMENTACION Car Seller Front.
+
 Documentación-guia de la página web Car Seller.
 
-Esta página web está diseñada para llegar a los usuarios que se encuentran en busqueda de un vehículo tanto nuevo como usados a buen precio. La web se ha creado con el objetivo de que el usuario interesado pueda registrarse, guardar sus vehículos favoritos y comprarlos en caso que se decidan. 
+Esta página web está diseñada para llegar a los usuarios que se encuentran en busqueda de un vehículo tanto nuevo como usados a buen precio. La web se ha creado con el objetivo de que el usuario interesado pueda registrarse, guardar sus vehículos favoritos y comprarlos en caso que se decidan.
+
+El Frontend ha sido desarrollado con Vite usando React y Typescript.
 
 ## Home
 
@@ -15,7 +18,7 @@ Y por último se a establecido varias secciones de información de valor para el
 
 Cambiando a la página de autos accediendo desde un link en el header de nuestra página, se encuentra la parte donde se encontrarán todos los vehículos que se tienen en la base de datos, donde se ha hecho especial foco en la funcionalidad del filtro de lso vehículos por marca, tipo, modelo, tramo de año de fabricación, precio y kilometraje del vehículo. Además de poder seleccionar entre vehículos que ya esten disponibles o que por el contrario esten o reservados o vendidos.
 
-El filtro ha sido diseñado con la base de datos no relacional mongoDB, haciendolo un filtro dinámico y rápido para que se vayan renderizando los vehículos por cada modificación  que se haga sin tener que clicar para comenzar a realizar la petición al servidor, dandole una carasterística eficaz a este. 
+El filtro ha sido diseñado con la base de datos no relacional mongoDB, haciendolo un filtro dinámico y rápido para que se vayan renderizando los vehículos por cada modificación que se haga sin tener que clicar para comenzar a realizar la petición al servidor, dandole una carasterística eficaz a este.
 
 También el filtro consta de un componente de paginación para ir pasando de página, ya que solo se renderizará por página únicamente 8 vehículos.
 
@@ -23,9 +26,9 @@ En cada carta del vehículo se muestra información de marca, modelo, estado del
 
 Y también si el usuario tiene acceso de administrador se mostrará la información del id del vehículo y un botón para eliminar el vehículo de la base de datos.
 
-### Post 
+### Post
 
-En el caso que el usuario tenga acceso de administrador, aparecerá en el header un link para acceder a la página de post de vehículos, donde rellenado un formulario con los datos del vehículo requeridos se realizará una petición al servidor para crear un nuevo vehículo en la BBDD. 
+En el caso que el usuario tenga acceso de administrador, aparecerá en el header un link para acceder a la página de post de vehículos, donde rellenado un formulario con los datos del vehículo requeridos se realizará una petición al servidor para crear un nuevo vehículo en la BBDD.
 
 Se ha diñado la web para que solo usuarios administradores sean los autorizados a realizar este tipo de solicitudes y creación de contenido.
 
@@ -39,13 +42,13 @@ Cuando el usuario se logea aparecerá en el header un botón profile, con varios
 
 ####Información personal
 
-En esta página aparece la información personal del usuario que se declaró en el momento del registro, como su nombre, apellido, tipo de vehículo que busca y el número de vehículos que tiene como favoritos. 
+En esta página aparece la información personal del usuario que se declaró en el momento del registro, como su nombre, apellido, tipo de vehículo que busca y el número de vehículos que tiene como favoritos.
 
 Y junto a esta infomación, existe un formulario para en el caso que el cliente quiera cambiar algunos de estos datos personales.
 
 #### Página de Favoritos
 
-En esta página obtenemos una lista con los vehículos que el usuario ha previamente en la página de vehículos establecido como que quiere tener un seguimiento de estos, por lo que verá de forma rápida si el vehículo sigue disponible o ha cambiado a estar reservado, o cambios en su precio. 
+En esta página obtenemos una lista con los vehículos que el usuario ha previamente en la página de vehículos establecido como que quiere tener un seguimiento de estos, por lo que verá de forma rápida si el vehículo sigue disponible o ha cambiado a estar reservado, o cambios en su precio.
 
 Igualmente desde aqui se pueden eliminar de favoritos cada uno de ellos o todos a la vez clicando en el botón limpiar todos los favoritos.
 
@@ -55,15 +58,10 @@ Por último en la página de login se encontrará un formulario donde poder intr
 
 También existe un enlace a la página de registro, para que el usuario que aún no se haya registrado pueda introducir sus datos a traves de un formulario para crear su email de registro y clave de acceso y establecer sus datos personales.
 
-### Resumen 
+### Resumen
 
 La web es un ecommerce de vehículos administrado por administradores con este rol que es otorgado únicamente por el desarrollador de la web.
 
 Los filtros se han desarrollado para que lo realice la base de datos y no el front, obteniendose una ganancia de eficiencia, rapidez y dinamismo que marca la diferencia con otros filtros existentes en la competencia y no sobrecargando el procesador del equipo del usuario.
 
 Existe aún una gran cantidad de funcionalidad a desarrollar para que la web gane en posibilidades para el usuario.
-
-
-
-
-
