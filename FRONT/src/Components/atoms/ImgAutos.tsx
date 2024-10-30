@@ -25,8 +25,6 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    autoId,
    customerId,
 }) => {
-   console.log(customerId)
-
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const idUser: string | null =
       localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")

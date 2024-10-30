@@ -29,8 +29,6 @@ const Login = () => {
    } = useForm({ defaultValues: { email: "", password: "", savedToken: false } })
 
    const handleLogin = (data: IFormLogin): void => {
-      console.log(data)
-
       setFetchState(null)
       setLoading(true)
 
@@ -51,12 +49,10 @@ const Login = () => {
          })
          .then(resJson => {
             setBanner(true)
-            console.log(resJson)
             if (resJson.res.logged) resJson.res.logged.password = null
             setFetchState(resJson)
 
             setLoading(false)
-            console.log(resJson)
             if (data.savedToken) {
                localStorage.setItem("token", resJson.res.token)
                localStorage.setItem("idUser", resJson.res.logged._id)

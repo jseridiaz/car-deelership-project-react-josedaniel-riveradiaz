@@ -10,8 +10,6 @@ import BlogsHome from "../Components/molecules/Home/BlogsHome"
 import Seo from "../Components/molecules/Seo"
 
 const Home = () => {
-   console.log("ok")
-
    return (
       <>
          <Seo

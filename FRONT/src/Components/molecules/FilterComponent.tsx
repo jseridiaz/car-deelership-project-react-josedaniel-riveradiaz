@@ -37,7 +37,6 @@ const FilterComponent = () => {
    const [state, dispatch] = useReducer<
       React.Reducer<FilterComponentReducerType, ActionFilterType>
    >(FilterComponentReducer, INITIAL_STATE)
-   console.log(state.loading)
 
    const resetFilter = () => {
       dispatch({ type: "CLEAR" })
@@ -54,8 +53,6 @@ const FilterComponent = () => {
       }
    }
    useEffect(() => {
-      console.log(state.loading)
-
       dispatch({ type: "setLoading", payload: true })
 
       fetch(
@@ -84,8 +81,6 @@ const FilterComponent = () => {
          })
    }, [])
    useEffect(() => {
-      console.log(state.loading)
-
       dispatch({ type: "setLoading", payload: true })
 
       if (
@@ -355,8 +350,6 @@ const FilterComponent = () => {
 
                setCurrentPage(0)
             })
-      } else {
-         console.log("ok")
       }
    }, [
       state.brand,
