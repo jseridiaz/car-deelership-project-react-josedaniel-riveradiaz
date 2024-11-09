@@ -23,15 +23,15 @@ const CardAutoHome: React.FC<Cardautotype> = ({
    km,
 }) => {
    return (
-      <li className='relative flex flex-col p-5 lg:w-2/5 h-full min-w-[370px] snap-center'>
+      <li className='relative flex flex-col p-2 sm:p-5 sm:w-2/5 w-[250px] h-fit sm:min-w-[370px] snap-center'>
          <ImgComponent
             imgPath={imgPath}
             alt={`${autoName}-${autoModel}`}
-            classContainer='absolute  w-1/2 top-1/2 h-1/2 -translate-y-1/2 -left-1'
-            classImg='w-full h-full object-fill'
+            classContainer=' relative sm:absolute sm:w-1/2 sm:top-1/2 sm:h-[70%] h-[150px] w-full sm:-translate-y-1/2 translate-y-0 sm:-left-1 left-0 sm:rounded-t-0 rounded-t-xl'
+            classImg='w-full h-full sm:object-contain '
          />
 
-         <div className='flex flex-col bg-white justify-between h-fit w-[50%] self-end p-2 rounded-2xl'>
+         <div className='flex flex-col bg-white mx-auto  sm:mx-0 justify-between h-fit sm:w-[50%] w-full self-end p-1 sm:p-2 rounded-2xl'>
             <div className=' flex flex-col self-start mb-6'>
                <h3 className='font-semibold text-2xl'>{autoName}</h3>
                <span className={`relative text-lg ${state === "Usado" && "left-2"}`}>
@@ -48,14 +48,14 @@ const CardAutoHome: React.FC<Cardautotype> = ({
                </ParrafAutoPicture>
 
                <ParrafAutoPicture el={`${price.toLocaleString("es-ES")} €`}>
-                  Price:{" "}
+                  Price:
                </ParrafAutoPicture>
                <Button
                   signal={<BiChevronRight className='stroke-1 stroke-white ' />}
                   properties='relative
-             self-end transition duration-700 hover:bg-red-700 hover:shadow-blue-800 hover:shadow-md w-fit justify-between items-center w-full gap-1  flex text-white font-semibold bg-black rounded-full p-2 '
+             self-end transition duration-700 hover:bg-red-700 hover:shadow-blue-800 hover:shadow-md w-fit justify-between items-center w-full gap-1  flex text-white font-semibold bg-black sm:rounded-full rounded-xl p-2 '
                   link='/cars-shop'
-                  // functionClick={}
+                  isLink={true}
                >
                   Order now
                </Button>

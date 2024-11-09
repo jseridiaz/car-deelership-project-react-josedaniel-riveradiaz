@@ -10,10 +10,13 @@ import Loader from "../Components/atoms/Loader"
 import { useNavigate } from "react-router-dom"
 import Toast from "../Components/molecules/Toast"
 import Seo from "../Components/molecules/Seo"
+import { turnOffBanner } from "../utils/turnOffBanner"
 
 const Register = () => {
    const [loading, setLoading] = useState<boolean>(false)
    const [showToast, setShowToast] = useState<boolean>(false)
+   const [errMsg, setErrMsg] = useState<string>()
+   const [resOk, setResOk] = useState<boolean>()
    // const [message,setMessage]=useState<string>()
    const navigate = useNavigate()
 
@@ -46,20 +49,29 @@ const Register = () => {
             password: data.password,
             favourites: data.autosInterested,
          }),
-      }).then(res => {
-         setLoading(false)
-         if (res.ok) setShowToast(true)
-         setTimeout(() => {
-            setShowToast(false)
-            navigate("/login")
-         }, 3000)
-         return res.json()
       })
+         .then(res => {
+            setLoading(false)
+            setShowToast(true)
+            if (res.ok) {
+               setResOk(true)
+               setTimeout(() => {
+                  setShowToast(false)
+                  navigate("/login")
+               }, 3000)
+            } else {
+               setResOk(false)
+               turnOffBanner(setShowToast, 3000, false)
+            }
+
+            return res.json()
+         })
+         .then(res => setErrMsg(res.message))
    }
    return (
       <>
          <Seo
-            title='Register page ◀️ - Car seller'
+            title='Register page - Car seller'
             description='Set your personal datas to get access free in your private page and take a lot of advantages like offers and disccounts, as well as  be able to find out about the latest stocks firts.'
             url='https://carseller-for-you.vercel.app/register'
             img='https://res.cloudinary.com/ddybbosdk/image/upload/v1726571808/CARS%20AUTODEELER/ram-portrait-register_1_qyb1im.avif'
@@ -104,15 +116,19 @@ const Register = () => {
                         </ErrorContainer>
                      </FieldSet>
                      <FieldSet description='Your email' cssProperties='w-2/3'>
-                        <InputTextForm
-                           register={register}
-                           placeholders='jose@gmail.com'
+                        <input
+                           className='p-2 text-sm w-full  border-2 border-gray-500 border-solid placeholder:text-sm rounded  focus:border-none focus:outline-8 focus:outline-blue-300 focus:outline-offset-4'
+                           {...register("email", {
+                              required: "the password is required",
+                              pattern: {
+                                 value: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/,
+                                 message: "The email must be a correct format",
+                              },
+                           })}
+                           placeholder='jose@gmail.com'
                            name='email'
                         />
-                        <ErrorContainer>
-                           {errors.email?.type === "required" &&
-                              "* Email is required"}
-                        </ErrorContainer>
+                        <ErrorContainer>{errors.email?.message}</ErrorContainer>
                      </FieldSet>
                      <FieldSet description='Your birthname' cssProperties='w-2/3'>
                         <InputTextForm
@@ -178,7 +194,7 @@ const Register = () => {
                classImg='w-full h-full object-cover object-center'
             />
          </article>
-         {showToast && <Toast>You've been already registered</Toast>}
+         {showToast && <Toast handle={resOk ? true : false}>{errMsg}</Toast>}
       </>
    )
 }

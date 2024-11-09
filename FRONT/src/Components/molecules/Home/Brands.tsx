@@ -9,7 +9,7 @@ const Brands = () => {
             {brands.map((el, idx) => (
                <div
                   key={idx}
-                  className='transition duration-500 hover:drop-shadow-lg  cursor-pointer filter grayscale hover:grayscale-0 hover:scale-110 '
+                  className='transition duration-500 hover:drop-shadow-lg  filter grayscale hover:grayscale-0 hover:scale-110 '
                >
                   {el.img}
                </div>

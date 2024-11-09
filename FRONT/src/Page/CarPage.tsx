@@ -25,7 +25,7 @@ const CarPage = () => {
    return (
       <>
          <Seo
-            title="Auto stock 🚘 - Car Seller's"
+            title="Auto stock - Car Seller's"
             description='✔️ Find all our current cars between all our brands and take a look at the pictures to compare with all your favourites choises. Choose between used and new autos, and buy one of them easily with your preferred Payment methods.'
             url={window.location.href}
             img='/PorscheBlog.png'
@@ -40,12 +40,6 @@ const CarPage = () => {
                </Parraf>
             ) : (
                <>
-                  <Pagination
-                     array={arrayAllCars}
-                     allPages={pages}
-                     currentPage={currentPage}
-                     setCurrentPage={setCurrentPage}
-                  />
                   <PrintListAutos
                      arrayToPRint={arrayAllCars.slice(firstIndex, lastIndex)}
                      cssProperties='p-7 my-12'

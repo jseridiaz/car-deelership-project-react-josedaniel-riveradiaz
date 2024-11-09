@@ -49,7 +49,7 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    const deleteFavourite = () => {
       if (customerId) {
          const filteredArray = arrayFavourites.filter(el => autoId !== el)
-         setArrayFavourites(arrayFavourites.filter(el => autoId !== el))
+         setArrayFavourites(filteredArray)
          localStorage.setItem("favourites", JSON.stringify(filteredArray))
          fetch(
             `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/delete/favourites/${customerId}`,
@@ -133,11 +133,13 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                   Price:
                </ParrafAutoPicture>
             </ContainerColumn>
-            <ContainerColumn className=''>
-               <Button properties='bg-white text-black mt-6' isLink={false}>
-                  Order now
-               </Button>
-            </ContainerColumn>
+            {customerId && (
+               <ContainerColumn className=''>
+                  <Button properties='bg-white text-black mt-6' isLink={false}>
+                     Order now
+                  </Button>
+               </ContainerColumn>
+            )}
          </div>
       </li>
    )

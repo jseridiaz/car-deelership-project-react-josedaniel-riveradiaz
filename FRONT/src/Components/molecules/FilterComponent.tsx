@@ -1,6 +1,7 @@
-import { useContext, useEffect, useReducer, useRef } from "react"
+import { useCallback, useContext, useEffect, useReducer, useRef } from "react"
 import FieldSet from "../atoms/FieldSet"
 import { CarContext } from "../Providers/GlobalCarsArray"
+import debounce from "just-debounce-it"
 import { getModels } from "../../utils/getModels"
 import { CurrentPageContext } from "../Providers/GlobalPages"
 import CheckBoxFilter from "../atoms/CheckBoxFilter"
@@ -16,6 +17,7 @@ import {
    FilterComponentReducerType,
 } from "../../utils/types"
 import Loader from "../atoms/Loader"
+import Button from "../atoms/Button"
 
 // import Loader from "../atoms/Loader"
 
@@ -52,6 +54,7 @@ const FilterComponent = () => {
          e.preventDefault()
       }
    }
+
    useEffect(() => {
       dispatch({ type: "setLoading", payload: true })
 
@@ -364,23 +367,31 @@ const FilterComponent = () => {
       state.maxYear,
    ])
 
-   const handleInput = (
-      type: ActionTypes,
-      reference: React.MutableRefObject<HTMLInputElement | null>,
-   ): void => {
-      if (reference && reference.current) {
-         dispatch({ type, payload: parseInt(reference.current.value) })
-      }
-   }
+   const handleInput = useCallback(
+      debounce(
+         (
+            type: ActionTypes,
+            reference: React.MutableRefObject<HTMLInputElement | null>,
+         ): void => {
+            if (reference && reference.current) {
+               dispatch({ type, payload: parseInt(reference.current.value) })
+            }
+         },
+         600,
+      ),
+      [
+         state.maxKm,
+         state.maxPrice,
+         state.maxYear,
+         state.minKm,
+         state.minPrice,
+         state.minYear,
+      ],
+   )
 
    return (
       <div className='p-4'>
          <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 rounded-lg relative'>
-            {state.loading && (
-               <div className='absolute -bottom-20 right-1/2 -translate-x-1/2'>
-                  <Loader />
-               </div>
-            )}
             <FieldSet description='Brand'>
                <select
                   className='lg:w-1/2 w-full'
@@ -547,14 +558,15 @@ const FilterComponent = () => {
                </ContainerColumn>
             </div>
 
-            <div className='w-full'>
-               <button
-                  className='bg-white lg:w-[10%] w-1/3 '
+            <div className='w-full flex flex-col items-center gap-4'>
+               <Button
+                  properties='relative bg-white lg:w-[10%] w-1/3 '
                   type='reset'
-                  onClick={() => resetFilter()}
+                  functionClick={() => resetFilter()}
                >
                   Clear filter
-               </button>
+                  {state.loading && <Loader properties='absolute top-0' />}
+               </Button>
             </div>
          </form>
       </div>

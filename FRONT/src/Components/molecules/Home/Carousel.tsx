@@ -69,6 +69,7 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
                   signal={<BiChevronRight className='stroke-1 stroke-white' />}
                   link='/cars-shop'
                   properties=' transition duration-1000 hover:bg-blue-800 hover:shadow-blue-800 hover:scale-110 hover:shadow-lg w-fit justify-center sm:self-start self-center items-center gap-1 text-[1rem] flex text-white font-semibold bg-black rounded-full p-2 px-4'
+                  isLink={true}
                >
                   Order now
                </Button>

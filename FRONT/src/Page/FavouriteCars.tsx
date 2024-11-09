@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { FavouritesContext } from "../Components/Providers/GlobalFavouritesArray"
 import ImgAutos from "../Components/atoms/ImgAutos"
 import { AutoModelType } from "../utils/types"
@@ -27,46 +27,48 @@ const FavouriteCars = () => {
          .then(res => {
             return setCustomerId(res.res._id ?? null)
          })
-   }, [idUser, logged])
+   }, [])
    useEffect(() => {
       setLoading(true)
       setArrayToPrint([])
+
       let array: AutoModelType[] | [] = []
 
-      if (arrayFavourites) {
+      if (arrayFavourites.length) {
          for (let i = 0; i < arrayFavourites.length; i++) {
             const el = arrayFavourites[i]
-
             fetch(
                `https://carseller-back-josedaniel.vercel.app/autos/v1/search/` + el,
             )
                .then(res => res.json())
                .then(res => {
                   array = [...array, res.res]
-               })
-               .then(() => {
                   setArrayToPrint(array)
                   setLoading(false)
                })
          }
+      } else {
+         setLoading(false)
       }
    }, [arrayFavourites])
 
-   const clearFilter = () => {
+   const clearFilter = useCallback(() => {
       fetch(
          `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/clear/favourites/${customerId}`,
          {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
          },
-      )
+      ).then(() => {
+         setLoading(false)
+      })
       setArrayFavourites([])
       localStorage.setItem("favourites", JSON.stringify([]))
-   }
+   }, [customerId])
    return (
       <>
          <Seo
-            title='Check our your favourites 🛻 - Car seller'
+            title='Check our your favourites - Car seller'
             description="✔️ Take a see to the autos that you've saved and follow its availability, in addition to handle your saved personal stock. In case you decide to buy it than you can handle that easy at the moment."
             url='https://carseller-for-you.vercel.app/favourite-cars'
             img='/PorscheBlog.png'

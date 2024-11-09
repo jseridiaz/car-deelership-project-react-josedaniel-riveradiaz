@@ -139,7 +139,7 @@ export type InputNumberType = {
    spanName: string
    idName: string
    numberValue?: string
-   reference: React.RefObject<HTMLInputElement> | null
+   reference?: React.RefObject<HTMLInputElement> | null
    placeholder?: string
    handleKey?: (e: React.KeyboardEvent<HTMLInputElement>) => void
    handleInput?: (e: React.FormEvent<HTMLInputElement>) => void
@@ -376,4 +376,19 @@ export type SeoType = {
    description: string
    url: string
    img: string
+}
+export type IFormForm = {
+   brand: string
+   chassis: string
+   model: string
+   available: boolean
+   minPrice: number
+   maxPrice: number
+   minKm: number
+   maxKm: number
+   minYear: number
+   maxYear: number
+}
+export type LoaderType = {
+   properties?: string
 }

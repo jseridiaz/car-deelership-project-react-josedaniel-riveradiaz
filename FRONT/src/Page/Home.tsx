@@ -13,7 +13,7 @@ const Home = () => {
    return (
       <>
          <Seo
-            title='Home 🛻 - Car seller'
+            title='Home - Car seller'
             description='✔️ Find out your desire car in our Auto page by looking for our stock with a good price and state. Enjoy with it thanks to the great offers that we throw out all weeks becouse.'
             url='https://carseller-for-you.vercel.app/home'
             img='/PorscheBlog.png'

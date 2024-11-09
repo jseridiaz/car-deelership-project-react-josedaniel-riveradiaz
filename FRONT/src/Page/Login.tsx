@@ -43,14 +43,17 @@ const Login = () => {
          .then(res => {
             setStatusFetch(res.ok)
             if (!res.ok) {
-               turnOffBanner(setBanner, 3000, false)
+               turnOffBanner(setBanner, 4000, false)
+               setLoading(false)
             }
             return res.json()
          })
          .then(resJson => {
+            console.log(resJson)
+            setFetchState(resJson)
+
             setBanner(true)
             if (resJson.res.logged) resJson.res.logged.password = null
-            setFetchState(resJson)
 
             setLoading(false)
             if (data.savedToken) {
@@ -79,7 +82,7 @@ const Login = () => {
    return (
       <>
          <Seo
-            title='Login page 🔑 - Car seller'
+            title='Login page - Car seller'
             description='Get in in your personal page by logging with your datas and take advantages like offers and disccounts, as well as find out about the latest stocks firts.'
             url='https://carseller-for-you.vercel.app/login'
             img='https://res.cloudinary.com/ddybbosdk/image/upload/v1726562162/CARS%20AUTODEELER/corvete-portrait-login_xoru7n.webp'
@@ -170,7 +173,7 @@ const Login = () => {
                      isLink={false}
                   >
                      Log in
-                     {loading && <Loader />}
+                     {loading && <Loader properties='top-0 right-1/2' />}
                   </Button>
                   {/* {fetchState && !statusFetch ? (
                      <Parraf cssProperties='w-full text-red-600'>
