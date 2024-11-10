@@ -39,7 +39,7 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
    return (
       <section className=' box-border flex w-full  h-fit sm:p-6 lg:p-10 flex-wrap bg-gradient-to-b from-slate-200 to-blue-200'>
          <HiChevronLeft
-            className={` absolute transition duration-1000 cursor-pointer -translate-y-2/4 bg-blue-400  w-12 h-12 top-1/2  rounded-full left-4 z-20 hover:bg-blue-600 ${
+            className={` absolute transition duration-1000 cursor-pointer -translate-y-2/4 bg-blue-400  w-12 h-12 sm:bottom-1/3 bottom-1/4   rounded-full left-4 z-20 hover:bg-blue-600  ${
                slide == 0 ? "hidden" : "block"
             }`}
             onClick={handleClickLeft}
@@ -57,7 +57,7 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
                >
                   {data[slide].brand}
                </span>
-               <H2SingleComponent cssProperties='relative font-extrabold text-center sm:text-left text-shadow-lg text-[1.8rem] md:text-[2.5rem] lg:text-[3.5rem] left-0 left-6 '>
+               <H2SingleComponent cssProperties='relative font-extrabold text-center  w-full sm:text-left text-shadow-lg text-[2rem] md:text-[2.5rem] lg:text-[3.5rem] sm:text-[2rem] left-0 sm:left-6 left-0 '>
                   {data[slide].cta}
                   {data[slide].specialChar ? (
                      <span className='font-extrabold text-red-700 md:text-[2.5rem] lg:text-[3.5rem] ml-2'>
@@ -106,7 +106,7 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
             </div>
          </div>
          <HiChevronRight
-            className={`absolute transition duration-1000 w-12 h-12 top-1/2 -translate-y-2/4 bg-blue-400  cursor-pointer rounded-full right-4 hover:bg-blue-700 ${
+            className={`absolute transition duration-1000 w-12 h-12 sm:bottom-1/3 bottom-1/4 -translate-y-2/4 bg-blue-400  cursor-pointer rounded-full right-4 hover:bg-blue-700 ${
                slide == 1 ? "hidden" : "block"
             }`}
             onClick={handleClickRight}

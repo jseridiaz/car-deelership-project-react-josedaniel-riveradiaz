@@ -6,10 +6,13 @@ import Pagination from "../Components/molecules/Pagination"
 import { CurrentPageContext } from "../Components/Providers/GlobalPages"
 import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
+import { ContextNoResult } from "../Components/Providers/GlobalArrayNoResult"
+import { AutoModelType } from "../utils/types"
 
 const CarPage = () => {
-   const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
+   const { arrayAllCars } = useContext(CarContext)
    const { currentPage, setCurrentPage } = useContext(CurrentPageContext)
+   const { arrayNoResult } = useContext(ContextNoResult)
    const productsPerPage: number = 8
    const [pages, setPages] = useState<number>(1)
    const firstIndex = 0 + productsPerPage * currentPage
@@ -30,20 +33,31 @@ const CarPage = () => {
             url={window.location.href}
             img='/PorscheBlog.png'
          />
-         <section
-            className={`bg-blue-200 ${!arrayAllCars?.length ? "h-screen " : ""}`}
-         >
+         <section className={`bg-blue-200 `}>
             <FilterComponent />
             {!arrayAllCars?.length ? (
-               <Parraf cssProperties='mt-40 text-xl bg-black w-fit mx-auto text-white p-4 rounded-full font-medium pointer-events-none'>
-                  No results
-               </Parraf>
+               <>
+                  <Parraf cssProperties='mt-20 text-xl bg-black w-fit mx-auto text-white p-4 rounded-full font-medium pointer-events-none'>
+                     No results
+                  </Parraf>
+                  <Parraf cssProperties='text-2xl mt-12 underline font-semibold'>
+                     Some auto examples
+                  </Parraf>
+                  <PrintListAutos
+                     arrayToPRint={arrayNoResult
+                        .sort(
+                           (a: AutoModelType, b: AutoModelType) =>
+                              Math.random() - 0.5,
+                        )
+                        .slice(firstIndex, lastIndex)}
+                     cssProperties='p-7 my-12'
+                  />
+               </>
             ) : (
                <>
                   <PrintListAutos
                      arrayToPRint={arrayAllCars.slice(firstIndex, lastIndex)}
                      cssProperties='p-7 my-12'
-                     setArray={setArrayAllCars}
                   />
                   <Pagination
                      array={arrayAllCars}

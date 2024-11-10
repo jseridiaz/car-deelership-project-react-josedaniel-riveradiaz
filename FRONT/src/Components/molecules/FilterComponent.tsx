@@ -1,30 +1,16 @@
-import { useCallback, useContext, useEffect, useMemo, useRef } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import FieldSet from "../atoms/FieldSet"
-import { CarContext } from "../Providers/GlobalCarsArray"
 import debounce from "just-debounce-it"
-// import { getModels } from "../../utils/getModels"
-import { CurrentPageContext } from "../Providers/GlobalPages"
 import CheckBoxFilter from "../atoms/CheckBoxFilter"
 import ContainerColumn from "../atoms/ContainerColumn"
 import InputNumber from "./InputNumber"
-// import {
-//    FilterComponentReducer,
-//    INITIAL_STATE,
-// } from "../customHooks/useReducer/FilterComponentReducer"
-import {
-   // ActionFilterType,
-   ActionTypes,
-   // FilterComponentReducerType,
-} from "../../utils/types"
+
+import { ActionTypes } from "../../utils/types"
 import Loader from "../atoms/Loader"
 import Button from "../atoms/Button"
 import { useFilterCustom } from "../customHooks/useFilterCustom"
 
-// import Loader from "../atoms/Loader"
-
 const FilterComponent = () => {
-   const { setArrayAllCars } = useContext(CarContext)
-   const { setCurrentPage } = useContext(CurrentPageContext)
    const { filterFunction, state, dispatch } = useFilterCustom()
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
@@ -37,10 +23,6 @@ const FilterComponent = () => {
    const selectedMaxKm = useRef<HTMLInputElement>(null)
    const selectedMinYear = useRef<HTMLInputElement>(null)
    const selectedMaxYear = useRef<HTMLInputElement>(null)
-
-   // const [state, dispatch] = useReducer<
-   //    React.Reducer<FilterComponentReducerType, ActionFilterType>
-   // >(FilterComponentReducer, INITIAL_STATE)
 
    const resetFilter = () => {
       dispatch({ type: "CLEAR" })
@@ -57,36 +39,7 @@ const FilterComponent = () => {
       }
    }
 
-   // useEffect(() => {
-   //    dispatch({ type: "setLoading", payload: true })
-
-   //    fetch(
-   //       `https://carseller-back-josedaniel.vercel.app/autos/v1/search${
-   //          state.availability ? "?availability=Disponible" : ""
-   //       }`,
-   //    )
-   //       .then(res => res.json())
-   //       .then(res => {
-   //          setArrayAllCars(res.res)
-
-   //          setCurrentPage(0)
-   //          if (!res.res.length) {
-   //             dispatch({ type: "setModels", payload: null })
-
-   //             dispatch({ type: "setLoading", payload: false })
-   //          }
-
-   //          return res.res
-   //       })
-   //       .then(res => {
-   //          dispatch({ type: "setBrands", payload: res })
-   //          // dispatch({ type: "setLoading", payload: false })
-
-   //          // setBrands(getArrayBrands(res))
-   //       })
-   // }, [])
-
-   useMemo(() => {
+   useEffect(() => {
       filterFunction(
          state.brand,
          state.model,
@@ -99,18 +52,7 @@ const FilterComponent = () => {
          state.minYear,
          state.maxYear,
       )
-   }, [
-      state.brand,
-      state.chassis,
-      state.model,
-      state.availability,
-      state.minPrice,
-      state.maxPrice,
-      state.minKm,
-      state.maxKm,
-      state.minYear,
-      state.maxYear,
-   ])
+   }, [filterFunction])
 
    const handleInput = useCallback(
       debounce(

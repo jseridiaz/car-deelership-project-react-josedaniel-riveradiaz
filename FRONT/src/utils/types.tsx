@@ -61,10 +61,13 @@ export type CarContextType = {
    arrayAllCars: AutoModelType[] | null | []
    setArrayAllCars: Dispatch<SetStateAction<AutoModelType[] | [] | null>>
 }
+export type GlobalArrayNoResultType = {
+   arrayNoResult: AutoModelType[] | []
+   setArrayNoResult: Dispatch<SetStateAction<AutoModelType[] | []>>
+}
 export type PrintListAutoType = {
    arrayToPRint: AutoModelType[] | null
    cssProperties: string
-   setArray: Dispatch<SetStateAction<AutoModelType[] | null | []>>
 }
 // type customerType = {
 //    _id: string

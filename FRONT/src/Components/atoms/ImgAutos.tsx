@@ -1,6 +1,5 @@
 import { useContext, memo } from "react"
 import { Link } from "react-router-dom"
-import Button from "./Button"
 import { ImgAutoType, userID } from "../../utils/types"
 import EmptyHeart from "./icons/Hearts/EmptyHeart"
 import RedHeart from "./icons/Hearts/RedHeart"
@@ -133,13 +132,6 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                   Price:
                </ParrafAutoPicture>
             </ContainerColumn>
-            {customerId && (
-               <ContainerColumn className=''>
-                  <Button properties='bg-white text-black mt-6' isLink={false}>
-                     Order now
-                  </Button>
-               </ContainerColumn>
-            )}
          </div>
       </li>
    )

@@ -1,4 +1,12 @@
-import { memo, useContext, useEffect, useState } from "react"
+import {
+   Dispatch,
+   memo,
+   SetStateAction,
+   useCallback,
+   useContext,
+   useEffect,
+   useState,
+} from "react"
 import { optionFiltersHome } from "../../../data/optionFilters"
 import H2Component from "../../atoms/H2Component"
 import CardAutoHome from "../../atoms/CardAutoHome"
@@ -12,6 +20,37 @@ const Explore = () => {
    const [filterSelect, setFilterSelect] = useState<string>("Cars")
    const [arrayAutos, setArrayAutos] = useState<AutoModelType[]>([])
 
+   const fetchData = useCallback(
+      (
+         filterSelect: string,
+         setArray: Dispatch<SetStateAction<AutoModelType[] | []>>,
+      ) => {
+         fetch(
+            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/category/${
+               filterSelect == "Cars"
+                  ? "Turismo"
+                  : filterSelect === "Trucks"
+                  ? "Truck"
+                  : "SUV"
+            }`,
+         )
+            .then(res => res.json())
+            .then(res => res.res)
+            .then(res => {
+               const finalArrayAuto: AutoModelType[] = []
+               for (let i = 0; i < 6; i++) {
+                  const aleatoryNumber: number = Math.floor(
+                     Math.random() * res.length,
+                  )
+                  const element: AutoModelType = res[aleatoryNumber]
+                  finalArrayAuto.push(element)
+                  res.splice(aleatoryNumber, 1)
+               }
+               setArray(finalArrayAuto)
+            })
+      },
+      [filterSelect],
+   )
    useEffect(() => {
       if (logged) {
          fetch(
@@ -30,27 +69,7 @@ const Explore = () => {
       }
    }, [])
    useEffect(() => {
-      fetch(
-         `https://carseller-back-josedaniel.vercel.app/autos/v1/search/category/${
-            filterSelect == "Cars"
-               ? "Turismo"
-               : filterSelect === "Trucks"
-               ? "Truck"
-               : "SUV"
-         }`,
-      )
-         .then(res => res.json())
-         .then(res => res.res)
-         .then(res => {
-            const finalArrayAuto: AutoModelType[] = []
-            for (let i = 0; i < 6; i++) {
-               const aleatoryNumber: number = Math.floor(Math.random() * res.length)
-               const element: AutoModelType = res[aleatoryNumber]
-               finalArrayAuto.push(element)
-               res.splice(aleatoryNumber, 1)
-            }
-            setArrayAutos(finalArrayAuto)
-         })
+      fetchData(filterSelect, setArrayAutos)
    }, [filterSelect])
 
    const handleFilter = (name: string): void => {

@@ -9,6 +9,7 @@ import GlobalToken from "./Components/Providers/GlobalToken.tsx"
 import GlobalLogged from "./Components/Providers/GlobalLogged.tsx"
 import GlobalFavouritesArray from "./Components/Providers/GlobalFavouritesArray.tsx"
 import { HelmetProvider } from "react-helmet-async"
+import GlobalArrayNoResult from "./Components/Providers/GlobalArrayNoResult.tsx"
 
 createRoot(document.getElementById("root")!).render(
    <StrictMode>
@@ -17,11 +18,13 @@ createRoot(document.getElementById("root")!).render(
             <GlobalCarsContext>
                <GlobalCurrentPage>
                   <GlobalFavouritesArray>
-                     <GlobalToken>
-                        <GlobalLogged>
-                           <App />
-                        </GlobalLogged>
-                     </GlobalToken>
+                     <GlobalArrayNoResult>
+                        <GlobalToken>
+                           <GlobalLogged>
+                              <App />
+                           </GlobalLogged>
+                        </GlobalToken>
+                     </GlobalArrayNoResult>
                   </GlobalFavouritesArray>
                </GlobalCurrentPage>
             </GlobalCarsContext>
