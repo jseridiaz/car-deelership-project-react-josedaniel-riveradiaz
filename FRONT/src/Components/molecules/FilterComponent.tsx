@@ -1,29 +1,31 @@
-import { useCallback, useContext, useEffect, useReducer, useRef } from "react"
+import { useCallback, useContext, useEffect, useMemo, useRef } from "react"
 import FieldSet from "../atoms/FieldSet"
 import { CarContext } from "../Providers/GlobalCarsArray"
 import debounce from "just-debounce-it"
-import { getModels } from "../../utils/getModels"
+// import { getModels } from "../../utils/getModels"
 import { CurrentPageContext } from "../Providers/GlobalPages"
 import CheckBoxFilter from "../atoms/CheckBoxFilter"
 import ContainerColumn from "../atoms/ContainerColumn"
 import InputNumber from "./InputNumber"
+// import {
+//    FilterComponentReducer,
+//    INITIAL_STATE,
+// } from "../customHooks/useReducer/FilterComponentReducer"
 import {
-   FilterComponentReducer,
-   INITIAL_STATE,
-} from "../customHooks/useReducer/FilterComponentReducer"
-import {
-   ActionFilterType,
+   // ActionFilterType,
    ActionTypes,
-   FilterComponentReducerType,
+   // FilterComponentReducerType,
 } from "../../utils/types"
 import Loader from "../atoms/Loader"
 import Button from "../atoms/Button"
+import { useFilterCustom } from "../customHooks/useFilterCustom"
 
 // import Loader from "../atoms/Loader"
 
 const FilterComponent = () => {
    const { setArrayAllCars } = useContext(CarContext)
    const { setCurrentPage } = useContext(CurrentPageContext)
+   const { filterFunction, state, dispatch } = useFilterCustom()
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
@@ -36,9 +38,9 @@ const FilterComponent = () => {
    const selectedMinYear = useRef<HTMLInputElement>(null)
    const selectedMaxYear = useRef<HTMLInputElement>(null)
 
-   const [state, dispatch] = useReducer<
-      React.Reducer<FilterComponentReducerType, ActionFilterType>
-   >(FilterComponentReducer, INITIAL_STATE)
+   // const [state, dispatch] = useReducer<
+   //    React.Reducer<FilterComponentReducerType, ActionFilterType>
+   // >(FilterComponentReducer, INITIAL_STATE)
 
    const resetFilter = () => {
       dispatch({ type: "CLEAR" })
@@ -55,305 +57,48 @@ const FilterComponent = () => {
       }
    }
 
-   useEffect(() => {
-      dispatch({ type: "setLoading", payload: true })
+   // useEffect(() => {
+   //    dispatch({ type: "setLoading", payload: true })
 
-      fetch(
-         `https://carseller-back-josedaniel.vercel.app/autos/v1/search${
-            state.availability ? "?availability=Disponible" : ""
-         }`,
+   //    fetch(
+   //       `https://carseller-back-josedaniel.vercel.app/autos/v1/search${
+   //          state.availability ? "?availability=Disponible" : ""
+   //       }`,
+   //    )
+   //       .then(res => res.json())
+   //       .then(res => {
+   //          setArrayAllCars(res.res)
+
+   //          setCurrentPage(0)
+   //          if (!res.res.length) {
+   //             dispatch({ type: "setModels", payload: null })
+
+   //             dispatch({ type: "setLoading", payload: false })
+   //          }
+
+   //          return res.res
+   //       })
+   //       .then(res => {
+   //          dispatch({ type: "setBrands", payload: res })
+   //          // dispatch({ type: "setLoading", payload: false })
+
+   //          // setBrands(getArrayBrands(res))
+   //       })
+   // }, [])
+
+   useMemo(() => {
+      filterFunction(
+         state.brand,
+         state.model,
+         state.chassis,
+         state.availability,
+         state.minPrice,
+         state.maxPrice,
+         state.minKm,
+         state.maxKm,
+         state.minYear,
+         state.maxYear,
       )
-         .then(res => res.json())
-         .then(res => {
-            setArrayAllCars(res.res)
-
-            setCurrentPage(0)
-            if (!res.res.length) {
-               dispatch({ type: "setModels", payload: null })
-
-               dispatch({ type: "setLoading", payload: false })
-            }
-
-            return res.res
-         })
-         .then(res => {
-            dispatch({ type: "setBrands", payload: res })
-            // dispatch({ type: "setLoading", payload: false })
-
-            // setBrands(getArrayBrands(res))
-         })
-   }, [])
-   useEffect(() => {
-      dispatch({ type: "setLoading", payload: true })
-
-      if (
-         state.brand === "All" &&
-         state.chassis === "All" &&
-         state.model === "All"
-      ) {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/search${
-               state.availability ||
-               state.minPrice ||
-               state.maxPrice ||
-               state.minKm ||
-               state.minKm ||
-               state.minYear ||
-               state.maxYear
-                  ? "?"
-                  : ""
-            }${state.availability ? "availability=Disponible" : ""}${
-               state.minPrice ? `&minPrice=${state.minPrice}` : ""
-            }${state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""}${
-               state.minKm ? `&minKm=${state.minKm}` : ""
-            }${state.maxKm ? `&maxKm=${state.maxKm}` : ""}${
-               state.minYear ? `&minYear=${state.minYear}` : ""
-            }${state.maxYear ? `&maxYear=${state.maxYear}` : ""}`,
-         )
-            .then(res => res.json())
-            .then(res => {
-               dispatch({ type: "setModels", payload: getModels(res.res) })
-               // setModels(getModels(res.res))
-               setArrayAllCars(res.res)
-               setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
-
-               if (!res.res.length) {
-                  dispatch({ type: "setModels", payload: null })
-                  dispatch({ type: "setLoading", payload: false })
-               }
-               return res.res
-            })
-            .then(res => {
-               dispatch({ type: "setBrands", payload: res })
-            })
-      } else if (
-         state.brand !== "All" &&
-         state.chassis === "All" &&
-         state.model === "All"
-      ) {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/brand/${
-               state.brand
-            }${
-               state.availability ||
-               state.minPrice ||
-               state.maxPrice ||
-               state.minKm ||
-               state.minKm ||
-               state.minYear ||
-               state.maxYear
-                  ? "?"
-                  : ""
-            }${state.availability ? "availability=Disponible" : ""}${
-               state.minPrice ? `&minPrice=${state.minPrice}` : ""
-            }${state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""}${
-               state.minKm ? `&minKm=${state.minKm}` : ""
-            }${state.maxKm ? `&maxKm=${state.maxKm}` : ""}${
-               state.minYear ? `&minYear=${state.minYear}` : ""
-            }${state.maxYear ? `&maxYear=${state.maxYear}` : ""}`,
-         )
-            .then(res => res.json())
-            .then(res => {
-               const modelsArray = getModels(res.res)
-
-               setArrayAllCars(res.res)
-               setCurrentPage(0)
-               dispatch({ type: "setModels", payload: modelsArray })
-               dispatch({ type: "setLoading", payload: false })
-            })
-      } else if (
-         state.brand === "All" &&
-         state.chassis === "All" &&
-         state.model !== "All"
-      ) {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/model/${
-               state.model
-            }${
-               state.availability ||
-               state.minPrice ||
-               state.maxPrice ||
-               state.minKm ||
-               state.minKm ||
-               state.minYear ||
-               state.maxYear
-                  ? "?"
-                  : ""
-            }${state.availability ? "availability=Disponible" : ""}${
-               state.minPrice ? `&minPrice=${state.minPrice}` : ""
-            }${state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""}${
-               state.minKm ? `&minKm=${state.minKm}` : ""
-            }${state.maxKm ? `&maxKm=${state.maxKm}` : ""}${
-               state.minYear ? `&minYear=${state.minYear}` : ""
-            }${state.maxYear ? `&maxYear=${state.maxYear}` : ""}
-            `,
-         )
-            .then(res => res.json())
-            .then(res => {
-               setArrayAllCars(res.res)
-               setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
-            })
-      } else if (
-         state.brand === "All" &&
-         state.chassis !== "All" &&
-         state.model !== "All"
-      ) {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/query/category/model?category=${
-               state.chassis
-            }&model=${state.model}${
-               state.availability ? "&availability=Disponible" : ""
-            }${state.minPrice ? `&minPrice=${state.minPrice}` : ""}${
-               state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""
-            }${state.minKm ? `&minKm=${state.minKm}` : ""}${
-               state.maxKm ? `&maxKm=${state.maxKm}` : ""
-            }${state.minYear ? `&minYear=${state.minYear}` : ""}${
-               state.maxYear ? `&maxYear=${state.maxYear}` : ""
-            }`,
-         )
-            .then(res => res.json())
-            .then(res => {
-               setArrayAllCars(res.res)
-               setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
-            })
-      } else if (
-         state.chassis !== "All" &&
-         state.brand === "All" &&
-         state.model === "All"
-      ) {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/category/${
-               state.chassis
-            }${
-               state.availability ||
-               state.minPrice ||
-               state.maxPrice ||
-               state.minKm ||
-               state.maxPrice ||
-               state.minYear ||
-               state.maxYear
-                  ? "?"
-                  : ""
-            }${state.availability ? "&availability=Disponible" : ""}${
-               state.minPrice ? `&minPrice=${state.minPrice}` : ""
-            }${state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""}${
-               state.minKm ? `&minKm=${state.minKm}` : ""
-            }${state.maxKm ? `&maxKm=${state.maxKm}` : ""}${
-               state.minYear ? `&minYear=${state.minYear}` : ""
-            }${state.maxYear ? `&maxYear=${state.maxYear}` : ""}`,
-         )
-            .then(res => res.json())
-            .then(res => {
-               const modelsArray = getModels(res.res)
-               setArrayAllCars(res.res)
-               setCurrentPage(0)
-               dispatch({ type: "setModels", payload: modelsArray })
-               dispatch({ type: "setLoading", payload: false })
-            })
-      } else if (
-         state.chassis !== "All" &&
-         state.brand !== "All" &&
-         state.model === "All"
-      ) {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/query/brand/category?brand=${
-               state.brand
-            }&category=${state.chassis}${
-               state.availability ? "&availability=Disponible" : ""
-            }${state.minPrice ? `&minPrice=${state.minPrice}` : ""}${
-               state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""
-            }${state.minKm ? `&minKm=${state.minKm}` : ""}${
-               state.maxKm ? `&maxKm=${state.maxKm}` : ""
-            }${state.minYear ? `&minYear=${state.minYear}` : ""}${
-               state.maxYear ? `&maxYear=${state.maxYear}` : ""
-            }`,
-         )
-            .then(res => res.json())
-            .then(res => {
-               if (!res.res.length) {
-                  dispatch({ type: "setModels", payload: null })
-
-                  // setModels(null)
-               }
-               setArrayAllCars(res.res)
-               setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
-
-               const modelsArray = getModels(res.res)
-               dispatch({ type: "setModels", payload: modelsArray })
-
-               // setModels(modelsArray)
-            })
-      } else if (
-         state.chassis === "All" &&
-         state.brand !== "All" &&
-         state.model !== "All"
-      ) {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/query/brand/model?brand=${
-               state.brand
-            }&model=${state.model}${
-               state.availability ? "&availability=Disponible" : ""
-            }${state.minPrice ? `&minPrice=${state.minPrice}` : ""}${
-               state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""
-            }${state.minKm ? `&minKm=${state.minKm}` : ""}${
-               state.maxKm ? `&maxKm=${state.maxKm}` : ""
-            }${state.minYear ? `&minYear=${state.minYear}` : ""}${
-               state.maxYear ? `&maxYear=${state.maxYear}` : ""
-            }
-            `,
-         )
-            .then(res => res.json())
-            .then(res => {
-               if (!res.res.length) {
-                  dispatch({ type: "setModels", payload: null })
-                  // setModels(null)
-               }
-               fetch(
-                  `https://carseller-back-josedaniel.vercel.app/autos/v1/search/brand/${state.brand}`,
-               )
-                  .then(res => res.json())
-                  .then(res => {
-                     const modelsArray = getModels(res.res)
-                     dispatch({ type: "setModels", payload: modelsArray })
-                  })
-
-               setArrayAllCars(res.res)
-               setCurrentPage(0)
-               dispatch({ type: "setLoading", payload: false })
-
-               // const modelsArray = getModels(res.res)
-               // setModels(modelsArray)
-            })
-      } else if (
-         state.chassis !== "All" &&
-         state.model !== "All" &&
-         state.brand !== "All"
-      ) {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/query/brand/category/model?brand=${
-               state.brand
-            }&category=${state.chassis}&model=${state.model}${
-               state.availability ? "&availability=Disponible" : ""
-            }${state.minPrice ? `&minPrice=${state.minPrice}` : ""}${
-               state.maxPrice ? `&maxPrice=${state.maxPrice}` : ""
-            }${state.minKm ? `&minKm=${state.minKm}` : ""}${
-               state.maxKm ? `&maxKm=${state.maxKm}` : ""
-            }${state.minYear ? `&minYear=${state.minYear}` : ""}${
-               state.maxYear ? `&maxYear=${state.maxYear}` : ""
-            }`,
-         )
-            .then(res => res.json())
-            .then(res => {
-               setArrayAllCars(res.res)
-               dispatch({ type: "setLoading", payload: false })
-
-               setCurrentPage(0)
-            })
-      }
    }, [
       state.brand,
       state.chassis,

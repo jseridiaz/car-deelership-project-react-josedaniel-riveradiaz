@@ -41,25 +41,14 @@ const ProfileMenu: React.FC<ProfileMenuType> = ({ booleanState, setBoolean }) =>
             >
                <FavouritesSvg />
             </LiProfileMenu>
-            <LiProfileMenu
-               path=''
-               textLi='Chats'
-               handleClick={() => {
-                  hideMenu()
-               }}
-            >
+            <li className=' flex justify-between transition duration-400 font-medium hover:bg-slate-50 p-2 rounded w-full text-left content-center select-none'>
+               chats
                <ChatSvg />
-            </LiProfileMenu>
-
-            <LiProfileMenu
-               path=''
-               textLi='Settings'
-               handleClick={() => {
-                  hideMenu()
-               }}
-            >
+            </li>
+            <li className=' flex justify-between transition duration-400 font-medium hover:bg-slate-50 p-2 rounded w-full text-left content-center select-none'>
+               Settings
                <SettingsSvg />
-            </LiProfileMenu>
+            </li>
          </ul>
       </div>
    )
