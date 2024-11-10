@@ -20,16 +20,16 @@ const HeaderComponent = () => {
    const [state, dispatch] = useReducer<
       React.Reducer<HeaderComponentType, HeaderComponentAction>
    >(HeaderComponentReducer, INITIAL_STATE_HEADER)
-   const storageUser = getStorage("userInfo")
-
    const resizeHandler = () => {
       dispatch({ type: "setViewPort", payload: window.innerWidth })
    }
 
    useEffect(() => {
       // setToken(localStorage.getItem("token")??)
+      const storageUser = getStorage("userInfo")
+
       dispatch({ type: "setUserInfo", payload: storageUser?.rol })
-   }, [])
+   }, [token, logged])
    // useEffect(() => {
    //    setLogged(sessionStorage.getItem("logged"))
    //    dispatch({ type: "setUserInfo", payload: storageUser?.rol })
@@ -80,7 +80,7 @@ const HeaderComponent = () => {
             className={`${
                state.showNav == true
                   ? "hidden"
-                  : "flex flex-col absolute bg-slate-300 p-8 gap-8 text-xl top-24 text-left right-0 z-20 w-1/2 "
+                  : "flex flex-col absolute bg-slate-300 p-8 gap-8 text-xl top-[5.6rem] text-left right-0 z-20 w-1/2 "
             } md:w-fit md:gap-8 block md:flex `}
          >
             <LiHeader>
