@@ -7,7 +7,6 @@ import { CurrentPageContext } from "../Components/Providers/GlobalPages"
 import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
 import { ContextNoResult } from "../Components/Providers/GlobalArrayNoResult"
-import { AutoModelType } from "../utils/types"
 
 const CarPage = () => {
    const { arrayAllCars } = useContext(CarContext)
