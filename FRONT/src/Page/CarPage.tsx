@@ -45,10 +45,7 @@ const CarPage = () => {
                   </Parraf>
                   <PrintListAutos
                      arrayToPRint={arrayNoResult
-                        .sort(
-                           (a: AutoModelType, b: AutoModelType) =>
-                              Math.random() - 0.5,
-                        )
+                        .sort(() => Math.random() - 0.5)
                         .slice(firstIndex, lastIndex)}
                      cssProperties='p-7 my-12'
                   />
