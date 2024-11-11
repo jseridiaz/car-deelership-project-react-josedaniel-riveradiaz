@@ -1,5 +1,8 @@
 const addFilters = (
    object,
+   brand,
+   model,
+   chassis,
    availability,
    minPrice,
    maxPrice,
@@ -8,6 +11,9 @@ const addFilters = (
    minYear,
    maxYear,
 ) => {
+   if (brand) object.brand = brand
+   if (model) object.model = model
+   if (chassis) object.type = chassis
    if (availability) object.availability = availability
    if (minPrice && maxPrice) {
       object.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) }
