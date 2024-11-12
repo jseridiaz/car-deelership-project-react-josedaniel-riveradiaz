@@ -20,7 +20,7 @@ const { uploadStorage } = require("../../middlewares/file")
 const routerAuto = express.Router()
 
 routerAuto.get("/", getAuto)
-routerAuto.get("query", getAutoFiltered)
+routerAuto.get("/query", getAutoFiltered)
 // routerAuto.get("/availables", getAutosAvailables)
 routerAuto.get("/category/:category", getAutoByCategory)
 // routerAuto.get("/category/:category/availables", getAutoByCategoryAvailabilty)
