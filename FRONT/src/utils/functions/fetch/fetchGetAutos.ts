@@ -1,8 +1,4 @@
 import { AutoModelType } from "../../types"
-export const fetchAllAutos = () =>
-   fetch(`https://carseller-back-josedaniel.vercel.app/autos/v1/search/`)
-      .then(res => res.json())
-      .then(res => res.res)
 
 const fetchGetAutos = async (
    availability?: boolean,

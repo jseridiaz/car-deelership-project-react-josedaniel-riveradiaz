@@ -14,6 +14,7 @@ import { AutoModelType } from "../../../utils/types"
 import { Link } from "react-router-dom"
 import { LoggedContext } from "../../Providers/GlobalLogged"
 import ContainerColumn from "../../atoms/ContainerColumn"
+import fetchGetAutos from "../../../utils/functions/fetch/fetchGetAutos"
 
 const Explore = () => {
    const { logged } = useContext(LoggedContext)
@@ -25,29 +26,25 @@ const Explore = () => {
          filterSelect: string,
          setArray: Dispatch<SetStateAction<AutoModelType[] | []>>,
       ) => {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/search/category/${
-               filterSelect == "Cars"
-                  ? "Turismo"
-                  : filterSelect === "Trucks"
-                  ? "Truck"
-                  : "SUV"
-            }`,
-         )
-            .then(res => res.json())
-            .then(res => res.res)
-            .then(res => {
-               const finalArrayAuto: AutoModelType[] = []
-               for (let i = 0; i < 6; i++) {
-                  const aleatoryNumber: number = Math.floor(
-                     Math.random() * res.length,
-                  )
-                  const element: AutoModelType = res[aleatoryNumber]
-                  finalArrayAuto.push(element)
-                  res.splice(aleatoryNumber, 1)
-               }
-               setArray(finalArrayAuto)
-            })
+         fetchGetAutos(
+            true,
+            null,
+            null,
+            filterSelect == "Cars"
+               ? "Turismo"
+               : filterSelect === "Trucks"
+               ? "Truck"
+               : "SUV",
+         ).then(res => {
+            const finalArrayAuto: AutoModelType[] = []
+            for (let i = 0; i < 6; i++) {
+               const aleatoryNumber: number = Math.floor(Math.random() * res.length)
+               const element: AutoModelType = res[aleatoryNumber]
+               finalArrayAuto.push(element)
+               res.splice(aleatoryNumber, 1)
+            }
+            setArray(finalArrayAuto)
+         })
       },
       [filterSelect],
    )
