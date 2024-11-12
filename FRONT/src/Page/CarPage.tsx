@@ -6,12 +6,12 @@ import Pagination from "../Components/molecules/Pagination"
 import { CurrentPageContext } from "../Components/Providers/GlobalPages"
 import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
-// import { ContextNoResult } from "../Components/Providers/GlobalArrayNoResult"
+import { ContextNoResult } from "../Components/Providers/GlobalArrayNoResult"
 
 const CarPage = () => {
    const { arrayAllCars } = useContext(CarContext)
    const { currentPage, setCurrentPage } = useContext(CurrentPageContext)
-   // const { arrayNoResult } = useContext(ContextNoResult)
+   const { arrayNoResult } = useContext(ContextNoResult)
    const productsPerPage: number = 8
    const [pages, setPages] = useState<number>(1)
    const firstIndex = 0 + productsPerPage * currentPage
@@ -42,12 +42,12 @@ const CarPage = () => {
                   <Parraf cssProperties='text-2xl mt-12 underline font-semibold'>
                      Some auto examples
                   </Parraf>
-                  {/* <PrintListAutos
+                  <PrintListAutos
                      arrayToPRint={arrayNoResult
                         .sort(() => Math.random() - 0.5)
                         .slice(firstIndex, lastIndex)}
                      cssProperties='p-7 my-12'
-                  /> */}
+                  />
                </>
             ) : (
                <>
