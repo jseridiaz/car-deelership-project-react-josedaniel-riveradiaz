@@ -15,6 +15,7 @@ import { Link } from "react-router-dom"
 import { LoggedContext } from "../../Providers/GlobalLogged"
 import ContainerColumn from "../../atoms/ContainerColumn"
 import fetchGetAutos from "../../../utils/functions/fetch/fetchGetAutos"
+import fetchGetUser from "../../../utils/functions/fetch/fetchGetUser"
 
 const Explore = () => {
    const { logged } = useContext(LoggedContext)
@@ -46,28 +47,24 @@ const Explore = () => {
             setArray(finalArrayAuto)
          })
       },
-      [filterSelect],
+      [],
    )
    useEffect(() => {
       if (logged) {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/user/${logged}`,
-         )
-            .then(res => res.json())
-            .then(res => {
-               setFilterSelect(
-                  res.res.favourites == "cars"
-                     ? "Cars"
-                     : res.res.favourites == "Truck"
-                     ? "Trucks"
-                     : "SUVs & Crossover",
-               )
-            })
+         fetchGetUser(logged).then(res => {
+            setFilterSelect(
+               res.res.favourites == "cars"
+                  ? "Cars"
+                  : res.res.favourites == "Truck"
+                  ? "Trucks"
+                  : "SUVs & Crossover",
+            )
+         })
       }
    }, [])
    useEffect(() => {
       fetchData(filterSelect, setArrayAutos)
-   }, [filterSelect])
+   }, [filterSelect, fetchData])
 
    const handleFilter = (name: string): void => {
       setFilterSelect(name)

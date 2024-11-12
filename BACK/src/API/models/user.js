@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema(
       age: { type: Date, required: true, trim: true },
       rol: {
          type: String,
-         default: "user",
          trim: true,
          enum: ["user", "admin"],
          required: true,

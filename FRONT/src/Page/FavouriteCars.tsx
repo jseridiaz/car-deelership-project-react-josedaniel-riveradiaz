@@ -8,6 +8,9 @@ import Button from "../Components/atoms/Button"
 import { LoggedContext } from "../Components/Providers/GlobalLogged"
 import Seo from "../Components/molecules/Seo"
 import Loader from "../Components/atoms/Loader"
+import fetchGetCustomerProfil from "../utils/functions/fetch/fetchGetCustomerProfil"
+import fetchClearFavourites from "../utils/functions/fetch/fetchClearFavourites"
+import fetchAutoById from "../utils/functions/fetch/fetchGetAutoById"
 
 const FavouriteCars = () => {
    const { logged } = useContext(LoggedContext)
@@ -18,15 +21,13 @@ const FavouriteCars = () => {
    const [arrayToPrint, setArrayToPrint] = useState<AutoModelType[] | []>([])
    const [loading, setLoading] = useState<boolean>(false)
    useEffect(() => {
-      fetch(
-         `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/user/${
-            logged || idUser
-         }`,
-      )
-         .then(res => res.json())
-         .then(res => {
-            return setCustomerId(res.res._id ?? null)
-         })
+      console.log(idUser)
+
+      console.log(logged)
+
+      fetchGetCustomerProfil(logged || idUser).then(res => {
+         return setCustomerId(res.res._id ?? null)
+      })
    }, [])
    useEffect(() => {
       setLoading(true)
@@ -37,15 +38,11 @@ const FavouriteCars = () => {
       if (arrayFavourites.length) {
          for (let i = 0; i < arrayFavourites.length; i++) {
             const el = arrayFavourites[i]
-            fetch(
-               `https://carseller-back-josedaniel.vercel.app/autos/v1/search/` + el,
-            )
-               .then(res => res.json())
-               .then(res => {
-                  array = [...array, res.res]
-                  setArrayToPrint(array)
-                  setLoading(false)
-               })
+            fetchAutoById(el).then(res => {
+               array = [...array, res.res]
+               setArrayToPrint(array)
+               setLoading(false)
+            })
          }
       } else {
          setLoading(false)
@@ -53,15 +50,10 @@ const FavouriteCars = () => {
    }, [arrayFavourites])
 
    const clearFilter = useCallback(() => {
-      fetch(
-         `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/clear/favourites/${customerId}`,
-         {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-         },
-      ).then(() => {
-         setLoading(false)
-      })
+      if (customerId)
+         fetchClearFavourites(customerId).then(() => {
+            setLoading(false)
+         })
       setArrayFavourites([])
       localStorage.setItem("favourites", JSON.stringify([]))
    }, [customerId])

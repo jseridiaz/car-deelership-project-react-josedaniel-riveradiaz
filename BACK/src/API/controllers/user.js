@@ -7,7 +7,6 @@ const {
 const bcrypt = require("bcrypt")
 const { tokenGenerator } = require("../../config/token/tokenUser")
 const CustomerModel = require("../models/customer")
-const { deleteCustomer } = require("./customer")
 
 const getAllUser = async (req, res, next) => {
    try {
@@ -40,6 +39,7 @@ const register = async (req, res, next) => {
       validatorPassword(req, res, next, password)
 
       const newUser = new User(req.body)
+      // newUser.rol = "user"
       console.log(req.body)
 
       const newUserSaved = await newUser.save()
@@ -69,10 +69,17 @@ const login = async (req, res, next) => {
 const putUser = async (req, res, next) => {
    try {
       const { id } = req.params
-      const newUser = User(req.body)
+      const lastUser = await User.findById(id)
+      const newUser = new User(req.body)
 
       newUser._id = id
-      const updateUser = await User.findByIdAndUpdate(id, newUser, { new: true })
+      const updateUser = await User.findOneAndUpdate(
+         { _id: id },
+         { ...newUser, rol: lastUser.rol },
+         {
+            new: true,
+         },
+      )
 
       res200(req, res, next, updateUser)
    } catch (error) {

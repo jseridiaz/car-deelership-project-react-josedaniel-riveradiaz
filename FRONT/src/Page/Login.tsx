@@ -13,9 +13,12 @@ import { turnOffBanner } from "../utils/turnOffBanner"
 import { BsArrowDownLeft } from "react-icons/bs"
 import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
+import fetchLoginUser from "../utils/functions/fetch/fetchLoginUser"
+import { TokenContext } from "../Components/Providers/GlobalToken"
 
 const Login = () => {
    const { setLogged } = useContext(LoggedContext)
+   const { setToken } = useContext(TokenContext)
    const [statusFetch, setStatusFetch] = useState<boolean>()
    const [fetchState, setFetchState] = useState<ExtendedIFormInput | null>()
    const [loading, setLoading] = useState<boolean>(false)
@@ -32,14 +35,7 @@ const Login = () => {
       setFetchState(null)
       setLoading(true)
 
-      fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/user/login", {
-         method: "POST",
-         headers: { "Content-Type": "application/json" },
-         body: JSON.stringify({
-            email: data.email,
-            password: data.password,
-         }),
-      })
+      fetchLoginUser(data)
          .then(res => {
             setStatusFetch(res.ok)
             if (!res.ok) {
@@ -62,6 +58,7 @@ const Login = () => {
                localStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
                // setToken(resJson.res.token)
                setLogged(resJson.res.logged._id)
+               setToken(resJson.res.token)
 
                setTimeout(() => {
                   navigate("/home")
@@ -72,6 +69,7 @@ const Login = () => {
                sessionStorage.setItem("userInfo", JSON.stringify(resJson.res.logged))
                // setToken(resJson.res.token)
                setLogged(resJson.res.logged._id)
+               setToken(resJson.res.token)
                setTimeout(() => {
                   navigate("/home")
                }, 3000)

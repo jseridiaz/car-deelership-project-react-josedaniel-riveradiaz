@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom"
 import Toast from "../Components/molecules/Toast"
 import Seo from "../Components/molecules/Seo"
 import { turnOffBanner } from "../utils/turnOffBanner"
+import fetchRegisterUser from "../utils/functions/fetch/fetchRegisterUser"
 
 const Register = () => {
    const [loading, setLoading] = useState<boolean>(false)
@@ -36,20 +37,7 @@ const Register = () => {
 
    const handleRegister = (data: IFormInput): void => {
       setLoading(true)
-      fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/user/register", {
-         method: "POST",
-         headers: {
-            "Content-Type": "application/json",
-         },
-         body: JSON.stringify({
-            name: data.firstname,
-            surname: data.surname,
-            age: data.birthdate.split("-").join("/"),
-            email: data.email,
-            password: data.password,
-            favourites: data.autosInterested,
-         }),
-      })
+      fetchRegisterUser(data)
          .then(res => {
             setLoading(false)
             setShowToast(true)

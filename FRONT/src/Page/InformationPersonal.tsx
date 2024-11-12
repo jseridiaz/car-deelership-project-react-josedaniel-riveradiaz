@@ -17,6 +17,9 @@ import {
 } from "../Components/customHooks/useReducer/InformationPersonalReducer"
 import Seo from "../Components/molecules/Seo"
 import Loader from "../Components/atoms/Loader"
+import { getStorage } from "../utils/functions/storage/getStorage"
+import fetchGetCustomerProfil from "../utils/functions/fetch/fetchGetCustomerProfil"
+import fetchPutUser from "../utils/functions/fetch/fetchPostUser"
 
 const InformationPersonal = () => {
    const idUser: string | null =
@@ -36,56 +39,38 @@ const InformationPersonal = () => {
 
    useEffect(() => {
       dispatch({ type: "setLoading", payload: true })
-      fetch(
-         "https://carseller-back-josedaniel.vercel.app/autos/v1/customer/user/" +
-            idUser,
-      )
-         .then(res => res.json())
-         .then(r => {
-            const { res } = r
-            dispatch({ type: "setName", payload: res.profile.name })
-            // setName(res.profile.name)
-            dispatch({ type: "setSurName", payload: res.profile.surname })
-            // setSurname(res.profile.surname)
-            dispatch({ type: "setKindFavourites", payload: res.profile.favourites })
-            dispatch({ type: "setNumberFavourites", payload: res.favourites.length })
-            dispatch({ type: "setLoading", payload: false })
-
-            // setKindFavourites(res.profile.favourites)
-            // setNumberFavourites(res.favourites.length)
-         })
+      fetchGetCustomerProfil(idUser).then(r => {
+         const { res } = r
+         dispatch({ type: "setName", payload: res.profile.name })
+         dispatch({ type: "setSurName", payload: res.profile.surname })
+         dispatch({ type: "setKindFavourites", payload: res.profile.favourites })
+         dispatch({ type: "setNumberFavourites", payload: res.favourites.length })
+         dispatch({ type: "setLoading", payload: false })
+      })
    }, [idUser])
    const submitFunct: SubmitHandler<SubmitHandlerPersonalInfo> = data => {
-      const bodyObject: SubmitHandlerPersonalInfo = {}
+      const rolUser: "admin" | "user" = getStorage("userInfo").rol
+      const bodyObject: SubmitHandlerPersonalInfo = { rol: rolUser }
       if (data.name) {
          bodyObject.name = data.name
       }
-      if (data.surname) {
+      if (data.surname != "") {
          bodyObject.surname = data.surname
       }
-      if (data.favourites) {
+      if (data.favourites != "") {
          bodyObject.favourites = data.favourites
       }
-      fetch(`https://carseller-back-josedaniel.vercel.app/autos/v1/user/${idUser}`, {
-         method: "PUT",
-         headers: {
-            "Content-Type": "application/json",
-         },
-         body: JSON.stringify({
-            ...bodyObject,
-         }),
+      console.log(bodyObject)
+
+      fetchPutUser(idUser, bodyObject).then(() => {
+         const { name, surname, favourites } = bodyObject
+         if (name) {
+            dispatch({ type: "setName", payload: name })
+         }
+         if (surname) dispatch({ type: "setSurName", payload: surname })
+         if (favourites) dispatch({ type: "setKindFavourites", payload: favourites })
+         reset()
       })
-         .then(res => res.json())
-         .then(() => {
-            const { name, surname, favourites } = bodyObject
-            if (name) {
-               dispatch({ type: "setName", payload: name })
-            }
-            if (surname) dispatch({ type: "setSurName", payload: surname })
-            if (favourites)
-               dispatch({ type: "setKindFavourites", payload: favourites })
-            reset()
-         })
    }
    return (
       <>

@@ -157,6 +157,7 @@ export type SubmitHandlerPersonalInfo = {
    surname?: string
    favourites?: string
    numberFavourites?: number
+   rol?: "admin" | "user"
 }
 export type GlobalUserInfoType = {
    userInfo: string | null

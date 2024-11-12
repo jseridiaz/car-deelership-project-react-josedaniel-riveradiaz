@@ -13,6 +13,7 @@ import { TokenContext } from "../Components/Providers/GlobalToken"
 import Toast from "../Components/molecules/Toast"
 import { turnOffBanner } from "../utils/turnOffBanner"
 import Seo from "../Components/molecules/Seo"
+import fetchPostAuto from "../utils/functions/fetch/fetchPostAuto"
 
 const PostAuto = () => {
    const { token } = useContext(TokenContext)
@@ -66,13 +67,7 @@ const PostAuto = () => {
       formData.append("availability", "Disponible")
       formData.append("picture", picture[0])
 
-      fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/search", {
-         method: "POST",
-         headers: {
-            Authorization: "Bearer " + token,
-         },
-         body: formData,
-      }).then(res => {
+      fetchPostAuto(token, formData).then(res => {
          if (res.ok) {
             setRes(true)
             turnOffBanner(setRes, 3000, false)

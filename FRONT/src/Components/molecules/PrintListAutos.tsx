@@ -5,6 +5,7 @@ import { PrintListAutoType } from "../../utils/types"
 import ImgAutos from "../atoms/ImgAutos"
 import { LoggedContext } from "../Providers/GlobalLogged"
 import { TokenContext } from "../Providers/GlobalToken"
+import fetchGetCustomerProfil from "../../utils/functions/fetch/fetchGetCustomerProfil"
 
 const PrintListAutos: React.FC<PrintListAutoType> = ({
    arrayToPRint,
@@ -24,13 +25,9 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
          localStorage.getItem("idUSer") ?? sessionStorage.getItem("logged"),
       )
       if (token || logged) {
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/user/${idSesion}`,
-         )
-            .then(res => res.json())
-            .then(res => {
-               return setCustomerId(res.res?._id ?? null)
-            })
+         fetchGetCustomerProfil(idSesion).then(res => {
+            return setCustomerId(res.res?._id ?? null)
+         })
       }
    }, [logged, token, idSesion])
 
