@@ -21,7 +21,6 @@ const getAuto = async (req, res, next) => {
          minYear,
          maxYear,
       )
-      console.log(filters)
 
       const allModels = await AutoModel.find(filters).sort({
          manufactureYear: -1,
@@ -59,13 +58,9 @@ const getAutoFiltered = async (req, res, next) => {
          minYear,
          maxYear,
       )
-      const autosFiltered = await AutoModel.find(filters).sort({
-         manufactureYear: -1,
-      })
-      return res200(req, res, next, autosFiltered, "Fetch succesfull")
-   } catch (error) {
-      return res400(req, res, next, error)
-   }
+      const autosFiltered = await AutoModel.find(filters)
+      res200(req, res, next, autosFiltered, "Fetch succesfull")
+   } catch (error) {}
 }
 const getAutoByID = async (req, res, next) => {
    try {
@@ -377,8 +372,8 @@ module.exports = {
    getAutoByID,
    getAutoByCategory,
    getAutoByBrand,
-   getAutoByModel,
    getAutoFiltered,
+   getAutoByModel,
    getAutoByBrandAndModel,
    getAutoByBrandAndCategory,
    getAutoChassisAndCategory,

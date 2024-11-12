@@ -26,12 +26,15 @@ const FilterComponent = () => {
 
    const resetFilter = () => {
       dispatch({ type: "CLEAR" })
+      if (availableSet.current) availableSet.current.checked = true
    }
    const handleChange = (
       value: React.MutableRefObject<HTMLInputElement | null>,
    ): void => {
-      if (value.current)
+      if (value.current) {
          dispatch({ type: "setAvailability", payload: value.current.checked })
+         dispatch({ type: "setModels", payload: state.models })
+      }
    }
    const handleKey = (e: React.KeyboardEvent) => {
       if (e.key == "-") {
