@@ -147,7 +147,7 @@ const InformationPersonal = () => {
                      />
                   </FieldSet>
                   <FieldSet
-                     description='Change your Surname'
+                     description='Change your favourite kind of Autos'
                      cssProperties='w-[80%] md:w-1/2'
                   >
                      <select
