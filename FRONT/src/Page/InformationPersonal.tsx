@@ -60,7 +60,6 @@ const InformationPersonal = () => {
       if (data.favourites != "") {
          bodyObject.favourites = data.favourites
       }
-      console.log(bodyObject)
 
       fetchPutUser(idUser, bodyObject).then(() => {
          const { name, surname, favourites } = bodyObject

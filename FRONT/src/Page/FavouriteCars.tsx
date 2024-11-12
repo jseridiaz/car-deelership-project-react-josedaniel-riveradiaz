@@ -21,10 +21,6 @@ const FavouriteCars = () => {
    const [arrayToPrint, setArrayToPrint] = useState<AutoModelType[] | []>([])
    const [loading, setLoading] = useState<boolean>(false)
    useEffect(() => {
-      console.log(idUser)
-
-      console.log(logged)
-
       fetchGetCustomerProfil(logged || idUser).then(res => {
          return setCustomerId(res.res._id ?? null)
       })

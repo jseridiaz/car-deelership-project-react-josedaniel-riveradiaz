@@ -25,15 +25,10 @@ const HeaderComponent = () => {
    }
 
    useEffect(() => {
-      // setToken(localStorage.getItem("token")??)
       const storageUser = getStorage("userInfo")
-
       dispatch({ type: "setUserInfo", payload: storageUser?.rol })
    }, [token, logged])
-   // useEffect(() => {
-   //    setLogged(sessionStorage.getItem("logged"))
-   //    dispatch({ type: "setUserInfo", payload: storageUser?.rol })
-   // }, [logged])
+
    useEffect(() => {
       window.addEventListener("resize", resizeHandler)
       if (state.viewPort >= 768) {
@@ -49,16 +44,17 @@ const HeaderComponent = () => {
    }
 
    const handleLogout = () => {
-      if (token) {
+      if (localStorage.getItem("token")) {
          delStorage("token")
          delStorage("idUser")
          delStorage("userInfo")
-         setToken(localStorage.getItem("token"))
+         setToken(null)
          setLogged(null)
       } else {
          delStorage("token", false)
          delStorage("logged", false)
          delStorage("userInfo", false)
+         setToken(null)
          setLogged(null)
       }
       dispatch({ type: "setUserInfo", payload: null })

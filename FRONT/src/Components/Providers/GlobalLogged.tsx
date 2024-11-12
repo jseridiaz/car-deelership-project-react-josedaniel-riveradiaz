@@ -5,7 +5,9 @@ export const LoggedContext = createContext<GlobalLoggedType>({
    setLogged: () => null,
 })
 const GlobalLogged = ({ children }: ErrorContainerType) => {
-   const [logged, setLogged] = useState<string | null>(null)
+   const [logged, setLogged] = useState<string | null>(
+      localStorage.getItem("logged") ?? sessionStorage.getItem("logged"),
+   )
    return (
       <LoggedContext.Provider value={{ logged, setLogged }}>
          {children}

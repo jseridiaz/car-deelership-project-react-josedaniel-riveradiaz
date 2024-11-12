@@ -8,6 +8,8 @@ import SvgBin from "./icons/SvgBin/SvgBin"
 import ParrafAutoPicture from "./ParrafAutoPicture"
 import ContainerColumn from "./ContainerColumn"
 import { getStorage } from "../../utils/functions/storage/getStorage"
+import fetchDeleteFavourite from "../../utils/functions/fetch/fetchDeleteFavourite"
+import fetchAddFavourite from "../../utils/functions/fetch/fetchAddFavourite"
 
 const ImgAutos: React.FC<ImgAutoType> = ({
    idx,
@@ -25,41 +27,23 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    customerId,
 }) => {
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
-   const idUser: string | null =
-      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")
 
    const userInfo: userID = getStorage("userInfo")
 
    const addFavourite = () => {
       if (customerId) {
+         fetchAddFavourite(customerId, autoId)
          const arrayAdded = [...arrayFavourites, autoId]
          setArrayFavourites(prevArray => [...prevArray, autoId])
          localStorage.setItem("favourites", JSON.stringify(arrayAdded))
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/idUser/${idUser}`,
-            {
-               method: "PUT",
-               headers: { "Content-Type": "application/json" },
-               body: JSON.stringify({ favourites: autoId }),
-            },
-         ).then(res => res.json())
       }
    }
    const deleteFavourite = () => {
       if (customerId) {
+         fetchDeleteFavourite(customerId, autoId)
          const filteredArray = arrayFavourites.filter(el => autoId !== el)
          setArrayFavourites(filteredArray)
          localStorage.setItem("favourites", JSON.stringify(filteredArray))
-         fetch(
-            `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/delete/favourites/${customerId}`,
-            {
-               method: "PUT",
-               headers: {
-                  "Content-Type": "application/json",
-               },
-               body: JSON.stringify({ favourites: autoId }),
-            },
-         ).then(res => res.json())
       }
    }
 

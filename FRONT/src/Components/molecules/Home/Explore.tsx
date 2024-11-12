@@ -27,13 +27,13 @@ const Explore = () => {
          filterSelect: string,
          setArray: Dispatch<SetStateAction<AutoModelType[] | []>>,
       ) => {
-         fetchGetAutos(
+         return fetchGetAutos(
             true,
             null,
             null,
             filterSelect == "Cars"
                ? "Turismo"
-               : filterSelect === "Trucks"
+               : filterSelect === "Trucks" || filterSelect == "Truck"
                ? "Truck"
                : "SUV",
          ).then(res => {
@@ -50,21 +50,27 @@ const Explore = () => {
       [],
    )
    useEffect(() => {
-      if (logged) {
+      fetchData(filterSelect, setArrayAutos)
+   }, [filterSelect])
+   useEffect(() => {
+      fetchData(filterSelect, setArrayAutos)
+   }, [])
+   useEffect(() => {
+      if (logged)
          fetchGetUser(logged).then(res => {
+            const favouritesObject = res.res
+            const { favourites } = favouritesObject
+
             setFilterSelect(
-               res.res.favourites == "cars"
+               favourites == "Cars"
                   ? "Cars"
-                  : res.res.favourites == "Truck"
+                  : favourites == "Truck"
                   ? "Trucks"
                   : "SUVs & Crossover",
             )
+            fetchData(res.res.favourites, setArrayAutos)
          })
-      }
-   }, [])
-   useEffect(() => {
-      fetchData(filterSelect, setArrayAutos)
-   }, [filterSelect, fetchData])
+   }, [logged])
 
    const handleFilter = (name: string): void => {
       setFilterSelect(name)
