@@ -3,7 +3,7 @@ import FieldSet from "../atoms/FieldSet"
 import debounce from "just-debounce-it"
 import CheckBoxFilter from "../atoms/CheckBoxFilter"
 import ContainerColumn from "../atoms/ContainerColumn"
-import InputNumber from "./InputNumber"
+import InputNumber from "../atoms/InputNumber"
 
 import { ActionTypes } from "../../utils/types"
 import Loader from "../atoms/Loader"
@@ -156,10 +156,8 @@ const FilterComponent = () => {
             </FieldSet>
             <div className='flex justify-around w-full flex-wrap gap-6'>
                <CheckBoxFilter
-                  typeInput='checkbox'
                   idName='avaliables-autos'
                   reference={availableSet}
-                  valueRef='available'
                   handleChange={() => handleChange(availableSet)}
                   checked={true}
                >

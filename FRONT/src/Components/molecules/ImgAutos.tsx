@@ -1,16 +1,16 @@
 import { useContext, memo } from "react"
 import { Link } from "react-router-dom"
 import { ImgAutoType, userID } from "../../utils/types"
-import EmptyHeart from "./icons/Hearts/EmptyHeart"
-import RedHeart from "./icons/Hearts/RedHeart"
+import EmptyHeart from "../atoms/icons/Hearts/EmptyHeart"
+import RedHeart from "../atoms/icons/Hearts/RedHeart"
 import { FavouritesContext } from "../Providers/GlobalFavouritesArray"
-import SvgBin from "./icons/SvgBin/SvgBin"
-import ParrafAutoPicture from "./ParrafAutoPicture"
-import ContainerColumn from "./ContainerColumn"
+import SvgBin from "../atoms/icons/SvgBin/SvgBin"
+import ParrafAutoPicture from "../atoms/ParrafAutoPicture"
+import ContainerColumn from "../atoms/ContainerColumn"
 import { getStorage } from "../../utils/functions/storage/getStorage"
 import fetchDeleteFavourite from "../../utils/functions/fetch/fetchDeleteFavourite"
 import fetchAddFavourite from "../../utils/functions/fetch/fetchAddFavourite"
-import ImgComponent from "./ImgComponent"
+import ImgComponent from "../atoms/ImgComponent"
 
 const ImgAutos: React.FC<ImgAutoType> = ({
    idx,

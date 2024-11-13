@@ -3,8 +3,6 @@ import { CheckboxFilter } from "../../utils/types"
 const CheckBoxFilter: React.FC<CheckboxFilter> = ({
    idName,
    children,
-   typeInput,
-   valueRef,
    checked,
    handleChange,
    reference,
@@ -15,9 +13,8 @@ const CheckBoxFilter: React.FC<CheckboxFilter> = ({
             {children}
          </label>
          <input
-            type={typeInput}
+            type='checkbox'
             id={idName}
-            name={valueRef}
             onChange={handleChange}
             className='cursor-pointer '
             ref={reference}

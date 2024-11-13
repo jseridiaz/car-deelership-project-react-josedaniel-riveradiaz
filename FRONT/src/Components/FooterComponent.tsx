@@ -1,6 +1,6 @@
 import { BiChevronRight } from "react-icons/bi"
 import { AiFillLinkedin, AiFillFacebook, AiFillTwitterSquare } from "react-icons/ai"
-import IconRRSS from "./molecules/IconRRSS"
+import IconRRSS from "./atoms/IconRRSS"
 import { dataFooter } from "../data/dataFooter"
 import UlFooter from "./molecules/Home/UlFooter"
 import { FacebookShareButton, TwitterShareButton } from "react-share"

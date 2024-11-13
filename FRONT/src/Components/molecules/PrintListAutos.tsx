@@ -2,7 +2,7 @@
 import { memo, useContext, useEffect, useState } from "react"
 import { PrintListAutoType } from "../../utils/types"
 
-import ImgAutos from "../atoms/ImgAutos"
+import ImgAutos from "./ImgAutos"
 import { LoggedContext } from "../Providers/GlobalLogged"
 import { TokenContext } from "../Providers/GlobalToken"
 import fetchGetCustomerProfil from "../../utils/functions/fetch/fetchGetCustomerProfil"

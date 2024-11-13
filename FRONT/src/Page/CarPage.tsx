@@ -23,7 +23,13 @@ const CarPage = () => {
       }
       setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
    }, [arrayAllCars])
-
+   {
+      /* <Pagination
+                     allPages={pages}
+                     currentPage={currentPage}
+                     setCurrentPage={setCurrentPage}
+                  /> */
+   }
    return (
       <>
          <Seo
@@ -56,7 +62,6 @@ const CarPage = () => {
                      cssProperties='p-7 my-12'
                   />
                   <Pagination
-                     array={arrayAllCars}
                      allPages={pages}
                      currentPage={currentPage}
                      setCurrentPage={setCurrentPage}

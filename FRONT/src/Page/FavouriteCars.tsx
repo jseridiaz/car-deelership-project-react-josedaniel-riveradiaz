@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react"
 import { FavouritesContext } from "../Components/Providers/GlobalFavouritesArray"
-import ImgAutos from "../Components/atoms/ImgAutos"
+import ImgAutos from "../Components/molecules/ImgAutos"
 import { AutoModelType } from "../utils/types"
 import H2SingleComponent from "../Components/atoms/H2SingleComponent"
 import Parraf from "../Components/molecules/Parraf"

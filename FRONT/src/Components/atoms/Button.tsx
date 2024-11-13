@@ -18,6 +18,7 @@ const Button: React.FC<ButtonType> = ({
    ) : (
       <button type={type} className={properties} onClick={functionClick}>
          {children}
+         {signal ? signal : null}
       </button>
    )
 }

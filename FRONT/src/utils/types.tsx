@@ -96,7 +96,6 @@ export type ImgAutoType = {
    customerId?: string | null
 }
 export type PaginationTypes = {
-   array: AutoModelType[]
    allPages: number
    currentPage: number
    setCurrentPage: (idx: number) => void
@@ -127,9 +126,7 @@ export type FavouriteContentType = {
 export type CheckboxFilter = {
    children: React.ReactNode
    idName: string
-   typeInput: string
    reference: LegacyRef<HTMLInputElement>
-   valueRef: string
    name?: string
    checked?: boolean
    handleChange: () => void

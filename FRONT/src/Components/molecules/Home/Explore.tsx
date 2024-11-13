@@ -9,7 +9,7 @@ import {
 } from "react"
 import { optionFiltersHome } from "../../../data/optionFilters"
 import H2Component from "../../atoms/H2Component"
-import CardAutoHome from "../../atoms/CardAutoHome"
+import CardAutoHome from "../CardAutoHome"
 import { AutoModelType } from "../../../utils/types"
 import { Link } from "react-router-dom"
 import { LoggedContext } from "../../Providers/GlobalLogged"

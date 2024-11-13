@@ -1,7 +1,7 @@
 import { BiChevronRight } from "react-icons/bi"
-import Button from "./Button"
-import ImgComponent from "./ImgComponent"
-import ParrafAutoPicture from "./ParrafAutoPicture"
+import Button from "../atoms/Button"
+import ImgComponent from "../atoms/ImgComponent"
+import ParrafAutoPicture from "../atoms/ParrafAutoPicture"
 
 interface Cardautotype {
    autoName: string

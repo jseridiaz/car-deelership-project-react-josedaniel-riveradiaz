@@ -7,7 +7,6 @@ const InputNumber: React.FC<InputNumberType> = ({
    numberValue,
    reference,
    handleKey,
-
    placeholder,
 }) => {
    return (
