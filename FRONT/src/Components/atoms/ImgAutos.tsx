@@ -10,6 +10,7 @@ import ContainerColumn from "./ContainerColumn"
 import { getStorage } from "../../utils/functions/storage/getStorage"
 import fetchDeleteFavourite from "../../utils/functions/fetch/fetchDeleteFavourite"
 import fetchAddFavourite from "../../utils/functions/fetch/fetchAddFavourite"
+import ImgComponent from "./ImgComponent"
 
 const ImgAutos: React.FC<ImgAutoType> = ({
    idx,
@@ -27,7 +28,6 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    customerId,
 }) => {
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
-
    const userInfo: userID = getStorage("userInfo")
 
    const addFavourite = () => {
@@ -58,13 +58,13 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                to={path}
                target='_blanket'
             >
-               <img
-                  src={path}
+               <ImgComponent
+                  imgPath={path}
                   alt={alt}
-                  className={`transition duration-1000 w-full h-full hover:scale-105 ${
+                  classContainer='h-full'
+                  classImg={`transition duration-1000 w-full h-full hover:scale-105 ${
                      availavility === "Disponible" ? "grayscale-0" : "grayscale"
                   }`}
-                  loading='lazy'
                />
                {customerId ? (
                   arrayFavourites.find(el => el === autoId) ? (
