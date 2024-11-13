@@ -23,7 +23,10 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
    useEffect(() => {
       if (token || logged) {
          fetchGetCustomerProfil(idSesion).then(res => {
-            return setCustomerId(res.res?._id ?? null)
+            setCustomerId(res.res?._id ?? null)
+            setIdSession(
+               localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
+            )
          })
       }
    }, [logged, token])
