@@ -15,13 +15,14 @@ import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
 import fetchLoginUser from "../utils/functions/fetch/fetchLoginUser"
 import { TokenContext } from "../Components/Providers/GlobalToken"
+import useLoading from "../Components/customHooks/useLoading"
 
 const Login = () => {
    const { setLogged } = useContext(LoggedContext)
    const { setToken } = useContext(TokenContext)
    const [statusFetch, setStatusFetch] = useState<boolean>()
    const [fetchState, setFetchState] = useState<ExtendedIFormInput | null>()
-   const [loading, setLoading] = useState<boolean>(false)
+   const { loading, changeLoading, setLoading } = useLoading()
    const [banner, setBanner] = useState<boolean>(false)
 
    const navigate = useNavigate()
@@ -33,14 +34,14 @@ const Login = () => {
 
    const handleLogin = (data: IFormLogin): void => {
       setFetchState(null)
-      setLoading(true)
+      changeLoading()
 
       fetchLoginUser(data)
          .then(res => {
             setStatusFetch(res.ok)
             if (!res.ok) {
                turnOffBanner(setBanner, 4000, false)
-               setLoading(false)
+               changeLoading()
             }
             return res.json()
          })

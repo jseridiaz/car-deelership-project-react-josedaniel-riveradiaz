@@ -255,7 +255,7 @@ const FilterComponent = () => {
                   functionClick={() => resetFilter()}
                >
                   Clear filter
-                  {state.loading && <Loader properties='absolute top-0' />}
+                  {state.loading && <Loader properties='-bottom-6 left-12' />}
                </Button>
             </div>
          </form>

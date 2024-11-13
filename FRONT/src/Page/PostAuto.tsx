@@ -14,10 +14,13 @@ import Toast from "../Components/molecules/Toast"
 import { turnOffBanner } from "../utils/turnOffBanner"
 import Seo from "../Components/molecules/Seo"
 import fetchPostAuto from "../utils/functions/fetch/fetchPostAuto"
+import useLoading from "../Components/customHooks/useLoading"
+import Loader from "../Components/atoms/Loader"
 
 const PostAuto = () => {
    const { token } = useContext(TokenContext)
    const [res, setRes] = useState<boolean>(false)
+   const { loading, changeLoading } = useLoading()
 
    const {
       register,
@@ -42,6 +45,7 @@ const PostAuto = () => {
    })
 
    const submitFunction = (data: PostAutoType) => {
+      changeLoading()
       const formData = new FormData()
       const {
          vin,
@@ -73,6 +77,7 @@ const PostAuto = () => {
             turnOffBanner(setRes, 3000, false)
             reset()
          }
+         changeLoading()
       })
    }
    return (
@@ -215,10 +220,11 @@ const PostAuto = () => {
                   </FieldSet>
                </div>
                <Button
-                  properties='transition-all duration-600 w-1/3 bg-transparent border-none outline outline-4 outline-blue-300 font-medium text-xl hover:scale-110 focus:scale-110 hover:outline-white hover:bg-blue-400 focus:bg-blue-400 hover:font-bold hover:outline hover:outline-blue-800 hover:text-white xl:w-1/3 lg:w-1/2 md:w-1/2'
+                  properties='relative  duration-600 w-1/3 bg-transparent border-none outline outline-4 outline-blue-300 font-medium text-xl hover:scale-110 focus:scale-110 hover:outline-white hover:bg-blue-400 focus:bg-blue-400 hover:font-bold hover:outline hover:outline-blue-800 hover:text-white xl:w-1/3 lg:w-1/2 md:w-1/2'
                   isLink={false}
                >
                   Post new auto
+                  {loading && <Loader properties=' -top-8 left-[46%]' />}
                </Button>
             </form>
             {res && <Toast handle={res}>Auto posted</Toast>}

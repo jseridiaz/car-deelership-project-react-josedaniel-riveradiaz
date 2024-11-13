@@ -21,15 +21,12 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
    const [customerId, setCustomerId] = useState<string | null>(null)
 
    useEffect(() => {
-      setIdSession(
-         localStorage.getItem("idUSer") ?? sessionStorage.getItem("logged"),
-      )
       if (token || logged) {
          fetchGetCustomerProfil(idSesion).then(res => {
             return setCustomerId(res.res?._id ?? null)
          })
       }
-   }, [logged, token, idSesion])
+   }, [logged, token])
 
    return (
       <section className={cssProperties}>

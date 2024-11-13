@@ -11,6 +11,7 @@ import Loader from "../Components/atoms/Loader"
 import fetchGetCustomerProfil from "../utils/functions/fetch/fetchGetCustomerProfil"
 import fetchClearFavourites from "../utils/functions/fetch/fetchClearFavourites"
 import fetchAutoById from "../utils/functions/fetch/fetchGetAutoById"
+import useLoading from "../Components/customHooks/useLoading"
 
 const FavouriteCars = () => {
    const { logged } = useContext(LoggedContext)
@@ -19,14 +20,14 @@ const FavouriteCars = () => {
    const [customerId, setCustomerId] = useState<string | null>()
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const [arrayToPrint, setArrayToPrint] = useState<AutoModelType[] | []>([])
-   const [loading, setLoading] = useState<boolean>(false)
+   const { loading, changeLoading, setLoading } = useLoading()
    useEffect(() => {
       fetchGetCustomerProfil(logged || idUser).then(res => {
          return setCustomerId(res.res._id ?? null)
       })
    }, [])
    useEffect(() => {
-      setLoading(true)
+      changeLoading()
       setArrayToPrint([])
 
       let array: AutoModelType[] | [] = []
@@ -37,18 +38,19 @@ const FavouriteCars = () => {
             fetchAutoById(el).then(res => {
                array = [...array, res.res]
                setArrayToPrint(array)
-               setLoading(false)
+               changeLoading()
             })
          }
       } else {
-         setLoading(false)
+         changeLoading()
       }
    }, [arrayFavourites])
 
    const clearFilter = useCallback(() => {
+      setLoading(true)
       if (customerId)
          fetchClearFavourites(customerId).then(() => {
-            setLoading(false)
+            changeLoading()
          })
       setArrayFavourites([])
       localStorage.setItem("favourites", JSON.stringify([]))

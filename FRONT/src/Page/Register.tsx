@@ -12,9 +12,10 @@ import Toast from "../Components/molecules/Toast"
 import Seo from "../Components/molecules/Seo"
 import { turnOffBanner } from "../utils/turnOffBanner"
 import fetchRegisterUser from "../utils/functions/fetch/fetchRegisterUser"
+import useLoading from "../Components/customHooks/useLoading"
 
 const Register = () => {
-   const [loading, setLoading] = useState<boolean>(false)
+   const { loading, changeLoading } = useLoading()
    const [showToast, setShowToast] = useState<boolean>(false)
    const [errMsg, setErrMsg] = useState<string>()
    const [resOk, setResOk] = useState<boolean>()
@@ -36,10 +37,10 @@ const Register = () => {
    })
 
    const handleRegister = (data: IFormInput): void => {
-      setLoading(true)
+      changeLoading()
       fetchRegisterUser(data)
          .then(res => {
-            setLoading(false)
+            changeLoading()
             setShowToast(true)
             if (res.ok) {
                setResOk(true)
