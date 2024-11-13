@@ -57,10 +57,10 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
                >
                   {data[slide].brand}
                </span>
-               <H2SingleComponent cssProperties='relative font-extrabold text-center  w-full sm:text-left text-shadow-lg text-[2rem] md:text-[2.5rem] lg:text-[3.5rem] sm:text-[2rem] left-0 sm:left-6 left-0 '>
+               <H2SingleComponent cssProperties='relative font-extrabold text-center  w-full sm:text-left text-shadow-lg text-[2rem] md:text-[2.5rem] lg:text-[3.5rem] sm:text-[2rem] left-0 sm:left-6 left-0 select-none '>
                   {data[slide].cta}
                   {data[slide].specialChar ? (
-                     <span className='font-extrabold text-red-700 md:text-[2.5rem] lg:text-[3.5rem] ml-2'>
+                     <span className='font-extrabold text-red-700 md:text-[2.5rem] lg:text-[3.5rem] ml-2 select-none'>
                         {data[slide].specialChar}
                      </span>
                   ) : null}
