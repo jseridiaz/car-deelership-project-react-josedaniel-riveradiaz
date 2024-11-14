@@ -92,7 +92,6 @@ const FilterComponent = () => {
                         payload:
                            selectedBrand.current && selectedBrand.current.value,
                      })
-                     // changeValue(setBrand, selectedBrand)
                   }}
                >
                   {state.brands &&
@@ -253,7 +252,7 @@ const FilterComponent = () => {
                   functionClick={() => resetFilter()}
                >
                   Clear filter
-                  {state.loading && <Loader properties='-bottom-6 left-12' />}
+                  {state.loading && <Loader properties='-bottom-6 right-[38%]' />}
                </Button>
             </div>
          </form>

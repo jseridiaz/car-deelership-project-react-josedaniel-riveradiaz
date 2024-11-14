@@ -12,11 +12,11 @@ import fetchGetCustomerProfil from "../utils/functions/fetch/fetchGetCustomerPro
 import fetchClearFavourites from "../utils/functions/fetch/fetchClearFavourites"
 import fetchAutoById from "../utils/functions/fetch/fetchGetAutoById"
 import useLoading from "../Components/customHooks/useLoading"
+import getIdUserOrLogged from "../utils/functions/storage/getIdUserOrLogged"
 
 const FavouriteCars = () => {
    const { logged } = useContext(LoggedContext)
-   const idUser: string | null =
-      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")
+   const idUser: string | null = getIdUserOrLogged()
    const [customerId, setCustomerId] = useState<string | null>()
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const [arrayToPrint, setArrayToPrint] = useState<AutoModelType[] | []>([])

@@ -20,10 +20,10 @@ import Loader from "../Components/atoms/Loader"
 import { getStorage } from "../utils/functions/storage/getStorage"
 import fetchGetCustomerProfil from "../utils/functions/fetch/fetchGetCustomerProfil"
 import fetchPutUser from "../utils/functions/fetch/fetchPostUser"
+import getIdUserOrLogged from "../utils/functions/storage/getIdUserOrLogged"
 
 const InformationPersonal = () => {
-   const idUser: string | null =
-      localStorage.getItem("idUser") ?? sessionStorage.getItem("logged")
+   const idUser: string | null = getIdUserOrLogged()
 
    const [state, dispatch] = useReducer<
       React.Reducer<InformationPersonalType, InformationPersonalAction>
@@ -87,21 +87,20 @@ const InformationPersonal = () => {
                   </H2SingleComponent>
                   <ParrafInfoPersonal result={state.name}>
                      <p>Name:</p>
-                     {state.loading && <Loader />}
+                     {state.loading && <Loader properties='right-[7%]' />}
                   </ParrafInfoPersonal>
                   <ParrafInfoPersonal result={state.surname}>
                      <p>Surname:</p>
-                     {state.loading && <Loader />}
+                     {state.loading && <Loader properties='right-[7%]' />}
                   </ParrafInfoPersonal>
                   <ParrafInfoPersonal result={state.kindFavourites}>
                      <p>Kind of Favourites:</p>
-                     {state.loading && <Loader />}
+                     {state.loading && <Loader properties='right-[7%]' />}
                   </ParrafInfoPersonal>
                   <ParrafInfoPersonal result={state.numberFavourites}>
                      <p>Favourite Autos:</p>
                   </ParrafInfoPersonal>
                </ContainerColumn>
-               {/* <div className='h-full border border-1 border-black '></div> */}
                <form
                   action=''
                   className='flex flex-col gap-2 mt-4 w-full lg:w-1/2 items-center '

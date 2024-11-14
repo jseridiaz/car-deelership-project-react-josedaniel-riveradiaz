@@ -79,83 +79,87 @@ const HeaderComponent = () => {
                   : "flex flex-col absolute bg-slate-300 p-8 gap-8 text-xl top-[5.6rem] text-left right-0 z-20 w-1/2 "
             } md:w-fit md:gap-8 block md:flex `}
          >
-            <LiHeader>
-               <NavLink
-                  to='/home'
-                  className='w-1/4 content-center text-blue-700 hover:font-bold'
-                  onClick={() => dispatch({ type: "setShowNav", payload: true })}
-               >
-                  Home
-               </NavLink>
-            </LiHeader>
-            <LiHeader>
-               <NavLink
-                  to='/cars-shop'
-                  className='w-1/4 content-center text-blue-700 hover:font-bold '
-                  onClick={() => dispatch({ type: "setShowNav", payload: true })}
-               >
-                  Autos
-               </NavLink>
-            </LiHeader>
-
-            {state.userInfo === "admin" && (
+            <ul className={`${state.showNav ? "flex " : "flex flex-col"} gap-8`}>
                <LiHeader>
                   <NavLink
-                     to='/post-auto'
-                     className='w-1/4 content-center  text-blue-700 hover:font-bold'
+                     to='/home'
+                     className='w-1/4 content-center text-blue-700 hover:font-bold'
                      onClick={() => dispatch({ type: "setShowNav", payload: true })}
                   >
-                     Post
+                     Home
                   </NavLink>
                </LiHeader>
-            )}
-            <LiHeader>
-               <NavLink
-                  to='/about-us'
-                  className='w-1/4 content-center text-center text-blue-700 hover:font-bold'
-                  onClick={() => dispatch({ type: "setShowNav", payload: true })}
-               >
-                  About us
-               </NavLink>
-            </LiHeader>
-            {token || logged ? (
-               <>
+               <LiHeader>
+                  <NavLink
+                     to='/cars-shop'
+                     className='w-1/4 content-center text-blue-700 hover:font-bold '
+                     onClick={() => dispatch({ type: "setShowNav", payload: true })}
+                  >
+                     Autos
+                  </NavLink>
+               </LiHeader>
+
+               {state.userInfo === "admin" && (
                   <LiHeader>
-                     <span
-                        className={`w-1/4 content-center font-medium hover:font-bold text-blue-700 cursor-pointer ${
-                           state.boolean && "active"
-                        } `}
-                        onClick={() => {
-                           handleClickProfile()
-                        }}
+                     <NavLink
+                        to='/post-auto'
+                        className='w-1/4 content-center  text-blue-700 hover:font-bold'
+                        onClick={() =>
+                           dispatch({ type: "setShowNav", payload: true })
+                        }
                      >
-                        Profile
-                     </span>
-                     <ProfileMenu
-                        booleanState={state.boolean}
-                        setBoolean={() => {
-                           dispatch({ type: "setBoolean" })
-                           if (state.viewPort > 768) {
-                              dispatch({ type: "setShowNav", payload: true })
-                           } else {
-                              dispatch({ type: "setShowNav", payload: false })
-                           }
-                        }}
-                     />
+                        Post
+                     </NavLink>
                   </LiHeader>
-               </>
-            ) : null}
-            <LiHeader>
-               <NavLink
-                  to={token || logged ? "/" : "/login"}
-                  className='w-1/4 content-center hover:font-bold text-blue-700 '
-                  onClick={() => {
-                     handleLogout()
-                  }}
-               >
-                  {token || logged ? "Log out" : "Login"}
-               </NavLink>
-            </LiHeader>
+               )}
+               <LiHeader>
+                  <NavLink
+                     to='/about-us'
+                     className='w-1/4 content-center text-center text-blue-700 hover:font-bold'
+                     onClick={() => dispatch({ type: "setShowNav", payload: true })}
+                  >
+                     About us
+                  </NavLink>
+               </LiHeader>
+               {token || logged ? (
+                  <>
+                     <LiHeader>
+                        <span
+                           className={`w-1/4 content-center font-medium hover:font-bold text-blue-700 cursor-pointer ${
+                              state.boolean && "active"
+                           } `}
+                           onClick={() => {
+                              handleClickProfile()
+                           }}
+                        >
+                           Profile
+                        </span>
+                        <ProfileMenu
+                           booleanState={state.boolean}
+                           setBoolean={() => {
+                              dispatch({ type: "setBoolean" })
+                              if (state.viewPort > 768) {
+                                 dispatch({ type: "setShowNav", payload: true })
+                              } else {
+                                 dispatch({ type: "setShowNav", payload: false })
+                              }
+                           }}
+                        />
+                     </LiHeader>
+                  </>
+               ) : null}
+               <LiHeader>
+                  <NavLink
+                     to={token || logged ? "/" : "/login"}
+                     className='w-1/4 content-center hover:font-bold text-blue-700 '
+                     onClick={() => {
+                        handleLogout()
+                     }}
+                  >
+                     {token || logged ? "Log out" : "Login"}
+                  </NavLink>
+               </LiHeader>
+            </ul>
          </nav>
          <MenuMobile handleClick={handleClick} />
       </header>
