@@ -125,7 +125,7 @@ const Explore = () => {
                   className=' absolute transition-all duration-800 text-white font-bold bg-blue-400 rounded-3xl p-3  cursor-pointer hover:bg-blue-600 hover:shadow-md w-full '
                   to='/cars-shop'
                >
-                  See more
+                  See more Autos
                </Link>
             </ContainerColumn>
          </div>
