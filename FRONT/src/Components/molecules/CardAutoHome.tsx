@@ -23,7 +23,7 @@ const CardAutoHome: React.FC<Cardautotype> = ({
    km,
 }) => {
    return (
-      <li className='relative flex flex-col p-2 sm:p-5 sm:w-2/5 w-[250px] h-fit sm:min-w-[370px] snap-center'>
+      <li className='relative flex flex-col p-2 sm:p-5  h-fit sm:min-w-[370px] min-w-[220px]  snap-center'>
          <ImgComponent
             imgPath={imgPath}
             alt={`${autoName}-${autoModel}`}

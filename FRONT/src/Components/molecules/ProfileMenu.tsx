@@ -41,11 +41,11 @@ const ProfileMenu: React.FC<ProfileMenuType> = ({ booleanState, setBoolean }) =>
             >
                <FavouritesSvg />
             </LiProfileMenu>
-            <li className=' flex justify-between transition duration-400 font-medium hover:bg-slate-50 p-2 rounded w-full text-left content-center select-none'>
-               chats
+            <li className=' flex justify-between transition duration-400 font-medium hover:bg-slate-50 p-2 rounded w-full text-left items-center select-none '>
+               Chats
                <ChatSvg />
             </li>
-            <li className=' flex justify-between transition duration-400 font-medium hover:bg-slate-50 p-2 rounded w-full text-left content-center select-none'>
+            <li className=' flex justify-between transition duration-400 font-medium hover:bg-slate-50 p-2 rounded w-full text-left items-center select-none'>
                Settings
                <SettingsSvg />
             </li>

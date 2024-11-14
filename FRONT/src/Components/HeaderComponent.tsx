@@ -64,7 +64,7 @@ const HeaderComponent = () => {
    }
    return (
       <header
-         className={`box-border w-full h-16 flex bg-slate-200 justify-around
+         className={`box-border w-full min-h-[64px] h-16 flex bg-slate-200 justify-around
          `}
       >
          <div className='w-fit content-center'>
@@ -154,6 +154,8 @@ const HeaderComponent = () => {
                      className='w-1/4 content-center hover:font-bold text-blue-700 '
                      onClick={() => {
                         handleLogout()
+                        if (!token || !logged)
+                           dispatch({ type: "setShowNav", payload: true })
                      }}
                   >
                      {token || logged ? "Log out" : "Login"}

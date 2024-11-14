@@ -81,7 +81,7 @@ const FilterComponent = () => {
 
    return (
       <div className='p-4'>
-         <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 rounded-lg relative'>
+         <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 px-8 rounded-lg relative'>
             <FieldSet description='Brand'>
                <select
                   className='lg:w-1/2 w-full'
@@ -105,7 +105,7 @@ const FilterComponent = () => {
                      ))}
                </select>
             </FieldSet>
-            <FieldSet description='Model'>
+            <FieldSet description='Model' cssProperties=''>
                <select
                   className='lg:w-1/2 w-full'
                   ref={selectedModel}
@@ -153,7 +153,7 @@ const FilterComponent = () => {
                   <option value='Truck'>Trucks</option>
                </select>
             </FieldSet>
-            <div className='flex justify-around w-full flex-wrap gap-6'>
+            <div className='flex justify-around w-full flex-wrap gap-10'>
                <CheckBoxFilter
                   idName='avaliables-autos'
                   reference={availableSet}

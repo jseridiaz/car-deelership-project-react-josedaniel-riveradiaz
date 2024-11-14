@@ -20,7 +20,7 @@ const FavouriteCars = () => {
    const [customerId, setCustomerId] = useState<string | null>()
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const [arrayToPrint, setArrayToPrint] = useState<AutoModelType[] | []>([])
-   const { loading, changeLoading, setLoading } = useLoading()
+   const { loading, setLoading } = useLoading()
    useEffect(() => {
       fetchGetCustomerProfil(logged || idUser).then(res => {
          return setCustomerId(res.res._id ?? null)
@@ -40,9 +40,9 @@ const FavouriteCars = () => {
                setArrayToPrint(array)
             })
          }
-         changeLoading()
+         setLoading(false)
       } else {
-         changeLoading()
+         setLoading(false)
       }
    }, [arrayFavourites])
 
@@ -50,7 +50,7 @@ const FavouriteCars = () => {
       setLoading(true)
       if (customerId)
          fetchClearFavourites(customerId).then(() => {
-            changeLoading()
+            setLoading(false)
          })
       setArrayFavourites([])
       localStorage.setItem("favourites", JSON.stringify([]))

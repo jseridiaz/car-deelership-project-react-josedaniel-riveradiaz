@@ -77,7 +77,7 @@ const Explore = () => {
    }
 
    return (
-      <section className='w-full p-10 bg-blue-200  flex flex-col gap-9 justify-center items-center min-h-[700px]'>
+      <section className='w-full sm:p-10 p-4 bg-blue-200  flex flex-col gap-9 justify-center items-center min-h-[700px]'>
          <div className='w-[100%] p-4 h-full bg-slate-50 relative '>
             <div className='w-full bg-slate-50 p-10 '>
                <H2Component>Explore</H2Component>
@@ -104,7 +104,7 @@ const Explore = () => {
                <ul
                   id='scroll-hidden-home'
                   className='flex flex-nowrap
-               overflow-x-scroll overflow-y-hidden snap-x h-full scroll-smooth content-stretch'
+               overflow-x-scroll overflow-y-hidden snap-x h-full scroll-smooth sm:pb-0 pb-6'
                >
                   {arrayAutos.map((el, idx) => (
                      <CardAutoHome
@@ -120,9 +120,9 @@ const Explore = () => {
                   ))}
                </ul>
             </div>
-            <ContainerColumn className='absolute left-1/2  p-2 w-[35%] bottom-4 right-1/2 -translate-x-1/2 '>
+            <ContainerColumn className='absolute left-1/2  p-2 w-1/2 sm:w-[35%] bottom-4 right-1/2 -translate-x-1/2 '>
                <Link
-                  className=' absolute transition-all duration-800 text-white font-bold bg-blue-400 rounded-3xl p-3  cursor-pointer hover:bg-blue-600 hover:shadow-md w-full '
+                  className=' absolute transition-all duration-800 text-white font-bold bg-blue-400 rounded-3xl p-3  cursor-pointer hover:bg-blue-600 hover:shadow-md w-full'
                   to='/cars-shop'
                >
                   See more Autos
