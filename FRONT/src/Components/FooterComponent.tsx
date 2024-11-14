@@ -25,6 +25,7 @@ const FooterComponent = () => {
                      href='https://www.linkedin.com/in/josedanielriveradiaz/?locale=es_ES'
                      target='_blank'
                      referrerPolicy='no-referrer'
+                     aria-label='Get to Jose Daniel Rivera Linkendin profile'
                   >
                      <IconRRSS hoverColor='hover:bg-blue-500'>
                         <AiFillLinkedin className='z-20 w-full h-full fill-blue-500 rounded-full p-0.5 cursor-pointer  ' />
