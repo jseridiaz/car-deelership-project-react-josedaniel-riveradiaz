@@ -27,7 +27,7 @@ const FavouriteCars = () => {
       })
    }, [])
    useEffect(() => {
-      changeLoading()
+      setLoading(true)
       setArrayToPrint([])
 
       let array: AutoModelType[] | [] = []
@@ -38,9 +38,9 @@ const FavouriteCars = () => {
             fetchAutoById(el).then(res => {
                array = [...array, res.res]
                setArrayToPrint(array)
-               changeLoading()
             })
          }
+         changeLoading()
       } else {
          changeLoading()
       }
