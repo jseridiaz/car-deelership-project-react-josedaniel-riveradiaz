@@ -4,7 +4,6 @@ import debounce from "just-debounce-it"
 import CheckBoxFilter from "../atoms/CheckBoxFilter"
 import ContainerColumn from "../atoms/ContainerColumn"
 import InputNumber from "../atoms/InputNumber"
-
 import { ActionTypes } from "../../utils/types"
 import Loader from "../atoms/Loader"
 import Button from "../atoms/Button"
@@ -226,7 +225,7 @@ const FilterComponent = () => {
                   {desktop ? (
                      <InputRange
                         idName='maxprice-input'
-                        defaultValue='100000'
+                        defaultValue='0'
                         maxValue='100000'
                         minValue='0'
                         numberValue='€'
@@ -317,7 +316,7 @@ const FilterComponent = () => {
                   {desktop ? (
                      <InputRange
                         idName='maxkm-input'
-                        defaultValue='100000'
+                        defaultValue='0'
                         maxValue='100000'
                         minValue='0'
                         numberValue='km'
@@ -407,7 +406,7 @@ const FilterComponent = () => {
                   {desktop ? (
                      <InputRange
                         idName='minYear-input'
-                        defaultValue='2024'
+                        defaultValue='1970'
                         maxValue='2024'
                         minValue='1970'
                         step='1'
