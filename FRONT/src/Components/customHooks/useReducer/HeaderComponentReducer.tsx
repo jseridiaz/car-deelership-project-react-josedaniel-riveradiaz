@@ -4,7 +4,6 @@ export const INITIAL_STATE_HEADER: HeaderComponentType = {
    userInfo: null,
    boolean: false,
    showNav: true,
-   viewPort: window.innerWidth,
 }
 
 export const HeaderComponentReducer = (
@@ -14,8 +13,6 @@ export const HeaderComponentReducer = (
    switch (action.type) {
       case "setUserInfo":
          return { ...state, userInfo: action.payload }
-      case "setViewPort":
-         return { ...state, viewPort: action.payload }
       case "setBoolean":
          return {
             ...state,

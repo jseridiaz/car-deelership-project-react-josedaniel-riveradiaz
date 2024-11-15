@@ -12,17 +12,16 @@ import {
    INITIAL_STATE_HEADER,
 } from "./customHooks/useReducer/HeaderComponentReducer"
 import { HeaderComponentAction, HeaderComponentType } from "../utils/types"
+import useResize from "./customHooks/useResize"
 
 const HeaderComponent = () => {
    const { token, setToken } = useContext(TokenContext)
    const { logged, setLogged } = useContext(LoggedContext)
+   const { viewPort, desktop, changeViewPort } = useResize()
 
    const [state, dispatch] = useReducer<
       React.Reducer<HeaderComponentType, HeaderComponentAction>
    >(HeaderComponentReducer, INITIAL_STATE_HEADER)
-   const resizeHandler = () => {
-      dispatch({ type: "setViewPort", payload: window.innerWidth })
-   }
 
    useEffect(() => {
       const storageUser = getStorage("userInfo")
@@ -30,14 +29,11 @@ const HeaderComponent = () => {
    }, [token, logged])
 
    useEffect(() => {
-      window.addEventListener("resize", resizeHandler)
-      if (state.viewPort >= 768) {
-         dispatch({ type: "setShowNav", payload: true })
-      }
+      changeViewPort()
       return () => {
-         window.removeEventListener("resize", resizeHandler)
+         window.removeEventListener("resize", changeViewPort)
       }
-   }, [state.viewPort])
+   }, [viewPort])
 
    const handleClickProfile = (): void => {
       dispatch({ type: "setBoolean" })
@@ -138,7 +134,7 @@ const HeaderComponent = () => {
                            booleanState={state.boolean}
                            setBoolean={() => {
                               dispatch({ type: "setBoolean" })
-                              if (state.viewPort > 768) {
+                              if (desktop) {
                                  dispatch({ type: "setShowNav", payload: true })
                               } else {
                                  dispatch({ type: "setShowNav", payload: false })

@@ -23,13 +23,7 @@ const CarPage = () => {
       }
       setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
    }, [arrayAllCars])
-   {
-      /* <Pagination
-                     allPages={pages}
-                     currentPage={currentPage}
-                     setCurrentPage={setCurrentPage}
-                  /> */
-   }
+
    return (
       <>
          <Seo

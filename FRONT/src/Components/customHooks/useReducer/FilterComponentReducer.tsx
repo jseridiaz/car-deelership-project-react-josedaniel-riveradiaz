@@ -1,7 +1,7 @@
 import { getArrayBrands } from "../../../utils/getArrayBrands"
 import { ActionFilterType, FilterComponentReducerType } from "../../../utils/types"
 
-const maxQuantity = 999999999
+const maxQuantity = 100000
 const minQuantity = 0
 
 export const INITIAL_STATE: FilterComponentReducerType = {
@@ -18,6 +18,7 @@ export const INITIAL_STATE: FilterComponentReducerType = {
    minYear: minQuantity,
    maxYear: maxQuantity,
    loading: true,
+   viewPort: window.innerWidth,
 }
 
 export const FilterComponentReducer = (
@@ -51,6 +52,8 @@ export const FilterComponentReducer = (
          return { ...state, maxYear: action.payload }
       case "setLoading":
          return { ...state, loading: action.payload }
+      case "setViewPort":
+         return { ...state, viewPort: action.payload }
       case "CLEAR":
          return {
             ...state,

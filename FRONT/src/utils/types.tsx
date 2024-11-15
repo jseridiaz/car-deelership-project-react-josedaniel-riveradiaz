@@ -245,6 +245,7 @@ export type FilterComponentReducerType = {
    minYear: number
    maxYear: number
    loading: boolean
+   viewPort: number
 }
 export type ActionFilterType =
    | {
@@ -300,6 +301,10 @@ export type ActionFilterType =
         payload: boolean
      }
    | {
+        type: "setViewPort"
+        payload: number
+     }
+   | {
         type: "CLEAR"
      }
 
@@ -347,16 +352,11 @@ export type HeaderComponentType = {
    userInfo: string | null
    boolean: boolean
    showNav: boolean
-   viewPort: number
 }
 export type HeaderComponentAction =
    | {
         type: "setUserInfo"
         payload: string | null
-     }
-   | {
-        type: "setViewPort"
-        payload: number
      }
    | {
         type: "setBoolean"
@@ -392,4 +392,17 @@ export type IFormForm = {
 }
 export type LoaderType = {
    properties?: string
+}
+export type InputRangeType = {
+   idName: string
+   children: React.ReactNode
+   defaultValue: string
+   minValue: string
+   maxValue: string
+   numberValue?: string
+   step: string
+   reference: React.RefObject<HTMLInputElement> | null
+   firstValue: number
+   handleChange: () => void
+   setValue: () => number
 }
