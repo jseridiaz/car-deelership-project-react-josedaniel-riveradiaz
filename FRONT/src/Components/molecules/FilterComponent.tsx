@@ -175,7 +175,7 @@ const FilterComponent = () => {
                   Availables
                </CheckBoxFilter>
                <ContainerColumn className=' items-center w-full sm:w-fit sm:items-start '>
-                  <ContainerColumn className='font-semibold text-center w-full'>
+                  <ContainerColumn className={`font-semibold text-center w-full`}>
                      Price
                   </ContainerColumn>
                   {desktop ? (
