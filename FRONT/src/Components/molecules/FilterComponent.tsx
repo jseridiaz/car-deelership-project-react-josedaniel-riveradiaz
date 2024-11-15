@@ -93,7 +93,7 @@ const FilterComponent = () => {
 
    return (
       <div className='p-4'>
-         <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 sm:px-16 px-12 rounded-lg relative'>
+         <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 sm:px-16 px-8 rounded-lg relative'>
             <FieldSet description='Brand'>
                <select
                   className='lg:w-1/2 w-full'
