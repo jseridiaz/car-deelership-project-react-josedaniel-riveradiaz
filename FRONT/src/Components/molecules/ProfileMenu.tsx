@@ -18,7 +18,7 @@ const ProfileMenu: React.FC<ProfileMenuType> = ({ booleanState, setBoolean }) =>
    return (
       <div
          id='profil-menu'
-         className={`absolute -right- bg-blue-100 p-2 min-w-[250px] w-full  z-10 ${
+         className={`absolute right-0 bg-blue-100 p-2 min-w-[250px] w-full  z-10 ${
             booleanState ? "visible" : "invisible"
          } rounded-b-xl`}
       >
