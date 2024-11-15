@@ -407,6 +407,7 @@ export type InputRangeType = {
    setValue: () => number
 }
 export type ResizeContextType = {
+   viewPort: number
    desktop: boolean
    changeViewPort: () => void
 }

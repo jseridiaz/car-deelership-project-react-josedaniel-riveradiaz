@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 const useResize = () => {
+   const [viewPort, setViewPort] = useState<number>(window.innerWidth)
    const [desktop, setDesktop] = useState<boolean>(
       window.innerWidth >= 768 ? true : false,
    )
@@ -11,12 +12,13 @@ const useResize = () => {
       } else if (window.innerWidth < 768) {
          setDesktop(false)
       }
+      setViewPort(window.innerWidth)
    }
    const changeViewPort = () => {
       addEventListener("resize", newViewPort)
    }
 
-   return { desktop, setDesktop, changeViewPort }
+   return { desktop, setDesktop, changeViewPort, viewPort }
 }
 
 export default useResize

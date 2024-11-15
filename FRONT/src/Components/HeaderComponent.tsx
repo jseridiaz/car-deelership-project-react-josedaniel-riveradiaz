@@ -19,7 +19,6 @@ const HeaderComponent = () => {
    const { token, setToken } = useContext(TokenContext)
    const { logged, setLogged } = useContext(LoggedContext)
    const { desktop, changeViewPort } = useContext(ResizeContext)
-   // const { desktop, changeViewPort } = useResize()
 
    const [state, dispatch] = useReducer<
       React.Reducer<HeaderComponentType, HeaderComponentAction>
@@ -32,6 +31,8 @@ const HeaderComponent = () => {
 
    useEffect(() => {
       changeViewPort()
+      // extraFunction(state.showNav, dispatch)
+
       return () => {
          window.removeEventListener("resize", changeViewPort)
       }
@@ -72,12 +73,16 @@ const HeaderComponent = () => {
          </div>
          <nav
             className={`${
-               state.showNav == true
+               state.showNav && desktop
                   ? "hidden"
                   : "flex flex-col absolute bg-slate-300 p-8 gap-8 text-xl top-[5.6rem] text-left right-0 z-20 w-1/2 "
-            } md:w-fit md:gap-8 block md:flex `}
+            } md:w-fit md:gap-8 block md:flex`}
          >
-            <ul className={`${state.showNav ? "flex " : "flex flex-col"} gap-8`}>
+            <ul
+               className={`${
+                  state.showNav && desktop ? "flex " : "flex flex-col"
+               } gap-8`}
+            >
                <LiHeader>
                   <NavLink
                      to='/home'
