@@ -14,7 +14,7 @@ import useResize from "../customHooks/useResize"
 
 const FilterComponent = () => {
    const { filterFunction, state, dispatch } = useFilterCustom()
-   const { viewPort, desktop, changeViewPort } = useResize()
+   const { desktop, changeViewPort } = useResize()
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
@@ -26,7 +26,6 @@ const FilterComponent = () => {
    const selectedMaxKm = useRef<HTMLInputElement>(null)
    const selectedMinYear = useRef<HTMLInputElement>(null)
    const selectedMaxYear = useRef<HTMLInputElement>(null)
-   const selectedInput = useRef<HTMLInputElement>(null)
 
    useEffect(() => {
       // console.log(window.innerWidth)
@@ -48,12 +47,7 @@ const FilterComponent = () => {
          dispatch({ type: "setModels", payload: state.models })
       }
    }
-   const handleTouchEnd = () => {
-      dispatch({
-         type: "setMinPrice",
-         payload: Number(selectedInput.current?.value),
-      })
-   }
+
    const handleKey = (e: React.KeyboardEvent) => {
       if (e.key == "-") {
          e.preventDefault()
