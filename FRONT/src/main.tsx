@@ -10,6 +10,7 @@ import GlobalLogged from "./Components/Providers/GlobalLogged.tsx"
 import GlobalFavouritesArray from "./Components/Providers/GlobalFavouritesArray.tsx"
 import { HelmetProvider } from "react-helmet-async"
 import GlobalArrayNoResult from "./Components/Providers/GlobalArrayNoResult.tsx"
+import GlobalResize from "./Components/Providers/GlobalResize.tsx"
 
 createRoot(document.getElementById("root")!).render(
    <StrictMode>
@@ -21,7 +22,9 @@ createRoot(document.getElementById("root")!).render(
                      <GlobalArrayNoResult>
                         <GlobalToken>
                            <GlobalLogged>
-                              <App />
+                              <GlobalResize>
+                                 <App />
+                              </GlobalResize>
                            </GlobalLogged>
                         </GlobalToken>
                      </GlobalArrayNoResult>

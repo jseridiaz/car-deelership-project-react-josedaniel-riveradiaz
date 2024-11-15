@@ -12,12 +12,14 @@ import {
    INITIAL_STATE_HEADER,
 } from "./customHooks/useReducer/HeaderComponentReducer"
 import { HeaderComponentAction, HeaderComponentType } from "../utils/types"
-import useResize from "./customHooks/useResize"
+// import useResize from "./customHooks/useResize"
+import { ResizeContext } from "./Providers/GlobalResize"
 
 const HeaderComponent = () => {
    const { token, setToken } = useContext(TokenContext)
    const { logged, setLogged } = useContext(LoggedContext)
-   const { viewPort, desktop, changeViewPort } = useResize()
+   const { desktop, changeViewPort } = useContext(ResizeContext)
+   // const { desktop, changeViewPort } = useResize()
 
    const [state, dispatch] = useReducer<
       React.Reducer<HeaderComponentType, HeaderComponentAction>
@@ -33,7 +35,7 @@ const HeaderComponent = () => {
       return () => {
          window.removeEventListener("resize", changeViewPort)
       }
-   }, [viewPort])
+   }, [window.innerWidth])
 
    const handleClickProfile = (): void => {
       dispatch({ type: "setBoolean" })

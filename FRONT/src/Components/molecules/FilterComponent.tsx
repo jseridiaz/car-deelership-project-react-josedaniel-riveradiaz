@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback, useContext, useEffect, useRef } from "react"
 import FieldSet from "../atoms/FieldSet"
 import debounce from "just-debounce-it"
 import CheckBoxFilter from "../atoms/CheckBoxFilter"
@@ -10,11 +10,12 @@ import Loader from "../atoms/Loader"
 import Button from "../atoms/Button"
 import { useFilterCustom } from "../customHooks/useFilterCustom"
 import InputRange from "../atoms/InputRange"
-import useResize from "../customHooks/useResize"
+import { ResizeContext } from "../Providers/GlobalResize"
 
 const FilterComponent = () => {
    const { filterFunction, state, dispatch } = useFilterCustom()
-   const { viewPort, desktop, changeViewPort } = useResize()
+   const { desktop, changeViewPort } = useContext(ResizeContext)
+   // const { desktop, changeViewPort } = useResize()
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
@@ -28,13 +29,11 @@ const FilterComponent = () => {
    const selectedMaxYear = useRef<HTMLInputElement>(null)
 
    useEffect(() => {
-      // console.log(window.innerWidth)
-
       changeViewPort()
       return () => {
          window.removeEventListener("resize", changeViewPort)
       }
-   }, [viewPort])
+   }, [window.innerWidth])
    const resetFilter = () => {
       dispatch({ type: "CLEAR" })
       if (availableSet.current) availableSet.current.checked = true
