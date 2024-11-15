@@ -14,7 +14,7 @@ import useResize from "../customHooks/useResize"
 
 const FilterComponent = () => {
    const { filterFunction, state, dispatch } = useFilterCustom()
-   const { desktop, changeViewPort } = useResize()
+   const { viewPort, desktop, changeViewPort } = useResize()
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
@@ -34,7 +34,7 @@ const FilterComponent = () => {
       return () => {
          window.removeEventListener("resize", changeViewPort)
       }
-   }, [window.innerWidth])
+   }, [viewPort])
    const resetFilter = () => {
       dispatch({ type: "CLEAR" })
       if (availableSet.current) availableSet.current.checked = true
@@ -177,7 +177,7 @@ const FilterComponent = () => {
                </CheckBoxFilter>
                <ContainerColumn className=' items-center w-full sm:w-fit sm:items-start '>
                   <ContainerColumn className='font-semibold text-center w-full'>
-                     Price{" "}
+                     Price
                   </ContainerColumn>
                   {desktop ? (
                      <InputRange
