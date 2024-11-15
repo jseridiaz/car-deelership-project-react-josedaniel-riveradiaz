@@ -16,7 +16,7 @@ function App() {
    return (
       <>
          <Banner color='max-w-[100svw] bg-red-500 dark:bg-black-900'>
-            🛻 Special offers
+            Special offers
          </Banner>
          <HeaderComponent></HeaderComponent>
          <Routes>

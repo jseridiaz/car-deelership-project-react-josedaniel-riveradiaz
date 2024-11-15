@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer } from "react"
+import { useCallback, useContext, useEffect, useReducer } from "react"
 import { Link, NavLink } from "react-router-dom"
 import { TokenContext } from "./Providers/GlobalToken"
 import { LoggedContext } from "./Providers/GlobalLogged"
@@ -43,7 +43,7 @@ const HeaderComponent = () => {
       dispatch({ type: "setBoolean" })
    }
 
-   const handleLogout = () => {
+   const handleLogout = useCallback(() => {
       if (localStorage.getItem("token")) {
          delStorage("token")
          delStorage("idUser")
@@ -58,10 +58,8 @@ const HeaderComponent = () => {
          setLogged(null)
       }
       dispatch({ type: "setUserInfo", payload: null })
-   }
+   }, [token, logged])
    const handleClick = () => {
-      console.log(state.showNav)
-
       dispatch({ type: "setShowNav" })
    }
    return (
