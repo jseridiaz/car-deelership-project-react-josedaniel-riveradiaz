@@ -15,10 +15,10 @@ import fetchRegisterUser from "../utils/functions/fetch/fetchRegisterUser"
 import useLoading from "../Components/customHooks/useLoading"
 
 const Register = () => {
-   const { loading, changeLoading } = useLoading()
+   const { loading, setLoading, changeLoading } = useLoading()
    const [showToast, setShowToast] = useState<boolean>(false)
-   const [errMsg, setErrMsg] = useState<string>()
-   const [resOk, setResOk] = useState<boolean>()
+   const [errMsg, setErrMsg] = useState<string>("")
+   const [resOk, setResOk] = useState<boolean>(false)
    // const [message,setMessage]=useState<string>()
    const navigate = useNavigate()
 
@@ -37,13 +37,29 @@ const Register = () => {
    })
 
    const handleRegister = (data: IFormInput): void => {
-      changeLoading()
-      fetchRegisterUser(data)
+      console.log(data)
+
+      setLoading(true)
+      fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/user/register", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+            name: data.firstname,
+            surname: data.surname,
+            age: data.birthdate.split("-").join("/"),
+            email: data.email.toLocaleLowerCase(),
+            password: data.password,
+            favourites: data.autosInterested,
+         }),
+      })
          .then(res => {
-            changeLoading()
+            console.log(res.ok)
             setShowToast(true)
             if (res.ok) {
                setResOk(true)
+               setLoading(false)
                setTimeout(() => {
                   setShowToast(false)
                   navigate("/login")
@@ -51,6 +67,7 @@ const Register = () => {
             } else {
                setResOk(false)
                turnOffBanner(setShowToast, 3000, false)
+               setLoading(false)
             }
 
             return res.json()
@@ -88,10 +105,9 @@ const Register = () => {
                            placeholders='Jose'
                            // {...register("firstname", { required: true })}
                         />
-                        <ErrorContainer>
-                           {errors.firstname?.type === "required" &&
-                              "* First name is required"}
-                        </ErrorContainer>
+                        {/* {errors.firstname?.type === "required" && (
+                           <ErrorContainer>* First name is required</ErrorContainer>
+                        )} */}
                      </FieldSet>
                      <FieldSet description='Your surname' cssProperties='w-2/3'>
                         <InputTextForm
@@ -99,10 +115,9 @@ const Register = () => {
                            placeholders='Rivera'
                            name='surname'
                         />
-                        <ErrorContainer>
-                           {errors.surname?.type === "required" &&
-                              "* Surname is required"}
-                        </ErrorContainer>
+                        {/* {errors.surname?.type === "required" && (
+                           <ErrorContainer>* Surname is required</ErrorContainer>
+                        )} */}
                      </FieldSet>
                      <FieldSet description='Your email' cssProperties='w-2/3'>
                         <input
@@ -117,7 +132,9 @@ const Register = () => {
                            placeholder='jose@gmail.com'
                            name='email'
                         />
-                        <ErrorContainer>{errors.email?.message}</ErrorContainer>
+                        {/* {errors.email?.type == "email" && (
+                           <ErrorContainer>{errors.email?.message}</ErrorContainer>
+                        )} */}
                      </FieldSet>
                      <FieldSet description='Your birthname' cssProperties='w-2/3'>
                         <InputTextForm
@@ -125,10 +142,11 @@ const Register = () => {
                            type='date'
                            name='birthdate'
                         />
-                        <ErrorContainer>
-                           {errors.birthdate?.type === "required" &&
-                              "* Your birthdate is required"}
-                        </ErrorContainer>
+                        {/* {errors.birthdate?.type == "required" && (
+                           <ErrorContainer>
+                              {errors.birthdate?.message}
+                           </ErrorContainer>
+                        )} */}
                      </FieldSet>
                      <FieldSet description='Your password' cssProperties='w-2/3'>
                         <input
@@ -149,11 +167,13 @@ const Register = () => {
                               },
                            })}
                         />
-                        <ErrorContainer errors={`${errors.password?.type}`}>
-                           {errors.password && errors.password.message}
-                        </ErrorContainer>
+                        {errors.password?.type === "required" ||
+                           (errors.password?.type == "pattern" && (
+                              <ErrorContainer errors={`${errors.password?.type}`}>
+                                 {errors.password.message}
+                              </ErrorContainer>
+                           ))}
                      </FieldSet>
-
                      <div className='relative p-4 flex gap-4 justify-center '>
                         <label htmlFor='interested'>Interested on:</label>
                         <select
@@ -183,7 +203,7 @@ const Register = () => {
                classImg='w-full h-full object-cover object-center'
             />
          </article>
-         {showToast && <Toast handle={resOk ? true : false}>{errMsg}</Toast>}
+         {/* {showToast && <Toast handle={resOk ? true : false}>{errMsg}</Toast>} */}
       </>
    )
 }

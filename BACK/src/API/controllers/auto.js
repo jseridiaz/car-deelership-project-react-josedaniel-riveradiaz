@@ -51,13 +51,10 @@ const postAuto = async (req, res, next) => {
    try {
       const autoPost = AutoModel(req.body)
       if (req.file) {
-         console.log(req.file)
-
          autoPost.picture = req.file.path
          const splitted = req.file.path.split("/")
          const aPart = splitted.at(-2)
          const bPart = splitted.at(-1).split(".")[0]
-         console.log(aPart, "/", bPart)
       }
 
       const savedAutoPost = await autoPost.save()
@@ -71,7 +68,6 @@ const postAuto = async (req, res, next) => {
 const updateAuto = async (req, res, next) => {
    try {
       const { id } = req.params
-      console.log(id)
       const newModel = AutoModel(req.body)
       newModel._id = id
 

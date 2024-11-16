@@ -14,7 +14,6 @@ import { ResizeContext } from "../Providers/GlobalResize"
 const FilterComponent = () => {
    const { filterFunction, state, dispatch } = useFilterCustom()
    const { desktop, changeViewPort } = useContext(ResizeContext)
-   // const { desktop, changeViewPort } = useResize()
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
@@ -197,12 +196,7 @@ const FilterComponent = () => {
                                  type: "setMinPrice",
                                  payload: Number(selectedMinPrice.current?.value),
                               })
-                           // if (selectedInput.current)
-                           //    console.log(selectedInput.current.value)
-
-                           // handleTouchEnd()
                         }}
-                        // setValue={selectedInput.current?.value}
                      >
                         Min price
                      </InputRange>
@@ -231,7 +225,7 @@ const FilterComponent = () => {
                         numberValue='€'
                         step='1000'
                         reference={selectedMaxPrice}
-                        firstValue={0}
+                        firstValue={9999999}
                         setValue={
                            (onchange = (): number =>
                               Number(selectedMaxPrice.current?.value))
@@ -322,7 +316,7 @@ const FilterComponent = () => {
                         numberValue='km'
                         step='10000'
                         reference={selectedMaxKm}
-                        firstValue={0}
+                        firstValue={9999999}
                         setValue={
                            (onchange = (): number =>
                               Number(selectedMaxKm.current?.value))
@@ -412,7 +406,7 @@ const FilterComponent = () => {
                         step='1'
                         numberValue=' '
                         reference={selectedMaxYear}
-                        firstValue={2024}
+                        firstValue={2025}
                         setValue={
                            (onchange = (): number =>
                               Number(selectedMaxYear.current?.value))
@@ -422,7 +416,7 @@ const FilterComponent = () => {
                            if (selectedMaxYear.current)
                               dispatch({
                                  type: "setMaxYear",
-                                 payload: Number(selectedMaxYear.current?.value),
+                                 payload: Number(selectedMaxYear.current.value),
                               })
                            // if (selectedInput.current)
                            //    console.log(selectedInput.current.value)

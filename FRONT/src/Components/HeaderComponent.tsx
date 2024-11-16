@@ -82,6 +82,7 @@ const HeaderComponent = () => {
             <ul className={`${state.showNav ? "flex " : "flex flex-col"} gap-8`}>
                <LiHeader>
                   <NavLink
+                     translate='no'
                      to='/home'
                      className='w-1/4 content-center text-blue-700 hover:font-bold'
                      onClick={() => dispatch({ type: "setShowNav", payload: true })}

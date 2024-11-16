@@ -39,11 +39,9 @@ const register = async (req, res, next) => {
       validatorPassword(req, res, next, password)
 
       const newUser = new User(req.body)
-      // newUser.rol = "user"
-      console.log(req.body)
+      newUser.rol = "user"
 
       const newUserSaved = await newUser.save()
-      console.log(newUserSaved)
 
       const newCustomer = new CustomerModel({ profile: newUserSaved._id })
       const newCustomerSaved = await newCustomer.save()

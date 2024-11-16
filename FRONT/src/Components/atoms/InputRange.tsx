@@ -30,7 +30,10 @@ const InputRange: React.FC<InputRangeType> = ({
             defaultValue={defaultValue}
             step={step}
             ref={reference}
-            onTouchEnd={() => {
+            // onInput={() => {
+            //    handleChange()
+            // }}
+            onMouseUp={() => {
                handleChange()
             }}
             onChange={() => {
