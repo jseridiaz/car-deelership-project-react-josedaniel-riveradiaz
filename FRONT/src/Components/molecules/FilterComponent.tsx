@@ -146,14 +146,11 @@ const FilterComponent = () => {
                   value={state.chassis ? state.chassis : undefined}
                   onChange={() => {
                      dispatch({ type: "setModel", payload: "All" })
-                     // setModel("All")
                      dispatch({
                         type: "setChassis",
                         payload:
                            selectedChassis.current && selectedChassis.current.value,
                      })
-
-                     // changeValue(setChassis, selectedChassis)
                   }}
                >
                   <option value='All'>All</option>
@@ -176,269 +173,157 @@ const FilterComponent = () => {
                   <ContainerColumn className={`font-semibold text-center w-full`}>
                      Price
                   </ContainerColumn>
-                  {desktop ? (
-                     <InputRange
-                        idName='minprice-input'
-                        defaultValue='0'
-                        maxValue='50000'
-                        minValue='0'
-                        numberValue='€'
-                        step='500'
-                        reference={selectedMinPrice}
-                        firstValue={0}
-                        setValue={
-                           (onchange = (): number =>
-                              Number(selectedMinPrice.current?.value))
-                        }
-                        handleChange={() => {
-                           if (selectedMinPrice.current)
-                              dispatch({
-                                 type: "setMinPrice",
-                                 payload: Number(selectedMinPrice.current?.value),
-                              })
-                        }}
-                     >
-                        Min price
-                     </InputRange>
-                  ) : (
-                     <InputNumber
-                        spanName='From'
-                        idName='min-price-input'
-                        numberValue='€'
-                        reference={selectedMinPrice}
-                        placeholder='1000'
-                        handleKey={e => {
-                           handleKey(e)
-                        }}
-                        handleInput={() => {
-                           handleInput("setMinPrice", selectedMinPrice)
-                        }}
-                     />
-                  )}
+                  <InputRange
+                     idName='minprice-input'
+                     defaultValue='0'
+                     maxValue='50000'
+                     minValue='0'
+                     numberValue='€'
+                     step='500'
+                     reference={selectedMinPrice}
+                     firstValue={0}
+                     setValue={
+                        (onchange = (): number =>
+                           Number(selectedMinPrice.current?.value))
+                     }
+                     handleChange={() => {
+                        if (selectedMinPrice.current)
+                           dispatch({
+                              type: "setMinPrice",
+                              payload: Number(selectedMinPrice.current?.value),
+                           })
+                     }}
+                  >
+                     Min price
+                  </InputRange>
 
-                  {desktop ? (
-                     <InputRange
-                        idName='maxprice-input'
-                        defaultValue='0'
-                        maxValue='100000'
-                        minValue='0'
-                        numberValue='€'
-                        step='1000'
-                        reference={selectedMaxPrice}
-                        firstValue={9999999}
-                        setValue={
-                           (onchange = (): number =>
-                              Number(selectedMaxPrice.current?.value))
-                        }
-                        handleChange={() => {
-                           // handleTouchEnd()
-                           if (selectedMaxPrice.current)
-                              dispatch({
-                                 type: "setMaxPrice",
-                                 payload: Number(selectedMaxPrice.current?.value),
-                              })
-                           // if (selectedInput.current)
-                           //    console.log(selectedInput.current.value)
-
-                           // handleTouchEnd()
-                        }}
-                        // setValue={selectedInput.current?.value}
-                     >
-                        Max price
-                     </InputRange>
-                  ) : (
-                     <InputNumber
-                        spanName='Under'
-                        idName='max-price-input'
-                        reference={selectedMaxPrice}
-                        handleKey={e => handleKey(e)}
-                        numberValue='€'
-                        placeholder='20000'
-                        handleInput={() => {
-                           handleInput("setMaxPrice", selectedMaxPrice)
-                        }}
-                     />
-                  )}
+                  <InputRange
+                     idName='maxprice-input'
+                     defaultValue='0'
+                     maxValue='100000'
+                     minValue='0'
+                     numberValue='€'
+                     step='1000'
+                     reference={selectedMaxPrice}
+                     firstValue={9999999}
+                     setValue={
+                        (onchange = (): number =>
+                           Number(selectedMaxPrice.current?.value))
+                     }
+                     handleChange={() => {
+                        if (selectedMaxPrice.current)
+                           dispatch({
+                              type: "setMaxPrice",
+                              payload: Number(selectedMaxPrice.current?.value),
+                           })
+                     }}
+                  >
+                     Max price
+                  </InputRange>
                </ContainerColumn>
                <ContainerColumn className='items-center w-full sm:w-fit sm:items-start'>
                   <ContainerColumn className='flex font-semibold w-full'>
                      Kilometers
                   </ContainerColumn>
-                  {desktop ? (
-                     <InputRange
-                        idName='minkm-input'
-                        defaultValue='0'
-                        maxValue='100000'
-                        minValue='0'
-                        numberValue='km'
-                        step='10000'
-                        reference={selectedMinKm}
-                        firstValue={0}
-                        setValue={
-                           (onchange = (): number =>
-                              Number(selectedMinKm.current?.value))
-                        }
-                        handleChange={() => {
-                           // handleTouchEnd()
-                           if (selectedMinKm.current)
-                              dispatch({
-                                 type: "setMinKm",
-                                 payload: Number(selectedMinKm.current?.value),
-                              })
-                           // if (selectedInput.current)
-                           //    console.log(selectedInput.current.value)
+                  <InputRange
+                     idName='minkm-input'
+                     defaultValue='0'
+                     maxValue='100000'
+                     minValue='0'
+                     numberValue='km'
+                     step='10000'
+                     reference={selectedMinKm}
+                     firstValue={0}
+                     setValue={
+                        (onchange = (): number =>
+                           Number(selectedMinKm.current?.value))
+                     }
+                     handleChange={() => {
+                        if (selectedMinKm.current)
+                           dispatch({
+                              type: "setMinKm",
+                              payload: Number(selectedMinKm.current?.value),
+                           })
+                     }}
+                  >
+                     Min Km
+                  </InputRange>
 
-                           // handleTouchEnd()
-                        }}
-                        // setValue={selectedInput.current?.value}
-                     >
-                        Min Km
-                     </InputRange>
-                  ) : (
-                     <InputNumber
-                        spanName='From'
-                        idName='min-km-input'
-                        reference={selectedMinKm}
-                        handleKey={e => handleKey(e)}
-                        numberValue='Km'
-                        handleInput={() => {
-                           handleInput("setMinKm", selectedMinKm)
-                        }}
-                        placeholder='0'
-                     />
-                  )}
-                  {desktop ? (
-                     <InputRange
-                        idName='maxkm-input'
-                        defaultValue='0'
-                        maxValue='100000'
-                        minValue='0'
-                        numberValue='km'
-                        step='10000'
-                        reference={selectedMaxKm}
-                        firstValue={9999999}
-                        setValue={
-                           (onchange = (): number =>
-                              Number(selectedMaxKm.current?.value))
-                        }
-                        handleChange={() => {
-                           // handleTouchEnd()
-                           if (selectedMaxKm.current)
-                              dispatch({
-                                 type: "setMaxKm",
-                                 payload: Number(selectedMaxKm.current?.value),
-                              })
-                           // if (selectedInput.current)
-                           //    console.log(selectedInput.current.value)
-
-                           // handleTouchEnd()
-                        }}
-                        // setValue={selectedInput.current?.value}
-                     >
-                        Max Km
-                     </InputRange>
-                  ) : (
-                     <InputNumber
-                        spanName='Unter'
-                        idName='max-km-input'
-                        reference={selectedMaxKm}
-                        numberValue='Km'
-                        handleKey={e => handleKey(e)}
-                        handleInput={() => {
-                           handleInput("setMaxKm", selectedMaxKm)
-                        }}
-                        placeholder='180000'
-                     />
-                  )}
+                  <InputRange
+                     idName='maxkm-input'
+                     defaultValue='0'
+                     maxValue='100000'
+                     minValue='0'
+                     numberValue='km'
+                     step='10000'
+                     reference={selectedMaxKm}
+                     firstValue={9999999}
+                     setValue={
+                        (onchange = (): number =>
+                           Number(selectedMaxKm.current?.value))
+                     }
+                     handleChange={() => {
+                        if (selectedMaxKm.current)
+                           dispatch({
+                              type: "setMaxKm",
+                              payload: Number(selectedMaxKm.current?.value),
+                           })
+                     }}
+                  >
+                     Max Km
+                  </InputRange>
                </ContainerColumn>
                <ContainerColumn className='items-center w-full sm:w-fit sm:items-start'>
                   <ContainerColumn className='font-semibold w-full'>
                      Year manufacture
                   </ContainerColumn>
-                  {desktop ? (
-                     <InputRange
-                        idName='minYear-input'
-                        defaultValue='1970'
-                        maxValue='2024'
-                        minValue='1970'
-                        step='1'
-                        numberValue=' '
-                        reference={selectedMinYear}
-                        firstValue={1970}
-                        setValue={
-                           (onchange = (): number =>
-                              Number(selectedMinYear.current?.value))
-                        }
-                        handleChange={() => {
-                           // handleTouchEnd()
-                           if (selectedMinYear.current)
-                              dispatch({
-                                 type: "setMinYear",
-                                 payload: Number(selectedMinYear.current?.value),
-                              })
-                           // if (selectedInput.current)
-                           //    console.log(selectedInput.current.value)
+                  <InputRange
+                     idName='minYear-input'
+                     defaultValue='1970'
+                     maxValue='2024'
+                     minValue='1970'
+                     step='1'
+                     numberValue=' '
+                     reference={selectedMinYear}
+                     firstValue={1970}
+                     setValue={
+                        (onchange = (): number =>
+                           Number(selectedMinYear.current?.value))
+                     }
+                     handleChange={() => {
+                        if (selectedMinYear.current)
+                           dispatch({
+                              type: "setMinYear",
+                              payload: Number(selectedMinYear.current?.value),
+                           })
+                     }}
+                  >
+                     Min Year
+                  </InputRange>
 
-                           // handleTouchEnd()
-                        }}
-                        // setValue={selectedInput.current?.value}
-                     >
-                        Min Year
-                     </InputRange>
-                  ) : (
-                     <InputNumber
-                        spanName='From'
-                        idName='year-manufacture-from'
-                        reference={selectedMinYear}
-                        handleKey={e => handleKey(e)}
-                        handleInput={() => {
-                           handleInput("setMinYear", selectedMinYear)
-                        }}
-                        placeholder='1992'
-                     />
-                  )}
-                  {desktop ? (
-                     <InputRange
-                        idName='minYear-input'
-                        defaultValue='1970'
-                        maxValue='2024'
-                        minValue='1970'
-                        step='1'
-                        numberValue=' '
-                        reference={selectedMaxYear}
-                        firstValue={2025}
-                        setValue={
-                           (onchange = (): number =>
-                              Number(selectedMaxYear.current?.value))
-                        }
-                        handleChange={() => {
-                           // handleTouchEnd()
-                           if (selectedMaxYear.current)
-                              dispatch({
-                                 type: "setMaxYear",
-                                 payload: Number(selectedMaxYear.current.value),
-                              })
-                           // if (selectedInput.current)
-                           //    console.log(selectedInput.current.value)
-
-                           // handleTouchEnd()
-                        }}
-                        // setValue={selectedInput.current?.value}
-                     >
-                        Max Year
-                     </InputRange>
-                  ) : (
-                     <InputNumber
-                        spanName='Under'
-                        idName='year-manufacture-under'
-                        reference={selectedMaxYear}
-                        placeholder='2024'
-                        handleKey={e => handleKey(e)}
-                        handleInput={() => {
-                           handleInput("setMaxYear", selectedMaxYear)
-                        }}
-                     />
-                  )}
+                  <InputRange
+                     idName='minYear-input'
+                     defaultValue='1970'
+                     maxValue='2024'
+                     minValue='1970'
+                     step='1'
+                     numberValue=' '
+                     reference={selectedMaxYear}
+                     firstValue={2025}
+                     setValue={
+                        (onchange = (): number =>
+                           Number(selectedMaxYear.current?.value))
+                     }
+                     handleChange={() => {
+                        if (selectedMaxYear.current)
+                           dispatch({
+                              type: "setMaxYear",
+                              payload: Number(selectedMaxYear.current.value),
+                           })
+                     }}
+                  >
+                     Max Year
+                  </InputRange>
                </ContainerColumn>
             </div>
 
