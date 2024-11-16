@@ -97,7 +97,7 @@ const Login = () => {
                <form
                   action='#'
                   method='post'
-                  className=' flex flex-col w-[90%] h-[85%] p-4 justify-around items-center border-2 border-black border-solid rounded-xl bg-blue-50'
+                  className='relative flex flex-col w-[90%] h-[85%] p-4 justify-around items-center border-2 border-black border-solid rounded-xl bg-blue-50'
                   onSubmit={handleSubmit(handleLogin)}
                >
                   <FieldSet description='Email' cssProperties='w-full'>
@@ -165,17 +165,13 @@ const Login = () => {
                      </div>
                   </div>
                   <Button
-                     properties='relative sm:w-1/3 w-2/3 h-[50px] hover:shadow-md bg-purple-500 text-white font-semibold'
+                     properties='relative min-w-[125px] sm:w-1/3 w-2/3 h-[50px] hover:shadow-md bg-purple-500 text-white font-semibold'
                      isLink={false}
                   >
                      Log in
-                     {loading && <Loader properties='top-0 right-1/2' />}
+                     {/* {loading && <Loader properties='top-0 right-1/2' />} */}
                   </Button>
-                  {/* {fetchState && !statusFetch ? (
-                     <Parraf cssProperties='w-full text-red-600'>
-                        {fetchState.message}
-                     </Parraf>
-                  ) : null} */}
+
                   <Link
                      className='flex gap-1 text-purple-600 hover:text-blue-400 p-1 focus:outline-none animate-pulse'
                      to='/register'
@@ -183,6 +179,9 @@ const Login = () => {
                      Haven't you yet an account?
                      <BsArrowDownLeft className=' scale-125' />
                   </Link>
+                  {loading && (
+                     <Loader properties='bottom-16  min-[350px]:right-[45%] right-[40%] ' />
+                  )}
                </form>
             </article>
          </article>

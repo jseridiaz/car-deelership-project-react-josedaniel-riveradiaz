@@ -74,7 +74,7 @@ const Register = () => {
             <article className='md:w-[38%] w-full'>
                <form
                   action=''
-                  className='border-2 border-black p-4 rounded-2xl flex flex-col gap-7 bg-indigo-50'
+                  className='relative border-2 border-black p-4 rounded-2xl flex flex-col gap-7 bg-indigo-50'
                   onSubmit={handleSubmit(handleRegister)}
                >
                   <div className='flex flex-col gap-2 px-8'>
@@ -178,11 +178,11 @@ const Register = () => {
                   </div>
                   <Button
                      isLink={false}
-                     properties='transition-all relative duration-300 relative bg-indigo-500 hover:bg-indigo-600 hover:font-bold text-white w-1/2 self-center '
+                     properties='transition-all relative duration-300 relative bg-indigo-500 hover:bg-indigo-600 min-w-[105px] hover:font-bold text-white w-1/2 self-center '
                   >
                      Sign in
-                     {loading && <Loader />}
                   </Button>
+                  {loading && <Loader properties='left-[46%] -bottom-6 ' />}
                </form>
             </article>
             <ImgComponent

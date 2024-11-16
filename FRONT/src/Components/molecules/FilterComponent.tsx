@@ -60,7 +60,7 @@ const FilterComponent = () => {
 
    return (
       <div className='p-4'>
-         <form className='flex justify-center flex-wrap gap-6 bg-blue-400 p-4 sm:px-16 px-8 rounded-lg relative'>
+         <form className='relative flex justify-center flex-wrap gap-6 bg-blue-400 p-4 sm:px-16 px-8 rounded-lg relative'>
             <FieldSet description='Brand'>
                <select
                   className='lg:w-1/2 w-full'
@@ -94,7 +94,6 @@ const FilterComponent = () => {
                         payload:
                            selectedModel.current && selectedModel.current.value,
                      })
-                     // changeValue(setModel, selectedModel)
                   }}
                >
                   {!state.models?.length ? (
@@ -299,14 +298,16 @@ const FilterComponent = () => {
 
             <div className='w-full flex flex-col items-center gap-4'>
                <Button
-                  properties='relative bg-white lg:w-[10%] min-[500px]:w-1/3 w-full '
+                  properties='relative bg-white lg:w-[10%] min-w-[140px]  '
                   type='reset'
                   functionClick={() => resetFilter()}
                >
                   Clear filter
-                  {state.loading && <Loader properties='-bottom-6 right-[38%]' />}
                </Button>
             </div>
+            {state.loading && (
+               <Loader properties='-bottom-6 lg:right-[49%] min-[400px]right-[42%]' />
+            )}
          </form>
       </div>
    )
