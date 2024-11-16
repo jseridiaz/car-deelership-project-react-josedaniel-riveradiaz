@@ -1,10 +1,8 @@
-import { useCallback, useContext, useEffect, useRef } from "react"
+import { useContext, useEffect, useRef } from "react"
 import FieldSet from "../atoms/FieldSet"
-import debounce from "just-debounce-it"
 import CheckBoxFilter from "../atoms/CheckBoxFilter"
 import ContainerColumn from "../atoms/ContainerColumn"
-import InputNumber from "../atoms/InputNumber"
-import { ActionTypes } from "../../utils/types"
+
 import Loader from "../atoms/Loader"
 import Button from "../atoms/Button"
 import { useFilterCustom } from "../customHooks/useFilterCustom"
@@ -13,7 +11,7 @@ import { ResizeContext } from "../Providers/GlobalResize"
 
 const FilterComponent = () => {
    const { filterFunction, state, dispatch } = useFilterCustom()
-   const { desktop, changeViewPort } = useContext(ResizeContext)
+   const { changeViewPort } = useContext(ResizeContext)
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
@@ -45,12 +43,6 @@ const FilterComponent = () => {
       }
    }
 
-   const handleKey = (e: React.KeyboardEvent) => {
-      if (e.key == "-") {
-         e.preventDefault()
-      }
-   }
-
    useEffect(() => {
       filterFunction(
          state.brand,
@@ -65,28 +57,6 @@ const FilterComponent = () => {
          state.maxYear,
       )
    }, [filterFunction])
-
-   const handleInput = useCallback(
-      debounce(
-         (
-            type: ActionTypes,
-            reference: React.MutableRefObject<HTMLInputElement | null>,
-         ): void => {
-            if (reference && reference.current) {
-               dispatch({ type, payload: parseInt(reference.current.value) })
-            }
-         },
-         600,
-      ),
-      [
-         state.maxKm,
-         state.maxPrice,
-         state.maxYear,
-         state.minKm,
-         state.minPrice,
-         state.minYear,
-      ],
-   )
 
    return (
       <div className='p-4'>
