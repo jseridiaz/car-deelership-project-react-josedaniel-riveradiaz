@@ -10,7 +10,7 @@ const fetchRegisterUser = (data: IFormInput) =>
          name: data.firstname,
          surname: data.surname,
          age: data.birthdate.split("-").join("/"),
-         email: data.email,
+         email: data.email.toLocaleLowerCase(),
          password: data.password,
          favourites: data.autosInterested,
       }),

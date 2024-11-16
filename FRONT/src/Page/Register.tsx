@@ -15,7 +15,7 @@ import fetchRegisterUser from "../utils/functions/fetch/fetchRegisterUser"
 import useLoading from "../Components/customHooks/useLoading"
 
 const Register = () => {
-   const { loading, setLoading, changeLoading } = useLoading()
+   const { loading, setLoading } = useLoading()
    const [showToast, setShowToast] = useState<boolean>(false)
    const [errMsg, setErrMsg] = useState<string>("")
    const [resOk, setResOk] = useState<boolean>(false)
@@ -33,27 +33,15 @@ const Register = () => {
          email: "",
          birthdate: "",
          password: "",
+         autosInterested: "cars",
       },
    })
 
    const handleRegister = (data: IFormInput): void => {
-      console.log(data)
+      console.log(errors)
 
       setLoading(true)
-      fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/user/register", {
-         method: "POST",
-         headers: {
-            "Content-Type": "application/json",
-         },
-         body: JSON.stringify({
-            name: data.firstname,
-            surname: data.surname,
-            age: data.birthdate.split("-").join("/"),
-            email: data.email.toLocaleLowerCase(),
-            password: data.password,
-            favourites: data.autosInterested,
-         }),
-      })
+      fetchRegisterUser(data)
          .then(res => {
             console.log(res.ok)
             setShowToast(true)
@@ -100,14 +88,11 @@ const Register = () => {
                         <InputTextForm
                            register={register}
                            name='firstname'
-                           // className='p-2 text-sm w-full  border-2 border-gray-500 border-solid placeholder:text-sm rounded  focus:border-none focus:outline-8 focus:outline-blue-300 focus:outline-offset-4'
-                           // id='firstname-input'
                            placeholders='Jose'
-                           // {...register("firstname", { required: true })}
                         />
-                        {/* {errors.firstname?.type === "required" && (
+                        {errors.firstname?.type === "required" && (
                            <ErrorContainer>* First name is required</ErrorContainer>
-                        )} */}
+                        )}
                      </FieldSet>
                      <FieldSet description='Your surname' cssProperties='w-2/3'>
                         <InputTextForm
@@ -115,15 +100,18 @@ const Register = () => {
                            placeholders='Rivera'
                            name='surname'
                         />
-                        {/* {errors.surname?.type === "required" && (
+                        {errors.surname?.type === "required" && (
                            <ErrorContainer>* Surname is required</ErrorContainer>
-                        )} */}
+                        )}
                      </FieldSet>
                      <FieldSet description='Your email' cssProperties='w-2/3'>
                         <input
                            className='p-2 text-sm w-full  border-2 border-gray-500 border-solid placeholder:text-sm rounded  focus:border-none focus:outline-8 focus:outline-blue-300 focus:outline-offset-4'
                            {...register("email", {
-                              required: "the password is required",
+                              required: {
+                                 value: true,
+                                 message: "* The email is required",
+                              },
                               pattern: {
                                  value: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/,
                                  message: "The email must be a correct format",
@@ -132,9 +120,10 @@ const Register = () => {
                            placeholder='jose@gmail.com'
                            name='email'
                         />
-                        {/* {errors.email?.type == "email" && (
+                        {(errors.email?.type == "required" ||
+                           errors.email?.type == "pattern") && (
                            <ErrorContainer>{errors.email?.message}</ErrorContainer>
-                        )} */}
+                        )}
                      </FieldSet>
                      <FieldSet description='Your birthname' cssProperties='w-2/3'>
                         <InputTextForm
@@ -142,11 +131,9 @@ const Register = () => {
                            type='date'
                            name='birthdate'
                         />
-                        {/* {errors.birthdate?.type == "required" && (
-                           <ErrorContainer>
-                              {errors.birthdate?.message}
-                           </ErrorContainer>
-                        )} */}
+                        {errors.birthdate?.type == "required" && (
+                           <ErrorContainer>* This feld is required</ErrorContainer>
+                        )}
                      </FieldSet>
                      <FieldSet description='Your password' cssProperties='w-2/3'>
                         <input
@@ -167,15 +154,17 @@ const Register = () => {
                               },
                            })}
                         />
-                        {errors.password?.type === "required" ||
-                           (errors.password?.type == "pattern" && (
-                              <ErrorContainer errors={`${errors.password?.type}`}>
-                                 {errors.password.message}
-                              </ErrorContainer>
-                           ))}
+                        {(errors.password?.type == "required" ||
+                           errors.password?.type == "pattern") && (
+                           <ErrorContainer>
+                              {errors.password?.message}
+                           </ErrorContainer>
+                        )}
                      </FieldSet>
-                     <div className='relative p-4 flex gap-4 justify-center '>
-                        <label htmlFor='interested'>Interested on:</label>
+                     <div className='relative p-1 flex gap-4 justify-center '>
+                        <label className='w-fit' htmlFor='interested'>
+                           Interested on:
+                        </label>
                         <select
                            className='bg-slate-200 rounded '
                            id='interested'
@@ -198,12 +187,12 @@ const Register = () => {
             </article>
             <ImgComponent
                imgPath='https://res.cloudinary.com/ddybbosdk/image/upload/v1726571808/CARS%20AUTODEELER/ram-portrait-register_1_qyb1im.avif'
-               alt='Ram-portrait-toronto'
+               alt='ram-portrait-toronto'
                classContainer='w-[60%] h-full hidden md:block'
                classImg='w-full h-full object-cover object-center'
             />
          </article>
-         {/* {showToast && <Toast handle={resOk ? true : false}>{errMsg}</Toast>} */}
+         {showToast && <Toast handle={resOk ? true : false}>{errMsg}</Toast>}
       </>
    )
 }
