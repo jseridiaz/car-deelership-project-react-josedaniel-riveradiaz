@@ -14,15 +14,15 @@ const fetchGetAutos = async (
 ): Promise<AutoModelType[]> => {
    const Respons = await fetch(
       `${import.meta.env.VITE_URL_BASE + "/search/query?"}${
-         availability ? "availability=Disponible" : null
-      }${brand && brand != "All" ? `&brand=${brand}` : null}${
-         model && model != "All" ? `&model=${model}` : null
-      }${chassis && chassis != "All" ? `&chassis=${chassis}` : null}${
-         minPrice ? `&minPrice=${minPrice}` : null
-      }${maxPrice ? `&maxPrice=${maxPrice}` : null}${
-         minKm ? `&minKm=${minKm}` : null
-      }${maxKm ? `&maxKm=${maxKm}` : null}${minYear ? `&minYear=${minYear}` : null}${
-         maxYear ? `&maxYear=${maxYear}` : null
+         availability ? "availability=Disponible" : ""
+      }${brand && brand != "All" ? `&brand=${brand}` : ""}${
+         model && model != "All" ? `&model=${model}` : ""
+      }${chassis && chassis != "All" ? `&chassis=${chassis}` : ""}${
+         minPrice ? `&minPrice=${minPrice}` : ""
+      }${maxPrice ? `&maxPrice=${maxPrice}` : ""}${minKm ? `&minKm=${minKm}` : ""}${
+         maxKm ? `&maxKm=${maxKm}` : ""
+      }${minYear ? `&minYear=${minYear}` : ""}${
+         maxYear ? `&maxYear=${maxYear}` : ""
       }`,
    )
       .then(res => res.json())
