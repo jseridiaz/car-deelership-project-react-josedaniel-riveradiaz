@@ -1,7 +1,7 @@
 import { IFormInput } from "../../types"
 
 const fetchRegisterUser = (data: IFormInput) =>
-   fetch(`${import.meta.env.VITE_BASE_URL + "/user/register"}`, {
+   fetch(`${import.meta.env.VITE_URL_BASE + "/user/register"}`, {
       method: "POST",
       headers: {
          "Content-Type": "application/json",

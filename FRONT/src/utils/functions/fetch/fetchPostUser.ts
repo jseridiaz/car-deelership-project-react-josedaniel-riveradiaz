@@ -1,7 +1,7 @@
 import { SubmitHandlerPersonalInfo } from "../../types"
 
 const fetchPutUser = (idUser: string | null, body: SubmitHandlerPersonalInfo) =>
-   fetch(`${import.meta.env.VITE_BASE_URL + "/user/" + idUser}`, {
+   fetch(`${import.meta.env.VITE_URL_BASE + "/user/" + idUser}`, {
       method: "PUT",
       headers: {
          "Content-Type": "application/json",

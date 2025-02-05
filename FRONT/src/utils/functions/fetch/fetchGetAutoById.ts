@@ -1,5 +1,5 @@
 const fetchAutoById = (el: string) =>
-   fetch(`${import.meta.env.VITE_BASE_URL + "/search/" + el}`).then(res =>
+   fetch(`${import.meta.env.VITE_URL_BASE + "/search/" + el}`).then(res =>
       res.json(),
    )
 
