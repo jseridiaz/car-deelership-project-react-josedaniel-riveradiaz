@@ -1,11 +1,4 @@
-import {
-   Dispatch,
-   SetStateAction,
-   useCallback,
-   useContext,
-   useEffect,
-   useState,
-} from "react"
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react"
 import { optionFiltersHome } from "../../../data/optionFilters"
 import H2Component from "../../atoms/H2Component"
 import CardAutoHome from "../CardAutoHome"
