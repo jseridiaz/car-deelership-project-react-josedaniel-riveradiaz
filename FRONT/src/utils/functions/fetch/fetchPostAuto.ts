@@ -1,5 +1,5 @@
 const fetchPostAuto = (token: string | null, bodyToSend: FormData) => {
-   return fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/search", {
+   return fetch(`${import.meta.env.VITE_BASE_URL}/search`, {
       method: "POST",
       headers: {
          Authorization: "Bearer " + token,

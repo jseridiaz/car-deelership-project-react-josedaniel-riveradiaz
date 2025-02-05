@@ -1,5 +1,5 @@
 const fetchDeleteAuto = (token: string | null, id: string) =>
-   fetch(`https://carseller-back-josedaniel.vercel.app/autos/v1/search/${id}`, {
+   fetch(`${import.meta.env.VITE_BASE_URL}/search/${id}`, {
       method: "DELETE",
       headers: { Authorization: "Bearer " + token },
    })

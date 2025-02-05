@@ -1,6 +1,6 @@
 const fetchDeleteFavourite = (customerId: string, autoId: string) =>
    fetch(
-      `https://carseller-back-josedaniel.vercel.app/autos/v1/customer/delete/favourites/${customerId}`,
+      `${import.meta.env.VITE_BASE_URL}/customer/delete/favourites/${customerId}`,
       {
          method: "PUT",
          headers: {

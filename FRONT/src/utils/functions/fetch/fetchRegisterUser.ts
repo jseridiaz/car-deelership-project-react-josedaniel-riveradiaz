@@ -1,7 +1,7 @@
 import { IFormInput } from "../../types"
 
 const fetchRegisterUser = (data: IFormInput) =>
-   fetch("https://carseller-back-josedaniel.vercel.app/autos/v1/user/register", {
+   fetch(`${import.meta.env.VITE_BASE_URL}/user/register`, {
       method: "POST",
       headers: {
          "Content-Type": "application/json",

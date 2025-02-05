@@ -41,6 +41,8 @@ const InformationPersonal = () => {
       dispatch({ type: "setLoading", payload: true })
       fetchGetCustomerProfil(idUser).then(r => {
          const { res } = r
+         console.log(res)
+
          dispatch({ type: "setName", payload: res.profile.name })
          dispatch({ type: "setSurName", payload: res.profile.surname })
          dispatch({ type: "setKindFavourites", payload: res.profile.favourites })
