@@ -51,6 +51,8 @@ const Explore = () => {
    )
 
    useEffect(() => {
+      console.log(arrayAutos)
+
       fetchData(filterSelect, setArrayAutos)
    }, [])
    useEffect(() => {
