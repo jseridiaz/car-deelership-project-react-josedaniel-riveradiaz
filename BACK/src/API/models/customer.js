@@ -6,7 +6,7 @@ const CustomerSchema = new mongoose.Schema(
       buys: { type: [mongoose.Types.ObjectId], ref: "autoModel" },
       reserves: { type: [mongoose.Types.ObjectId], ref: "autoModel" },
       reviews: { type: [String] },
-      favourites: { type: [mongoose.Types.ObjectId], ref: "autoModel" },
+      favourites: { type: [mongoose.Types.ObjectId] || [], ref: "autoModel" },
    },
    { timestamps: true, collection: "customer" },
 )

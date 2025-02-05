@@ -10,7 +10,6 @@ import Seo from "../Components/molecules/Seo"
 import Loader from "../Components/atoms/Loader"
 import fetchGetCustomerProfil from "../utils/functions/fetch/fetchGetCustomerProfil"
 import fetchClearFavourites from "../utils/functions/fetch/fetchClearFavourites"
-import fetchAutoById from "../utils/functions/fetch/fetchGetAutoById"
 import useLoading from "../Components/customHooks/useLoading"
 import getIdUserOrLogged from "../utils/functions/storage/getIdUserOrLogged"
 
@@ -30,16 +29,19 @@ const FavouriteCars = () => {
       setLoading(true)
       setArrayToPrint([])
 
-      let array: AutoModelType[] | [] = []
-
       if (arrayFavourites.length) {
-         for (let i = 0; i < arrayFavourites.length; i++) {
-            const el = arrayFavourites[i]
-            fetchAutoById(el).then(res => {
-               array = [...array, res.res]
-               setArrayToPrint(array)
-            })
-         }
+         fetch(`${import.meta.env.VITE_URL_BASE + "/customer/user/" + logged}`)
+            .then(res => res.json())
+            .then(res => res.res.favourites)
+            .then(res => setArrayToPrint(res))
+
+         // for (let i = 0; i < arrayFavourites.length; i++) {
+         //    const el = arrayFavourites[i]
+         //    fetchAutoById(el).then(res => {
+         //       array = [...array, res.res]
+         //       setArrayToPrint(array)
+         //    })
+         // }
          setLoading(false)
       } else {
          setLoading(false)

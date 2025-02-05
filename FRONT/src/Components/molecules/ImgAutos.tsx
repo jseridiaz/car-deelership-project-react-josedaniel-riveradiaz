@@ -30,9 +30,11 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const userInfo: userID = getStorage("userInfo")
 
-   const addFavourite = () => {
+   const addFavourite = async () => {
       if (customerId) {
-         fetchAddFavourite(customerId, autoId)
+         const addCard = await fetchAddFavourite(customerId, autoId)
+         console.log(addCard)
+
          const arrayAdded = [...arrayFavourites, autoId]
          setArrayFavourites(prevArray => [...prevArray, autoId])
          localStorage.setItem("favourites", JSON.stringify(arrayAdded))
