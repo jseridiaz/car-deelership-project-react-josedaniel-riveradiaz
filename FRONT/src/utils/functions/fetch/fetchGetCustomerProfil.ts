@@ -3,9 +3,9 @@ const fetchGetCustomerProfil = (idUser: string | null) => {
 
    console.log(idUser)
 
-   return fetch(`${import.meta.env.VITE_URL_BASE}/customer/user/${idUser}`).then(
-      res => res.json(),
-   )
+   return fetch(
+      `${import.meta.env.VITE_URL_BASE + "/customer/user/" + idUser}`,
+   ).then(res => res.json())
 }
 
 export default fetchGetCustomerProfil

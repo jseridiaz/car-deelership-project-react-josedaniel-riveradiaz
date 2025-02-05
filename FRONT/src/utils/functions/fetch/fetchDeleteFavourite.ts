@@ -1,6 +1,8 @@
 const fetchDeleteFavourite = (customerId: string, autoId: string) =>
    fetch(
-      `${import.meta.env.VITE_BASE_URL}/customer/delete/favourites/${customerId}`,
+      `${
+         import.meta.env.VITE_BASE_URL + "/customer/delete/favourites/" + customerId
+      }`,
       {
          method: "PUT",
          headers: {
