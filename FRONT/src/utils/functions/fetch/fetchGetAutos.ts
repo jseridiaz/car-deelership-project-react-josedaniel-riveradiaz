@@ -13,7 +13,7 @@ const fetchGetAutos = async (
    maxYear?: number,
 ): Promise<AutoModelType[]> => {
    const Respons = await fetch(
-      `${import.meta.env.BASE_URL}/search/query?${
+      `${import.meta.env.BASE_URL + "/search/query?"}${
          availability ? "availability=Disponible" : ""
       }${brand && brand != "All" ? `&brand=${brand}` : ""}${
          model && model != "All" ? `&model=${model}` : ""

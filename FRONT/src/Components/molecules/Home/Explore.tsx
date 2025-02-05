@@ -49,9 +49,7 @@ const Explore = () => {
       },
       [],
    )
-   useEffect(() => {
-      fetchData(filterSelect, setArrayAutos)
-   }, [filterSelect])
+
    useEffect(() => {
       fetchData(filterSelect, setArrayAutos)
    }, [])
@@ -82,6 +80,7 @@ const Explore = () => {
             <div className='w-full bg-slate-50 p-10 '>
                <H2Component>Explore</H2Component>
             </div>
+
             <div className='bg-slate-50 min-h-96 w-full '>
                <form
                   action=''
