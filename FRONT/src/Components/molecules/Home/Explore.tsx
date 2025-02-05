@@ -1,6 +1,5 @@
 import {
    Dispatch,
-   memo,
    SetStateAction,
    useCallback,
    useContext,
@@ -22,37 +21,35 @@ const Explore = () => {
    const [filterSelect, setFilterSelect] = useState<string>("Cars")
    const [arrayAutos, setArrayAutos] = useState<AutoModelType[]>([])
 
-   const fetchData = useCallback(
-      (
-         filterSelect: string,
-         setArray: Dispatch<SetStateAction<AutoModelType[] | []>>,
-      ) => {
-         return fetchGetAutos(
-            true,
-            null,
-            null,
-            filterSelect == "Cars"
-               ? "Turismo"
-               : filterSelect === "Trucks" || filterSelect == "Truck"
-               ? "Truck"
-               : "SUV",
-         ).then(res => {
-            const finalArrayAuto: AutoModelType[] = []
-            for (let i = 0; i < 6; i++) {
-               const aleatoryNumber: number = Math.floor(Math.random() * res.length)
-               const element: AutoModelType = res[aleatoryNumber]
-               finalArrayAuto.push(element)
-               res.splice(aleatoryNumber, 1)
-            }
-            setArray(finalArrayAuto)
-         })
-      },
-      [],
-   )
+   const fetchData = (
+      filterSelect: string,
+      setArray: Dispatch<SetStateAction<AutoModelType[] | []>>,
+   ) => {
+      return fetchGetAutos(
+         true,
+         null,
+         null,
+         filterSelect == "Cars"
+            ? "Turismo"
+            : filterSelect === "Trucks" || filterSelect == "Truck"
+            ? "Truck"
+            : "SUV",
+      ).then(res => {
+         const finalArrayAuto: AutoModelType[] = []
+         for (let i = 0; i < 6; i++) {
+            const aleatoryNumber: number = Math.floor(Math.random() * res.length)
+            const element: AutoModelType = res[aleatoryNumber]
+            finalArrayAuto.push(element)
+            res.splice(aleatoryNumber, 1)
+         }
+         setArray(finalArrayAuto)
+      })
+   }
 
    useEffect(() => {
       fetchData(filterSelect, setArrayAutos)
-   }, [])
+   }, [filterSelect])
+
    useEffect(() => {
       if (logged)
          fetchGetUser(logged).then(res => {
@@ -132,4 +129,4 @@ const Explore = () => {
    )
 }
 
-export default memo(Explore)
+export default Explore
