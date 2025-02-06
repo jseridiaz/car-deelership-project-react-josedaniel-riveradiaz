@@ -30,16 +30,14 @@ const ImgAutos: React.FC<ImgAutoType> = ({
    const { arrayFavourites, setArrayFavourites } = useContext(FavouritesContext)
    const userInfo: userID = getStorage("userInfo")
 
-   const addFavourite = async () => {
+   const addFavouriteBBDD = async () => {
       if (customerId) {
-         const addCard = await fetchAddFavourite(customerId, autoId)
-         console.log(addCard)
-
+         await fetchAddFavourite(customerId, autoId)
          const arrayAdded = [...arrayFavourites, autoId]
-         setArrayFavourites(prevArray => [...prevArray, autoId])
          localStorage.setItem("favourites", JSON.stringify(arrayAdded))
       }
    }
+   const addFavouriteOptimist = () => setArrayFavourites(prev => [...prev, autoId])
    const deleteFavourite = () => {
       if (customerId) {
          fetchDeleteFavourite(customerId, autoId)
@@ -82,7 +80,8 @@ const ImgAutos: React.FC<ImgAutoType> = ({
                         className='transition duration-700 absolute z-100 right-2 top-1 hover:scale-125'
                         onClick={e => {
                            e.preventDefault()
-                           addFavourite()
+                           addFavouriteOptimist()
+                           addFavouriteBBDD()
                         }}
                      />
                   )
