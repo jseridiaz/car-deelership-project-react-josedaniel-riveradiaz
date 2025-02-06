@@ -52,7 +52,7 @@ const FooterComponent = () => {
                </div>
             </div>
 
-            <div className='relative flex flex-wrap justify-around w-full sm:w-1/2 gap-6 left-0 sm:left-[10%]'>
+            <div className='relative flex flex-wrap justify-around w-full sm:w-1/2 gap-6 left-0 sm:left-[10%] '>
                {dataFooter.map((el, idx) => (
                   <UlFooter key={idx} title={el.title} arrayLi={el.li} />
                ))}

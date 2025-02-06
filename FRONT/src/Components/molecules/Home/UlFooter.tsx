@@ -6,7 +6,7 @@ interface UlFooterType {
 }
 const UlFooter: React.FC<UlFooterType> = ({ title, arrayLi }) => {
    return (
-      <ul className='min-w-[120px] w-full sm:w-1/4 flex flex-wrap flex-col text-left p-1 items-center'>
+      <ul className='min-w-[120px] w-[50%] sm:w-1/4 flex flex-wrap flex-col text-left p-1 left-12 s relative max-[450px]:left-2 '>
          <li className='font-medium text-left'>{title}</li>
          <li className='flex flex-col mt-2 gap-2 '>
             {arrayLi.map((el, idx) => (
