@@ -28,6 +28,10 @@ a.active {
    mask-composite: subtract;
    animation: spinn 1s infinite linear;
 }
+.center {
+   place-content: center;
+   place-items: center;
+}
 @keyframes spinn {
    from {
       transform: rotate(0deg);
