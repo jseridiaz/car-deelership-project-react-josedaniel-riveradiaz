@@ -43,23 +43,6 @@ const Explore = () => {
       fetchData(filterSelect)
    }, [filterSelect])
 
-   // useEffect(() => {
-   //    if (logged)
-   //       fetchGetUser(logged).then(res => {
-   //          const favouritesObject = res.res
-   //          const { favourites } = favouritesObject
-
-   //          setFilterSelect(
-   //             favourites == "Cars"
-   //                ? "Cars"
-   //                : favourites == "Truck"
-   //                ? "Trucks"
-   //                : "SUVs & Crossover",
-   //          )
-   //          fetchData(res.res.favourites, setArrayAutos)
-   //       })
-   // }, [logged])
-
    const handleFilter = (name: string): void => {
       setFilterSelect(name)
    }

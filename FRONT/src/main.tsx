@@ -10,11 +10,11 @@ import GlobalLogged from "./Components/Providers/GlobalLogged.tsx"
 import GlobalFavouritesArray from "./Components/Providers/GlobalFavouritesArray.tsx"
 import { HelmetProvider } from "react-helmet-async"
 import GlobalResize from "./Components/Providers/GlobalResize.tsx"
-
+const helmetContext = {}
 createRoot(document.getElementById("root")!).render(
    <StrictMode>
-      <BrowserRouter>
-         <HelmetProvider>
+      <HelmetProvider context={helmetContext}>
+         <BrowserRouter>
             <GlobalCarsContext>
                <GlobalCurrentPage>
                   <GlobalFavouritesArray>
@@ -28,8 +28,8 @@ createRoot(document.getElementById("root")!).render(
                   </GlobalFavouritesArray>
                </GlobalCurrentPage>
             </GlobalCarsContext>
-         </HelmetProvider>
-      </BrowserRouter>
+         </BrowserRouter>
+      </HelmetProvider>
       ,
    </StrictMode>,
 )

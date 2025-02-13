@@ -1,10 +1,9 @@
 import { Helmet } from "react-helmet-async"
 import { SeoType } from "../../utils/types"
-import { memo } from "react"
 
 const Seo: React.FC<SeoType> = ({ title, description, url, img }) => {
    return (
-      <Helmet>
+      <Helmet prioritizeSeoTags>
          <title>{title}</title>
          <meta name='description' content={description} />
          <meta name='theme-color' content='#fffff' />
@@ -20,4 +19,4 @@ const Seo: React.FC<SeoType> = ({ title, description, url, img }) => {
       </Helmet>
    )
 }
-export default memo(Seo)
+export default Seo
