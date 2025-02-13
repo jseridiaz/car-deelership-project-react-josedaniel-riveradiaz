@@ -7,6 +7,3 @@ export const getArrayBrands = (array: AutoModelType[]) => {
 
    return ["Select a Brand", ...arrayLastFilter]
 }
-// export getAllModels=()=>{
-
-// }

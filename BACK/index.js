@@ -23,8 +23,13 @@ fs.writeFile("Autos.json", JSON.stringify(jsonAuto), async error => {
    if (error) {
       console.log(error)
    } else {
+      console.log("JsonAuto", jsonAuto)
+
       const allAutos = await AutoModel.find()
+      console.log("allAutos findedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD", allAutos)
+
       const allAutosVin = allAutos.map(el => el.vin)
+      console.log("All autos vin:", allAutosVin)
 
       for (let i = 0; i < jsonAuto.length; i++) {
          const e = jsonAuto[i].vin

@@ -11,9 +11,14 @@ const SvgBin: React.FC<IdName> = ({ idName }) => {
    const { token } = useContext(TokenContext)
    const { loading, changeLoading } = useLoading()
 
-   const handleDelete = (id: string) => {
+   const handleDelete = async (id: string) => {
       changeLoading()
-      return fetchDeleteAuto(token, id).then(() => changeLoading())
+      await fetchDeleteAuto(token, id).then(() => {
+         if (arrayAllCars?.length) {
+            setArrayAllCars(arrayAllCars?.filter(el => el._id !== id))
+         }
+         changeLoading()
+      })
    }
 
    return (

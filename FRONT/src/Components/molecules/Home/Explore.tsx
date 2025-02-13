@@ -1,30 +1,30 @@
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { optionFiltersHome } from "../../../data/optionFilters"
 import H2Component from "../../atoms/H2Component"
 import CardAutoHome from "../CardAutoHome"
-import { AutoModelType } from "../../../utils/types"
+import { AutoModelType, UserInfoType } from "../../../utils/types"
 import { Link } from "react-router-dom"
-import { LoggedContext } from "../../Providers/GlobalLogged"
 import ContainerColumn from "../../atoms/ContainerColumn"
 import fetchGetAutos from "../../../utils/functions/fetch/fetchGetAutos"
-import fetchGetUser from "../../../utils/functions/fetch/fetchGetUser"
+// import fetchGetUser from "../../../utils/functions/fetch/fetchGetUser"
+import { CarContext } from "../../Providers/GlobalCarsArray"
+import { getStorage } from "../../../utils/functions/storage/getStorage"
 
 const Explore = () => {
-   const { logged } = useContext(LoggedContext)
-   const [filterSelect, setFilterSelect] = useState<string>("Cars")
-   const [arrayAutos, setArrayAutos] = useState<AutoModelType[]>([])
+   const Favourite: UserInfoType | null = getStorage("userInfo")
+   const [filterSelect, setFilterSelect] = useState<string>(
+      Favourite?.favourites ?? "Cars",
+   )
+   const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
 
-   const fetchData = (
-      filterSelect: string,
-      setArray: Dispatch<SetStateAction<AutoModelType[] | []>>,
-   ) => {
-      return fetchGetAutos(
+   const fetchData = (filterSelect: string) => {
+      fetchGetAutos(
          true,
          null,
          null,
          filterSelect == "Cars"
             ? "Turismo"
-            : filterSelect === "Trucks" || filterSelect == "Truck"
+            : filterSelect === "Trucks"
             ? "Truck"
             : "SUV",
       ).then(res => {
@@ -35,30 +35,30 @@ const Explore = () => {
             finalArrayAuto.push(element)
             res.splice(aleatoryNumber, 1)
          }
-         setArray(finalArrayAuto)
+         setArrayAllCars(finalArrayAuto)
       })
    }
 
    useEffect(() => {
-      fetchData(filterSelect, setArrayAutos)
+      fetchData(filterSelect)
    }, [filterSelect])
 
-   useEffect(() => {
-      if (logged)
-         fetchGetUser(logged).then(res => {
-            const favouritesObject = res.res
-            const { favourites } = favouritesObject
+   // useEffect(() => {
+   //    if (logged)
+   //       fetchGetUser(logged).then(res => {
+   //          const favouritesObject = res.res
+   //          const { favourites } = favouritesObject
 
-            setFilterSelect(
-               favourites == "Cars"
-                  ? "Cars"
-                  : favourites == "Truck"
-                  ? "Trucks"
-                  : "SUVs & Crossover",
-            )
-            fetchData(res.res.favourites, setArrayAutos)
-         })
-   }, [logged])
+   //          setFilterSelect(
+   //             favourites == "Cars"
+   //                ? "Cars"
+   //                : favourites == "Truck"
+   //                ? "Trucks"
+   //                : "SUVs & Crossover",
+   //          )
+   //          fetchData(res.res.favourites, setArrayAutos)
+   //       })
+   // }, [logged])
 
    const handleFilter = (name: string): void => {
       setFilterSelect(name)
@@ -95,7 +95,7 @@ const Explore = () => {
                   className='flex flex-nowrap
                overflow-x-scroll overflow-y-hidden snap-x h-full scroll-smooth sm:pb-0 pb-6'
                >
-                  {arrayAutos.map((el, idx) => (
+                  {arrayAllCars?.map((el, idx) => (
                      <CardAutoHome
                         key={idx}
                         autoModel={el.model}

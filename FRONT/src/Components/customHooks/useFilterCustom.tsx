@@ -50,6 +50,7 @@ export const useFilterCustom = () => {
                   setArrayAllCars(res)
                   setCurrentPage(0)
                   dispatch({ type: "setLoading", payload: false })
+                  dispatch({ type: "setBrands", payload: res })
 
                   if (!res.length) {
                      dispatch({ type: "setModels", payload: null })

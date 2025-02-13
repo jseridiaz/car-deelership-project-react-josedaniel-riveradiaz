@@ -61,7 +61,7 @@ const Login = () => {
 
                setTimeout(() => {
                   navigate("/home")
-               }, 3000)
+               }, 2000)
             } else {
                sessionStorage.setItem("token", resJson.res.token)
                sessionStorage.setItem("logged", resJson.res.logged._id)
@@ -70,7 +70,7 @@ const Login = () => {
                setToken(resJson.res.token)
                setTimeout(() => {
                   navigate("/home")
-               }, 3000)
+               }, 2000)
             }
          })
    }

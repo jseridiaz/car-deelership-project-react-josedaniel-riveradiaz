@@ -29,7 +29,7 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
             )
          })
       }
-   }, [logged, token])
+   }, [])
 
    return (
       <section className={cssProperties}>

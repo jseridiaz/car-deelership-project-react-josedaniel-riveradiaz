@@ -8,10 +8,12 @@ import Button from "../atoms/Button"
 import { useFilterCustom } from "../customHooks/useFilterCustom"
 import InputRange from "../atoms/InputRange"
 import { ResizeContext } from "../Providers/GlobalResize"
+// import { CarContext } from "../Providers/GlobalCarsArray"
 
 const FilterComponent = () => {
    const { filterFunction, state, dispatch } = useFilterCustom()
    const { changeViewPort } = useContext(ResizeContext)
+   // const { arrayAllCars } = useContext(CarContext)
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
@@ -26,6 +28,7 @@ const FilterComponent = () => {
 
    useEffect(() => {
       changeViewPort()
+
       return () => {
          window.removeEventListener("resize", changeViewPort)
       }
@@ -56,7 +59,19 @@ const FilterComponent = () => {
          state.minYear,
          state.maxYear,
       )
-   }, [filterFunction])
+   }, [
+      state.brand,
+      state.model,
+      state.chassis,
+      state.availability,
+      state.minPrice,
+      state.maxPrice,
+      state.minKm,
+      state.maxKm,
+      state.minYear,
+      state.maxYear,
+      filterFunction,
+   ])
 
    return (
       <div className='p-4'>
@@ -142,6 +157,7 @@ const FilterComponent = () => {
                   <ContainerColumn className={`font-semibold text-center w-full`}>
                      Price
                   </ContainerColumn>
+
                   <InputRange
                      idName='minprice-input'
                      defaultValue='0'
@@ -226,7 +242,7 @@ const FilterComponent = () => {
                      numberValue='km'
                      step='10000'
                      reference={selectedMaxKm}
-                     firstValue={9999999}
+                     firstValue={0}
                      setValue={
                         (onchange = (): number =>
                            Number(selectedMaxKm.current?.value))

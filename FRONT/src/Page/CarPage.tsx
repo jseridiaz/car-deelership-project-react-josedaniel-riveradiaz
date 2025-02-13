@@ -6,22 +6,50 @@ import Pagination from "../Components/molecules/Pagination"
 import { CurrentPageContext } from "../Components/Providers/GlobalPages"
 import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
-import { ContextNoResult } from "../Components/Providers/GlobalArrayNoResult"
+import fetchGetAutos from "../utils/functions/fetch/fetchGetAutos"
+import { AutoModelType } from "../utils/types"
 
 const CarPage = () => {
-   const { arrayAllCars } = useContext(CarContext)
+   console.log("me renderizo en el inicio")
+
+   const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
    const { currentPage, setCurrentPage } = useContext(CurrentPageContext)
-   const { arrayNoResult } = useContext(ContextNoResult)
+   const [arrayNoResult, setArrayNoResult] = useState<AutoModelType[]>([])
+   // const { arrayNoResult } = useContext(ContextNoResult)
    const productsPerPage: number = 8
    const [pages, setPages] = useState<number>(1)
    const firstIndex = 0 + productsPerPage * currentPage
    const lastIndex = productsPerPage * (currentPage + 1)
-
    useEffect(() => {
-      if (arrayAllCars == undefined) {
+      fetchGetAutos(true).then(res => setArrayAllCars(res))
+   }, [])
+   useEffect(() => {
+      if (arrayAllCars?.length) {
+         setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
          return
       }
-      setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
+
+      if (!arrayAllCars?.length) {
+         const minQuantity = 0
+         const maxQuantity = 9999999
+         fetchGetAutos(
+            true,
+            "All",
+            "All",
+            "All",
+            minQuantity,
+            maxQuantity,
+            minQuantity,
+            maxQuantity,
+            minQuantity,
+            maxQuantity,
+         ).then(res => {
+            const newArray = res
+               .sort(() => Math.random() - 0.5)
+               .slice(firstIndex, lastIndex)
+            setArrayNoResult(newArray)
+         })
+      }
    }, [arrayAllCars])
 
    return (
@@ -43,9 +71,7 @@ const CarPage = () => {
                      Some auto examples
                   </Parraf>
                   <PrintListAutos
-                     arrayToPRint={arrayNoResult
-                        .sort(() => Math.random() - 0.5)
-                        .slice(firstIndex, lastIndex)}
+                     arrayToPRint={arrayNoResult}
                      cssProperties='p-7 my-12'
                   />
                </>

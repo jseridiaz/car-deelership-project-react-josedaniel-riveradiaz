@@ -14,7 +14,7 @@ const InputRange: React.FC<InputRangeType> = ({
    handleChange,
    setValue,
 }) => {
-   const [currentValue, setCurrentValue] = useState(firstValue)
+   const [currentValue, setCurrentValue] = useState<number>(firstValue)
    useEffect(() => {
       setCurrentValue(setValue)
    }, [setValue])
