@@ -53,12 +53,6 @@ export const useFilterCustom = () => {
             )
                .then(res => getResponseJson(res))
                .then(res => {
-                  // dispatch({ type: "setAvailable" })
-                  console.log(res)
-                  const brands = res.map(el => el.brand)
-                  const deleteDuplicated = new Set(brands)
-                  console.log(deleteDuplicated)
-
                   dispatch({ type: "setModels", payload: getModels(res) })
                   dispatch({ type: "setAvailableChassis", payload: res })
                   setArrayAllCars(res)

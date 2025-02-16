@@ -77,7 +77,6 @@ const InformationPersonal = () => {
 
          if (local && favourites) {
             local.favourites = favourites
-            console.log(local)
             if (localStorage.getItem("userInfo") != null) {
                localStorage.setItem("userInfo", JSON.stringify(local))
             } else {

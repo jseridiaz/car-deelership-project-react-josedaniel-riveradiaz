@@ -53,7 +53,6 @@ const Register = () => {
          },
       })
          .then(res => {
-            console.log(res.ok)
             setShowToast(true)
             if (res.ok) {
                setResOk(true)

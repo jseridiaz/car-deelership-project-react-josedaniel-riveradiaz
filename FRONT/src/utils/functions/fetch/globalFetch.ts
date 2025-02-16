@@ -20,16 +20,6 @@ const globalFetch = async (
    }).then(res => res)
 
    return res
-   // await fetch(`${import.meta.env.BASE_URL}${endpoint}`, {
-   //    method,
-   //    headers: {
-   //       "Content-Type": "Application/json",
-   //       ...(token && { Autorization: `Bearer ${token}` }),
-   //    },
-   //    ...(data && { body: JSON.stringify(data) }),
-   // })
-   //    .then(res => res.json())
-   //    .catch(err => console.log(err))
 }
 
 export default globalFetch

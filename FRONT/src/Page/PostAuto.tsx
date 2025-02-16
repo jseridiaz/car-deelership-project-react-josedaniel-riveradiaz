@@ -72,8 +72,6 @@ const PostAuto = () => {
       formData.append("picture", picture[0])
       globalFetch(`/search`, { method: "POST", token, data: formData }).then(res => {
          if (res.ok) {
-            console.log("done")
-
             setRes(true)
             turnOffBanner(setRes, 3000, false)
             reset()
