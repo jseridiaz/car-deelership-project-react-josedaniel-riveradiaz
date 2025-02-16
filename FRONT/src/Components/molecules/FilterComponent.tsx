@@ -246,7 +246,7 @@ const FilterComponent = () => {
                      numberValue='km'
                      step='10000'
                      reference={selectedMaxKm}
-                     firstValue={0}
+                     firstValue={99999999}
                      setValue={
                         (onchange = (): number =>
                            Number(selectedMaxKm.current?.value))
@@ -298,7 +298,7 @@ const FilterComponent = () => {
                      step='1'
                      numberValue=' '
                      reference={selectedMaxYear}
-                     firstValue={2025}
+                     firstValue={40000}
                      setValue={
                         (onchange = (): number =>
                            Number(selectedMaxYear.current?.value))

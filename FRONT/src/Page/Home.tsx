@@ -1,4 +1,3 @@
-// import { HiOutlineChevronRight } from "react-icons/hi"
 import { slides } from "../data/carouselSliders.json"
 import Carousel from "../Components/molecules/Home/Carousel"
 import Brands from "../Components/molecules/Home/Brands"

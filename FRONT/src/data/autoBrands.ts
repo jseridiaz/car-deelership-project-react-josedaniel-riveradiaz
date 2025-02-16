@@ -32,7 +32,7 @@ export const autoBrands = [
    "Maserati",
    "Mazda",
    "McLaren",
-   "Mercedes-Benz",
+   "Mercedes",
    "Mini",
    "Mitsubishi",
    "Nissan",

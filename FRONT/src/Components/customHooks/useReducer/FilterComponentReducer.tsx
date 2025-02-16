@@ -3,7 +3,7 @@ import getArrayChassis from "../../../utils/getArrayChassis"
 // import getArrayChassis from "../../../utils/getArrayChassis"
 import { ActionFilterType, FilterComponentReducerType } from "../../../utils/types"
 
-const maxQuantity = 100000
+const maxQuantity = 99999999
 const minQuantity = 0
 
 export const INITIAL_STATE: FilterComponentReducerType = {

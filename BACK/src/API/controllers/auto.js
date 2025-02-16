@@ -34,6 +34,11 @@ const getAutoFiltered = async (req, res, next) => {
          maxYear,
       )
       const autosFiltered = await AutoModel.find(filters)
+      const arrayBrand = autosFiltered.map(el => el.brand)
+      const noDuplicated = new Set(arrayBrand)
+      const noD = [...noDuplicated]
+      console.log(noD)
+
       res200(req, res, next, autosFiltered, "Fetch succesfull")
    } catch (error) {}
 }

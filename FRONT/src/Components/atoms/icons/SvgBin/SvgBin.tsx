@@ -19,8 +19,8 @@ const SvgBin: React.FC<IdName> = ({ idName }) => {
             changeLoading()
          })
          .catch(err => {
-            setArrayAllCars(arrayBeforeError)
-            console.log(err)
+            if (arrayBeforeError) setArrayAllCars(arrayBeforeError)
+            throw new Error(err)
          })
       if (arrayAllCars?.length) {
          setArrayAllCars(arrayAllCars?.filter(el => el._id !== id))
@@ -40,7 +40,7 @@ const SvgBin: React.FC<IdName> = ({ idName }) => {
                e.preventDefault()
                handleDelete(idName).then(() => {
                   setArrayAllCars(
-                     arrayAllCars && arrayAllCars.filter(el => el._id != idName),
+                     arrayAllCars ? arrayAllCars.filter(el => el._id != idName) : [],
                   )
                })
             }}

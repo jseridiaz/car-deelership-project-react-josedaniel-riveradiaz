@@ -31,6 +31,7 @@ const CarPage = () => {
    useEffect(() => {
       if (arrayAllCars?.length) {
          setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
+      } else {
          globalFetch(`/search/query?availability=Disponible`, { method: "GET" })
             .then(res => getResponseJson(res))
             .then(res => {
@@ -38,7 +39,6 @@ const CarPage = () => {
 
                setArrayNoResult(resumeRes)
             })
-         return
       }
 
       // if (!arrayAllCars?.length) {
