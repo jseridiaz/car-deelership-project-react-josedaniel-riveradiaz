@@ -11,15 +11,14 @@ import { useNavigate } from "react-router-dom"
 import Toast from "../Components/molecules/Toast"
 import Seo from "../Components/molecules/Seo"
 import { turnOffBanner } from "../utils/turnOffBanner"
-import fetchRegisterUser from "../utils/functions/fetch/fetchRegisterUser"
 import useLoading from "../Components/customHooks/useLoading"
+import globalFetch from "../utils/functions/fetch/globalFetch"
 
 const Register = () => {
    const { loading, setLoading } = useLoading()
    const [showToast, setShowToast] = useState<boolean>(false)
    const [errMsg, setErrMsg] = useState<string>("")
    const [resOk, setResOk] = useState<boolean>(false)
-   // const [message,setMessage]=useState<string>()
    const navigate = useNavigate()
 
    const {
@@ -31,17 +30,28 @@ const Register = () => {
          firstname: "",
          surname: "",
          email: "",
-         birthdate: "",
+         age: "",
          password: "",
          autosInterested: "cars",
       },
    })
 
    const handleRegister = (data: IFormInput): void => {
-      console.log(errors)
+      const { firstname, surname, age, email, password, autosInterested } = data
 
       setLoading(true)
-      fetchRegisterUser(data)
+      globalFetch(`/user/register`, {
+         method: "POST",
+         headers: true,
+         data: {
+            name: firstname,
+            surname: surname,
+            age: age.split("-").join("/"),
+            email: email.toLocaleLowerCase(),
+            password: password,
+            favourites: autosInterested,
+         },
+      })
          .then(res => {
             console.log(res.ok)
             setShowToast(true)
@@ -126,12 +136,8 @@ const Register = () => {
                         )}
                      </FieldSet>
                      <FieldSet description='Your birthname' cssProperties='w-2/3'>
-                        <InputTextForm
-                           register={register}
-                           type='date'
-                           name='birthdate'
-                        />
-                        {errors.birthdate?.type == "required" && (
+                        <InputTextForm register={register} type='date' name='age' />
+                        {errors.age?.type == "required" && (
                            <ErrorContainer>* This feld is required</ErrorContainer>
                         )}
                      </FieldSet>
@@ -178,7 +184,7 @@ const Register = () => {
                   </div>
                   <Button
                      isLink={false}
-                     properties='transition-all relative duration-300 relative bg-indigo-500 hover:bg-indigo-600 min-w-[105px] hover:font-bold text-white w-1/2 self-center '
+                     properties='transition-all relative duration-300 relative bg-indigo-500 hover:bg-indigo-600 min-w-[105px] hover:font-bold text-white w-1/2 self-center'
                   >
                      Sign in
                   </Button>

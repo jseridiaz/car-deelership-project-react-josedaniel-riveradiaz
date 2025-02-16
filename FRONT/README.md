@@ -24,7 +24,13 @@ Una vez hecho esto tendríamos todo el proyecto listo para trabajar con el.
 
 ## Arquitectura de la aplicación
 
-Dentro de src/components tendremos todos los componentes que utilizamos para renderizar nuestra app con estos. Se ha utilizado una arquitectura de atomos y moleculas, donde dentro de atoms están los componentes más simples que tiene pocas lineas de HTML para renderizar y funcionalidad simple como botton o parrafo. En el directorio de molecules están los componentes que tienen más lineas de código y en su estructuración están compuestos por varios componentes atoms y con una funcionalidad más compleja, como puede ser el el filtro de busqueda de vehículos.
+Dentro de src/components tendremos todos los componentes que utilizamos para renderizar nuestra app con estos. Se ha utilizado una arquitectura de atoms y molecules, donde dentro de atoms están los componentes más simples que tiene pocas lineas de HTML para renderizar como una sencilla funcionalidad como pueden ser un botón o un párrafo. En el directorio de molecules están los componentes que tienen más lineas de código y su estructuración está compuesto por varios componentes atoms, con una funcionalidad más compleja, como puede ser el filtro de búsqueda de vehículos.
+
+## Data fetching
+
+La función globalFetch será la que englobe todas las peticiones que necesitemos realizar en la aplicación. Los posibles endpoints y los demás parametros necesarios lo detallaré a continuación para que su uso sea entendible por todos los desarrolladores que tengan que utilizarla.
+
+### Parámetros
 
 ## Explicación de los componentes a reutilizar.
 

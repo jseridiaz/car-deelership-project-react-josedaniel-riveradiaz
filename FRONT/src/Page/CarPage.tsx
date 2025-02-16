@@ -6,50 +6,72 @@ import Pagination from "../Components/molecules/Pagination"
 import { CurrentPageContext } from "../Components/Providers/GlobalPages"
 import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
-import fetchGetAutos from "../utils/functions/fetch/fetchGetAutos"
 import { AutoModelType } from "../utils/types"
+import globalFetch from "../utils/functions/fetch/globalFetch"
+import getResponseJson from "../utils/getResponseFetch"
 
 const CarPage = () => {
-   console.log("me renderizo en el inicio")
-
-   const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
+   const { arrayAllCars } = useContext(CarContext)
    const { currentPage, setCurrentPage } = useContext(CurrentPageContext)
    const [arrayNoResult, setArrayNoResult] = useState<AutoModelType[]>([])
-   // const { arrayNoResult } = useContext(ContextNoResult)
+
    const productsPerPage: number = 8
    const [pages, setPages] = useState<number>(1)
    const firstIndex = 0 + productsPerPage * currentPage
    const lastIndex = productsPerPage * (currentPage + 1)
-   useEffect(() => {
-      fetchGetAutos(true).then(res => setArrayAllCars(res))
-   }, [])
+
+   // useEffect(() => {
+   //    if (!arrayAllCars?.length) {
+   //       globalFetch(`/search/query?availability=Disponible`, { method: "GET" })
+   //          .then(res => res.json())
+   //          .then(res => res.res)
+   //          .then(res => setArrayAllCars(res))
+   //    }
+   // }, [])
    useEffect(() => {
       if (arrayAllCars?.length) {
          setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
+         globalFetch(`/search/query?availability=Disponible`, { method: "GET" })
+            .then(res => getResponseJson(res))
+            .then(res => {
+               const resumeRes = res.sort(() => Math.random() - 0.5).slice(0, 4)
+
+               setArrayNoResult(resumeRes)
+            })
          return
       }
 
-      if (!arrayAllCars?.length) {
-         const minQuantity = 0
-         const maxQuantity = 9999999
-         fetchGetAutos(
-            true,
-            "All",
-            "All",
-            "All",
-            minQuantity,
-            maxQuantity,
-            minQuantity,
-            maxQuantity,
-            minQuantity,
-            maxQuantity,
-         ).then(res => {
-            const newArray = res
-               .sort(() => Math.random() - 0.5)
-               .slice(firstIndex, lastIndex)
-            setArrayNoResult(newArray)
-         })
-      }
+      // if (!arrayAllCars?.length) {
+      //    const minQuantity = 0
+      //    const maxQuantity = 9999999
+      //    fetchGetAutos(
+      //       true,
+      //       "All",
+      //       "All",
+      //       "All",
+      //       minQuantity,
+      //       maxQuantity,
+      //       minQuantity,
+      //       maxQuantity,
+      //       minQuantity,
+      //       maxQuantity,
+      //    ).then(res => {
+      //       if (res.length) {
+      //          setArrayAllCars(res)
+      //       } else {
+      //          globalFetch(`/search/query?availability=Disponible`, {
+      //             method: "GET",
+      //          })
+      //             .then(res => res.json())
+      //             .then(res =>
+      //                res.res
+      //                   .sort(() => Math.random() - 0.5)
+      //                   .slice(firstIndex, lastIndex),
+      //             )
+      //             .then(res => setArrayNoResult(res))
+      //       }
+      //    })
+      // }
    }, [arrayAllCars])
 
    return (

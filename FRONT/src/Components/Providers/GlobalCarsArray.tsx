@@ -6,7 +6,7 @@ export const CarContext = createContext<CarContextType>({
    setArrayAllCars: () => {},
 })
 const GlobalCarsContext = ({ children }: ErrorContainerType) => {
-   const [arrayAllCars, setArrayAllCars] = useState<AutoModelType[] | null | []>([])
+   const [arrayAllCars, setArrayAllCars] = useState<AutoModelType[] | []>([])
 
    return (
       <CarContext.Provider value={{ arrayAllCars, setArrayAllCars }}>

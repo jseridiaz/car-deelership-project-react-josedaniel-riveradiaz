@@ -1,4 +1,6 @@
 import { getArrayBrands } from "../../../utils/getArrayBrands"
+import getArrayChassis from "../../../utils/getArrayChassis"
+// import getArrayChassis from "../../../utils/getArrayChassis"
 import { ActionFilterType, FilterComponentReducerType } from "../../../utils/types"
 
 const maxQuantity = 100000
@@ -8,6 +10,12 @@ export const INITIAL_STATE: FilterComponentReducerType = {
    brands: null,
    chassis: "All",
    brand: "All",
+   availableChassis: [
+      { value: "All", description: "All" },
+      { value: "Turismo", description: "Cars" },
+      { value: "SUV", description: "SUVs" },
+      { value: "Truck", description: "Trucks" },
+   ],
    models: null,
    model: "All",
    availability: true,
@@ -32,6 +40,8 @@ export const FilterComponentReducer = (
          return { ...state, chassis: action.payload }
       case "setBrand":
          return { ...state, brand: action.payload }
+      case "setAvailableChassis":
+         return { ...state, availableChassis: getArrayChassis(action.payload) }
       case "setModel":
          return { ...state, model: action.payload }
       case "setModels":

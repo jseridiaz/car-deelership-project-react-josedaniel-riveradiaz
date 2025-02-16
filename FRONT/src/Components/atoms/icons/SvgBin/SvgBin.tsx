@@ -3,8 +3,8 @@ import { useContext } from "react"
 import { CarContext } from "../../../Providers/GlobalCarsArray"
 import { TokenContext } from "../../../Providers/GlobalToken"
 import useLoading from "../../../customHooks/useLoading"
-import fetchDeleteAuto from "../../../../utils/functions/fetch/fetchDeleteAuto"
 import Loader from "../../Loader"
+import globalFetch from "../../../../utils/functions/fetch/globalFetch"
 
 const SvgBin: React.FC<IdName> = ({ idName }) => {
    const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
@@ -13,12 +13,18 @@ const SvgBin: React.FC<IdName> = ({ idName }) => {
 
    const handleDelete = async (id: string) => {
       changeLoading()
-      await fetchDeleteAuto(token, id).then(() => {
-         if (arrayAllCars?.length) {
-            setArrayAllCars(arrayAllCars?.filter(el => el._id !== id))
-         }
-         changeLoading()
-      })
+      const arrayBeforeError = arrayAllCars
+      globalFetch(`/search/${id}`, { method: "DELETE", token })
+         .then(() => {
+            changeLoading()
+         })
+         .catch(err => {
+            setArrayAllCars(arrayBeforeError)
+            console.log(err)
+         })
+      if (arrayAllCars?.length) {
+         setArrayAllCars(arrayAllCars?.filter(el => el._id !== id))
+      }
    }
 
    return (

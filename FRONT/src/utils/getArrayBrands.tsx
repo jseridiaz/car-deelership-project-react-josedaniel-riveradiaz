@@ -1,6 +1,6 @@
 import { AutoModelType } from "./types"
 
-export const getArrayBrands = (array: AutoModelType[]) => {
+export const getArrayBrands = (array: AutoModelType[]): string[] => {
    const arrayFirstFilter = array.map(el => el.brand)
    const arraySecondFilter = new Set(arrayFirstFilter)
    const arrayLastFilter = [...arraySecondFilter].sort((a, b) => a.localeCompare(b))

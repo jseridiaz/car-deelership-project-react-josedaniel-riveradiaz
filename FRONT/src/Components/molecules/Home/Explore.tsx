@@ -1,42 +1,46 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { optionFiltersHome } from "../../../data/optionFilters"
 import H2Component from "../../atoms/H2Component"
 import CardAutoHome from "../CardAutoHome"
 import { AutoModelType, UserInfoType } from "../../../utils/types"
 import { Link } from "react-router-dom"
 import ContainerColumn from "../../atoms/ContainerColumn"
-import fetchGetAutos from "../../../utils/functions/fetch/fetchGetAutos"
-// import fetchGetUser from "../../../utils/functions/fetch/fetchGetUser"
-import { CarContext } from "../../Providers/GlobalCarsArray"
 import { getStorage } from "../../../utils/functions/storage/getStorage"
+import globalFetch from "../../../utils/functions/fetch/globalFetch"
+import getResponseJson from "../../../utils/getResponseFetch"
 
 const Explore = () => {
    const Favourite: UserInfoType | null = getStorage("userInfo")
+
    const [filterSelect, setFilterSelect] = useState<string>(
       Favourite?.favourites ?? "Cars",
    )
-   const { arrayAllCars, setArrayAllCars } = useContext(CarContext)
+   const [arrayAutos, setArrayAutos] = useState<AutoModelType[] | []>([])
 
    const fetchData = (filterSelect: string) => {
-      fetchGetAutos(
-         true,
-         null,
-         null,
-         filterSelect == "Cars"
-            ? "Turismo"
-            : filterSelect === "Trucks"
-            ? "Truck"
-            : "SUV",
-      ).then(res => {
-         const finalArrayAuto: AutoModelType[] = []
-         for (let i = 0; i < 6; i++) {
-            const aleatoryNumber: number = Math.floor(Math.random() * res.length)
-            const element: AutoModelType = res[aleatoryNumber]
-            finalArrayAuto.push(element)
-            res.splice(aleatoryNumber, 1)
-         }
-         setArrayAllCars(finalArrayAuto)
-      })
+      globalFetch(
+         `/search/query?availability=Disponible&chassis=${
+            filterSelect == "Cars"
+               ? "Turismo"
+               : filterSelect === "Trucks"
+               ? "Truck"
+               : "SUV"
+         }`,
+         {
+            method: "GET",
+         },
+      )
+         .then(res => getResponseJson(res))
+         .then(res => {
+            const finalArrayAuto: AutoModelType[] = []
+            for (let i = 0; i < 6; i++) {
+               const aleatoryNumber: number = Math.floor(Math.random() * res.length)
+               const element: AutoModelType = res[aleatoryNumber]
+               finalArrayAuto.push(element)
+               res.splice(aleatoryNumber, 1)
+            }
+            setArrayAutos(finalArrayAuto)
+         })
    }
 
    useEffect(() => {
@@ -78,7 +82,7 @@ const Explore = () => {
                   className='flex flex-nowrap
                overflow-x-scroll overflow-y-hidden snap-x h-full scroll-smooth sm:pb-0 pb-6'
                >
-                  {arrayAllCars?.map((el, idx) => (
+                  {arrayAutos?.map((el, idx) => (
                      <CardAutoHome
                         key={idx}
                         autoModel={el.model}

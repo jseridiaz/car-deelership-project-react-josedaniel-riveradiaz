@@ -8,10 +8,9 @@ import Button from "../Components/atoms/Button"
 import { LoggedContext } from "../Components/Providers/GlobalLogged"
 import Seo from "../Components/molecules/Seo"
 import Loader from "../Components/atoms/Loader"
-import fetchGetCustomerProfil from "../utils/functions/fetch/fetchGetCustomerProfil"
-import fetchClearFavourites from "../utils/functions/fetch/fetchClearFavourites"
 import useLoading from "../Components/customHooks/useLoading"
 import getIdUserOrLogged from "../utils/functions/storage/getIdUserOrLogged"
+import globalFetch from "../utils/functions/fetch/globalFetch"
 
 const FavouriteCars = () => {
    const { logged } = useContext(LoggedContext)
@@ -21,27 +20,20 @@ const FavouriteCars = () => {
    const [arrayToPrint, setArrayToPrint] = useState<AutoModelType[] | []>([])
    const { loading, setLoading } = useLoading()
    useEffect(() => {
-      fetchGetCustomerProfil(logged || idUser).then(res => {
-         return setCustomerId(res.res._id ?? null)
-      })
+      globalFetch(`/customer/user/${logged || idUser}`, { method: "GET" })
+         .then(res => res.json())
+         .then(res => setCustomerId(res.res._id ?? null))
    }, [])
    useEffect(() => {
       setLoading(true)
       setArrayToPrint([])
 
       if (arrayFavourites.length) {
-         fetch(`${import.meta.env.VITE_URL_BASE + "/customer/user/" + logged}`)
+         globalFetch(`/customer/user/${logged}`, { method: "GET" })
             .then(res => res.json())
             .then(res => res.res.favourites)
             .then(res => setArrayToPrint(res))
 
-         // for (let i = 0; i < arrayFavourites.length; i++) {
-         //    const el = arrayFavourites[i]
-         //    fetchAutoById(el).then(res => {
-         //       array = [...array, res.res]
-         //       setArrayToPrint(array)
-         //    })
-         // }
          setLoading(false)
       } else {
          setLoading(false)
@@ -51,9 +43,11 @@ const FavouriteCars = () => {
    const clearFilter = useCallback(() => {
       setLoading(true)
       if (customerId)
-         fetchClearFavourites(customerId).then(() => {
-            setLoading(false)
+         globalFetch(`/customer/clear/favourites/${customerId}`, {
+            method: "PUT",
+            headers: true,
          })
+
       setArrayFavourites([])
       localStorage.setItem("favourites", JSON.stringify([]))
    }, [customerId])

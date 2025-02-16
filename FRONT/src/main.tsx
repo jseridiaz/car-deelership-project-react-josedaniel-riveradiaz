@@ -30,6 +30,5 @@ createRoot(document.getElementById("root")!).render(
             </GlobalCarsContext>
          </BrowserRouter>
       </HelmetProvider>
-      ,
    </StrictMode>,
 )

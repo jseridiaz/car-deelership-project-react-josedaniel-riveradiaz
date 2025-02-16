@@ -8,12 +8,10 @@ import Button from "../atoms/Button"
 import { useFilterCustom } from "../customHooks/useFilterCustom"
 import InputRange from "../atoms/InputRange"
 import { ResizeContext } from "../Providers/GlobalResize"
-// import { CarContext } from "../Providers/GlobalCarsArray"
 
 const FilterComponent = () => {
    const { filterFunction, state, dispatch } = useFilterCustom()
    const { changeViewPort } = useContext(ResizeContext)
-   // const { arrayAllCars } = useContext(CarContext)
 
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
@@ -137,10 +135,16 @@ const FilterComponent = () => {
                      })
                   }}
                >
+                  {state.availableChassis.map((el, index) => (
+                     <option value={el.value} key={index}>
+                        {el.description}
+                     </option>
+                  ))}
+                  {/*                   
                   <option value='All'>All</option>
                   <option value='Turismo'>Cars</option>
                   <option value='SUV'>SUVs</option>
-                  <option value='Truck'>Trucks</option>
+                  <option value='Truck'>Trucks</option> */}
                </select>
             </FieldSet>
 

@@ -1,11 +1,9 @@
-// import { useEffect } from "react"
 import { memo, useContext, useEffect, useState } from "react"
 import { PrintListAutoType } from "../../utils/types"
-
 import ImgAutos from "./ImgAutos"
 import { LoggedContext } from "../Providers/GlobalLogged"
 import { TokenContext } from "../Providers/GlobalToken"
-import fetchGetCustomerProfil from "../../utils/functions/fetch/fetchGetCustomerProfil"
+import globalFetch from "../../utils/functions/fetch/globalFetch"
 
 const PrintListAutos: React.FC<PrintListAutoType> = ({
    arrayToPRint,
@@ -22,12 +20,14 @@ const PrintListAutos: React.FC<PrintListAutoType> = ({
 
    useEffect(() => {
       if (token || logged) {
-         fetchGetCustomerProfil(idSesion).then(res => {
-            setCustomerId(res.res?._id ?? null)
-            setIdSession(
-               localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
-            )
-         })
+         globalFetch(`/customer/user/${idSesion}`, { method: "GET" })
+            .then(res => res.json())
+            .then(res => {
+               setCustomerId(res.res?._id ?? null)
+            })
+         setIdSession(
+            localStorage.getItem("idUser") ?? sessionStorage.getItem("logged"),
+         )
       }
    }, [])
 

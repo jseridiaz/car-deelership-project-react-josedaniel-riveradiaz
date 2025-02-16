@@ -8,9 +8,8 @@ import SvgBin from "../atoms/icons/SvgBin/SvgBin"
 import ParrafAutoPicture from "../atoms/ParrafAutoPicture"
 import ContainerColumn from "../atoms/ContainerColumn"
 import { getStorage } from "../../utils/functions/storage/getStorage"
-import fetchDeleteFavourite from "../../utils/functions/fetch/fetchDeleteFavourite"
-import fetchAddFavourite from "../../utils/functions/fetch/fetchAddFavourite"
 import ImgComponent from "../atoms/ImgComponent"
+import globalFetch from "../../utils/functions/fetch/globalFetch"
 
 const ImgAutos: React.FC<ImgAutoType> = ({
    idx,
@@ -32,18 +31,30 @@ const ImgAutos: React.FC<ImgAutoType> = ({
 
    const addFavouriteBBDD = async () => {
       if (customerId) {
-         await fetchAddFavourite(customerId, autoId)
+         globalFetch(`/customer/${customerId}`, {
+            method: "PUT",
+            headers: true,
+            data: { favourites: autoId },
+         })
          const arrayAdded = [...arrayFavourites, autoId]
          localStorage.setItem("favourites", JSON.stringify(arrayAdded))
       }
    }
-   const addFavouriteOptimist = () => setArrayFavourites(prev => [...prev, autoId])
+
+   const addFavouriteOptimist = () => {
+      if (arrayFavourites) setArrayFavourites([...arrayFavourites, autoId])
+   }
    const deleteFavourite = () => {
       if (customerId) {
-         fetchDeleteFavourite(customerId, autoId)
-         const filteredArray = arrayFavourites.filter(el => autoId !== el)
-         setArrayFavourites(filteredArray)
-         localStorage.setItem("favourites", JSON.stringify(filteredArray))
+         globalFetch(`/customer/delete/favourites/${customerId}`, {
+            method: "PUT",
+            headers: true,
+            data: { favourites: autoId },
+         }).then(() => {
+            const filteredArray = arrayFavourites.filter(el => autoId !== el)
+            setArrayFavourites(filteredArray)
+            localStorage.setItem("favourites", JSON.stringify(filteredArray))
+         })
       }
    }
 

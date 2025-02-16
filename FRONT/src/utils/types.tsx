@@ -36,9 +36,9 @@ export type IFormInput = {
    firstname: string
    surname: string
    email: string
-   birthdate: string
+   age: string
    password: string
-   autosInterested: string
+   autosInterested: "cars" | "SUV" | "Truck"
 }
 export type ExtendedIFormInput = IFormInput & {
    message: string
@@ -59,7 +59,7 @@ export type ErrorContainerType = {
 
 export type CarContextType = {
    arrayAllCars: AutoModelType[] | null | []
-   setArrayAllCars: Dispatch<SetStateAction<AutoModelType[] | [] | null>>
+   setArrayAllCars: Dispatch<SetStateAction<AutoModelType[] | []>>
 }
 export type GlobalArrayNoResultType = {
    arrayNoResult: AutoModelType[] | []
@@ -234,6 +234,7 @@ export type ButtonType = {
 export type FilterComponentReducerType = {
    brands: string[] | null
    chassis: string | null
+   availableChassis: AvailableChassisType[]
    brand: string | null
    models: string[] | null
    model: string | null
@@ -247,6 +248,10 @@ export type FilterComponentReducerType = {
    loading: boolean
    viewPort: number
 }
+export type AvailableChassisType = {
+   value: string
+   description: string
+}
 export type ActionFilterType =
    | {
         type: "setBrands"
@@ -259,6 +264,10 @@ export type ActionFilterType =
    | {
         type: "setBrand"
         payload: string | null
+     }
+   | {
+        type: "setAvailableChassis"
+        payload: AutoModelType[]
      }
    | {
         type: "setModel"
@@ -411,3 +420,18 @@ export type ResizeContextType = {
    desktop: boolean
    changeViewPort: () => void
 }
+export type ObjectFetch = {
+   method: "GET" | "POST" | "PUT" | "DELETE"
+   // token?: string
+   headers?: boolean
+   data?: bodyFetch
+   token?: string | null
+}
+
+type bodyFetch =
+   | IFormInput
+   | SubmitHandlerPersonalInfo
+   | FormData
+   | IFormLogin
+   | { favourites: string }
+   | string

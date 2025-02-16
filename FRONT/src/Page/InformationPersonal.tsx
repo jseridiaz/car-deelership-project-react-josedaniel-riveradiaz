@@ -18,9 +18,8 @@ import {
 import Seo from "../Components/molecules/Seo"
 import Loader from "../Components/atoms/Loader"
 import { getStorage } from "../utils/functions/storage/getStorage"
-import fetchGetCustomerProfil from "../utils/functions/fetch/fetchGetCustomerProfil"
-import fetchPutUser from "../utils/functions/fetch/fetchPostUser"
 import getIdUserOrLogged from "../utils/functions/storage/getIdUserOrLogged"
+import globalFetch from "../utils/functions/fetch/globalFetch"
 
 const InformationPersonal = () => {
    const idUser: string | null = getIdUserOrLogged()
@@ -33,22 +32,22 @@ const InformationPersonal = () => {
       defaultValues: {
          name: "",
          surname: "",
-         favourites: "",
+         favourites: "Cars",
       },
    })
 
    useEffect(() => {
       dispatch({ type: "setLoading", payload: true })
-      fetchGetCustomerProfil(idUser).then(r => {
-         const { res } = r
-         console.log(res)
-
-         dispatch({ type: "setName", payload: res.profile.name })
-         dispatch({ type: "setSurName", payload: res.profile.surname })
-         dispatch({ type: "setKindFavourites", payload: res.profile.favourites })
-         dispatch({ type: "setNumberFavourites", payload: res.favourites.length })
-         dispatch({ type: "setLoading", payload: false })
-      })
+      globalFetch(`/customer/user/${idUser}`, { method: "GET" })
+         .then(res => res.json())
+         .then(result => {
+            const { res } = result
+            dispatch({ type: "setName", payload: res.profile.name })
+            dispatch({ type: "setSurName", payload: res.profile.surname })
+            dispatch({ type: "setKindFavourites", payload: res.profile.favourites })
+            dispatch({ type: "setNumberFavourites", payload: res.favourites.length })
+            dispatch({ type: "setLoading", payload: false })
+         })
    }, [idUser])
    const submitFunct: SubmitHandler<SubmitHandlerPersonalInfo> = data => {
       const rolUser: "admin" | "user" = getStorage("userInfo").rol
@@ -62,8 +61,11 @@ const InformationPersonal = () => {
       if (data.favourites != "") {
          bodyObject.favourites = data.favourites
       }
-
-      fetchPutUser(idUser, bodyObject).then(() => {
+      globalFetch(`/user/${idUser}`, {
+         method: "PUT",
+         headers: true,
+         data: bodyObject,
+      }).then(() => {
          const { name, surname, favourites } = bodyObject
          if (name) {
             dispatch({ type: "setName", payload: name })
@@ -71,6 +73,17 @@ const InformationPersonal = () => {
          if (surname) dispatch({ type: "setSurName", payload: surname })
          if (favourites) dispatch({ type: "setKindFavourites", payload: favourites })
          reset()
+         const local = getStorage("userInfo")
+
+         if (local && favourites) {
+            local.favourites = favourites
+            console.log(local)
+            if (localStorage.getItem("userInfo") != null) {
+               localStorage.setItem("userInfo", JSON.stringify(local))
+            } else {
+               sessionStorage.setItem("userInfo", JSON.stringify(local))
+            }
+         }
       })
    }
    return (
@@ -141,8 +154,8 @@ const InformationPersonal = () => {
                         {...register("favourites")}
                      >
                         <option value='Cars'>Cars</option>
-                        <option value='SUV'>SUVS</option>
-                        <option value='Truck'>Trucks</option>
+                        <option value='SUVs & Crossover'>SUVS</option>
+                        <option value='Trucks'>Trucks</option>
                      </select>
                   </FieldSet>
                   <Button

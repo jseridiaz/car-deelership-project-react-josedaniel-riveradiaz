@@ -13,9 +13,9 @@ import { TokenContext } from "../Components/Providers/GlobalToken"
 import Toast from "../Components/molecules/Toast"
 import { turnOffBanner } from "../utils/turnOffBanner"
 import Seo from "../Components/molecules/Seo"
-import fetchPostAuto from "../utils/functions/fetch/fetchPostAuto"
 import useLoading from "../Components/customHooks/useLoading"
 import Loader from "../Components/atoms/Loader"
+import globalFetch from "../utils/functions/fetch/globalFetch"
 
 const PostAuto = () => {
    const { token } = useContext(TokenContext)
@@ -70,9 +70,10 @@ const PostAuto = () => {
       formData.append("color", color)
       formData.append("availability", "Disponible")
       formData.append("picture", picture[0])
-
-      fetchPostAuto(token, formData).then(res => {
+      globalFetch(`/search`, { method: "POST", token, data: formData }).then(res => {
          if (res.ok) {
+            console.log("done")
+
             setRes(true)
             turnOffBanner(setRes, 3000, false)
             reset()

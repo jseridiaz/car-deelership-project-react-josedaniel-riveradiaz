@@ -13,9 +13,9 @@ import { turnOffBanner } from "../utils/turnOffBanner"
 import { BsArrowDownLeft } from "react-icons/bs"
 import Parraf from "../Components/molecules/Parraf"
 import Seo from "../Components/molecules/Seo"
-import fetchLoginUser from "../utils/functions/fetch/fetchLoginUser"
 import { TokenContext } from "../Components/Providers/GlobalToken"
 import useLoading from "../Components/customHooks/useLoading"
+import globalFetch from "../utils/functions/fetch/globalFetch"
 
 const Login = () => {
    const { setLogged } = useContext(LoggedContext)
@@ -35,8 +35,7 @@ const Login = () => {
    const handleLogin = (data: IFormLogin): void => {
       setFetchState(null)
       changeLoading()
-
-      fetchLoginUser(data)
+      globalFetch(`/user/login`, { method: "POST", headers: true, data })
          .then(res => {
             setStatusFetch(res.ok)
             if (!res.ok) {
