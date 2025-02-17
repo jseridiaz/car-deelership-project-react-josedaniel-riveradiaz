@@ -6,7 +6,7 @@ const ParrafInfoPersonal: React.FC<ParrafInfoPersonalType> = ({
    result,
 }) => {
    return (
-      <div className='transition relative duration-400 flex p-2 justify-between bg-white font-bold  text-blue-800 rounded-lg text-2xl gap-4 hover:bg-slate-200'>
+      <div className='transition relative duration-400 flex p-2 justify-between bg-white font-bold  text-blue-800 rounded-lg max-[400px]:text-xl text-2xl gap-4 hover:bg-slate-200'>
          {children}
          <p className='h-full text-black rounded-r-lg'>{result}</p>
       </div>

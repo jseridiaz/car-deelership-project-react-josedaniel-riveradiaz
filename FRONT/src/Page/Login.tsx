@@ -82,21 +82,21 @@ const Login = () => {
             url='https://carseller-for-you.vercel.app/login'
             img='https://res.cloudinary.com/ddybbosdk/image/upload/v1726562162/CARS%20AUTODEELER/corvete-portrait-login_xoru7n.webp'
          />
-         <article className='flex justify-around px-6 py-2 bg-slate-100  '>
+         <article className='flex justify-around min-[600px]:px-6 py-0 bg-slate-100 max-[600px]:px-1 '>
             <ImgComponent
                imgPath='https://res.cloudinary.com/ddybbosdk/image/upload/v1726562162/CARS%20AUTODEELER/corvete-portrait-login_xoru7n.webp'
                alt='corvete-portrait-login'
-               classContainer='hidden md:block h-full w-[60%]'
+               classContainer='hidden  h-full w-[60%] lg:inline block'
                classImg='h-full w-full '
             />
-            <article className='flex w-full md:w-1/2 h-[550px] justify-center items-center flex-wrap'>
+            <article className='flex w-full lg:w-1/2 lg:h-[550px] min-h-screen  flex-wrap'>
                <H2SingleComponent cssProperties='w-full text-5xl h-fit font-extrabold relative top-2'>
                   Log in
                </H2SingleComponent>
                <form
                   action='#'
                   method='post'
-                  className='relative flex flex-col w-[90%] h-[85%] p-4 justify-around items-center border-2 border-black border-solid rounded-xl bg-blue-50'
+                  className='relative lg:bottom-4 bottom-12 flex flex-col mx-auto w-[90%] h-[70%] lg:h-[75%] p-4 lg:justify-around justify-around items-center border-2 border-black border-solid rounded-xl bg-blue-50 '
                   onSubmit={handleSubmit(handleLogin)}
                >
                   <FieldSet description='Email' cssProperties='w-full'>
@@ -104,7 +104,7 @@ const Login = () => {
                         type='text'
                         autoComplete='on'
                         placeholder='jose@gmail.com'
-                        className='p-2 text-sm border-2 w-[80%] border-gray-500 border-solid placeholder:text-sm rounded'
+                        className='p-2  h-14 text-xl  border-2 w-[80%] border-gray-500 border-solid xs:placeholder:text-2xl placeholder:text-xl rounded'
                         {...register("email", {
                            required: {
                               value: true,
@@ -126,7 +126,7 @@ const Login = () => {
                      <input
                         type='password'
                         placeholder='*******'
-                        className='p-2 text-sm border-2 w-[80%] border-gray-500 border-solid placeholder:text-sm rounded'
+                        className='p-2 text-xl border-2 w-[80%] h-14 border-gray-500 border-solid xs:placeholder:text-2xl rounded  placeholder:text-xl'
                         {...register("password", {
                            required: "Password is required",
                            pattern: {
@@ -153,12 +153,15 @@ const Login = () => {
                         <div className='flex outline-none hover:outline-2 border-none  hover:outline-offset-2 hover:outline-blue-600 rounded flex-wrap'>
                            <input
                               type='checkbox'
-                              className='w-4 h-4  '
+                              className='w-4 h-4 hover:cursor-pointer accent-purple-500/75'
                               id='checkbox-save-log'
                               {...register("savedToken")}
                            />
                         </div>
-                        <label htmlFor='checkbox-save-log' className='min-w-36'>
+                        <label
+                           htmlFor='checkbox-save-log'
+                           className='min-w-36 sm:text-3xl text-xl ml-2 hover:cursor-pointer'
+                        >
                            Keep me logged in
                         </label>
                      </div>
