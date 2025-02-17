@@ -50,11 +50,14 @@ const ImgAutos: React.FC<ImgAutoType> = ({
             method: "PUT",
             headers: true,
             data: { favourites: autoId },
-         }).then(() => {
-            const filteredArray = arrayFavourites.filter(el => autoId !== el)
-            setArrayFavourites(filteredArray)
-            localStorage.setItem("favourites", JSON.stringify(filteredArray))
+         }).catch(err => {
+            setArrayFavourites(arrayFavourites)
+            localStorage.setItem("favourites", JSON.stringify(arrayFavourites))
+            throw new Error(err)
          })
+         const filteredArray = arrayFavourites.filter(el => autoId !== el)
+         setArrayFavourites(filteredArray)
+         localStorage.setItem("favourites", JSON.stringify(filteredArray))
       }
    }
 

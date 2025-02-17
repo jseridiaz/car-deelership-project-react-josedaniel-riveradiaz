@@ -26,18 +26,14 @@ const FavouriteCars = () => {
    }, [])
    useEffect(() => {
       setLoading(true)
-      setArrayToPrint([])
-
-      if (arrayFavourites.length) {
+      // setArrayToPrint([])
+      setTimeout(() => {
          globalFetch(`/customer/user/${logged}`, { method: "GET" })
             .then(res => res.json())
             .then(res => res.res.favourites)
             .then(res => setArrayToPrint(res))
-
          setLoading(false)
-      } else {
-         setLoading(false)
-      }
+      }, 300)
    }, [arrayFavourites])
 
    const clearFilter = useCallback(() => {
