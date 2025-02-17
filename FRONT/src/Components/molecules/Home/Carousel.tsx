@@ -42,13 +42,13 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
             className={`relative flex flex-wrap h-full justify-center sm:justify-between xl:justify-center items-center gap-4`}
          >
             <HiChevronLeft
-               className={` absolute transition duration-1000 cursor-pointer -translate-y-2/4 bg-blue-400  w-12 h-12  sm:bottom-[-19%] bottom-[36%]   rounded-full left-4 z-20 hover:bg-blue-600  ${
+               className={` absolute transition duration-1000 cursor-pointer  bg-blue-400  w-12 h-12  sm:bottom-[-19%] bottom-[40%]   rounded-full left-4 z-20 hover:bg-blue-600  ${
                   slide == 0 ? "hidden" : "block"
                }`}
                onClick={handleClickLeft}
             />
             <HiChevronRight
-               className={`absolute transition duration-1000 w-12 h-12 sm:bottom-[-19%]   -translate-y-2/4 bg-blue-400  cursor-pointer bottom-[36%] rounded-full sm:right-0 right-2 max-[400px]:top-[50%] z-50 hover:bg-blue-700 ${
+               className={`absolute transition duration-1000 w-12 h-12 sm:bottom-[-19%]   bg-blue-400  cursor-pointer bottom-[36%] rounded-full sm:right-0 right-2 max-[400px]:top-[50%] z-50 hover:bg-blue-700 ${
                   slide == 1 ? "hidden" : "block"
                }`}
                onClick={handleClickRight}

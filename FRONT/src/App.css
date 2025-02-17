@@ -77,13 +77,9 @@ a.active {
       margin-bottom: 839px;
    }
 }
+
 @media (max-width: 385px) {
    #root {
-      margin-bottom: 867px;
-   }
-}
-@media (max-width: 385px) {
-   #root {
-      margin-bottom: 887px;
+      margin-bottom: 869px;
    }
 }

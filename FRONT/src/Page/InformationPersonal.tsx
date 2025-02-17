@@ -32,7 +32,7 @@ const InformationPersonal = () => {
       defaultValues: {
          name: "",
          surname: "",
-         favourites: "Cars",
+         favourites: "",
       },
    })
 

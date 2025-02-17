@@ -93,7 +93,7 @@ const PostAuto = () => {
                className='flex flex-wrap gap-10 justify-center items-center content-center'
                onSubmit={handleSubmit(submitFunction)}
             >
-               <ContainerColumn className=' bg-slate-400 items-center p-6 rounded-xl bg-[url("https://www.transparenttextures.com/patterns/brushed-alum.png")] lg:w-1/2 sm:w-[80%]'>
+               <ContainerColumn className=' bg-slate-400 items-center p-6 rounded-xl bg-[url("https://www.transparenttextures.com/patterns/brushed-alum.png")] lg:w-1/2 sm:w-[80%] w-[100%]'>
                   <FieldSet
                      description='Vin'
                      cssProperties='w-[80%] lg:w-1/2'

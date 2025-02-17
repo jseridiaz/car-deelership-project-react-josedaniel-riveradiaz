@@ -79,7 +79,7 @@ const Register = () => {
             url='https://carseller-for-you.vercel.app/register'
             img='https://res.cloudinary.com/ddybbosdk/image/upload/v1726571808/CARS%20AUTODEELER/ram-portrait-register_1_qyb1im.avif'
          />
-         <article className=' flex justify-around p-10 bg-blue-200 max-[500px]:p-4 '>
+         <article className=' flex justify-around p-10 bg-blue-200 max-[500px]:px-4 max-[500px]:py-8 '>
             <article className='lg:w-[38%] w-full'>
                <form
                   action=''
