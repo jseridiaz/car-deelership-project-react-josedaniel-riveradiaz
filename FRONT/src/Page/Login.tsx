@@ -158,14 +158,14 @@ const Login = () => {
                         <div className='flex outline-none hover:outline-2 border-none  hover:outline-offset-2 hover:outline-blue-600 rounded flex-wrap'>
                            <input
                               type='checkbox'
-                              className='w-4 h-4 accent-purple-500/75 '
+                              className='w-4 h-4 accent-purple-500/75 cursor-pointer'
                               id='checkbox-save-log'
                               {...register("savedToken")}
                            />
                         </div>
                         <label
                            htmlFor='checkbox-save-log'
-                           className='min-w-36 sm:text-xl '
+                           className='min-w-36 sm:text-xl cursor-pointer'
                         >
                            Keep me logged in
                         </label>
