@@ -8,16 +8,19 @@ import ContainerColumn from "../../atoms/ContainerColumn"
 import { getStorage } from "../../../utils/functions/storage/getStorage"
 import globalFetch from "../../../utils/functions/fetch/globalFetch"
 import getResponseJson from "../../../utils/getResponseFetch"
+import useLoading from "../../customHooks/useLoading"
+import Loader from "../../atoms/Loader"
 
 const Explore = () => {
    const Favourite: UserInfoType | null = getStorage("userInfo")
-
+   const { loading, setLoading } = useLoading()
    const [filterSelect, setFilterSelect] = useState<string>(
       Favourite?.favourites ?? "Cars",
    )
    const [arrayAutos, setArrayAutos] = useState<AutoModelType[] | []>([])
 
    const fetchData = (filterSelect: string) => {
+      setLoading(true)
       globalFetch(
          `/search/query?availability=Disponible&chassis=${
             filterSelect == "Cars"
@@ -40,6 +43,7 @@ const Explore = () => {
                res.splice(aleatoryNumber, 1)
             }
             setArrayAutos(finalArrayAuto)
+            setLoading(false)
          })
    }
 
@@ -61,8 +65,9 @@ const Explore = () => {
             <div className='bg-slate-50 min-h-96 w-full '>
                <form
                   action=''
-                  className='flex justify-center gap-6 sm:gap-12 flex-wrap p-4'
+                  className='flex justify-center gap-6 sm:gap-12 flex-wrap p-4 relative'
                >
+                  {loading && <Loader properties='-bottom-12' />}
                   {optionFiltersHome.map((el, idx) => (
                      <span
                         key={idx}

@@ -31,14 +31,14 @@ const CardAutoHome: React.FC<Cardautotype> = ({
             classImg='w-full h-full sm:object-contain '
          />
 
-         <div className='flex flex-col bg-white mx-auto  sm:mx-0 justify-between h-fit sm:w-[50%] w-full self-end p-1 sm:p-2 rounded-2xl'>
+         <div className='flex flex-col bg-white min-h-[336px] mx-auto  sm:mx-0 justify-between h-fit sm:w-[50%] w-full self-end p-1 sm:p-2 rounded-2xl'>
             <div className=' flex flex-col self-start mb-6'>
                <h3 className='font-semibold text-2xl'>{autoName}</h3>
                <span className={`relative text-lg ${state === "Usado" && "left-2"}`}>
                   {state}
                </span>
             </div>
-            <div className='flex flex-col gap-5'>
+            <div className='flex flex-col gap-5 '>
                <ParrafAutoPicture el={year}>Year:</ParrafAutoPicture>
                <ParrafAutoPicture el={`${autoModel}`}>Model: </ParrafAutoPicture>
                <ParrafAutoPicture
