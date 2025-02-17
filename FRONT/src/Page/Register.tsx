@@ -32,24 +32,27 @@ const Register = () => {
          email: "",
          age: "",
          password: "",
-         autosInterested: "cars",
+         autosInterested: "Cars",
       },
    })
 
    const handleRegister = (data: IFormInput): void => {
-      const { firstname, surname, age, email, password, autosInterested } = data
-
+      // const { firstname, surname, age, email, password, autosInterested } = data
+      // if (data) {
+      //    console.log(data)
+      //    return
+      // }
       setLoading(true)
       globalFetch(`/user/register`, {
          method: "POST",
          headers: true,
          data: {
-            name: firstname,
-            surname: surname,
-            age: age.split("-").join("/"),
-            email: email.toLocaleLowerCase(),
-            password: password,
-            favourites: autosInterested,
+            name: data.firstname,
+            surname: data.surname,
+            age: data.age.split("-").join("/"),
+            email: data.email.toLocaleLowerCase(),
+            password: data.password,
+            favourites: data.autosInterested || "Cars",
          },
       })
          .then(res => {
@@ -62,6 +65,8 @@ const Register = () => {
                   navigate("/login")
                }, 3000)
             } else {
+               console.log("notwell")
+
                setResOk(false)
                turnOffBanner(setShowToast, 3000, false)
                setLoading(false)
@@ -69,6 +74,7 @@ const Register = () => {
 
             return res.json()
          })
+         .catch(err => console.log(err))
          .then(res => setErrMsg(res.message))
    }
    return (
@@ -173,9 +179,10 @@ const Register = () => {
                         <select
                            className='bg-slate-200 rounded '
                            id='interested'
+                           defaultValue={"Cars"}
                            {...register("autosInterested")}
                         >
-                           <option value='cars'>Cars</option>
+                           <option value='Cars'>Cars</option>
                            <option value='SUV'>SUVs</option>
                            <option value='Truck'>Trucks</option>
                         </select>

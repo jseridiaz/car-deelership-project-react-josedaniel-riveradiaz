@@ -39,7 +39,7 @@ export type IFormInput = {
    email: string
    age: string
    password: string
-   autosInterested: "cars" | "SUV" | "Truck"
+   autosInterested: "Cars" | "SUV" | "Truck"
 }
 export type ExtendedIFormInput = IFormInput & {
    message: string

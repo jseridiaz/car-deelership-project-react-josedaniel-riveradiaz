@@ -8,6 +8,8 @@ const globalFetch = async (
    if (headers) {
       headersValues["Content-Type"] = "application/json"
    }
+   if (data) console.log(data)
+
    if (token) {
       headersValues.Authorization = `Bearer ${token}`
    }
