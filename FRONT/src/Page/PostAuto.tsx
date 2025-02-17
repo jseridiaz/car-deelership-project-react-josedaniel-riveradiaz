@@ -94,7 +94,11 @@ const PostAuto = () => {
                onSubmit={handleSubmit(submitFunction)}
             >
                <ContainerColumn className=' bg-slate-400 items-center p-6 rounded-xl bg-[url("https://www.transparenttextures.com/patterns/brushed-alum.png")] lg:w-1/2 sm:w-[80%]'>
-                  <FieldSet description='Vin' cssProperties='w-[80%] lg:w-1/2'>
+                  <FieldSet
+                     description='Vin'
+                     cssProperties='w-[80%] lg:w-1/2'
+                     labelProperties='text-2xl '
+                  >
                      <InputTextForm
                         register={register}
                         name='vin'
@@ -104,7 +108,11 @@ const PostAuto = () => {
                         * Vin is required
                      </ErrorPost>
                   </FieldSet>
-                  <FieldSet description='Brand' cssProperties='w-[80%] lg:w-1/2'>
+                  <FieldSet
+                     description='Brand'
+                     cssProperties='w-[80%] lg:w-1/2 text-base'
+                     labelProperties='text-2xl '
+                  >
                      <SelectPost register={register} name='brand'>
                         <option value=''>Select brand</option>
                         {autoBrands.map((e, i) => (
@@ -120,6 +128,7 @@ const PostAuto = () => {
                   <FieldSet
                      description='Auto model'
                      cssProperties='w-[80%] lg:w-1/2'
+                     labelProperties='text-2xl '
                   >
                      <InputTextForm
                         register={register}
@@ -130,7 +139,11 @@ const PostAuto = () => {
                         * Model is required
                      </ErrorPost>
                   </FieldSet>
-                  <FieldSet description='Chassis' cssProperties='w-[80%] lg:w-1/2'>
+                  <FieldSet
+                     description='Chassis'
+                     cssProperties='w-[80%] lg:w-1/2'
+                     labelProperties='text-2xl '
+                  >
                      <SelectPost register={register} name='type'>
                         <option value=''>Select chassis</option>
                         <option value='Cars'>Car</option>
@@ -144,6 +157,7 @@ const PostAuto = () => {
                   <FieldSet
                      description='Year of manufacture'
                      cssProperties='w-[80%] lg:w-1/2'
+                     labelProperties='text-2xl '
                   >
                      <InputTextForm
                         type='number'
@@ -158,6 +172,7 @@ const PostAuto = () => {
                   <FieldSet
                      description='kilometers'
                      cssProperties='w-[80%] lg:w-1/2'
+                     labelProperties='text-2xl '
                   >
                      <InputTextForm
                         type='number'
@@ -169,7 +184,11 @@ const PostAuto = () => {
                         * Kilometers number is required
                      </ErrorPost>
                   </FieldSet>
-                  <FieldSet description='State' cssProperties='w-[80%] lg:w-1/2'>
+                  <FieldSet
+                     description='State'
+                     cssProperties='w-[80%] lg:w-1/2'
+                     labelProperties='text-2xl '
+                  >
                      <SelectPost register={register} name='state'>
                         <option value=''>Select state</option>
                         <option value='new'>New</option>
@@ -179,7 +198,11 @@ const PostAuto = () => {
                         * State is required
                      </ErrorPost>
                   </FieldSet>
-                  <FieldSet description='Price' cssProperties='w-[80%] lg:w-1/2'>
+                  <FieldSet
+                     description='Price'
+                     cssProperties='w-[80%] lg:w-1/2'
+                     labelProperties='text-2xl '
+                  >
                      <InputTextForm
                         type='number'
                         register={register}
@@ -190,7 +213,11 @@ const PostAuto = () => {
                         * Price is required
                      </ErrorPost>
                   </FieldSet>
-                  <FieldSet description='Color' cssProperties='w-[80%] lg:w-1/2'>
+                  <FieldSet
+                     description='Color'
+                     cssProperties='w-[80%] lg:w-1/2'
+                     labelProperties='text-2xl '
+                  >
                      <SelectPost register={register} name='color'>
                         <option value=''>Select color</option>
                         {colorArray.map((el, idx) => (

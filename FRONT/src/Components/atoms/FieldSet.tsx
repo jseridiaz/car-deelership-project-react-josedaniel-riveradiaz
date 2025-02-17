@@ -5,6 +5,7 @@ const FieldSet: React.FC<FieldSetType> = ({
    description,
    children,
    cssProperties,
+   labelProperties,
 }) => {
    return (
       <fieldset
@@ -12,7 +13,13 @@ const FieldSet: React.FC<FieldSetType> = ({
             cssProperties ? cssProperties : "w-[80%] sm:w-[30%]"
          } relative pb-4 items-center min-w-[154px]`}
       >
-         <label className=' font-bold'>{description}</label>
+         <label
+            className={` font-bold  max-[500px]:mb-2 ${
+               labelProperties ? labelProperties : "text-4xl lg:text-2xl"
+            }`}
+         >
+            {description}
+         </label>
          {children}
       </fieldset>
    )

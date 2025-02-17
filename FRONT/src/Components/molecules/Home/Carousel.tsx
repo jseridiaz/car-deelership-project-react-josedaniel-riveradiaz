@@ -38,16 +38,21 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
 
    return (
       <section className=' box-border flex w-full  h-fit sm:p-6 lg:p-10 flex-wrap bg-gradient-to-b from-slate-200 to-blue-200'>
-         <HiChevronLeft
-            className={` absolute transition duration-1000 cursor-pointer -translate-y-2/4 bg-blue-400  w-12 h-12 sm:bottom-1/3 bottom-1/4   rounded-full left-4 z-20 hover:bg-blue-600  ${
-               slide == 0 ? "hidden" : "block"
-            }`}
-            onClick={handleClickLeft}
-         />
-
          <div
-            className={`flex flex-wrap h-full justify-center sm:justify-between xl:justify-center items-center gap-4`}
+            className={`relative flex flex-wrap h-full justify-center sm:justify-between xl:justify-center items-center gap-4`}
          >
+            <HiChevronLeft
+               className={` absolute transition duration-1000 cursor-pointer -translate-y-2/4 bg-blue-400  w-12 h-12  sm:bottom-[-19%] bottom-[36%]   rounded-full left-4 z-20 hover:bg-blue-600  ${
+                  slide == 0 ? "hidden" : "block"
+               }`}
+               onClick={handleClickLeft}
+            />
+            <HiChevronRight
+               className={`absolute transition duration-1000 w-12 h-12 sm:bottom-[-19%]   -translate-y-2/4 bg-blue-400  cursor-pointer bottom-[36%] rounded-full sm:right-0 right-2 max-[400px]:top-[50%] z-50 hover:bg-blue-700 ${
+                  slide == 1 ? "hidden" : "block"
+               }`}
+               onClick={handleClickRight}
+            />
             <ContainerColumn className='relative items-center text-left gap-4 h-fit w-full sm:w-[42%] sm:left-6 left-0 '>
                <span
                   className=' 
@@ -105,12 +110,6 @@ const Carousel: React.FC<CarouselTypes> = ({ data }) => {
                })}
             </div>
          </div>
-         <HiChevronRight
-            className={`absolute transition duration-1000 w-12 h-12 sm:bottom-1/3 bottom-1/4 -translate-y-2/4 bg-blue-400  cursor-pointer rounded-full right-4 hover:bg-blue-700 ${
-               slide == 1 ? "hidden" : "block"
-            }`}
-            onClick={handleClickRight}
-         />
       </section>
    )
 }

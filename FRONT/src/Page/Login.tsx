@@ -24,6 +24,7 @@ const Login = () => {
    const [fetchState, setFetchState] = useState<ExtendedIFormInput | null>()
    const { loading, changeLoading, setLoading } = useLoading()
    const [banner, setBanner] = useState<boolean>(false)
+   // const [changeBigScreen, setChangeBigScreen] = useState<string>()
 
    const navigate = useNavigate()
    const {
@@ -82,21 +83,25 @@ const Login = () => {
             url='https://carseller-for-you.vercel.app/login'
             img='https://res.cloudinary.com/ddybbosdk/image/upload/v1726562162/CARS%20AUTODEELER/corvete-portrait-login_xoru7n.webp'
          />
-         <article className='flex justify-around px-6 py-2 bg-slate-100  '>
+         <article className={`flex justify-around bg-slate-100 h-[100%] `}>
             <ImgComponent
                imgPath='https://res.cloudinary.com/ddybbosdk/image/upload/v1726562162/CARS%20AUTODEELER/corvete-portrait-login_xoru7n.webp'
                alt='corvete-portrait-login'
-               classContainer='hidden md:block h-full w-[60%]'
+               classContainer='hidden lg:block h-full w-[60%]'
                classImg='h-full w-full '
             />
-            <article className='flex w-full md:w-1/2 h-[550px] justify-center items-center flex-wrap'>
-               <H2SingleComponent cssProperties='w-full text-5xl h-fit font-extrabold relative top-2'>
+            <article
+               className={`flex w-full lg:w-1/2  h-fit justify-center items-center flex-wrap 
+               }`}
+            >
+               <H2SingleComponent cssProperties='w-full text-5xl py-2 lg:py-12 h-fit font-extrabold relative top-2'>
                   Log in
                </H2SingleComponent>
                <form
                   action='#'
+                  id='form-login'
                   method='post'
-                  className='relative flex flex-col w-[90%] h-[85%] p-4 justify-around items-center border-2 border-black border-solid rounded-xl bg-blue-50'
+                  className='relative flex flex-col w-[90%] h-[500px] lg:my-12 mt-[120px]  lg:mt-0  sm:mb-0 lg:bottom-0 bottom-16  p-4 justify-around items-center border-2 border-black border-solid rounded-xl bg-blue-50'
                   onSubmit={handleSubmit(handleLogin)}
                >
                   <FieldSet description='Email' cssProperties='w-full'>
@@ -104,7 +109,7 @@ const Login = () => {
                         type='text'
                         autoComplete='on'
                         placeholder='jose@gmail.com'
-                        className='p-2 text-sm border-2 w-[80%] border-gray-500 border-solid placeholder:text-sm rounded'
+                        className='p-2  text-xl border-2 w-[80%]  border-gray-500 h-12 border-solid  placeholder:text-xl rounded'
                         {...register("email", {
                            required: {
                               value: true,
@@ -126,7 +131,7 @@ const Login = () => {
                      <input
                         type='password'
                         placeholder='*******'
-                        className='p-2 text-sm border-2 w-[80%] border-gray-500 border-solid placeholder:text-sm rounded'
+                        className='p-2  border-2 w-[80%] border-gray- h-12 border-gray-500 border-solid placeholder:text-sm rounded sm:text-xl text-lg'
                         {...register("password", {
                            required: "Password is required",
                            pattern: {
@@ -153,12 +158,15 @@ const Login = () => {
                         <div className='flex outline-none hover:outline-2 border-none  hover:outline-offset-2 hover:outline-blue-600 rounded flex-wrap'>
                            <input
                               type='checkbox'
-                              className='w-4 h-4  '
+                              className='w-4 h-4 accent-purple-500/75 '
                               id='checkbox-save-log'
                               {...register("savedToken")}
                            />
                         </div>
-                        <label htmlFor='checkbox-save-log' className='min-w-36'>
+                        <label
+                           htmlFor='checkbox-save-log'
+                           className='min-w-36 sm:text-xl '
+                        >
                            Keep me logged in
                         </label>
                      </div>

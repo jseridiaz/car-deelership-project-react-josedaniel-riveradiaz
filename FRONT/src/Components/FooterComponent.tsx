@@ -8,7 +8,7 @@ import { FacebookShareButton, TwitterShareButton } from "react-share"
 const FooterComponent = () => {
    return (
       <>
-         <footer className=' flex justify-around relative z-100 px-2 sm:px-10 pb -6 sm:pt-5 bg-gray-400 text-black flex-wrap gap-9'>
+         <footer className=' flex absolute bottom-0 justify-around  z-100 px-2 sm:px-10 pb-6 pt-7 w-full sm:pt-5 bg-gray-400 text-black flex-wrap gap-9'>
             <div className=' flex flex-col gap-5 w-[75%] mt-5 sm:mt-0 sm:w-1/4 min-w-[140px] border-black'>
                <h4 className='text-xl font-semibold'>Subscribe to the newsletter</h4>
                <form action='' className='relative flex items-center'>

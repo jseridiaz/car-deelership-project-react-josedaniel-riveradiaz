@@ -20,7 +20,7 @@ const InputRange: React.FC<InputRangeType> = ({
    }, [setValue])
 
    return (
-      <div className='relative flex gap-2 p-1 justify-between items-center w-[200px] sm:w-[220px] '>
+      <div className='relative flex gap-2 p-1 justify-between items-center w-[200px] sm:w-[220px] max-[350px]:flex-wrap max-[350px]:justify-center  '>
          <label htmlFor={idName}>{children}</label>
          <input
             type='range'
@@ -42,7 +42,7 @@ const InputRange: React.FC<InputRangeType> = ({
          />
          {numberValue && (
             <span
-               className={`relative text-nowrap ${
+               className={`relative text-nowrap min-w-[61px] ${
                   numberValue === "Km" ? "-right-6" : "-right-3"
                }`}
             >

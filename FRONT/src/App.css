@@ -41,8 +41,49 @@ a.active {
    }
 }
 
+/* @media (min-height: 1200px) {
+   [id="form-login"] {
+      box-shadow: 10px 10px 5px blueviolet;
+      margin-top: 0px;
+   }
+} */
 /* @keyframes l3 {
    to {
       transform: rotate(1turn);
    }
 } */
+@media (min-width: 1346px) {
+   #root {
+      margin-bottom: 220px;
+   }
+}
+@media (max-width: 1346px) {
+   #root {
+      margin-bottom: 240px;
+   }
+}
+@media (max-width: 1178px) {
+   #root {
+      margin-bottom: 260px;
+   }
+}
+@media (max-width: 896px) {
+   #root {
+      margin-bottom: 410px;
+   }
+}
+@media (max-width: 642px) {
+   #root {
+      margin-bottom: 839px;
+   }
+}
+@media (max-width: 385px) {
+   #root {
+      margin-bottom: 867px;
+   }
+}
+@media (max-width: 385px) {
+   #root {
+      margin-bottom: 887px;
+   }
+}

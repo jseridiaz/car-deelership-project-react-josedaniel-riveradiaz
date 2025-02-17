@@ -11,7 +11,13 @@ const GlobalResize = ({ children }: ErrorContainerType) => {
    const { viewPort, desktop, changeViewPort } = useResize()
 
    return (
-      <ResizeContext.Provider value={{ viewPort, desktop, changeViewPort }}>
+      <ResizeContext.Provider
+         value={{
+            viewPort,
+            desktop,
+            changeViewPort,
+         }}
+      >
          {children}
       </ResizeContext.Provider>
    )

@@ -14,11 +14,17 @@ const useResize = () => {
       }
       setViewPort(window.innerWidth)
    }
+
    const changeViewPort = () => {
       addEventListener("resize", newViewPort)
    }
 
-   return { desktop, setDesktop, changeViewPort, viewPort }
+   return {
+      desktop,
+      setDesktop,
+      changeViewPort,
+      viewPort,
+   }
 }
 
 export default useResize

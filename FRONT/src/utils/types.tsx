@@ -31,6 +31,7 @@ export type FieldSetType = {
    description: string
    children?: React.ReactNode
    cssProperties?: string
+   labelProperties?: string
 }
 export type IFormInput = {
    firstname: string

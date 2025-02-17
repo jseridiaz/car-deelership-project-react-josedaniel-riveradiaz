@@ -126,6 +126,7 @@ const InformationPersonal = () => {
                   <FieldSet
                      description='Change your name'
                      cssProperties='w-[80%] md:w-1/2'
+                     labelProperties='text-2xl '
                   >
                      <InputTextForm
                         register={register}
@@ -136,6 +137,7 @@ const InformationPersonal = () => {
                   <FieldSet
                      description='Change your Surname'
                      cssProperties='w-[80%] md:w-1/2'
+                     labelProperties='text-2xl '
                   >
                      <InputTextForm
                         register={register}
@@ -146,6 +148,7 @@ const InformationPersonal = () => {
                   <FieldSet
                      description='Change your favourite kind of Autos'
                      cssProperties='w-[80%] md:w-1/2'
+                     labelProperties='text-2xl '
                   >
                      <select
                         className='p-2 hover:bg-slate-100 focus:bg-slate-100 w-full'

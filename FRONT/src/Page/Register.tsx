@@ -79,8 +79,8 @@ const Register = () => {
             url='https://carseller-for-you.vercel.app/register'
             img='https://res.cloudinary.com/ddybbosdk/image/upload/v1726571808/CARS%20AUTODEELER/ram-portrait-register_1_qyb1im.avif'
          />
-         <article className=' flex justify-around p-10 bg-blue-200 '>
-            <article className='md:w-[38%] w-full'>
+         <article className=' flex justify-around p-10 bg-blue-200 max-[500px]:p-4 '>
+            <article className='lg:w-[38%] w-full'>
                <form
                   action=''
                   className='relative border-2 border-black p-4 rounded-2xl flex flex-col gap-7 bg-indigo-50'
@@ -93,7 +93,7 @@ const Register = () => {
                      </p>
                   </div>
                   <div className='flex flex-col items-center gap-6'>
-                     <FieldSet description='Your name' cssProperties='w-2/3'>
+                     <FieldSet description='Your name' cssProperties='w-2/3 '>
                         <InputTextForm
                            register={register}
                            name='firstname'
@@ -193,7 +193,7 @@ const Register = () => {
             <ImgComponent
                imgPath='https://res.cloudinary.com/ddybbosdk/image/upload/v1726571808/CARS%20AUTODEELER/ram-portrait-register_1_qyb1im.avif'
                alt='ram-portrait-toronto'
-               classContainer='w-[60%] h-full hidden md:block'
+               classContainer='w-[60%] h-full hidden lg:block'
                classImg='w-full h-full object-cover object-center'
             />
          </article>
