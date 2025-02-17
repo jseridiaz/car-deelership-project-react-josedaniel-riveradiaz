@@ -31,10 +31,6 @@ export default {
                "url('https://www.transparenttextures.com/patterns/brushed-alum.png')",
          },
       },
-      screens: {
-         xs: "500px",
-         xxs: "400px",
-      },
    },
    plugins: [],
    darkMode: "selector",

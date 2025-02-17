@@ -59,18 +59,18 @@ const FavouriteCars = () => {
             url='https://carseller-for-you.vercel.app/favourite-cars'
             img='/PorscheBlog.png'
          />
-         <section className='min-h-[90%] h-full bg-blue-200 p-6'>
-            {loading && (
-               <div className=''>
-                  <Loader />
-               </div>
-            )}
+         <section className='h-full bg-blue-200 p-6'>
             <H2SingleComponent cssProperties='text-3xl font-bold bg-white rounded p-3 w-2/3 mx-auto shadow-lg'>
                All your favourites cars
             </H2SingleComponent>
             <ul
                className={` flex flex-wrap gap-5 w-full h-full justify-center p-4 my-6`}
             >
+               {loading && (
+                  <div className='absolute top-1/3 right-1/2'>
+                     <Loader />
+                  </div>
+               )}
                {arrayToPrint.length ? (
                   <>
                      {arrayToPrint.map((el, idx) => (

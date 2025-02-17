@@ -94,25 +94,25 @@ const InformationPersonal = () => {
             img='/PorscheBlog.png'
          />
          <ContainerColumn className='bg-slate-200 min-h-screen items-center p-4'>
-            <div className='flex min-h-[80%] lg:mb-0 mb-10 p-4 h-fit mt-4 bg-blue-50 w-full rounded-xl outline outline-2 outline-black justify-between flex-wrap lg:content-center lg:gap-0 gap-6'>
+            <div className='flex  p-4 h-fit mt-4 bg-blue-50 w-full rounded-xl outline outline-2 outline-black justify-between flex-wrap lg:content-center lg:gap-0 gap-6'>
                <ContainerColumn className='gap-4 lg:w-1/2 h-fit w-full '>
-                  <H2SingleComponent cssProperties='max-sm:text-2xl text-4xl font-bold my-2 p-6 bg-blue-400 w-fit  rounded self-center'>
+                  <H2SingleComponent cssProperties='text-4xl font-bold my-2 p-6 bg-blue-400 w-fit  rounded self-center'>
                      Personal infomation
                   </H2SingleComponent>
                   <ParrafInfoPersonal result={state.name}>
-                     <p className='max-[400px]:text-xl'>Name:</p>
+                     <p>Name:</p>
                      {state.loading && <Loader properties='right-[7%]' />}
                   </ParrafInfoPersonal>
                   <ParrafInfoPersonal result={state.surname}>
-                     <p className='max-[400px]:text-xl'>Surname:</p>
+                     <p>Surname:</p>
                      {state.loading && <Loader properties='right-[7%]' />}
                   </ParrafInfoPersonal>
                   <ParrafInfoPersonal result={state.kindFavourites}>
-                     <p className='max-[400px]:text-xl'>Kind of Favourites:</p>
+                     <p>Kind of Favourites:</p>
                      {state.loading && <Loader properties='right-[7%]' />}
                   </ParrafInfoPersonal>
                   <ParrafInfoPersonal result={state.numberFavourites}>
-                     <p className='max-[400px]:text-xl'>Favourite Autos:</p>
+                     <p>Favourite Autos:</p>
                   </ParrafInfoPersonal>
                </ContainerColumn>
                <form

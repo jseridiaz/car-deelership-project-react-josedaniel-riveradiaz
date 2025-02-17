@@ -68,10 +68,7 @@ const HeaderComponent = () => {
          `}
       >
          <div className='w-fit content-center'>
-            <Link
-               to='/home'
-               className='lg:text-2xl text-4xl text-black font-bold ml-0'
-            >
+            <Link to='/home' className='text-2xl text-black font-bold ml-0'>
                Car seller
             </Link>
          </div>
