@@ -9,69 +9,32 @@ import Seo from "../Components/molecules/Seo"
 import { AutoModelType } from "../utils/types"
 import globalFetch from "../utils/functions/fetch/globalFetch"
 import getResponseJson from "../utils/getResponseFetch"
+import { useLocation } from "react-router-dom"
 
 const CarPage = () => {
    const { arrayAllCars } = useContext(CarContext)
    const { currentPage, setCurrentPage } = useContext(CurrentPageContext)
    const [arrayNoResult, setArrayNoResult] = useState<AutoModelType[]>([])
-
+   const location = useLocation()
+   const stateAutosFormHome = location.state
    const productsPerPage: number = 8
    const [pages, setPages] = useState<number>(1)
    const firstIndex = 0 + productsPerPage * currentPage
    const lastIndex = productsPerPage * (currentPage + 1)
 
-   // useEffect(() => {
-   //    if (!arrayAllCars?.length) {
-   //       globalFetch(`/search/query?availability=Disponible`, { method: "GET" })
-   //          .then(res => res.json())
-   //          .then(res => res.res)
-   //          .then(res => setArrayAllCars(res))
-   //    }
-   // }, [])
    useEffect(() => {
-      if (arrayAllCars?.length) {
-         setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
-      } else {
-         globalFetch(`/search/query?availability=Disponible`, { method: "GET" })
-            .then(res => getResponseJson(res))
-            .then(res => {
-               const resumeRes = res.sort(() => Math.random() - 0.5).slice(0, 4)
-
-               setArrayNoResult(resumeRes)
-            })
+      if (!stateAutosFormHome) {
+         if (arrayAllCars?.length) {
+            setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
+         } else {
+            globalFetch(`/search/query?availability=Disponible`, { method: "GET" })
+               .then(res => getResponseJson(res))
+               .then(res => {
+                  const resumeRes = res.sort(() => Math.random() - 0.5).slice(0, 4)
+                  setArrayNoResult(resumeRes)
+               })
+         }
       }
-
-      // if (!arrayAllCars?.length) {
-      //    const minQuantity = 0
-      //    const maxQuantity = 9999999
-      //    fetchGetAutos(
-      //       true,
-      //       "All",
-      //       "All",
-      //       "All",
-      //       minQuantity,
-      //       maxQuantity,
-      //       minQuantity,
-      //       maxQuantity,
-      //       minQuantity,
-      //       maxQuantity,
-      //    ).then(res => {
-      //       if (res.length) {
-      //          setArrayAllCars(res)
-      //       } else {
-      //          globalFetch(`/search/query?availability=Disponible`, {
-      //             method: "GET",
-      //          })
-      //             .then(res => res.json())
-      //             .then(res =>
-      //                res.res
-      //                   .sort(() => Math.random() - 0.5)
-      //                   .slice(firstIndex, lastIndex),
-      //             )
-      //             .then(res => setArrayNoResult(res))
-      //       }
-      //    })
-      // }
    }, [arrayAllCars])
 
    return (

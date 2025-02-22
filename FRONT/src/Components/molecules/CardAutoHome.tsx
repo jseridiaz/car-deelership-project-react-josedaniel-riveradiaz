@@ -2,6 +2,10 @@ import { BiChevronRight } from "react-icons/bi"
 import Button from "../atoms/Button"
 import ImgComponent from "../atoms/ImgComponent"
 import ParrafAutoPicture from "../atoms/ParrafAutoPicture"
+import { useNavigate } from "react-router-dom"
+import globalFetch from "../../utils/functions/fetch/globalFetch"
+import functionGetAutos from "../../utils/functions/functionGetAutos"
+import getResponseJson from "../../utils/getResponseFetch"
 
 interface Cardautotype {
    autoName: string
@@ -22,6 +26,20 @@ const CardAutoHome: React.FC<Cardautotype> = ({
    imgPath,
    km,
 }) => {
+   const navigate = useNavigate()
+
+   const sendToAutoPage = () => {
+      globalFetch(
+         functionGetAutos({ availability: true, brand: autoName, model: autoModel }),
+         { method: "GET" },
+      )
+         .then(res => getResponseJson(res))
+         .then(res => {
+            navigate("/cars-shop", {
+               state: { brand: autoName, model: autoModel, allAutos: res },
+            })
+         })
+   }
    return (
       <li className='relative flex flex-col p-2 sm:p-5  h-fit sm:min-w-[370px] min-w-[220px]  snap-center'>
          <ImgComponent
@@ -54,8 +72,7 @@ const CardAutoHome: React.FC<Cardautotype> = ({
                   signal={<BiChevronRight className='stroke-1 stroke-white ' />}
                   properties='relative
              self-end transition duration-700 hover:bg-red-700 hover:shadow-blue-800 hover:shadow-md w-fit justify-between items-center w-full gap-1  flex text-white font-semibold bg-black sm:rounded-full rounded-xl p-2 '
-                  link='/cars-shop'
-                  isLink={true}
+                  functionClick={sendToAutoPage}
                >
                   Order now
                </Button>

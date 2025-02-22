@@ -1,15 +1,17 @@
-const functionGetAutos = (
-   availability?: boolean,
-   brand?: string | null,
-   model?: string | null,
-   chassis?: string | null,
-   minPrice?: number,
-   maxPrice?: number,
-   minKm?: number,
-   maxKm?: number,
-   minYear?: number,
-   maxYear?: number,
-): string =>
+import { FunctionGetAutosTypes } from "../types"
+
+const functionGetAutos = ({
+   availability,
+   brand,
+   model,
+   chassis,
+   minPrice,
+   maxPrice,
+   minKm,
+   maxKm,
+   minYear,
+   maxYear,
+}: FunctionGetAutosTypes): string =>
    `${"/search/query?"}${availability ? "availability=Disponible" : ""}${
       brand && brand != "All" ? `&brand=${brand}` : ""
    }${model && model != "All" ? `&model=${model}` : ""}${
@@ -21,3 +23,13 @@ const functionGetAutos = (
    }${maxYear ? `&maxYear=${maxYear}` : ""}`
 
 export default functionGetAutos
+// availability?: boolean,
+//    brand?: string | null,
+//    model?: string | null,
+//    chassis?: string | null,
+//    minPrice?: number,
+//    maxPrice?: number,
+//    minKm?: number,
+//    maxKm?: number,
+//    minYear?: number,
+//    maxYear?: number,

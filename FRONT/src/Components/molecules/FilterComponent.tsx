@@ -23,6 +23,7 @@ const FilterComponent = () => {
    const selectedMaxKm = useRef<HTMLInputElement>(null)
    const selectedMinYear = useRef<HTMLInputElement>(null)
    const selectedMaxYear = useRef<HTMLInputElement>(null)
+   const heightInScreenOfEndForm = useRef<HTMLDivElement>(null)
 
    useEffect(() => {
       changeViewPort()
@@ -56,6 +57,7 @@ const FilterComponent = () => {
          state.maxKm,
          state.minYear,
          state.maxYear,
+         heightInScreenOfEndForm.current?.["scrollHeight"] || 0,
       )
    }, [
       state.brand,
@@ -72,7 +74,7 @@ const FilterComponent = () => {
    ])
 
    return (
-      <div className='p-4'>
+      <div className='p-4' ref={heightInScreenOfEndForm}>
          <form className='relative flex justify-center flex-wrap gap-6 bg-blue-400 p-4 sm:px-16 px-8 rounded-lg relative'>
             <FieldSet description='Brand'>
                <select

@@ -436,3 +436,15 @@ type bodyFetch =
    | IFormLogin
    | { favourites: string }
    | string
+export type FunctionGetAutosTypes = {
+   availability?: boolean
+   brand?: string | null
+   model?: string | null
+   chassis?: string | null
+   minPrice?: number
+   maxPrice?: number
+   minKm?: number
+   maxKm?: number
+   minYear?: number
+   maxYear?: number
+}
