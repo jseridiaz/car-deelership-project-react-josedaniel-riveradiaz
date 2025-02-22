@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import FieldSet from "../atoms/FieldSet"
 import CheckBoxFilter from "../atoms/CheckBoxFilter"
 import ContainerColumn from "../atoms/ContainerColumn"
@@ -8,11 +8,22 @@ import Button from "../atoms/Button"
 import { useFilterCustom } from "../customHooks/useFilterCustom"
 import InputRange from "../atoms/InputRange"
 import { ResizeContext } from "../Providers/GlobalResize"
+import { useLocation } from "react-router-dom"
+import { CarContext } from "../Providers/GlobalCarsArray"
+import { AutoModelType } from "../../utils/types"
+import functionGetAutos from "../../utils/functions/functionGetAutos"
+import globalFetch from "../../utils/functions/fetch/globalFetch"
+import getResponseJson from "../../utils/getResponseFetch"
 
 const FilterComponent = () => {
    const { filterFunction, state, dispatch } = useFilterCustom()
+   const { setArrayAllCars } = useContext(CarContext)
    const { changeViewPort } = useContext(ResizeContext)
+   const location = useLocation()
 
+   const [stateUrl, setStateUrl] = useState<
+      { brand: string; model: string; allAutos: AutoModelType[] } | undefined
+   >(location.state)
    const selectedBrand = useRef<HTMLSelectElement>(null)
    const selectedChassis = useRef<HTMLSelectElement>(null)
    const selectedModel = useRef<HTMLSelectElement>(null)
@@ -27,7 +38,11 @@ const FilterComponent = () => {
 
    useEffect(() => {
       changeViewPort()
-
+      if (location.state) {
+         dispatch({ type: "setLoading", payload: false })
+         dispatch({ type: "setBrand", payload: location.state.brand })
+         // dispatch({ type: "setModel", payload: location.state.model })
+      }
       return () => {
          window.removeEventListener("resize", changeViewPort)
       }
@@ -44,21 +59,52 @@ const FilterComponent = () => {
          dispatch({ type: "setModels", payload: state.models })
       }
    }
-
    useEffect(() => {
-      filterFunction(
-         state.brand,
-         state.model,
-         state.chassis,
-         state.availability,
-         state.minPrice,
-         state.maxPrice,
-         state.minKm,
-         state.maxKm,
-         state.minYear,
-         state.maxYear,
-         heightInScreenOfEndForm.current?.["scrollHeight"] || 0,
-      )
+      if (stateUrl) {
+         const heightOfStartAutos = heightInScreenOfEndForm.current?.["scrollHeight"]
+         if (stateUrl?.allAutos) {
+            setArrayAllCars(stateUrl?.allAutos)
+            // dispatch({ type: "setBrand", payload: stateUrl.brand })
+            // dispatch({ type: "setModel", payload: stateUrl.model })
+         }
+         if (selectedModel.current?.value)
+            selectedModel.current.value = stateUrl.model
+         window.scrollTo({ top: heightOfStartAutos })
+         globalFetch(
+            functionGetAutos({
+               availability: true,
+            }),
+            { method: "GET" },
+         )
+            .then(res => getResponseJson(res))
+            .then(res => {
+               dispatch({ type: "setBrands", payload: res })
+               dispatch({ type: "setModels", payload: [stateUrl.model] })
+               if (selectedBrand.current?.value)
+                  selectedBrand.current.value = stateUrl.brand
+               if (selectedModel.current?.value)
+                  selectedModel.current.value = stateUrl.model
+               setStateUrl(undefined)
+            })
+
+         dispatch({ type: "setLoading", payload: false })
+      }
+   }, [])
+   useEffect(() => {
+      if (!stateUrl) {
+         filterFunction(
+            state.brand,
+            state.model,
+            state.chassis,
+            state.availability,
+            state.minPrice,
+            state.maxPrice,
+            state.minKm,
+            state.maxKm,
+            state.minYear,
+            state.maxYear,
+         )
+      }
    }, [
       state.brand,
       state.model,

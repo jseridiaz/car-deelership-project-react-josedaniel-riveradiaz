@@ -1,9 +1,5 @@
-import { useCallback, useContext, useReducer, useState } from "react"
-import {
-   ActionFilterType,
-   AutoModelType,
-   FilterComponentReducerType,
-} from "../../utils/types"
+import { useCallback, useContext, useReducer } from "react"
+import { ActionFilterType, FilterComponentReducerType } from "../../utils/types"
 import {
    FilterComponentReducer,
    INITIAL_STATE,
@@ -14,7 +10,6 @@ import { getModels } from "../../utils/getModels"
 import globalFetch from "../../utils/functions/fetch/globalFetch"
 import getResponseJson from "../../utils/getResponseFetch"
 import functionGetAutos from "../../utils/functions/functionGetAutos"
-import { useLocation } from "react-router-dom"
 
 export const useFilterCustom = () => {
    const [state, dispatch] = useReducer<
@@ -22,10 +17,7 @@ export const useFilterCustom = () => {
    >(FilterComponentReducer, INITIAL_STATE)
    const { setArrayAllCars } = useContext(CarContext)
    const { setCurrentPage } = useContext(CurrentPageContext)
-   const location = useLocation()
-   const [stateUrl, setStateUrl] = useState<
-      { brand: string; model: string; allAutos: AutoModelType[] } | undefined
-   >(location.state)
+
    const filterFunction = useCallback(
       (
          brand: string | null,
@@ -38,37 +30,10 @@ export const useFilterCustom = () => {
          maxKm: number,
          minYear: number,
          maxYear: number,
-         heightOfStartAutos: number,
       ): void => {
          dispatch({ type: "setLoading", payload: true })
 
-         if (stateUrl) {
-            setArrayAllCars(stateUrl.allAutos)
-            window.scrollTo({ top: heightOfStartAutos })
-            globalFetch(
-               functionGetAutos({
-                  availability,
-                  brand,
-                  model,
-                  chassis,
-                  minPrice,
-                  maxPrice,
-                  minKm,
-                  maxKm,
-                  minYear,
-                  maxYear,
-               }),
-               { method: "GET" },
-            )
-               .then(res => getResponseJson(res))
-               .then(res => {
-                  dispatch({ type: "setBrands", payload: res })
-               })
-
-            setStateUrl(undefined)
-            setCurrentPage(0)
-            dispatch({ type: "setLoading", payload: false })
-         } else if (brand === "All" && chassis === "All" && model === "All") {
+         if (brand === "All" && chassis === "All" && model === "All") {
             globalFetch(
                functionGetAutos({
                   availability,
