@@ -6,17 +6,30 @@ const Pagination: React.FC<PaginationTypes> = ({
    allPages,
    currentPage,
    setCurrentPage,
+   referenceForm,
 }) => {
    const [arrayPages, setArrayPages] = useState<number[]>(
       Array.from({ length: allPages }, (_, i) => i + 1),
    )
+   const movingScrollToMiddle = () => {
+      scrollTo({ top: screenTop })
+   }
    useEffect(() => {
       setArrayPages(Array.from({ length: allPages }, (_, i) => i + 1))
    }, [allPages])
    const handlePagination = (idx: number): void => {
-      setCurrentPage(idx)
+      if (idx + 1 === allPages) {
+         scrollTo({ top: referenceForm })
+         setCurrentPage(idx)
+      } else {
+         setCurrentPage(idx)
+      }
    }
    const handleNext = () => {
+      if (currentPage + 2 == arrayPages.length) {
+         scrollTo({ top: referenceForm })
+      }
+
       if (currentPage < arrayPages.length - 1) setCurrentPage(currentPage + 1)
    }
    const handlePrevius = () => {

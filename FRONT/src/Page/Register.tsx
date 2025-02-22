@@ -7,12 +7,13 @@ import ErrorContainer from "../Components/atoms/ErrorContainer"
 import InputTextForm from "../Components/atoms/InputTextForm"
 import { useState } from "react"
 import Loader from "../Components/atoms/Loader"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import Toast from "../Components/molecules/Toast"
 import Seo from "../Components/molecules/Seo"
 import { turnOffBanner } from "../utils/turnOffBanner"
 import useLoading from "../Components/customHooks/useLoading"
 import globalFetch from "../utils/functions/fetch/globalFetch"
+import { takeCurrentUrl } from "../utils/functions/Seo/takeCurrentUrl"
 
 const Register = () => {
    const { loading, setLoading } = useLoading()
@@ -35,7 +36,7 @@ const Register = () => {
          autosInterested: "Cars",
       },
    })
-
+   const location = useLocation()
    const handleRegister = (data: IFormInput): void => {
       // const { firstname, surname, age, email, password, autosInterested } = data
       // if (data) {
@@ -82,7 +83,7 @@ const Register = () => {
          <Seo
             title='Register page - Car seller'
             description='Set your personal datas to get access free in your private page and take a lot of advantages like offers and disccounts, as well as  be able to find out about the latest stocks firts.'
-            url='https://carseller-for-you.vercel.app/register'
+            url={takeCurrentUrl(location.pathname)}
             img='https://res.cloudinary.com/ddybbosdk/image/upload/v1726571808/CARS%20AUTODEELER/ram-portrait-register_1_qyb1im.avif'
          />
          <article className=' flex justify-around p-10 bg-blue-200 max-[500px]:px-4 max-[500px]:py-8 '>

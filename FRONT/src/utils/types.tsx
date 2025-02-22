@@ -100,6 +100,7 @@ export type PaginationTypes = {
    allPages: number
    currentPage: number
    setCurrentPage: (idx: number) => void
+   referenceForm: number
 }
 
 export type GlobalCurrentPageType = {

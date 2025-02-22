@@ -4,14 +4,17 @@ import H2SingleComponent from "../Components/atoms/H2SingleComponent"
 import ImgComponent from "../Components/atoms/ImgComponent"
 import ContainerColumn from "../Components/atoms/ContainerColumn"
 import Seo from "../Components/molecules/Seo"
+import { takeCurrentUrl } from "../utils/functions/Seo/takeCurrentUrl"
+import { useLocation } from "react-router-dom"
 
 const About = () => {
+   const location = useLocation()
    return (
       <>
          <Seo
             title='All about us - Car seller'
             description='All car seller history can be found here, along with our mission to support customers.'
-            url='http://localhost:5173/about-us'
+            url={takeCurrentUrl(location.pathname)}
             img='/PorscheBlog.png'
          />
          <section className='p-4 flex flex-col gap-2 bg-blue-200 relative'>

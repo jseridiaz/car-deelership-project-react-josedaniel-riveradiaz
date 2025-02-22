@@ -7,14 +7,17 @@ import InfoAuto from "../Components/molecules/Home/InfoAuto"
 import FeedbackCustomers from "../Components/molecules/Home/FeedbackCustomers"
 import BlogsHome from "../Components/molecules/Home/BlogsHome"
 import Seo from "../Components/molecules/Seo"
+import { useLocation } from "react-router-dom"
+import { takeCurrentUrl } from "../utils/functions/Seo/takeCurrentUrl"
 
 const Home = () => {
+   const location = useLocation()
    return (
       <>
          <Seo
             title='Home - Car seller'
             description='✔️ Find out your desire car in our Auto page by looking for our stock with a good price and state. Enjoy with it thanks to the great offers that we throw out all weeks becouse.'
-            url='https://carseller-for-you.vercel.app/home'
+            url={takeCurrentUrl(location.pathname)}
             img='/PorscheBlog.png'
          />
          <Carousel data={slides} />

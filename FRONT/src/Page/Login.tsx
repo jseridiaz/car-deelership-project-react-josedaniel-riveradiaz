@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import Button from "../Components/atoms/Button"
 import ImgComponent from "../Components/atoms/ImgComponent"
 import { useForm } from "react-hook-form"
@@ -16,6 +16,7 @@ import Seo from "../Components/molecules/Seo"
 import { TokenContext } from "../Components/Providers/GlobalToken"
 import useLoading from "../Components/customHooks/useLoading"
 import globalFetch from "../utils/functions/fetch/globalFetch"
+import { takeCurrentUrl } from "../utils/functions/Seo/takeCurrentUrl"
 
 const Login = () => {
    const { setLogged } = useContext(LoggedContext)
@@ -25,7 +26,7 @@ const Login = () => {
    const { loading, changeLoading, setLoading } = useLoading()
    const [banner, setBanner] = useState<boolean>(false)
    // const [changeBigScreen, setChangeBigScreen] = useState<string>()
-
+   const location = useLocation()
    const navigate = useNavigate()
    const {
       register,
@@ -80,7 +81,7 @@ const Login = () => {
          <Seo
             title='Login page - Car seller'
             description='Get in in your personal page by logging with your datas and take advantages like offers and disccounts, as well as find out about the latest stocks firts.'
-            url='https://carseller-for-you.vercel.app/login'
+            url={takeCurrentUrl(location.pathname)}
             img='https://res.cloudinary.com/ddybbosdk/image/upload/v1726562162/CARS%20AUTODEELER/corvete-portrait-login_xoru7n.webp'
          />
          <article className={`flex justify-around bg-slate-100 h-[100%] `}>

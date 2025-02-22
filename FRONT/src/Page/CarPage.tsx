@@ -1,4 +1,11 @@
-import { useContext, useEffect, useState } from "react"
+import {
+   Component,
+   MutableRefObject,
+   useContext,
+   useEffect,
+   useRef,
+   useState,
+} from "react"
 import FilterComponent from "../Components/molecules/FilterComponent"
 import PrintListAutos from "../Components/molecules/PrintListAutos"
 import { CarContext } from "../Components/Providers/GlobalCarsArray"
@@ -10,6 +17,7 @@ import { AutoModelType } from "../utils/types"
 import globalFetch from "../utils/functions/fetch/globalFetch"
 import getResponseJson from "../utils/getResponseFetch"
 import { useLocation } from "react-router-dom"
+import { takeCurrentUrl } from "../utils/functions/Seo/takeCurrentUrl"
 
 const CarPage = () => {
    const { arrayAllCars } = useContext(CarContext)
@@ -21,8 +29,11 @@ const CarPage = () => {
    const [pages, setPages] = useState<number>(1)
    const firstIndex = 0 + productsPerPage * currentPage
    const lastIndex = productsPerPage * (currentPage + 1)
+   const referenceForm = useRef<HTMLDivElement>(null)
 
    useEffect(() => {
+      console.log(location)
+
       if (!stateAutosFormHome) {
          if (arrayAllCars?.length) {
             setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
@@ -42,11 +53,13 @@ const CarPage = () => {
          <Seo
             title="Auto stock - Car Seller's"
             description='✔️ Find all our current cars between all our brands and take a look at the pictures to compare with all your favourites choises. Choose between used and new autos, and buy one of them easily with your preferred Payment methods.'
-            url={window.location.href}
+            url={takeCurrentUrl(location.pathname)}
             img='/PorscheBlog.png'
          />
          <section className={`bg-blue-200 `}>
-            <FilterComponent />
+            <div ref={referenceForm}>
+               <FilterComponent />
+            </div>
             {!arrayAllCars?.length ? (
                <>
                   <Parraf cssProperties='mt-20 text-xl bg-black w-fit mx-auto text-white p-4 rounded-full font-medium pointer-events-none'>
@@ -70,6 +83,7 @@ const CarPage = () => {
                      allPages={pages}
                      currentPage={currentPage}
                      setCurrentPage={setCurrentPage}
+                     referenceForm={referenceForm.current?.["scrollHeight"] || 0}
                   />
                </>
             )}
