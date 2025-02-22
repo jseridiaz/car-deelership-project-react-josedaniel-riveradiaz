@@ -1,11 +1,4 @@
-import {
-   Component,
-   MutableRefObject,
-   useContext,
-   useEffect,
-   useRef,
-   useState,
-} from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import FilterComponent from "../Components/molecules/FilterComponent"
 import PrintListAutos from "../Components/molecules/PrintListAutos"
 import { CarContext } from "../Components/Providers/GlobalCarsArray"
@@ -32,8 +25,6 @@ const CarPage = () => {
    const referenceForm = useRef<HTMLDivElement>(null)
 
    useEffect(() => {
-      console.log(location)
-
       if (!stateAutosFormHome) {
          if (arrayAllCars?.length) {
             setPages(Math.ceil(arrayAllCars?.length / productsPerPage))

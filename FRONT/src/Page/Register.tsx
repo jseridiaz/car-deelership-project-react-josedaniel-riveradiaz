@@ -38,22 +38,19 @@ const Register = () => {
    })
    const location = useLocation()
    const handleRegister = (data: IFormInput): void => {
-      // const { firstname, surname, age, email, password, autosInterested } = data
-      // if (data) {
-      //    console.log(data)
-      //    return
-      // }
+      const { firstname, surname, age, email, password, autosInterested } = data
+
       setLoading(true)
       globalFetch(`/user/register`, {
          method: "POST",
          headers: true,
          data: {
-            name: data.firstname,
-            surname: data.surname,
-            age: data.age.split("-").join("/"),
-            email: data.email.toLocaleLowerCase(),
-            password: data.password,
-            favourites: data.autosInterested || "Cars",
+            name: firstname,
+            surname: surname,
+            age: age.split("-").join("/"),
+            email: email.toLocaleLowerCase(),
+            password: password,
+            favourites: autosInterested || "Cars",
          },
       })
          .then(res => {
@@ -66,8 +63,6 @@ const Register = () => {
                   navigate("/login")
                }, 3000)
             } else {
-               console.log("notwell")
-
                setResOk(false)
                turnOffBanner(setShowToast, 3000, false)
                setLoading(false)
@@ -75,7 +70,9 @@ const Register = () => {
 
             return res.json()
          })
-         .catch(err => console.log(err))
+         .catch(err => {
+            throw new Error("An error was goten: " + err.message)
+         })
          .then(res => setErrMsg(res.message))
    }
    return (

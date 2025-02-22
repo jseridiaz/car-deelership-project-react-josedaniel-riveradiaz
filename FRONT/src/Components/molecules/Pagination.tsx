@@ -11,9 +11,7 @@ const Pagination: React.FC<PaginationTypes> = ({
    const [arrayPages, setArrayPages] = useState<number[]>(
       Array.from({ length: allPages }, (_, i) => i + 1),
    )
-   const movingScrollToMiddle = () => {
-      scrollTo({ top: screenTop })
-   }
+
    useEffect(() => {
       setArrayPages(Array.from({ length: allPages }, (_, i) => i + 1))
    }, [allPages])
