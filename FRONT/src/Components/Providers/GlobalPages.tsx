@@ -6,7 +6,7 @@ export const CurrentPageContext = createContext<GlobalCurrentPageType>({
    setCurrentPage: newPage => newPage,
 })
 const GlobalCurrentPage = ({ children }: ErrorContainerType) => {
-   const [currentPage, setCurrentPage] = useState<number>(1)
+   const [currentPage, setCurrentPage] = useState<number>(0)
    return (
       <CurrentPageContext.Provider value={{ currentPage, setCurrentPage }}>
          {children}
