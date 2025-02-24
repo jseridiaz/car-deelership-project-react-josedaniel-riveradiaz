@@ -26,7 +26,6 @@ fs.writeFile("Autos.json", JSON.stringify(jsonAuto), async error => {
       console.log("JsonAuto", jsonAuto)
 
       const allAutos = await AutoModel.find()
-      console.log("allAutos findedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD", allAutos)
 
       const allAutosVin = allAutos.map(el => el.vin)
       console.log("All autos vin:", allAutosVin)

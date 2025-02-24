@@ -36,6 +36,9 @@ const CarPage = () => {
                   setArrayNoResult(resumeRes)
                })
          }
+      } else {
+         if (arrayAllCars)
+            setPages(Math.ceil(arrayAllCars?.length / productsPerPage))
       }
    }, [arrayAllCars])
 
