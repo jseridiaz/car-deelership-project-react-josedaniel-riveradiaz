@@ -2,6 +2,10 @@
    "version": 2,
    "rewrites": [
       {
+         "source": "/car/(.*)",
+         "destination": "https://short-url-1tx5.vercel.app/create-short-url"
+      },
+      {
          "source": "/(.*)",
          "destination": "/"
       }
