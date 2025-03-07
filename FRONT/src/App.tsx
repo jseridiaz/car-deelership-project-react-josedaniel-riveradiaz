@@ -6,7 +6,7 @@ import HeaderComponent from "./Components/HeaderComponent"
 import FooterComponent from "./Components/FooterComponent"
 // import Login from "./Page/Login"
 // import Register from "./Page/Register"
-// import CarPage from "./Page/CarPage"
+import CarPage from "./Page/CarPage"
 // import About from "./Page/About"
 // import FavouriteCars from "./Page/FavouriteCars"
 // import InformationPersonal from "./Page/InformationPersonal"
@@ -17,7 +17,7 @@ import Loader from "./Components/atoms/Loader"
 const Home = lazy(() => import("./Page/Home"))
 const Login = lazy(() => import("./Page/Login"))
 const Register = lazy(() => import("./Page/Register"))
-const CarPage = lazy(() => import("./Page/CarPage"))
+// const CarPage = lazy(() => import("./Page/CarPage"))
 const About = lazy(() => import("./Page/About"))
 const FavouriteCars = lazy(() => import("./Page/FavouriteCars"))
 const InformationPersonal = lazy(() => import("./Page/InformationPersonal"))
